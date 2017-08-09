@@ -1,4 +1,4 @@
-package com.envisageconsulting.primefaces;
+package com.envisageconsulting.primefaces.tsascore;
 
 import javax.faces.bean.ManagedBean;
 
