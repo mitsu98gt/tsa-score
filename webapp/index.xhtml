@@ -10,11 +10,26 @@
 <h:head>
 </h:head>
 <h:body>
-	<h1>Hello World PrimeFaces</h1>
-
-	<h:form>
-	   <p:editor value="#{editor.value}" />
-	</h:form>
+	
+<h:form id="login-form">
+       <h:outputText value="username:"/>
+       <h:inputText value="#{loginBean.username}" id="username"/>
+       <br/>
+       <h:outputText value="password:"/>
+       <h:inputSecret value="#{loginBean.password}" id="password"/>
+       <br/>
+       <h:commandButton id="button" value="Login" action="#{loginBean.doLogin}"/>
+       <br/>
+       <h:commandLink action="#{navigationBean.redirectToInfo}" value="Info page"/>
+       <br/>
+       <h:messages />
+       <br/>
+       
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel for="inline" value="Inline:" />
+        <p:calendar id="inline" value="#{editorBean.date1}" mode="inline" />
+    </h:panelGrid>
+</h:form>	
 
 </h:body>
 </html>

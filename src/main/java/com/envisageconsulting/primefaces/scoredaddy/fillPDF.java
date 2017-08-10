@@ -1,4 +1,4 @@
-package com.envisageconsulting.primefaces.tsascore;
+package com.envisageconsulting.primefaces.scoredaddy;
 
 import java.io.File;
 import java.io.IOException;

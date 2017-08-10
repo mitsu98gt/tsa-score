@@ -1,4 +1,4 @@
-package com.envisageconsulting.primefaces.tsascore.domain;
+package com.envisageconsulting.primefaces.scoredaddy.domain;
 
 public class GSSFScoreSheet {
 
