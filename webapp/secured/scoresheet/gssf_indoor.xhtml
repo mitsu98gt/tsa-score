@@ -12,7 +12,6 @@
 </h:head>
 	<h:body>
 		<h:form>
-			<p:panel>
             <p:panelGrid style="margin-top:20px">
 				<p:row>
 	            		<p:column>Name</p:column>
@@ -39,16 +38,15 @@
 	            		</p:column>
         			</p:row>
 			</p:panelGrid>
-				<p:panelGrid style="margin-top:20px;text-align:center">
-					<p:row>
-						<p:selectManyCheckbox id="basic" style="align:center">
-							<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
-							<f:selectItem itemLabel="PS4" itemValue="PS4" />
-							<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
-						</p:selectManyCheckbox>
-					</p:row>
-				</p:panelGrid>
-			</p:panel>
+			<p:panelGrid style="margin-top:20px;text-align:center">
+				<p:row>
+					<p:selectManyCheckbox id="basic" style="align:center">
+						<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+						<f:selectItem itemLabel="PS4" itemValue="PS4" />
+						<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+					</p:selectManyCheckbox>
+				</p:row>
+			</p:panelGrid>	
         </h:form>
 	</h:body>
 </html>
