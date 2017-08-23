@@ -21,10 +21,14 @@
         			</p:row>
         			<p:row>
 	            		<p:column>
-	            			<p:inputText/>
+	            			<p:autoComplete minQueryLength="3" value="#{autoCompleteView.competitor}"
+								completeMethod="#{autoCompleteView.complete}"
+								var="competitor"
+								itemValue="#{competitor.competitorId}"
+								itemLabel="#{competitor.fullName}"></p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText/>
+	            			<p:calendar id="button" value="" showOn="button" />
 	            		</p:column>
 	            		<p:column>
 	            			<p:inputText/>
