@@ -21,17 +21,29 @@
         			</p:row>
         			<p:row>
 	            		<p:column>
-	            			<p:autoComplete minQueryLength="3" value="#{autoCompleteView.competitor}"
+	            			<p:autoComplete 
+	            					dropdown="true"
+	            					minQueryLength="3"
+	            					value="#{autoCompleteView.competitor}"
 								completeMethod="#{autoCompleteView.complete}"
 								var="competitor"
 								itemValue="#{competitor.competitorId}"
-								itemLabel="#{competitor.fullName}"></p:autoComplete>
+								itemLabel="#{competitor.fullName}">
+						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
 	            			<p:calendar id="button" value="" showOn="button" />
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText/>
+	            			<p:selectOneMenu id="model" value="">
+            					<f:selectItem itemLabel="Select One" itemValue="" />
+            					<f:selectItem itemLabel="G19" itemValue="G19" />
+            					<f:selectItem itemLabel="G17" itemValue="G17" />
+            					<f:selectItem itemLabel="G34" itemValue="G34" />
+            					<f:selectItem itemLabel="G22" itemValue="G22" />
+            					<f:selectItem itemLabel="G23" itemValue="G23" />
+            					<f:selectItem itemLabel="G35" itemValue="G35" />
+        					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
 	            			<p:inputText/>
@@ -40,11 +52,13 @@
 			</p:panelGrid>
 			<p:panelGrid style="margin-top:20px;text-align:center">
 				<p:row>
-					<p:selectManyCheckbox id="basic" style="align:center">
-						<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
-						<f:selectItem itemLabel="PS4" itemValue="PS4" />
-						<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
-					</p:selectManyCheckbox>
+				  <p:column>
+					<h:outputLabel for="divisions" value="Select All That Apply:" />
+					<p:selectCheckboxMenu id="divisions" value="#{checkBoxView.selectedDivisions}" label="Divisions" multiple="true"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            				<f:selectItems value="#{checkBoxView.divisions}" />
+        				</p:selectCheckboxMenu>
+        			  </p:column>
 				</p:row>
 			</p:panelGrid>	
         </h:form>
