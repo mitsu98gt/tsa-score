@@ -12,11 +12,13 @@
 <h:body>
         <h3>Login here</h3>
         <h:form id="login-form">
-           <h:outputText value="username:"/>
-           <h:inputText value="#{loginBean.username}" id="username"/>
-           <br/>
-           <h:outputText value="password:"/>
-           <h:inputSecret value="#{loginBean.password}" id="password"/>
+           <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username2" value="Username:" />
+            <p:inputText id="username" value="#{loginBean.username}" required="true" label="username" />
+ 
+            <h:outputLabel for="password2" value="Password:" />
+            <p:password id="password" value="#{loginBean.password}" required="true" label="password" />
+        	   </h:panelGrid>
            <br/>
            <h:commandButton id="button" value="Login" action="#{loginBean.doLogin}"/>
            <br/>
@@ -24,6 +26,7 @@
            <br/>
            <h:messages />
            <br/>
+           
         </h:form>
     </h:body>
 </html>
