@@ -53,9 +53,9 @@
 			<p:panelGrid style="margin-top:20px;text-align:center">
 				<p:row>
 				  <p:column>
-					<h:outputLabel for="divisions" value="Select All That Apply:" />
+					<h:outputLabel for="divisions" value="Divisions: " />
 					<p:selectCheckboxMenu id="divisions" value="#{checkBoxView.selectedDivisions}" label="Divisions" multiple="true"
-                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                              filter="false" filterMatchMode="startsWith" panelStyle="width:250px">
             				<f:selectItems value="#{checkBoxView.divisions}" />
         				</p:selectCheckboxMenu>
         			  </p:column>
