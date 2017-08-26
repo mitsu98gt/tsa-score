@@ -11,6 +11,7 @@
 <title>GSSF Indoor League Scoresheet</title>
 </h:head>
 	<h:body>
+	  <div class="ui-fluid">
 		<h:form>
             <p:panelGrid style="margin-top:20px">
 				<p:row>
@@ -21,8 +22,8 @@
         			</p:row>
         			<p:row>
 	            		<p:column>
-	            			<p:autoComplete 
-	            					dropdown="true"
+	            			<p:autoComplete
+	            					required="true" dropdown="true" 
 	            					minQueryLength="3"
 	            					value="#{autoCompleteView.competitor}"
 								completeMethod="#{autoCompleteView.complete}"
@@ -32,11 +33,11 @@
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar id="button" value="" showOn="button" />
+	            			<p:calendar required="true" id="button" value="" showOn="button" />
 	            		</p:column>
 	            		<p:column>
-	            			<p:selectOneMenu id="model" value="">
-            					<f:selectItem itemLabel="Select One" itemValue="" />
+	            			<p:selectOneMenu required="true" id="model" value="">
+            					<f:selectItem itemLabel="" itemValue="" />
             					<f:selectItem itemLabel="G19" itemValue="G19" />
             					<f:selectItem itemLabel="G17" itemValue="G17" />
             					<f:selectItem itemLabel="G34" itemValue="G34" />
@@ -46,21 +47,27 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText/>
+	            			<p:inputText id="entry" required="true" maxlength="8"/>
 	            		</p:column>
         			</p:row>
-			</p:panelGrid>
-			<p:panelGrid style="margin-top:20px;text-align:center">
+			<!-- </p:panelGrid>
+			<p:panelGrid style="margin-top:20px"> -->
 				<p:row>
-				  <p:column>
-					<h:outputLabel for="divisions" value="Divisions: " />
-					<p:selectCheckboxMenu id="divisions" value="#{checkBoxView.selectedDivisions}" label="Divisions" multiple="true"
-                              filter="false" filterMatchMode="startsWith" panelStyle="width:250px">
-            				<f:selectItems value="#{checkBoxView.divisions}" />
-        				</p:selectCheckboxMenu>
+				  <p:column colspan="4">
+				  	Select all that apply:
+				  	<br/><br/>
+					<p:selectManyCheckbox id="divisions" value="#{checkboxView.selectedDivisions}">
+        					<f:selectItem itemLabel="Stock" itemValue="GSSF_STOCK" />
+        					<f:selectItem itemLabel="Unlimited" itemValue="GSSF_UNLIMITED" />
+        					<f:selectItem itemLabel="Pocket" itemValue="GSSF_POCKET" />
+        					<f:selectItem itemLabel="Woman" itemValue="GSSF_WOMAN" />
+        					<f:selectItem itemLabel="Senior" itemValue="GSSF_SENIOR" />
+        					<f:selectItem itemLabel="Junior" itemValue="GSSF_JUNIOR" />
+    					</p:selectManyCheckbox>
         			  </p:column>
 				</p:row>
 			</p:panelGrid>	
         </h:form>
+       </div>
 	</h:body>
 </html>
