@@ -14,15 +14,17 @@
 	  <div class="ui-fluid">
 		<h:form>
             <p:panelGrid style="margin-top:20px">
+            
 				<p:row>
 	            		<p:column>Name</p:column>
 	            		<p:column>Date</p:column>
 	            		<p:column>Glock Model</p:column>
 	            		<p:column>Entry Number</p:column>
         			</p:row>
+        			
         			<p:row>
 	            		<p:column>
-	            			<p:autoComplete
+	            			<p:autoComplete size="15"
 	            					required="true" dropdown="true" maxlength="40"
 	            					minQueryLength="3"
 	            					value="#{autoCompleteView.competitor}"
@@ -33,7 +35,7 @@
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar required="true" id="button" value="" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
+	            			<p:calendar size="15" required="true" id="button" value="" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
 	            			<p:selectOneMenu required="true" id="model" value="">
@@ -47,11 +49,10 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" required="true" maxlength="8" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+	            			<p:inputText id="entry" size="20" required="true" maxlength="8" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
 	            		</p:column>
         			</p:row>
-			<!-- </p:panelGrid>
-			<p:panelGrid style="margin-top:20px"> -->
+			
 				<p:row>
 				  <p:column colspan="4">
 				  	Select all that apply:
@@ -65,8 +66,158 @@
     					</p:selectManyCheckbox>
         			  </p:column>
 				</p:row>
-			</p:panelGrid>	
-        </h:form>
+				
+			</p:panelGrid>
+
+			<p:panelGrid style="margin-top:20px">
+			
+				<p:row style="text-align:center">
+					<p:column style="width:75px">
+						&nbsp;
+					</p:column>
+					<p:column style="width:100px">
+						X's
+					</p:column>
+					<p:column style="width:100px">
+						10's
+					</p:column>
+					<p:column style="width:100px">
+						8's
+					</p:column>
+					<p:column style="width:100px">
+						5's
+					</p:column>
+					<p:column style="width:100px">
+						Misses
+					</p:column>
+					<p:column style="width:190px">
+						Total Hits/Misses
+					</p:column>
+				</p:row>
+				
+				<p:row style="text-align:center">
+					<p:column>
+						Target 1
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+				</p:row>
+				
+				<p:row style="text-align:center">
+					<p:column>
+						Target 2
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+					</p:column>
+				</p:row>
+				
+				<p:row style="text-align:center">
+					<p:column>
+						Sum
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+				</p:row>
+				
+				<p:row style="text-align:center">
+					<p:column>
+						&nbsp;
+					</p:column>
+					<p:column>
+						(X10)
+					</p:column>
+					<p:column>
+						(X10)
+					</p:column>
+					<p:column>
+						(X8)
+					</p:column>
+					<p:column>
+						(X5)
+					</p:column>
+					<p:column>
+						No Penalty
+					</p:column>
+					<p:column>
+						Final Score
+					</p:column>
+				</p:row>
+				
+				<p:row style="text-align:center">
+					<p:column>
+						Total
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+				</p:row>
+				
+			</p:panelGrid>
+
+		</h:form>
        </div>
 	</h:body>
 </html>
