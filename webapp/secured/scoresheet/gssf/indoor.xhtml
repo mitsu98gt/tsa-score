@@ -13,7 +13,7 @@
 	<h:body>
 	  <div class="ui-fluid">
 		<h:form>
-            <p:panelGrid style="margin-top:20px">
+            <p:panelGrid style="margin-top:20px;width:75%">
             
 				<p:row style="text-align:center">
 	            		<p:column>Name</p:column>
@@ -22,9 +22,9 @@
 	            		<p:column>Entry Number</p:column>
         			</p:row>
         			
-        			<p:row>
+        			<p:row style="text-align:center">
 	            		<p:column>
-	            			<p:autoComplete size="15"
+	            			<p:autoComplete inputStyle="width:225px"
 	            					required="true" dropdown="true" maxlength="40"
 	            					minQueryLength="3"
 	            					value="#{autoCompleteView.competitor}"
@@ -35,7 +35,7 @@
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar size="15" required="true" id="button" value="" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
+	            			<p:calendar required="true" inputStyle="width:200px" id="button" value="" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
 	            			<p:selectOneMenu required="true" id="model" value="">
@@ -49,7 +49,7 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" style="text-align:center" size="20" required="true" maxlength="8" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+	            			<p:inputText id="entry" style="text-align:center;width:110px" required="true" maxlength="8" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
 	            		</p:column>
         			</p:row>
 			
@@ -69,7 +69,7 @@
 				
 			</p:panelGrid>
 
-			<p:panelGrid style="margin-top:20px">
+			<p:panelGrid style="margin-top:20px;width:75%">
 			
 				<p:row style="text-align:center">
 					<p:column style="width:75px">
