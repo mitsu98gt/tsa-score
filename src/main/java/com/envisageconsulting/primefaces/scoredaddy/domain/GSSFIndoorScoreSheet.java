@@ -1,6 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.domain;
 
-public class GSSFScoreSheet {
+public class GSSFIndoorScoreSheet {
 
 	public String name;
 	public String date;
