@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import java.util.Date;
 import java.util.List;
 
 @SessionScoped
@@ -19,10 +20,12 @@ public class GSSFIndoorScoreSheetBean {
     private CompetitorDataSource ds;
 
     private Competitor competitor;
+    private String[] selectedDivisions;
+    private Date date;
 
     @PostConstruct
     public void init() {
-
+        scoreSheet = new GSSFIndoorScoreSheet();
     }
 
     public List<Competitor> complete(String query){
@@ -52,5 +55,21 @@ public class GSSFIndoorScoreSheetBean {
 
     public void setScoreSheet(GSSFIndoorScoreSheet scoreSheet) {
         this.scoreSheet = scoreSheet;
+    }
+
+    public String[] getSelectedDivisions() {
+        return selectedDivisions;
+    }
+
+    public void setSelectedDivisions(String[] selectedDivisions) {
+        this.selectedDivisions = selectedDivisions;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

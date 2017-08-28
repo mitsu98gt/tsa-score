@@ -35,7 +35,7 @@
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar required="false" inputStyle="width:200px" id="button" value="" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
+	            			<p:calendar required="false" inputStyle="width:200px" id="button" value="#{scoresheetBean.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
 	            			<p:selectOneMenu required="false" id="model" value="#{scoresheetBean.scoreSheet.model}">
@@ -49,14 +49,14 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" style="text-align:center;width:110px" required="false" maxlength="8" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+	            			<p:inputText id="entry" style="text-align:center;width:110px" required="false" maxlength="8"/>
 	            		</p:column>
         			</p:row>
 			
 				<p:row>
 				  <p:column colspan="4">
 				  	Select all that apply:
-					<p:selectManyCheckbox id="divisions" value="#{checkboxView.selectedDivisions}" layout="responsive" columns="6">
+					<p:selectManyCheckbox id="divisions" value="#{scoresheetBean.selectedDivisions}" layout="responsive" columns="6">
         					<f:selectItem itemLabel="Stock" itemValue="GSSF_STOCK" />
         					<f:selectItem itemLabel="Unlimited" itemValue="GSSF_UNLIMITED" />
         					<f:selectItem itemLabel="Pocket" itemValue="GSSF_POCKET" />
@@ -100,22 +100,22 @@
 						Target 1
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 				</p:row>
 				
@@ -124,22 +124,22 @@
 						Target 2
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 				</p:row>
 				
@@ -208,7 +208,7 @@
 						<p:outputLabel value=""/>
 					</p:column>
 					<p:column>
-						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
+						<p:inputText required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
 						<p:outputLabel value=""/>
