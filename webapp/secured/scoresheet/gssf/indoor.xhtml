@@ -27,8 +27,8 @@
 	            			<p:autoComplete inputStyle="width:225px"
 	            					required="false" dropdown="true" maxlength="40"
 	            					minQueryLength="3"
-	            					value="#{autoCompleteView.competitor}"
-								completeMethod="#{autoCompleteView.complete}"
+	            					value="#{scoresheetBean.competitor}"
+								completeMethod="#{scoresheetBean.complete}"
 								var="competitor"
 								itemValue="#{competitor.competitorId}"
 								itemLabel="#{competitor.fullName}">
