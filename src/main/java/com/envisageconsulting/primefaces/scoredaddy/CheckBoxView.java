@@ -3,7 +3,7 @@ package com.envisageconsulting.primefaces.scoredaddy;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
-@ManagedBean
+@ManagedBean(name = "checkboxView")
 public class CheckBoxView {
 
 	private String[] selectedDivisions;
