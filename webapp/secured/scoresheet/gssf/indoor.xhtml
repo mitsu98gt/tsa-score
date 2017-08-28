@@ -9,6 +9,13 @@
 
 <h:head>
 <title>GSSF Indoor League Scoresheet</title>
+<script type="text/javascript">
+        function jsKeyPressedHandler(event)
+        {
+          var kc = event.which || event.keyCode;
+          rc( [{ name : 'keyCode', value : Number( kc ) }] );
+        }
+      </script>
 </h:head>
 	<h:body>
 	  <div class="ui-fluid">
@@ -49,7 +56,7 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" style="text-align:center;width:110px" required="true" maxlength="8" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+	            			<p:inputText id="entry" style="text-align:center;width:110px" required="true" maxlength="8" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 	            		</p:column>
         			</p:row>
 			
@@ -100,22 +107,22 @@
 						Target 1
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 				</p:row>
 				
@@ -124,22 +131,22 @@
 						Target 2
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
-						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) return false;"/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 				</p:row>
 				
@@ -208,7 +215,7 @@
 						<p:outputLabel value=""/>
 					</p:column>
 					<p:column>
-						<p:outputLabel value=""/>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) if(event.which != 8) if(e.keyCode != 9) return false;"/>
 					</p:column>
 					<p:column>
 						<p:outputLabel value=""/>
@@ -217,6 +224,22 @@
 				
 			</p:panelGrid>
 
+			<p:panelGrid style="margin-top:20px;width:300px;text-align:center">
+				<p:row>
+					<p:column>R/O Initials</p:column>
+					<p:column>Competitor Initials</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px"/>
+					</p:column>
+					<p:column>
+						<p:inputText required="true" maxlength="2" style="text-align:center;width:50px"/>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<br/>
+			<p:commandButton value="Score Me!" id="scoreMeBtn" ajax="false" style="width:150px"/>
 		</h:form>
        </div>
 	</h:body>

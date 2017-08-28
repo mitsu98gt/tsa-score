@@ -64,4 +64,5 @@ public class NavigationBean implements Serializable {
 	public String toWelcome() {
 		return "/secured/welcome.xhtml";
 	}
+	
 }

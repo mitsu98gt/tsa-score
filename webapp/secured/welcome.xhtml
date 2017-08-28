@@ -13,7 +13,7 @@
         <h:form>
             <h3>Welcome #{loginBean.username}</h3>
             <br/>
-            <h:outputText value="This is a secured welcome page!"/>
+            <h:commandLink action="/secured/scoresheet/gssf/indoor.xhtml?faces-redirect=true" value="GSSF Indoor Scoresheet"/>
             <br/>
             <h:commandLink action="#{loginBean.doLogout}" value="Logout"/>
         </h:form>
