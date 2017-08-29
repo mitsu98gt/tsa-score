@@ -31,11 +31,11 @@
 								completeMethod="#{scoresheetBean.complete}"
 								var="competitor"
 								itemValue="#{competitor.competitorId}"
-								itemLabel="#{competitor.fullName}">
+								itemLabel="#{competitor.fullName}" converter="competitorConverter">
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar required="false" inputStyle="width:200px" id="button" value="#{scoresheetBean.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
+	            			<p:calendar required="false" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
 	            			<p:selectOneMenu required="false" id="model" value="#{scoresheetBean.scoreSheet.model}">
@@ -49,7 +49,7 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" style="text-align:center;width:110px" required="false" maxlength="8"/>
+	            			<p:inputText id="entry" required="true" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="8"/>
 	            		</p:column>
         			</p:row>
 			
@@ -233,6 +233,8 @@
 			</p:panelGrid>
 			<br/>
 			<p:commandButton value="Score Me!" id="scoreMeBtn" action="#{scoresheetBean.doScore}" ajax="false" style="width:150px"/>
+			<br/>
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		</h:form>
        </div>
 	</h:body>

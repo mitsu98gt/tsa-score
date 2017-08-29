@@ -23,6 +23,7 @@ public class GSSFIndoorScoreSheetBean {
     private Competitor competitor;
     private String[] selectedDivisions;
     private Date date;
+    private String fullName;
 
     @PostConstruct
     public void init() {
@@ -112,5 +113,13 @@ public class GSSFIndoorScoreSheetBean {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
