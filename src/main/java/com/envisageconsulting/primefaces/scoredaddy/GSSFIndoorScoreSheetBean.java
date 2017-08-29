@@ -7,10 +7,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import java.util.Date;
 import java.util.List;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean (name = "scoresheetBean")
 public class GSSFIndoorScoreSheetBean {
 
@@ -26,6 +27,10 @@ public class GSSFIndoorScoreSheetBean {
     @PostConstruct
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
+    }
+
+    public void doScore() {
+        scoreSheet.setSumX(scoreSheet.getTargetOneX() + scoreSheet.getTargetTwoX());
     }
 
     public List<Competitor> complete(String query){

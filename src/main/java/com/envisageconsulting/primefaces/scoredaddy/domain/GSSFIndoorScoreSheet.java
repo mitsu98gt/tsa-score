@@ -12,30 +12,30 @@ public class GSSFIndoorScoreSheet {
 	public String checkWoman;
 	public String checkSenior;
 	public String checkJunior;
-	public String targetOneX;
-	public String targetOneTen;
-	public String targetOneEight;
-	public String targetOneFive;
-	public String targetOneMisses;
-	public String targetOneTotal;
-	public String targetTwoX;
-	public String targetTwoTen;
-	public String targetTwoEight;
-	public String targetTwoFive;
-	public String targetTwoMisses;
-	public String targetTwoTotal;
-	public String sumX;
-	public String sumTen;
-	public String sumEight;
-	public String sumFive;
-	public String sumMisses;
-	public String sumTotal;
-	public String totalX;
-	public String totalTen;
-	public String totalEight;
-	public String totalFive;
-	public String penalty;
-	public String finalScore;
+	public Integer targetOneX;
+	public Integer targetOneTen;
+	public Integer targetOneEight;
+	public Integer targetOneFive;
+	public Integer targetOneMisses;
+	public Integer targetOneTotal;
+	public Integer targetTwoX;
+	public Integer targetTwoTen;
+	public Integer targetTwoEight;
+	public Integer targetTwoFive;
+	public Integer targetTwoMisses;
+	public Integer targetTwoTotal;
+	public Integer sumX;
+	public Integer sumTen;
+	public Integer sumEight;
+	public Integer sumFive;
+	public Integer sumMisses;
+	public Integer sumTotal;
+	public Integer totalX;
+	public Integer totalTen;
+	public Integer totalEight;
+	public Integer totalFive;
+	public Integer penalty;
+	public Integer finalScore;
 	public String rangeOfficerInitials;
 	public String competitorInitials;
 
@@ -119,195 +119,195 @@ public class GSSFIndoorScoreSheet {
 		this.checkJunior = checkJunior;
 	}
 
-	public String getTargetOneX() {
+	public Integer getTargetOneX() {
 		return targetOneX;
 	}
 
-	public void setTargetOneX(String targetOneX) {
+	public void setTargetOneX(Integer targetOneX) {
 		this.targetOneX = targetOneX;
 	}
 
-	public String getTargetOneTen() {
+	public Integer getTargetOneTen() {
 		return targetOneTen;
 	}
 
-	public void setTargetOneTen(String targetOneTen) {
+	public void setTargetOneTen(Integer targetOneTen) {
 		this.targetOneTen = targetOneTen;
 	}
 
-	public String getTargetOneEight() {
+	public Integer getTargetOneEight() {
 		return targetOneEight;
 	}
 
-	public void setTargetOneEight(String targetOneEight) {
+	public void setTargetOneEight(Integer targetOneEight) {
 		this.targetOneEight = targetOneEight;
 	}
 
-	public String getTargetOneFive() {
+	public Integer getTargetOneFive() {
 		return targetOneFive;
 	}
 
-	public void setTargetOneFive(String targetOneFive) {
+	public void setTargetOneFive(Integer targetOneFive) {
 		this.targetOneFive = targetOneFive;
 	}
 
-	public String getTargetOneMisses() {
+	public Integer getTargetOneMisses() {
 		return targetOneMisses;
 	}
 
-	public void setTargetOneMisses(String targetOneMisses) {
+	public void setTargetOneMisses(Integer targetOneMisses) {
 		this.targetOneMisses = targetOneMisses;
 	}
 
-	public String getTargetOneTotal() {
+	public Integer getTargetOneTotal() {
 		return targetOneTotal;
 	}
 
-	public void setTargetOneTotal(String targetOneTotal) {
+	public void setTargetOneTotal(Integer targetOneTotal) {
 		this.targetOneTotal = targetOneTotal;
 	}
 
-	public String getTargetTwoX() {
+	public Integer getTargetTwoX() {
 		return targetTwoX;
 	}
 
-	public void setTargetTwoX(String targetTwoX) {
+	public void setTargetTwoX(Integer targetTwoX) {
 		this.targetTwoX = targetTwoX;
 	}
 
-	public String getTargetTwoTen() {
+	public Integer getTargetTwoTen() {
 		return targetTwoTen;
 	}
 
-	public void setTargetTwoTen(String targetTwoTen) {
+	public void setTargetTwoTen(Integer targetTwoTen) {
 		this.targetTwoTen = targetTwoTen;
 	}
 
-	public String getTargetTwoEight() {
+	public Integer getTargetTwoEight() {
 		return targetTwoEight;
 	}
 
-	public void setTargetTwoEight(String targetTwoEight) {
+	public void setTargetTwoEight(Integer targetTwoEight) {
 		this.targetTwoEight = targetTwoEight;
 	}
 
-	public String getTargetTwoFive() {
+	public Integer getTargetTwoFive() {
 		return targetTwoFive;
 	}
 
-	public void setTargetTwoFive(String targetTwoFive) {
+	public void setTargetTwoFive(Integer targetTwoFive) {
 		this.targetTwoFive = targetTwoFive;
 	}
 
-	public String getTargetTwoMisses() {
+	public Integer getTargetTwoMisses() {
 		return targetTwoMisses;
 	}
 
-	public void setTargetTwoMisses(String targetTwoMisses) {
+	public void setTargetTwoMisses(Integer targetTwoMisses) {
 		this.targetTwoMisses = targetTwoMisses;
 	}
 
-	public String getTargetTwoTotal() {
+	public Integer getTargetTwoTotal() {
 		return targetTwoTotal;
 	}
 
-	public void setTargetTwoTotal(String targetTwoTotal) {
+	public void setTargetTwoTotal(Integer targetTwoTotal) {
 		this.targetTwoTotal = targetTwoTotal;
 	}
 
-	public String getSumX() {
+	public Integer getSumX() {
 		return sumX;
 	}
 
-	public void setSumX(String sumX) {
+	public void setSumX(Integer sumX) {
 		this.sumX = sumX;
 	}
 
-	public String getSumTen() {
+	public Integer getSumTen() {
 		return sumTen;
 	}
 
-	public void setSumTen(String sumTen) {
+	public void setSumTen(Integer sumTen) {
 		this.sumTen = sumTen;
 	}
 
-	public String getSumEight() {
+	public Integer getSumEight() {
 		return sumEight;
 	}
 
-	public void setSumEight(String sumEight) {
+	public void setSumEight(Integer sumEight) {
 		this.sumEight = sumEight;
 	}
 
-	public String getSumFive() {
+	public Integer getSumFive() {
 		return sumFive;
 	}
 
-	public void setSumFive(String sumFive) {
+	public void setSumFive(Integer sumFive) {
 		this.sumFive = sumFive;
 	}
 
-	public String getSumMisses() {
+	public Integer getSumMisses() {
 		return sumMisses;
 	}
 
-	public void setSumMisses(String sumMisses) {
+	public void setSumMisses(Integer sumMisses) {
 		this.sumMisses = sumMisses;
 	}
 
-	public String getSumTotal() {
+	public Integer getSumTotal() {
 		return sumTotal;
 	}
 
-	public void setSumTotal(String sumTotal) {
+	public void setSumTotal(Integer sumTotal) {
 		this.sumTotal = sumTotal;
 	}
 
-	public String getTotalX() {
+	public Integer getTotalX() {
 		return totalX;
 	}
 
-	public void setTotalX(String totalX) {
+	public void setTotalX(Integer totalX) {
 		this.totalX = totalX;
 	}
 
-	public String getTotalTen() {
+	public Integer getTotalTen() {
 		return totalTen;
 	}
 
-	public void setTotalTen(String totalTen) {
+	public void setTotalTen(Integer totalTen) {
 		this.totalTen = totalTen;
 	}
 
-	public String getTotalEight() {
+	public Integer getTotalEight() {
 		return totalEight;
 	}
 
-	public void setTotalEight(String totalEight) {
+	public void setTotalEight(Integer totalEight) {
 		this.totalEight = totalEight;
 	}
 
-	public String getTotalFive() {
+	public Integer getTotalFive() {
 		return totalFive;
 	}
 
-	public void setTotalFive(String totalFive) {
+	public void setTotalFive(Integer totalFive) {
 		this.totalFive = totalFive;
 	}
 
-	public String getPenalty() {
+	public Integer getPenalty() {
 		return penalty;
 	}
 
-	public void setPenalty(String penalty) {
+	public void setPenalty(Integer penalty) {
 		this.penalty = penalty;
 	}
 
-	public String getFinalScore() {
+	public Integer getFinalScore() {
 		return finalScore;
 	}
 
-	public void setFinalScore(String finalScore) {
+	public void setFinalScore(Integer finalScore) {
 		this.finalScore = finalScore;
 	}
 
