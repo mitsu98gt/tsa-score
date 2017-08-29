@@ -30,7 +30,43 @@ public class GSSFIndoorScoreSheetBean {
     }
 
     public void doScore() {
+        calculateTargetTotals();
+        calculateSumRow();
+        calculateTotalRow();
+    }
+
+    public void calculateTargetTotals() {
+        scoreSheet.setTargetOneTotal(calculateTargetOneTotals());
+        scoreSheet.setTargetTwoTotal(calculateTargetTwoTotals());
+    }
+
+    public void calculateSumRow() {
         scoreSheet.setSumX(scoreSheet.getTargetOneX() + scoreSheet.getTargetTwoX());
+        scoreSheet.setSumTen(scoreSheet.getTargetOneTen() + scoreSheet.getTargetTwoTen());
+        scoreSheet.setSumEight(scoreSheet.getTargetOneEight() + scoreSheet.getTargetTwoEight());
+        scoreSheet.setSumFive(scoreSheet.getTargetOneFive() + scoreSheet.getTargetTwoFive());
+        scoreSheet.setSumMisses(scoreSheet.getTargetOneMisses() + scoreSheet.getTargetTwoMisses());
+        scoreSheet.setSumTotal(scoreSheet.getTargetOneTotal() + scoreSheet.getTargetTwoTotal());
+    }
+
+    public void calculateTotalRow() {
+        scoreSheet.setTotalX(scoreSheet.getSumX() * 10);
+        scoreSheet.setTotalTen(scoreSheet.getSumTen() * 10);
+        scoreSheet.setTotalEight(scoreSheet.getSumEight() * 10);
+        scoreSheet.setTotalFive(scoreSheet.getSumFive() * 10);
+        scoreSheet.setFinalScore(calculateTotalScore() - scoreSheet.getPenalty());
+    }
+
+    public Integer calculateTargetOneTotals() {
+        return (scoreSheet.getTargetOneX() + scoreSheet.getTargetOneTen() + scoreSheet.getTargetOneEight() + scoreSheet.getTargetOneFive() + scoreSheet.getTargetOneMisses());
+    }
+
+    public Integer calculateTargetTwoTotals() {
+        return (scoreSheet.getTargetTwoX() + scoreSheet.getTargetTwoTen() + scoreSheet.getTargetTwoEight() + scoreSheet.getTargetTwoFive() + scoreSheet.getTargetTwoMisses());
+    }
+
+    public Integer calculateTotalScore() {
+        return (scoreSheet.getTotalX() + scoreSheet.getTotalTen() + scoreSheet.getTotalEight() + scoreSheet.getTotalFive());
     }
 
     public List<Competitor> complete(String query){

@@ -115,7 +115,7 @@
 						<p:inputText id="targetonemisses" value="#{scoresheetBean.scoreSheet.targetOneMisses}"  required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targetonetotal" value="#{scoresheetBean.scoreSheet.targetOneTotal}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:outputLabel id="targetonetotal" value="#{scoresheetBean.scoreSheet.targetOneTotal}"/>
 					</p:column>
 				</p:row>
 				
@@ -139,7 +139,7 @@
 						<p:inputText id="targettwomisses" value="#{scoresheetBean.scoreSheet.targetTwoMisses}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targettwototal" value="#{scoresheetBean.scoreSheet.targetTwoTotal}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:outputLabel id="targettwototal" value="#{scoresheetBean.scoreSheet.targetTwoTotal}"/>
 					</p:column>
 				</p:row>
 				
@@ -232,7 +232,7 @@
 				</p:row>
 			</p:panelGrid>
 			<br/>
-			<p:commandButton value="Score Me!" id="scoreMeBtn" ajax="false" style="width:150px"/>
+			<p:commandButton value="Score Me!" id="scoreMeBtn" action="#{scoresheetBean.doScore}" ajax="false" style="width:150px"/>
 		</h:form>
        </div>
 	</h:body>
