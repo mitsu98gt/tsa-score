@@ -43,6 +43,11 @@ public class GSSFIndoorScoreSheetBean {
         calculateTotalRow();
     }
 
+    public void createScoreSheetPDF() throws Exception {
+        GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
+        pdf.createPDF(scoreSheet);
+    }
+
     public void calculateTargetTotals() {
         scoreSheet.setTargetOneTotal(calculateTargetOneTotals());
         scoreSheet.setTargetTwoTotal(calculateTargetTwoTotals());

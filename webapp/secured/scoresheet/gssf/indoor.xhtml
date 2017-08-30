@@ -232,8 +232,8 @@
 				</p:row>
 			</p:panelGrid>
 			<br/>
-			<p:commandButton value="Score Me!" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:150px">
-			</p:commandButton>
+			<p:commandButton value="Score Me!" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:150px"/>
+			<p:commandButton value="Create ScoreSheet!" id="scoreSheetBtn" actionListener="#{scoresheetBean.createScoreSheetPDF}" ajax="false" style="width:150px"/>
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
 		</h:form>
