@@ -30,8 +30,8 @@
 	            					value="#{scoresheetBean.competitor}"
 								completeMethod="#{scoresheetBean.complete}"
 								var="competitor"
-								itemValue="#{competitor.competitorId}"
-								itemLabel="#{competitor.fullName}" converter="competitorConverter">
+								itemValue="#{competitor}"
+								itemLabel="#{competitor.fullName}" converter="#{competitorConverter}">
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>

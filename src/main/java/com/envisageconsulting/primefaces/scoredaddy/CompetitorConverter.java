@@ -1,6 +1,8 @@
 package com.envisageconsulting.primefaces.scoredaddy;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -8,7 +10,8 @@ import javax.faces.convert.FacesConverter;
 
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 
-@FacesConverter("competitorConverter")
+@ManagedBean(name = "competitorConverter")
+@FacesConverter(value = "competitorConverter")
 public class CompetitorConverter implements Converter {
 
 	@ManagedProperty("#{competitorDataSource}")

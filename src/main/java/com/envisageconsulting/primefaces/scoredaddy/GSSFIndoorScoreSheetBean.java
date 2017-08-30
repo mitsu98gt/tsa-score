@@ -7,11 +7,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import java.util.Date;
 import java.util.List;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean (name = "scoresheetBean")
 public class GSSFIndoorScoreSheetBean {
 
@@ -24,6 +23,8 @@ public class GSSFIndoorScoreSheetBean {
     private String[] selectedDivisions;
     private Date date;
     private String fullName;
+
+    public GSSFIndoorScoreSheetBean(){}
 
     @PostConstruct
     public void init() {

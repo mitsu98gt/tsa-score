@@ -8,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 
-@ManagedBean
+@ManagedBean(name = "competitorDataSource")
 @SessionScoped
 public class CompetitorDataSource {
 
