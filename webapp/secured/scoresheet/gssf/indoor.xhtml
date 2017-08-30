@@ -24,7 +24,7 @@
         			
         			<p:row style="text-align:center">
 	            		<p:column>
-	            			<p:autoComplete inputStyle="width:225px"
+	            			<p:autoComplete id="name" inputStyle="width:225px"
 	            					required="false" dropdown="true" maxlength="40"
 	            					minQueryLength="3"
 	            					value="#{scoresheetBean.competitor}"
@@ -35,7 +35,7 @@
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar required="false" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
+	            			<p:calendar required="false" inputStyle="width:200px" id="button" value="#{scoresheetBean.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
 	            			<p:selectOneMenu required="false" id="model" value="#{scoresheetBean.scoreSheet.model}">
@@ -232,9 +232,10 @@
 				</p:row>
 			</p:panelGrid>
 			<br/>
-			<p:commandButton value="Score Me!" id="scoreMeBtn" action="#{scoresheetBean.doScore}" ajax="false" style="width:150px"/>
+			<p:commandButton value="Score Me!" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:150px">
+			</p:commandButton>
 			<br/>
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
 		</h:form>
        </div>
 	</h:body>

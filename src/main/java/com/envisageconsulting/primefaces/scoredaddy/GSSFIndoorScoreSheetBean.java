@@ -2,6 +2,7 @@ package com.envisageconsulting.primefaces.scoredaddy;
 
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 import com.envisageconsulting.primefaces.scoredaddy.domain.GSSFIndoorScoreSheet;
+import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
