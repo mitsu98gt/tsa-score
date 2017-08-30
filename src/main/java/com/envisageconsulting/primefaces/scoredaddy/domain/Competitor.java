@@ -41,11 +41,10 @@ public class Competitor {
 	
 	public boolean equals(Object obj){
 		if(obj instanceof Competitor){
-			return true;
-			/*Competitor competitor = (Competitor)obj;
-			if(this.competitorId.equals(competitor.getCompetitorId())){
+			Competitor competitor = (Competitor)obj;
+			if(null != this.competitorId && this.competitorId.equals(competitor.getCompetitorId())){
 				return true;
-			}*/
+			}
 		}
 		return false;
 	}

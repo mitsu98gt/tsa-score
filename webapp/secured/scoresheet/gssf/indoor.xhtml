@@ -13,7 +13,7 @@
 	<h:body>
 	  <div class="ui-fluid">
 		<h:form>
-            <p:panelGrid style="margin-top:20px;width:75%">
+            <p:panelGrid id="grid1" style="margin-top:20px;width:75%">
             
 				<p:row style="text-align:center">
 	            		<p:column>Name</p:column>
@@ -24,7 +24,7 @@
         			
         			<p:row style="text-align:center">
 	            		<p:column>
-	            			<p:autoComplete id="name" inputStyle="width:225px"
+	            			<p:autoComplete id="name" inputStyle="width:225px" immediate="true"
 	            					required="false" dropdown="true" maxlength="40"
 	            					minQueryLength="3"
 	            					value="#{scoresheetBean.competitor}"
