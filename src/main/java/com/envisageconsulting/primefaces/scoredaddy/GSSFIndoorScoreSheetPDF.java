@@ -15,7 +15,7 @@ public class GSSFIndoorScoreSheetPDF {
 
     public void createPDF(GSSFIndoorScoreSheet scoreSheet) throws Exception {
 
-        String formTemplate = "src/main/resources/GSSF_Indoor.pdf";
+        String formTemplate = "/resources/GSSF_Indoor.pdf";
 
         try (PDDocument pdfDocument = PDDocument.load(new File(formTemplate))) {
             // get the document catalog
