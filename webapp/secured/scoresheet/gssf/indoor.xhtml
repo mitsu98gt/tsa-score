@@ -24,10 +24,10 @@
         			
         			<p:row style="text-align:center">
 	            		<p:column>
-	            			<p:autoComplete id="name" inputStyle="width:225px" immediate="true"
+	            			<p:autoComplete id="name" inputStyle="width:225px" label="Name"
 	            					required="false" dropdown="true" maxlength="40"
 	            					minQueryLength="3"
-	            					value="#{scoresheetBean.competitor}"
+	            					value="#{scoresheetBean.scoreSheet.competitor}"
 								completeMethod="#{scoresheetBean.complete}"
 								var="competitor"
 								itemValue="#{competitor}"
@@ -35,10 +35,10 @@
 						</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar required="false" inputStyle="width:200px" id="button" value="#{scoresheetBean.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
+	            			<p:calendar required="false" label="Date" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
-	            			<p:selectOneMenu required="false" id="model" value="#{scoresheetBean.scoreSheet.model}">
+	            			<p:selectOneMenu required="false" id="model" label="Model" value="#{scoresheetBean.scoreSheet.model}">
             					<f:selectItem itemLabel="" itemValue="" />
             					<f:selectItem itemLabel="G19" itemValue="G19" />
             					<f:selectItem itemLabel="G17" itemValue="G17" />
@@ -49,7 +49,7 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" required="true" label="Entry" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="8"/>
+	            			<p:inputText id="entry" required="true" label="Entry Number" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="8"/>
 	            		</p:column>
         			</p:row>
 			

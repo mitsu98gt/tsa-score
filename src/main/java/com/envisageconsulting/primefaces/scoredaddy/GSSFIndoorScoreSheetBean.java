@@ -8,22 +8,26 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 @SessionScoped
 @ManagedBean (name = "scoresheetBean")
 public class GSSFIndoorScoreSheetBean {
 
+    private static final String GSSF_UNLIMITED = "GSSF_UNLIMITED";
+    private static final String GSSF_STOCK = "GSSF_STOCK";
+    private static final String GSSF_POCKET = "GSSF_POCKET";
+    private static final String GSSF_WOMAN = "GSSF_WOMAN";
+    private static final String GSSF_SENIOR = "GSSF_SENIOR";
+    private static final String GSSF_JUNIOR = "GSSF_JUNIOR";
+
 	private GSSFIndoorScoreSheet scoreSheet;
 
     @ManagedProperty("#{competitorDataSource}")
     private CompetitorDataSource ds;
 
-    private Competitor competitor;
     private String[] selectedDivisions;
-    private Date date;
-    private String fullName;
 
     public GSSFIndoorScoreSheetBean(){}
 
@@ -33,6 +37,7 @@ public class GSSFIndoorScoreSheetBean {
     }
 
     public void doScore() {
+        parseSelectedDivisions();
         calculateTargetTotals();
         calculateSumRow();
         calculateTotalRow();
@@ -77,12 +82,17 @@ public class GSSFIndoorScoreSheetBean {
         return ds.queryByName(query);
     }
 
-    public Competitor getCompetitor() {
-        return competitor;
-    }
+    public void parseSelectedDivisions(){
 
-    public void setCompetitor(Competitor competitor) {
-        this.competitor = competitor;
+        List<String> divisionList = Arrays.asList(getSelectedDivisions());
+
+        scoreSheet.setCheckUnlimited(divisionList.contains(GSSF_UNLIMITED) ? true : false);
+        scoreSheet.setCheckStock(divisionList.contains(GSSF_STOCK) ? true : false);
+        scoreSheet.setCheckPocket(divisionList.contains(GSSF_POCKET) ? true : false);
+        scoreSheet.setCheckWoman(divisionList.contains(GSSF_WOMAN) ? true : false);
+        scoreSheet.setCheckSenior(divisionList.contains(GSSF_SENIOR) ? true : false);
+        scoreSheet.setCheckJunior(divisionList.contains(GSSF_JUNIOR) ? true : false);
+
     }
 
     public CompetitorDataSource getDs() {
@@ -109,19 +119,4 @@ public class GSSFIndoorScoreSheetBean {
         this.selectedDivisions = selectedDivisions;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 }

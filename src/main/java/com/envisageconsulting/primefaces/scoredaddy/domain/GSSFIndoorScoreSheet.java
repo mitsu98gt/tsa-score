@@ -1,17 +1,19 @@
 package com.envisageconsulting.primefaces.scoredaddy.domain;
 
+import java.util.Date;
+
 public class GSSFIndoorScoreSheet {
 
 	public Competitor competitor;
-	public String date;
+	public Date date;
 	public String model;
 	public String entry;
-	public String checkStock;
-	public String checkUnlimited;
-	public String checkPocket;
-	public String checkWoman;
-	public String checkSenior;
-	public String checkJunior;
+	public boolean checkStock;
+	public boolean checkUnlimited;
+	public boolean checkPocket;
+	public boolean checkWoman;
+	public boolean checkSenior;
+	public boolean checkJunior;
 	public Integer targetOneX;
 	public Integer targetOneTen;
 	public Integer targetOneEight;
@@ -47,11 +49,11 @@ public class GSSFIndoorScoreSheet {
 		this.competitor = competitor;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -71,51 +73,51 @@ public class GSSFIndoorScoreSheet {
 		this.entry = entry;
 	}
 
-	public String getCheckStock() {
+	public boolean getCheckStock() {
 		return checkStock;
 	}
 
-	public void setCheckStock(String checkStock) {
+	public void setCheckStock(boolean checkStock) {
 		this.checkStock = checkStock;
 	}
 
-	public String getCheckUnlimited() {
+	public boolean getCheckUnlimited() {
 		return checkUnlimited;
 	}
 
-	public void setCheckUnlimited(String checkUnlimited) {
+	public void setCheckUnlimited(boolean checkUnlimited) {
 		this.checkUnlimited = checkUnlimited;
 	}
 
-	public String getCheckPocket() {
+	public boolean getCheckPocket() {
 		return checkPocket;
 	}
 
-	public void setCheckPocket(String checkPocket) {
+	public void setCheckPocket(boolean checkPocket) {
 		this.checkPocket = checkPocket;
 	}
 
-	public String getCheckWoman() {
+	public boolean getCheckWoman() {
 		return checkWoman;
 	}
 
-	public void setCheckWoman(String checkWoman) {
+	public void setCheckWoman(boolean checkWoman) {
 		this.checkWoman = checkWoman;
 	}
 
-	public String getCheckSenior() {
+	public boolean getCheckSenior() {
 		return checkSenior;
 	}
 
-	public void setCheckSenior(String checkSenior) {
+	public void setCheckSenior(boolean checkSenior) {
 		this.checkSenior = checkSenior;
 	}
 
-	public String getCheckJunior() {
+	public boolean getCheckJunior() {
 		return checkJunior;
 	}
 
-	public void setCheckJunior(String checkJunior) {
+	public void setCheckJunior(boolean checkJunior) {
 		this.checkJunior = checkJunior;
 	}
 
