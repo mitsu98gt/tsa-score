@@ -49,7 +49,7 @@
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" required="true" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="8"/>
+	            			<p:inputText id="entry" required="true" label="Entry" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="8"/>
 	            		</p:column>
         			</p:row>
 			
@@ -235,7 +235,7 @@
 			<p:commandButton value="Score Me!" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:150px">
 			</p:commandButton>
 			<br/>
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
 		</h:form>
        </div>
 	</h:body>
