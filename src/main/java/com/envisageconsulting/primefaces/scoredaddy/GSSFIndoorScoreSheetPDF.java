@@ -7,7 +7,11 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDCheckBox;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -15,8 +19,10 @@ public class GSSFIndoorScoreSheetPDF {
 
     public void createPDF(GSSFIndoorScoreSheet scoreSheet) throws Exception {
 
-        String formTemplate = "/resources/GSSF_Indoor.pdf";
-
+        String formTemplate = "C:/IFBIDEV/git-repos/scoredaddy/webapp/resources/GSSF_Indoor.pdf";
+        /*FacesContext faces = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = faces.getExternalContext();
+        System.out.println("Context: " + externalContext.getRequestContextPath());*/
         try (PDDocument pdfDocument = PDDocument.load(new File(formTemplate))) {
             // get the document catalog
             PDAcroForm acroForm = pdfDocument.getDocumentCatalog().getAcroForm();
@@ -160,7 +166,8 @@ public class GSSFIndoorScoreSheetPDF {
             }
 
             // Save and close the filled out form.
-            pdfDocument.save("target/FillFormField.pdf");
+            acroForm.flatten();
+            pdfDocument.save("C:/IFBIDEV/FillFormField.pdf");
         }
     }
 }
