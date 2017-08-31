@@ -44,6 +44,7 @@ public class GSSFIndoorScoreSheetBean {
     }
 
     public void createScoreSheetPDF() throws Exception {
+        doScore();
         GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
         pdf.createPDF(scoreSheet);
     }
