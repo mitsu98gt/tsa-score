@@ -13,7 +13,7 @@
 	<h:body>
 	  <div class="ui-fluid">
 		<h:form>
-            <p:panelGrid id="grid1" style="margin-top:20px;width:75%">
+            <p:panelGrid id="grid1" style="margin-top:20px;width:85%">
             
 				<p:row style="text-align:center">
 	            		<p:column>Name</p:column>
@@ -52,24 +52,25 @@
 	            			<p:inputText id="entry" required="true" label="Entry Number" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="8"/>
 	            		</p:column>
         			</p:row>
-			
+			</p:panelGrid>
+
+			<p:panelGrid style="margin-top:20px;width:85%">
 				<p:row>
-				  <p:column colspan="4">
-				  	Select all that apply:
+				  <p:column colspan="6">
 					<p:selectManyCheckbox id="divisions" value="#{scoresheetBean.selectedDivisions}" layout="responsive" columns="6">
         					<f:selectItem itemLabel="Stock" itemValue="GSSF_STOCK" />
         					<f:selectItem itemLabel="Unlimited" itemValue="GSSF_UNLIMITED" />
         					<f:selectItem itemLabel="Pocket" itemValue="GSSF_POCKET" />
         					<f:selectItem itemLabel="Woman" itemValue="GSSF_WOMAN" />
-        					<f:selectItem itemLabel="Senior" itemValue="GSSF_SENIOR" />
-        					<f:selectItem itemLabel="Junior" itemValue="GSSF_JUNIOR" />
+        					<f:selectItem itemLabel="Senior(55+)" itemValue="GSSF_SENIOR" />
+        					<f:selectItem itemLabel="Junior(&lt;18)" itemValue="GSSF_JUNIOR" />
     					</p:selectManyCheckbox>
         			  </p:column>
 				</p:row>
 				
 			</p:panelGrid>
 
-			<p:panelGrid style="margin-top:20px;width:75%">
+			<p:panelGrid style="margin-top:20px;width:85%">
 			
 				<p:row style="text-align:center">
 					<p:column style="width:75px">

@@ -65,8 +65,8 @@ public class GSSFIndoorScoreSheetBean {
     public void calculateTotalRow() {
         scoreSheet.setTotalX(scoreSheet.getSumX() * 10);
         scoreSheet.setTotalTen(scoreSheet.getSumTen() * 10);
-        scoreSheet.setTotalEight(scoreSheet.getSumEight() * 10);
-        scoreSheet.setTotalFive(scoreSheet.getSumFive() * 10);
+        scoreSheet.setTotalEight(scoreSheet.getSumEight() * 8);
+        scoreSheet.setTotalFive(scoreSheet.getSumFive() * 5);
         scoreSheet.setFinalScore(calculateTotalScore() - scoreSheet.getPenalty());
     }
 
