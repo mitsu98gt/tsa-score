@@ -8,14 +8,15 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>Results 1</title>
+    <title>Data Table</title>
 </h:head>
 <h:body>
     <div class="ui-fluid">
         <h:form>
             <p:panel header="STOCK">
 
-                <p:dataTable var="scores" value="#{scoresDataView.scores}">
+                <p:dataTable id="scoresTable" var="scores" value="#{scoresDataView.scores}">
+
                     <p:column headerText="First">
                         <h:outputText value="#{scores.firstName}" />
                     </p:column>
@@ -31,7 +32,92 @@
                     <p:column headerText="X">
                         <h:outputText value="#{scores.currentX}" />
                     </p:column>
+
+                    <p:column headerText="10">
+                        <h:outputText value="#{scores.current10}" />
+                    </p:column>
+
+                    <p:column headerText="8">
+                        <h:outputText value="#{scores.current8}" />
+                    </p:column>
+
+                    <p:column headerText="5">
+                        <h:outputText value="#{scores.current5}" />
+                    </p:column>
+
+                    <p:column headerText="Miss">
+                        <h:outputText value="#{scores.currentMisses}" />
+                    </p:column>
+
+                    <p:column headerText="Penalty">
+                        <h:outputText value="#{scores.currentPenalty}" />
+                    </p:column>
+
+                    <p:column headerText="Score">
+                        <h:outputText value="#{scores.currentScore}" />
+                    </p:column>
+
+                    <p:column headerText="Score">
+                        <h:outputText value="#{scores.firstScore}" />
+                    </p:column>
+
+                    <p:column headerText="X">
+                        <h:outputText value="#{scores.firstX}" />
+                    </p:column>
+
+                    <p:column headerText="Score">
+                        <h:outputText value="#{scores.previousScore}" />
+                    </p:column>
+
+                    <p:column headerText="X">
+                        <h:outputText value="#{scores.previousX}" />
+                    </p:column>
+
+                    <p:column headerText="Score">
+                        <h:outputText value="#{scores.topScore}" />
+                    </p:column>
+
+                    <p:column headerText="X">
+                        <h:outputText value="#{scores.topX}" />
+                    </p:column>
+
+                    <p:column headerText="Score">
+                        <h:outputText value="#{scores.secondTopScore}" />
+                    </p:column>
+
+                    <p:column headerText="X">
+                        <h:outputText value="#{scores.secondTopX}" />
+                    </p:column>
+
+                    <p:column headerText="Score">
+                        <h:outputText value="#{scores.averageScore}" />
+                    </p:column>
+
+                    <p:column headerText="X">
+                        <h:outputText value="#{scores.totalX}" />
+                    </p:column>
+
                 </p:dataTable>
+
+                <h:commandLink>
+                    XLS
+                    <p:dataExporter type="xls" target="scoresTable" fileName="scores" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    PDF
+                    <p:dataExporter type="pdf" target="scoresTable" fileName="scores"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    CSV
+                    <p:dataExporter type="csv" target="scoresTable" fileName="scores" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    XML
+                    <p:dataExporter type="xml" target="scoresTable" fileName="scores" />
+                </h:commandLink>
 
             </p:panel>
         </h:form>

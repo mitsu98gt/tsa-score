@@ -20,6 +20,7 @@ public class ScoresDataSource {
         data1.setLastName("Dang");
         data1.setModel("G34");
         data1.setCurrentX("50");
+        data1.setCurrent10("0");
         data1.setCurrent8("0");
         data1.setCurrent5("0");
         data1.setCurrentMisses("0");
@@ -42,6 +43,7 @@ public class ScoresDataSource {
         data2.setLastName("Dang");
         data2.setModel("G34");
         data2.setCurrentX("50");
+        data2.setCurrent10("0");
         data2.setCurrent8("0");
         data2.setCurrent5("0");
         data2.setCurrentMisses("0");
@@ -64,6 +66,7 @@ public class ScoresDataSource {
         data3.setLastName("Dang");
         data3.setModel("G34");
         data3.setCurrentX("50");
+        data3.setCurrent10("0");
         data3.setCurrent8("0");
         data3.setCurrent5("0");
         data3.setCurrentMisses("0");
