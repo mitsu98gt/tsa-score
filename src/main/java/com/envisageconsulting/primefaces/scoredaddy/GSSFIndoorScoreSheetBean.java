@@ -8,12 +8,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 @SessionScoped
 @ManagedBean (name = "scoresheetBean")
-public class GSSFIndoorScoreSheetBean {
+public class GSSFIndoorScoreSheetBean implements Serializable {
 
     private static final String GSSF_UNLIMITED = "GSSF_UNLIMITED";
     private static final String GSSF_STOCK = "GSSF_STOCK";
