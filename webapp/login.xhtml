@@ -10,19 +10,18 @@
 <h:head>
 </h:head>
 <h:body>
-        <h:form id="login-form">
-           <p:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="username" value="Username:" />
-            <p:inputText id="username" value="#{loginBean.username}" required="true" label="username" />
-            <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" value="#{loginBean.password}" required="true" label="password" />
-           </p:panelGrid>
-           <br/>
-           <p:commandButton id="button" value="Login" ajax="false" action="#{loginBean.doLogin}"/>
-           <br/>
-           <p:messages />
-           <br/>
-           
-        </h:form>
-    </h:body>
+    <h:form id="login-form">
+        <p:panel id="panel" header="Sign In" style="width:350px">
+            <p:focus context="panel"/>
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="username" value="Username:" />
+                    <p:inputText id="username" value="#{loginBean.username}" required="true" label="Username" requiredMessage="usernamae is required."/>
+                    <p:outputLabel for="password" value="Password:" />
+                    <p:password id="password" value="#{loginBean.password}" required="true" label="Password" requiredMessage="password is required."/>
+                </h:panelGrid>
+                <p:commandButton id="button" value="Sign In" ajax="false" action="#{loginBean.doLogin}"/>
+        </p:panel>
+        <p:messages style="width:350px"/>
+    </h:form>
+</h:body>
 </html>
