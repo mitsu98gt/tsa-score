@@ -43,7 +43,7 @@ public class ScoresDataSource {
         data2.setRank("2");
         data2.setFirstName("Heather");
         data2.setLastName("Dang");
-        data2.setModel("G34");
+        data2.setModel("G17");
         data2.setCurrentX("50");
         data2.setCurrent10("0");
         data2.setCurrent8("0");
@@ -67,7 +67,7 @@ public class ScoresDataSource {
         data3.setRank("3");
         data3.setFirstName("Brandon");
         data3.setLastName("Dang");
-        data3.setModel("G34");
+        data3.setModel("G19");
         data3.setCurrentX("50");
         data3.setCurrent10("0");
         data3.setCurrent8("0");
