@@ -12,13 +12,15 @@
 </h:head>
 <h:body>
     <div class="ui-fluid">
-        <h:form>
+        <h:form id="scoresfrm">
             <p:panel>
 
-                <p:dataTable id="scoresTable" var="scores" value="#{scoresDataView.scores}" style="font-size:13px;text-align:center">
+                <p:dataTable filteredValue="#{scoresDataView.filtered}" id="scoresTable" var="scores" value="#{scoresDataView.scores}" style="font-size:13px;text-align:center">
 
                     <f:facet name="header">
                         GSSF Scores
+                        <!--<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                        <p:columnToggler datasource="scoresTable" trigger="toggler" />-->
                     </f:facet>
 
                     <p:columnGroup type="header">
@@ -35,8 +37,8 @@
                         </p:row>
                         <p:row>
                             <p:column headerText="Rank"/>
-                            <p:column headerText="First"/>
-                            <p:column headerText="Last"/>
+                            <p:column headerText="First" filterBy="#{scores.firstName}" filterMatchMode="contains"/>
+                            <p:column headerText="Last" filterBy="#{scores.lastName}" filterMatchMode="contains"/>
                             <p:column headerText="Model"/>
                             <p:column headerText="X"/>
                             <p:column headerText="10"/>

@@ -12,6 +12,7 @@ import java.util.List;
 public class ScoresDataView implements Serializable {
 
     private List<ScoresDataInput> scores;
+    private List<ScoresDataInput> filtered;
 
     @ManagedProperty("#{scoresDataSource}")
     private ScoresDataSource service;
@@ -35,5 +36,13 @@ public class ScoresDataView implements Serializable {
 
     public void setService(ScoresDataSource service) {
         this.service = service;
+    }
+
+    public List<ScoresDataInput> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(List<ScoresDataInput> filtered) {
+        this.filtered = filtered;
     }
 }
