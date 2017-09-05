@@ -16,6 +16,7 @@ public class ScoresDataSource {
     public ScoresDataSource() {
 
         ScoresDataInput data1 = new ScoresDataInput();
+        data1.setRank("1");
         data1.setFirstName("Vinh");
         data1.setLastName("Dang");
         data1.setModel("G34");
@@ -39,6 +40,7 @@ public class ScoresDataSource {
         scores.add(data1);
 
         ScoresDataInput data2 = new ScoresDataInput();
+        data2.setRank("2");
         data2.setFirstName("Heather");
         data2.setLastName("Dang");
         data2.setModel("G34");
@@ -62,6 +64,7 @@ public class ScoresDataSource {
         scores.add(data2);
 
         ScoresDataInput data3 = new ScoresDataInput();
+        data3.setRank("3");
         data3.setFirstName("Brandon");
         data3.setLastName("Dang");
         data3.setModel("G34");

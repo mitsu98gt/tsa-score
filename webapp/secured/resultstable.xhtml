@@ -13,87 +13,142 @@
 <h:body>
     <div class="ui-fluid">
         <h:form>
-            <p:panel header="STOCK">
+            <p:panel>
 
-                <p:dataTable id="scoresTable" var="scores" value="#{scoresDataView.scores}">
+                <p:dataTable id="scoresTable" var="scores" value="#{scoresDataView.scores}" style="font-size:13px;text-align:center">
 
-                    <p:column headerText="First">
+                    <f:facet name="header">
+                        GSSF Scores
+                    </f:facet>
+
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column colspan="3" headerText="CLASS A"/>
+                            <p:column colspan="8" headerText="December 1st, 2017"/>
+                            <p:column colspan="2" headerText="10-01-2017"/>
+                            <p:column colspan="2" headerText="11-01-2017"/>
+                            <p:column colspan="2" headerText="12-01-2017"/>
+                            <p:column colspan="2" headerText="Top"/>
+                            <p:column colspan="2" headerText="2nd"/>
+                            <p:column headerText="Average"/>
+                            <p:column headerText="Total"/>
+                        </p:row>
+                        <p:row>
+                            <p:column headerText="Rank"/>
+                            <p:column headerText="First"/>
+                            <p:column headerText="Last"/>
+                            <p:column headerText="Model"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="10"/>
+                            <p:column headerText="8"/>
+                            <p:column headerText="5"/>
+                            <p:column headerText="Miss"/>
+                            <p:column headerText="Penalty"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column>
+                        <h:outputText value="#{scores.rank}" />
+                    </p:column>
+
+                    <p:column>
                         <h:outputText value="#{scores.firstName}" />
                     </p:column>
 
-                    <p:column headerText="Last">
+                    <p:column>
                         <h:outputText value="#{scores.lastName}" />
                     </p:column>
 
-                    <p:column headerText="Model">
+                    <p:column>
                         <h:outputText value="#{scores.model}" />
                     </p:column>
 
-                    <p:column headerText="X">
+                    <p:column>
                         <h:outputText value="#{scores.currentX}" />
                     </p:column>
 
-                    <p:column headerText="10">
+                    <p:column>
                         <h:outputText value="#{scores.current10}" />
                     </p:column>
 
-                    <p:column headerText="8">
+                    <p:column>
                         <h:outputText value="#{scores.current8}" />
                     </p:column>
 
-                    <p:column headerText="5">
+                    <p:column>
                         <h:outputText value="#{scores.current5}" />
                     </p:column>
 
-                    <p:column headerText="Miss">
+                    <p:column>
                         <h:outputText value="#{scores.currentMisses}" />
                     </p:column>
 
-                    <p:column headerText="Penalty">
+                    <p:column>
                         <h:outputText value="#{scores.currentPenalty}" />
                     </p:column>
 
-                    <p:column headerText="Score">
+                    <p:column>
                         <h:outputText value="#{scores.currentScore}" />
                     </p:column>
 
-                    <p:column headerText="Score">
+                    <p:column>
                         <h:outputText value="#{scores.firstScore}" />
                     </p:column>
 
-                    <p:column headerText="X">
+                    <p:column>
                         <h:outputText value="#{scores.firstX}" />
                     </p:column>
 
-                    <p:column headerText="Score">
+                    <p:column>
                         <h:outputText value="#{scores.previousScore}" />
                     </p:column>
 
-                    <p:column headerText="X">
+                    <p:column>
                         <h:outputText value="#{scores.previousX}" />
                     </p:column>
 
-                    <p:column headerText="Score">
+                    <p:column>
+                        <h:outputText value="#{scores.currentScore}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.currentX}" />
+                    </p:column>
+
+                    <p:column>
                         <h:outputText value="#{scores.topScore}" />
                     </p:column>
 
-                    <p:column headerText="X">
+                    <p:column>
                         <h:outputText value="#{scores.topX}" />
                     </p:column>
 
-                    <p:column headerText="Score">
+                    <p:column>
                         <h:outputText value="#{scores.secondTopScore}" />
                     </p:column>
 
-                    <p:column headerText="X">
+                    <p:column>
                         <h:outputText value="#{scores.secondTopX}" />
                     </p:column>
 
-                    <p:column headerText="Score">
+                    <p:column>
                         <h:outputText value="#{scores.averageScore}" />
                     </p:column>
 
-                    <p:column headerText="X">
+                    <p:column>
                         <h:outputText value="#{scores.totalX}" />
                     </p:column>
 

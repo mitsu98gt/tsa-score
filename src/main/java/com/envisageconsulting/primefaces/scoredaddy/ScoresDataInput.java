@@ -2,6 +2,7 @@ package com.envisageconsulting.primefaces.scoredaddy;
 
 public class ScoresDataInput {
 
+    public String rank;
     public String firstName;
     public String lastName;
     public String model;
@@ -22,6 +23,14 @@ public class ScoresDataInput {
     public String secondTopX;
     public String averageScore;
     public String totalX;
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
 
     public String getFirstName() {
         return firstName;
