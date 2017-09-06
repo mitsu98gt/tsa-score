@@ -5,7 +5,6 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -16,30 +15,60 @@
         <h:form id="scoresfrm">
             <p:panel>
 
-                <p:dataTable filteredValue="#{scoresDataView.filtered}" id="scoresTable" var="scores" value="#{scoresDataView.scores}" style="font-size:13px;text-align:center">
+                <p:dataTable reflow="true" filteredValue="#{scoresDataView.filtered}" id="scoresTable" var="scores" value="#{scoresDataView.scores}" style="font-size:13px;text-align:center">
 
                     <f:facet name="header">
                         GSSF Scores
-                        <p:commandButton id="toggler" type="button" value="Columns" style="float:right;width:150px" icon="ui-icon-calculator" />
-                        <p:columnToggler datasource="scoresTable" trigger="toggler">
-                            <p:ajax event="toggle" listener="#{scoresDataView.onToggle}" />
-                        </p:columnToggler>
-                        <br/>
                     </f:facet>
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column colspan="3" headerText="CLASS A" exportable="true"/>
+                            <p:column colspan="8" headerText="December 1st, 2017"/>
+                            <p:column colspan="2" headerText="10-01-2017"/>
+                            <p:column colspan="2" headerText="11-01-2017"/>
+                            <p:column colspan="2" headerText="Top"/>
+                            <p:column colspan="2" headerText="2nd"/>
+                            <p:column headerText="Average"/>
+                            <p:column headerText="Total"/>
+                        </p:row>
+                        <p:row>
+                            <p:column headerText="Rank" exportable="true"/>
+                            <p:column headerText="First" filterBy="#{scores.firstName}" filterMatchMode="contains"/>
+                            <p:column headerText="Last" filterBy="#{scores.lastName}" filterMatchMode="contains"/>
+                            <p:column headerText="Model" filterBy="#{scores.model}" filterMatchMode="contains"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="10"/>
+                            <p:column headerText="8"/>
+                            <p:column headerText="5"/>
+                            <p:column headerText="Miss"/>
+                            <p:column headerText="Penalty"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="Score"/>
+                            <p:column headerText="X"/>
+                        </p:row>
+                    </p:columnGroup>
 
                     <p:column headerText="Rank" exportable="#{scoresDataView.list[0]}">
                         <h:outputText value="#{scores.rank}" />
                     </p:column>
 
-                    <p:column headerText="First" filterBy="#{scores.firstName}" filterMatchMode="contains" exportable="#{scoresDataView.list[1]}">
+                    <p:column headerText="First" exportable="#{scoresDataView.list[1]}">
                         <h:outputText value="#{scores.firstName}" />
                     </p:column>
 
-                    <p:column headerText="Last" filterBy="#{scores.lastName}" filterMatchMode="contains" exportable="#{scoresDataView.list[2]}">
+                    <p:column headerText="Last" exportable="#{scoresDataView.list[2]}">
                         <h:outputText value="#{scores.lastName}" />
                     </p:column>
 
-                    <p:column headerText="Model" filterBy="#{scores.model}" filterMatchMode="contains" exportable="#{scoresDataView.list[3]}">
+                    <p:column headerText="Model" exportable="#{scoresDataView.list[3]}">
                         <h:outputText value="#{scores.model}" />
                     </p:column>
 
@@ -103,11 +132,11 @@
                         <h:outputText value="#{scores.secondTopX}" />
                     </p:column>
 
-                    <p:column headerText="Avg. Score" exportable="#{scoresDataView.list[19]}">
+                    <p:column headerText="Score" exportable="#{scoresDataView.list[19]}">
                         <h:outputText value="#{scores.averageScore}" />
                     </p:column>
 
-                    <p:column headerText="Total X" exportable="#{scoresDataView.list[20]}">
+                    <p:column headerText="X" exportable="#{scoresDataView.list[20]}">
                         <h:outputText value="#{scores.totalX}" />
                     </p:column>
 
@@ -119,8 +148,18 @@
                 </h:commandLink>
 
                 <h:commandLink>
+                    PDF
+                    <p:dataExporter type="pdf" target="scoresTable" fileName="scores"/>
+                </h:commandLink>
+
+                <h:commandLink>
                     CSV
-                    <p:dataExporter type="csv" target="scoresTable" fileName="scores" />
+                    <p:dataExporter type="csv" target="scoresTable" fileName="scores"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    XML
+                    <p:dataExporter type="xml" target="scoresTable" fileName="scores" />
                 </h:commandLink>
 
             </p:panel>
