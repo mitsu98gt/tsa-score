@@ -5,10 +5,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Data Table</title>
+	<h:outputStylesheet name="style.css" library="css" />
 </h:head>
 <h:body>
     <div class="ui-fluid">
@@ -24,8 +26,8 @@
                         <p:row>
                             <p:column colspan="3" headerText="CLASS A" exportable="true"/>
                             <p:column colspan="8" headerText="December 1st, 2017"/>
-                            <p:column colspan="2" headerText="10-01-2017"/>
-                            <p:column colspan="2" headerText="11-01-2017"/>
+                            <p:column colspan="2" headerText="October 1st, 2017"/>
+                            <p:column colspan="2" headerText="November 1st, 2017"/>
                             <p:column colspan="2" headerText="Top"/>
                             <p:column colspan="2" headerText="2nd"/>
                             <p:column headerText="Average"/>
@@ -56,87 +58,87 @@
                         </p:row>
                     </p:columnGroup>
 
-                    <p:column headerText="Rank" exportable="#{scoresDataView.list[0]}">
+                    <p:column>
                         <h:outputText value="#{scores.rank}" />
                     </p:column>
 
-                    <p:column headerText="First" exportable="#{scoresDataView.list[1]}">
+                    <p:column>
                         <h:outputText value="#{scores.firstName}" />
                     </p:column>
 
-                    <p:column headerText="Last" exportable="#{scoresDataView.list[2]}">
+                    <p:column>
                         <h:outputText value="#{scores.lastName}" />
                     </p:column>
 
-                    <p:column headerText="Model" exportable="#{scoresDataView.list[3]}">
+                    <p:column>
                         <h:outputText value="#{scores.model}" />
                     </p:column>
 
-                    <p:column headerText="X" exportable="#{scoresDataView.list[4]}">
+                    <p:column>
                         <h:outputText value="#{scores.currentX}" />
                     </p:column>
 
-                    <p:column headerText="10" exportable="#{scoresDataView.list[5]}">
+                    <p:column>
                         <h:outputText value="#{scores.current10}" />
                     </p:column>
 
-                    <p:column headerText="8" exportable="#{scoresDataView.list[6]}">
+                    <p:column>
                         <h:outputText value="#{scores.current8}" />
                     </p:column>
 
-                    <p:column headerText="5" exportable="#{scoresDataView.list[7]}">
+                    <p:column>
                         <h:outputText value="#{scores.current5}" />
                     </p:column>
 
-                    <p:column headerText="Misses" exportable="#{scoresDataView.list[8]}">
+                    <p:column>
                         <h:outputText value="#{scores.currentMisses}" />
                     </p:column>
 
-                    <p:column headerText="Penalty" exportable="#{scoresDataView.list[9]}">
+                    <p:column>
                         <h:outputText value="#{scores.currentPenalty}" />
                     </p:column>
 
-                    <p:column headerText="Score" exportable="#{scoresDataView.list[10]}">
+                    <p:column>
                         <h:outputText value="#{scores.currentScore}" />
                     </p:column>
 
-                    <p:column headerText="Score" exportable="#{scoresDataView.list[11]}">
+                    <p:column>
                         <h:outputText value="#{scores.firstScore}" />
                     </p:column>
 
-                    <p:column headerText="X" exportable="#{scoresDataView.list[12]}">
+                    <p:column>
                         <h:outputText value="#{scores.firstX}" />
                     </p:column>
 
-                    <p:column headerText="Score" exportable="#{scoresDataView.list[13]}">
+                    <p:column>
                         <h:outputText value="#{scores.previousScore}" />
                     </p:column>
 
-                    <p:column headerText="X" exportable="#{scoresDataView.list[14]}">
+                    <p:column>
                         <h:outputText value="#{scores.previousX}" />
                     </p:column>
 
-                    <p:column headerText="Score" exportable="#{scoresDataView.list[15]}">
+                    <p:column>
                         <h:outputText value="#{scores.topScore}" />
                     </p:column>
 
-                    <p:column headerText="X" exportable="#{scoresDataView.list[16]}">
+                    <p:column>
                         <h:outputText value="#{scores.topX}" />
                     </p:column>
 
-                    <p:column headerText="Score" exportable="#{scoresDataView.list[17]}">
+                    <p:column>
                         <h:outputText value="#{scores.secondTopScore}" />
                     </p:column>
 
-                    <p:column headerText="X" exportable="#{scoresDataView.list[18]}">
+                    <p:column>
                         <h:outputText value="#{scores.secondTopX}" />
                     </p:column>
 
-                    <p:column headerText="Score" exportable="#{scoresDataView.list[19]}">
+                    <p:column>
                         <h:outputText value="#{scores.averageScore}" />
                     </p:column>
 
-                    <p:column headerText="X" exportable="#{scoresDataView.list[20]}">
+                    <p:column>
                         <h:outputText value="#{scores.totalX}" />
                     </p:column>
 
@@ -144,22 +146,12 @@
 
                 <h:commandLink>
                     XLS
-                    <p:dataExporter type="xls" target="scoresTable" fileName="scores" />
+                    <pe:exporter type="xlsx" target="scoresTable" fileName="Scores" subTable="false"/>  
                 </h:commandLink>
 
                 <h:commandLink>
                     PDF
-                    <p:dataExporter type="pdf" target="scoresTable" fileName="scores"/>
-                </h:commandLink>
-
-                <h:commandLink>
-                    CSV
-                    <p:dataExporter type="csv" target="scoresTable" fileName="scores"/>
-                </h:commandLink>
-
-                <h:commandLink>
-                    XML
-                    <p:dataExporter type="xml" target="scoresTable" fileName="scores" />
+                    <pe:exporter type="pdf" target="scoresTable" fileName="Scores" subTable="false" orientation="Landscape"/>  
                 </h:commandLink>
 
             </p:panel>
