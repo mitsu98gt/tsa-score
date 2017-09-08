@@ -11,7 +11,7 @@
 </h:head>
 <h:body>
     <h:form id="login-form">
-        <p:panel id="panel" header="Sign In" style="width:350px">
+        <p:panel id="panel" header="Sign In" style="width:400px">
             <p:focus context="panel"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel for="username" value="Username:" />
@@ -21,7 +21,7 @@
                 </h:panelGrid>
                 <p:commandButton id="button" value="Sign In" ajax="false" action="#{loginBean.doLogin}"/>
         </p:panel>
-        <p:messages style="width:350px"/>
+        <p:messages style="width:400px"/>
     </h:form>
 </h:body>
 </html>
