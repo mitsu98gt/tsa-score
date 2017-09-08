@@ -11,6 +11,11 @@
 		<param-value>true</param-value>
 	</context-param>
 
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/WEB-INF/errorpages/expired.xhtml</location>
+	</error-page>
+
   <!-- Login filter -->
     <filter>
         <filter-name>LoginFilter</filter-name>
@@ -56,5 +61,7 @@
 	    <servlet-name>Faces Servlet</servlet-name>
 	    <url-pattern>*.xhtml</url-pattern>
 	  </servlet-mapping>
-	  
+
+
+
 </web-app>
