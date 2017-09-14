@@ -2,10 +2,10 @@ package com.envisageconsulting.primefaces.scoredaddy.domain;
 
 public class Competitor {
 
-	public String competitorId;
-	public String firstName;
-	public String lastName;
-	public String fullName;
+	private String competitorId;
+	private String firstName;
+	private String lastName;
+	private String fullName;
 
 	public String getCompetitorId() {
 		return competitorId;

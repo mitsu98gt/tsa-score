@@ -51,7 +51,7 @@ public class GSSFIndoorScoreSheetPDF {
     }
 
     public void fillPDFData(PDAcroForm acroForm, GSSFIndoorScoreSheet scoreSheet) throws Exception {
-        
+
         PDTextField name = (PDTextField) acroForm.getField("name");
         name.setValue(scoreSheet.getCompetitor().getFullName());
 
