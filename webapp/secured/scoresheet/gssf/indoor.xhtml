@@ -234,10 +234,25 @@
 			</p:panelGrid>
 			<br/>
 			<p:commandButton value="Score Me!" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:150px"/>
-			<p:commandButton value="Create ScoreSheet!" id="scoreSheetBtn" actionListener="#{scoresheetBean.createScoreSheetPDF}" ajax="false" style="width:250px"/>
+			<p:commandButton value="Save ScoreSheet!" id="scoreSheetBtn" actionListener="#{scoresheetBean.saveScoreSheetPDF}" ajax="false" style="width:250px"/>
+			<p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" style="width:150px">
+				<p:fileDownload value="#{scoresheetBean.file}" />
+			</p:commandButton>
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
 		</h:form>
        </div>
+		<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+			<p:graphicImage name="/images/ajaxloadingbar.gif" />
+		</p:dialog>
 	</h:body>
+	<script type="text/javascript">
+		function start() {
+			PF('statusDialog').show();
+		}
+
+		function stop() {
+			PF('statusDialog').hide();
+		}
+	</script>
 </html>

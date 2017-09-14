@@ -2,12 +2,18 @@ package com.envisageconsulting.primefaces.scoredaddy;
 
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 import com.envisageconsulting.primefaces.scoredaddy.domain.GSSFIndoorScoreSheet;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +30,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     private static final String GSSF_JUNIOR = "GSSF_JUNIOR";
 
 	private GSSFIndoorScoreSheet scoreSheet;
+    private StreamedContent file;
 
     @ManagedProperty("#{competitorDataSource}")
     private CompetitorDataSource ds;
@@ -44,10 +51,16 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         calculateTotalRow();
     }
 
-    public void createScoreSheetPDF() throws Exception {
+    public void saveScoreSheetPDF() throws Exception {
         doScore();
         GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
-        pdf.createPDF(scoreSheet);
+        pdf.savePDF(scoreSheet);
+    }
+
+    public StreamedContent downloadScoreSheetPDF() throws Exception {
+        doScore();
+        GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
+        return new DefaultStreamedContent(pdf.downloadPDF(scoreSheet), "application/pdf", "scoresheet.pdf");
     }
 
     public void calculateTargetTotals() {
@@ -126,4 +139,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         this.selectedDivisions = selectedDivisions;
     }
 
+    public StreamedContent getFile() throws Exception {
+        return (null == file) ? downloadScoreSheetPDF() : file;
+    }
 }
