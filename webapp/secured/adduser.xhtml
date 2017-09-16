@@ -17,15 +17,23 @@
         <p:panel id="panel" header="Add User" style="width:400px">
             <h:panelGrid columns="2" layout="grid">
                 <p:outputLabel value="Username: " />
-                <p:inputText id="username" value="#{userBean.user.username}"/>
+                <p:inputText id="username" value="#{userBean.user.username}" style="width:250px"/>
                 <p:outputLabel value="Password: " />
-                <p:password id="password" value="#{userBean.user.password}" />
+                <p:password id="password" value="#{userBean.user.password}" style="width:250px"/>
                 <p:outputLabel value="First Name: " />
-                <p:inputText id="first" value="#{userBean.user.firstName}"/>
+                <p:inputText id="first" value="#{userBean.user.firstName}" style="width:250px"/>
                 <p:outputLabel value="Last Name: " />
-                <p:inputText id="last" value="#{userBean.user.lastName}"/>
-                <h:outputLabel value="Email: " />
-                <p:inputText id="email" value="#{userBean.user.email}"/>
+                <p:inputText id="last" value="#{userBean.user.lastName}" style="width:250px"/>
+                <p:outputLabel value="Email: " />
+                <p:inputText id="email" value="#{userBean.user.email}" style="width:250px"/>
+                <p:outputLabel value="Role: " />
+                <p:selectOneMenu id="role" value="#{userBean.user.roles}" style="width:225px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItem itemLabel="Administrator" itemValue="Admin" />
+                    <f:selectItem itemLabel="Manager" itemValue="Manager" />
+                    <f:selectItem itemLabel="Competitor" itemValue="Competitor" />
+                    <f:selectItem itemLabel="User" itemValue="User" />
+                </p:selectOneMenu>
             </h:panelGrid>
         </p:panel>
     </h:form>
