@@ -22,7 +22,7 @@ public class UserBean {
     private User user;
     private List<UserRole> roles;
 
-    @ManagedProperty("#{userRoleDAOImpl}")
+    @ManagedProperty("#{userRoleDAO}")
     private UserRoleDAO dao;
 
     @PostConstruct
