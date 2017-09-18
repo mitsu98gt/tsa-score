@@ -3,11 +3,10 @@ package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 import com.envisageconsulting.primefaces.scoredaddy.dao.UserRoleDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.CodeEmitter;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
@@ -17,7 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Service
+@ManagedBean(name = "userRoleDAOImpl")
+@SessionScoped
 public class UserRoleDAOImpl implements UserRoleDAO {
 
     private DataSource dataSource;
@@ -56,5 +56,9 @@ public class UserRoleDAOImpl implements UserRoleDAO {
                 } catch (SQLException e) {}
             }
         }
+    }
+
+    public String getMessage() {
+        return "Hello Vinh!";
     }
 }

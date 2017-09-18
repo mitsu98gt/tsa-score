@@ -16,19 +16,17 @@ import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@Scope("session")
-//@ManagedBean(name = "userRoleDataSource")
-//@SessionScoped
+@ManagedBean(name = "userRoleDataSource")
+@SessionScoped
 public class UserRoleDataSource {
 
-    @Autowired
+    @ManagedProperty("#{userRoleDAOImplService}")
     private UserRoleDAOImpl userRoleDAO;
 
     public List<UserRole> userRoles = new ArrayList<UserRole>();
 
     public UserRoleDataSource() {
-        userRoles = userRoleDAO.getAllUserRoles();
+        //userRoles = userRoleDAO.getAllUserRoles();
     }
 
     public List<UserRole> getUserRoles() {

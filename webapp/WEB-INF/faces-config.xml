@@ -11,14 +11,4 @@
         </el-resolver>
     </application>
 
-    <!--<managed-bean>
-        <managed-bean-name>userRoleDataSource</managed-bean-name>
-        <managed-bean-class>com.envisageconsulting.primefaces.scoredaddy.UserRoleDataSource</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>userRoleDAO</property-name>
-            <value>#{userRoleDAO}</value>
-        </managed-property>
-    </managed-bean>-->
-
 </faces-config>

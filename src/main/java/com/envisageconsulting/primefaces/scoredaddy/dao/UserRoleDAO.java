@@ -8,4 +8,5 @@ public interface UserRoleDAO {
 
     public List<UserRole> getAllUserRoles();
 
+    String getMessage();
 }
