@@ -27,12 +27,12 @@
                 <p:outputLabel value="Email: " />
                 <p:inputText id="email" value="#{userBean.user.email}" style="width:250px"/>
                 <p:outputLabel value="Role: " />
-                <p:selectOneMenu id="role" value="#{userBean.user.roles}" style="width:225px">
-                    <f:selectItem itemLabel="Select One" itemValue="" />
-                    <f:selectItem itemLabel="Administrator" itemValue="Admin" />
-                    <f:selectItem itemLabel="Manager" itemValue="Manager" />
-                    <f:selectItem itemLabel="Competitor" itemValue="Competitor" />
-                    <f:selectItem itemLabel="User" itemValue="User" />
+                <p:selectOneMenu id="role" style="width:225px"
+                        value="#{userBean.user.roles}"
+                        var="userrole"
+                        itemValue="#{userrole}"
+                        itemLabel="#{userrole.description}" converter="#{userRoleConverter}">
+
                 </p:selectOneMenu>
             </h:panelGrid>
         </p:panel>
