@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserRoleDAOImpl implements UserRoleDAO {
@@ -23,14 +24,14 @@ public class UserRoleDAOImpl implements UserRoleDAO {
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            List<UserRole> userRoles = null;
+            List<UserRole> userRoles = new ArrayList();
 
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                userRoles.add(new UserRole(
-                        rs.getString("code"),
-                        rs.getString("description")
-                ));
+            while (rs.next()) {
+                UserRole urole = new UserRole();
+                urole.setCode(rs.getString("code"));
+                urole.setDescription(rs.getString("description"));
+                userRoles.add(urole);
             }
             rs.close();
             ps.close();

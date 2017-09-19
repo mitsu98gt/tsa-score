@@ -1,18 +1,10 @@
 package com.envisageconsulting.primefaces.scoredaddy;
 
-import com.envisageconsulting.primefaces.scoredaddy.dao.UserRoleDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.impl.UserRoleDAOImpl;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.FacesComponent;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 

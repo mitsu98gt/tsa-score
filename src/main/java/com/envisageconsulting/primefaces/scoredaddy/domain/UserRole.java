@@ -6,9 +6,6 @@ public class UserRole {
     private String description;
     private Role roleName;
 
-    public UserRole(String code, String description) {
-    }
-
     public String getCode() {
         return code;
     }

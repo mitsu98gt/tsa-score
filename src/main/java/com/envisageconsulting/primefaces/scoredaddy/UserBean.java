@@ -22,13 +22,14 @@ public class UserBean implements Serializable {
 
     private User user;
     private List<UserRole> roles;
+    private String role;
 
     @ManagedProperty("#{userRoleDAO}")
     private UserRoleDAO dao;
 
     @PostConstruct
     public void init() {
-        //roles = dao.getAllUserRoles();
+        roles = dao.getAllUserRoles();
     }
 
     public String printMsgFromSpring() {
@@ -49,5 +50,21 @@ public class UserBean implements Serializable {
 
     public void setDao(UserRoleDAO dao) {
         this.dao = dao;
+    }
+
+    public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

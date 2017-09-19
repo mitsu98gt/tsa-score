@@ -27,14 +27,9 @@
                 <p:outputLabel value="Email: " />
                 <p:inputText id="email" value="#{userBean.user.email}" style="width:250px"/>
                 <p:outputLabel value="Role: " />
-                <p:inputText id="role" value="#{userBean.printMsgFromSpring()}" style="width:250px"/>
-                <!--<p:selectOneMenu id="role" style="width:225px"
-                        value="#{userBean.user.roles}"
-                        var="userrole"
-                        itemValue="#{userrole}"
-                        itemLabel="#{userrole.description}" converter="#{userRoleConverter}">
-
-                </p:selectOneMenu>-->
+                <p:selectOneMenu id="role" style="width:225px" value="#{userBean.role}">
+                    <f:selectItems value="#{userBean.roles}" var="role" itemLabel="#{role.description}" itemValue="#{role.code}"/>
+                </p:selectOneMenu>
             </h:panelGrid>
         </p:panel>
     </h:form>
