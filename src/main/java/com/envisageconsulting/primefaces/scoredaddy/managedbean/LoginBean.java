@@ -1,4 +1,4 @@
-package com.envisageconsulting.primefaces.scoredaddy;
+package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import java.io.Serializable;
 

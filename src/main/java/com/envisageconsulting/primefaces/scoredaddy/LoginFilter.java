@@ -1,5 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy;
 
+import com.envisageconsulting.primefaces.scoredaddy.managedbean.LoginBean;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;

@@ -6,6 +6,7 @@ public class Competitor {
 	private String firstName;
 	private String lastName;
 	private String fullName;
+	private String gssfId;
 
 	public String getCompetitorId() {
 		return competitorId;
@@ -38,7 +39,15 @@ public class Competitor {
 	public String getFullName() {
 		return this.firstName + " " + this.lastName;
 	}
-	
+
+	public String getGssfId() {
+		return gssfId;
+	}
+
+	public void setGssfId(String gssfId) {
+		this.gssfId = gssfId;
+	}
+
 	public boolean equals(Object obj){
 		if(obj instanceof Competitor){
 			Competitor competitor = (Competitor)obj;

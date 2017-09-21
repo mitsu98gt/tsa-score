@@ -1,4 +1,4 @@
-package com.envisageconsulting.primefaces.scoredaddy;
+package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.dao.UserRoleDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.User;

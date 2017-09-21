@@ -1,5 +1,7 @@
-package com.envisageconsulting.primefaces.scoredaddy;
+package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.CompetitorDataSource;
+import com.envisageconsulting.primefaces.scoredaddy.GSSFIndoorScoreSheetPDF;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 import com.envisageconsulting.primefaces.scoredaddy.domain.GSSFIndoorScoreSheet;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -19,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SessionScoped
-@ManagedBean (name = "scoresheetBean")
+@ManagedBean(name="scoresheetBean")
 public class GSSFIndoorScoreSheetBean implements Serializable {
 
     private static final String GSSF_UNLIMITED = "GSSF_UNLIMITED";

@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "userRoleConverter")
+@ManagedBean(name="userRoleConverter")
 @FacesConverter(value = "userRoleConverter")
 public class UserRoleConverter implements Converter {
 
