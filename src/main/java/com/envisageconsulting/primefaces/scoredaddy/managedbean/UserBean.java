@@ -37,10 +37,6 @@ public class UserBean implements Serializable {
 
     }
 
-    public String printMsgFromSpring() {
-        return dao.getMessage();
-    }
-
     public User getUser() {
         return user;
     }

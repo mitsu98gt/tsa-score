@@ -47,10 +47,6 @@ public class UserRoleDAOImpl implements UserRoleDAO {
         }
     }
 
-    public String getMessage() {
-        return "Hello Vinh!";
-    }
-
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
