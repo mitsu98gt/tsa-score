@@ -17,21 +17,28 @@
         <p:panel id="panel" header="Add User" style="width:400px">
             <h:panelGrid columns="2" layout="grid">
                 <p:outputLabel value="Username: " />
-                <p:inputText id="username" value="#{userBean.user.username}" style="width:250px" maxlength="10"/>
+                <p:inputText id="username" value="#{userBean.user.username}" style="width:250px" maxlength="10" required="true"/>
                 <p:outputLabel value="Password: " />
-                <p:password id="password" value="#{userBean.user.password}" style="width:250px" maxlength="10"/>
+                <p:password id="password" value="#{userBean.user.password}" style="width:250px" maxlength="10" required="true"/>
+                <p:outputLabel value="Re-Enter Password: " />
+                <p:password id="password2" value="#{userBean.password2}" style="width:250px" maxlength="10" required="true"/>
                 <p:outputLabel value="First Name: " />
-                <p:inputText id="first" value="#{userBean.user.firstName}" style="width:250px" maxlength="45"/>
+                <p:inputText id="first" value="#{userBean.user.firstName}" style="width:250px" maxlength="45" required="true"/>
                 <p:outputLabel value="Last Name: " />
-                <p:inputText id="last" value="#{userBean.user.lastName}" style="width:250px" maxlength="45"/>
+                <p:inputText id="last" value="#{userBean.user.lastName}" style="width:250px" maxlength="45" required="true"/>
                 <p:outputLabel value="Email: " />
-                <p:inputText id="email" value="#{userBean.user.email}" style="width:250px" maxlength="254"/>
+                <p:inputText id="email" value="#{userBean.user.email}" style="width:250px" maxlength="254" required="true" validatorMessage="Invalid Email">
+                    <f:validator validatorId="custom.emailValidator" />
+                </p:inputText>
                 <p:outputLabel value="Role: " />
-                <p:selectOneMenu id="role" style="width:225px" value="#{userBean.role}">
+                <p:selectOneMenu id="role" style="width:225px" value="#{userBean.role}" required="false">
                     <f:selectItems value="#{userBean.roles}" var="role" itemLabel="#{role.description}" itemValue="#{role.code}"/>
                 </p:selectOneMenu>
             </h:panelGrid>
         </p:panel>
+        <br/>
+        <p:commandButton value="Save" id="saveBtn" actionListener="#{userBean.addUser}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:messages style="width:400px"/>
     </h:form>
 </h:body>
 </html>

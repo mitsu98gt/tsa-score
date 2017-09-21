@@ -20,16 +20,21 @@ import java.util.List;
 @SessionScoped
 public class UserBean implements Serializable {
 
-    private User user;
+    private User user=new User();
     private List<UserRole> roles;
     private String role;
+    private String password2;
 
     @ManagedProperty("#{userRoleDAO}")
     private UserRoleDAO dao;
 
     @PostConstruct
     public void init() {
-        roles = dao.getAllUserRoles();
+        //roles = dao.getAllUserRoles();
+    }
+
+    public void addUser() {
+
     }
 
     public String printMsgFromSpring() {
@@ -66,5 +71,13 @@ public class UserBean implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
     }
 }
