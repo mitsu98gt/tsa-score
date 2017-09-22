@@ -20,6 +20,10 @@ public class CompetitionBean implements Serializable {
 
     }
 
+    public void addCompetition() {
+
+    }
+
     public void setDao(CompetitionDAO dao) {
         this.dao = dao;
     }

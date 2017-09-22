@@ -23,6 +23,10 @@ public class CompetitorBean implements Serializable {
 
     }
 
+    public void addCompetitor() {
+
+
+    }
     public Competitor getCompetitor() {
         return competitor;
     }
