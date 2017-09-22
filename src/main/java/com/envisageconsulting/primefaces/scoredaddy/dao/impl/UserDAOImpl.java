@@ -1,6 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
-import com.envisageconsulting.primefaces.scoredaddy.dao.UserRoleDAO;
+import com.envisageconsulting.primefaces.scoredaddy.dao.UserDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
 
 import javax.sql.DataSource;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRoleDAOImpl implements UserRoleDAO {
+public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
 

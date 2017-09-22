@@ -4,7 +4,7 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
 
 import java.util.List;
 
-public interface UserRoleDAO {
+public interface UserDAO {
 
     public List<UserRole> getAllUserRoles();
 

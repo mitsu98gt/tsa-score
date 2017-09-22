@@ -1,18 +1,13 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
-import com.envisageconsulting.primefaces.scoredaddy.dao.UserRoleDAO;
+import com.envisageconsulting.primefaces.scoredaddy.dao.UserDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.User;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,8 +20,8 @@ public class UserBean implements Serializable {
     private String role;
     private String password2;
 
-    @ManagedProperty("#{userRoleDAO}")
-    private UserRoleDAO dao;
+    @ManagedProperty("#{userDAO}")
+    private UserDAO dao;
 
     @PostConstruct
     public void init() {
@@ -45,11 +40,11 @@ public class UserBean implements Serializable {
         this.user = user;
     }
 
-    public UserRoleDAO getDao() {
+    public UserDAO getDao() {
         return dao;
     }
 
-    public void setDao(UserRoleDAO dao) {
+    public void setDao(UserDAO dao) {
         this.dao = dao;
     }
 

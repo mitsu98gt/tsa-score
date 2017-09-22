@@ -17,7 +17,7 @@
         <property name = "password" value = "scoredaddy"/>
     </bean>
 
-    <bean id="userRoleDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.UserRoleDAOImpl">
+    <bean id="userDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.UserDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 

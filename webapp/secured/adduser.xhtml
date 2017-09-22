@@ -17,17 +17,17 @@
         <p:panel id="panel" header="Add User" style="width:400px">
             <h:panelGrid columns="2" layout="grid">
                 <p:outputLabel value="Username: " />
-                <p:inputText id="username" value="#{userBean.user.username}" style="width:250px" maxlength="10" required="true"/>
+                <p:inputText id="username" value="#{userBean.user.username}" style="width:250px" maxlength="10" required="true" requiredMessage="Username is required."/>
                 <p:outputLabel value="Password: " />
-                <p:password id="password" value="#{userBean.user.password}" style="width:250px" maxlength="10" required="true"/>
+                <p:password id="password" value="#{userBean.user.password}" style="width:250px" maxlength="10" required="true" requiredMessage="Password is required."/>
                 <p:outputLabel value="Re-Enter Password: " />
-                <p:password id="password2" value="#{userBean.password2}" style="width:250px" maxlength="10" required="true"/>
+                <p:password id="password2" value="#{userBean.password2}" style="width:250px" maxlength="10" required="true" requiredMessage="Please re-enter password."/>
                 <p:outputLabel value="First Name: " />
-                <p:inputText id="first" value="#{userBean.user.firstName}" style="width:250px" maxlength="45" required="true"/>
+                <p:inputText id="first" value="#{userBean.user.firstName}" style="width:250px" maxlength="45" required="true" requiredMessage="First Name is required."/>
                 <p:outputLabel value="Last Name: " />
-                <p:inputText id="last" value="#{userBean.user.lastName}" style="width:250px" maxlength="45" required="true"/>
+                <p:inputText id="last" value="#{userBean.user.lastName}" style="width:250px" maxlength="45" required="true" requiredMessage="Last Name is required."/>
                 <p:outputLabel value="Email: " />
-                <p:inputText id="email" value="#{userBean.user.email}" style="width:250px" maxlength="256" required="true" validatorMessage="Invalid Email">
+                <p:inputText id="email" value="#{userBean.user.email}" style="width:250px" maxlength="256" required="true" requiredMessage="Email is required." validatorMessage="Invalid Email.">
                     <f:validator validatorId="custom.emailValidator" />
                 </p:inputText>
                 <p:outputLabel value="Role: " />
