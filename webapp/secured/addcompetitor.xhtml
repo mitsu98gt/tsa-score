@@ -17,9 +17,9 @@
         <p:panel id="panel" header="Add Competitor" style="width:400px">
             <h:panelGrid columns="2" layout="grid">
                 <p:outputLabel value="First Name: " />
-                <p:inputText id="first" value="#{competitorBean.competitor.firstName}" style="width:250px" maxlength="45" required="true"/>
+                <p:inputText id="first" value="#{competitorBean.competitor.firstName}" style="width:250px" maxlength="45" required="true" requiredMessage="First Name is required."/>
                 <p:outputLabel value="Last Name: " />
-                <p:inputText id="last" value="#{competitorBean.competitor.lastName}" style="width:250px" maxlength="45" required="true"/>
+                <p:inputText id="last" value="#{competitorBean.competitor.lastName}" style="width:250px" maxlength="45" required="true" requiredMessage="Last Name is required."/>
                 <p:outputLabel value="GSSF ID: " />
                 <p:inputText id="gssf" value="#{competitorBean.competitor.gssfId}" style="width:250px" maxlength="8" required="false"/>
             </h:panelGrid>
