@@ -1,5 +1,8 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
+import com.envisageconsulting.primefaces.scoredaddy.dao.UserDAO;
+
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
@@ -13,6 +16,9 @@ import javax.faces.context.FacesContext;
 public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 7765876811740798583L;
+
+	@ManagedProperty("#{loginDAO}")
+	private LoginDAO dao;
 
 	// Simple user database :)
 	private static final String[] users = { "vinh:dang", "heather:dang" };
@@ -99,5 +105,9 @@ public class LoginBean implements Serializable {
 
 	public void setNavigationBean(NavigationBean navigationBean) {
 		this.navigationBean = navigationBean;
+	}
+
+	public void setDao(LoginDAO dao) {
+		this.dao = dao;
 	}
 }

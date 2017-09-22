@@ -9,8 +9,7 @@
 
     <context:component-scan base-package="com.envisageconsulting" />
 
-    <bean id="dataSource"
-          class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name = "driverClassName" value = "com.mysql.jdbc.Driver"/>
         <property name = "url" value = "jdbc:mysql://localhost:3306/scoredaddy"/>
         <property name = "username" value = "scoredaddy"/>
@@ -18,6 +17,22 @@
     </bean>
 
     <bean id="userDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.UserDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="competitorDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.CompetitorDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="competitionDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.CompetitionDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="firearmDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.FirearmDAOimpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="loginDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.LoginDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
