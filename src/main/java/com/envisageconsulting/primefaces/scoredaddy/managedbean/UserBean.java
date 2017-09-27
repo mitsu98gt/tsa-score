@@ -5,9 +5,11 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.User;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
 
@@ -29,7 +31,15 @@ public class UserBean implements Serializable {
     }
 
     public void addUser() {
+        if (!isPasswordsMatch()){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords do not match.", "ERROR MSG"));
+        } else {
 
+        }
+    }
+
+    public boolean isPasswordsMatch() {
+        return (user.getPassword().equals(password2) ? true : false);
     }
 
     public User getUser() {
