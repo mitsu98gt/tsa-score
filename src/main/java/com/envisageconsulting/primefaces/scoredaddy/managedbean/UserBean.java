@@ -25,7 +25,7 @@ public class UserBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        //roles = dao.getAllUserRoles();
+        roles = dao.getAllUserRoles();
     }
 
     public void addUser() {

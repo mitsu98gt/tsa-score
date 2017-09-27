@@ -31,7 +31,8 @@
                     <f:validator validatorId="custom.emailValidator" />
                 </p:inputText>
                 <p:outputLabel value="Role: " />
-                <p:selectOneMenu id="role" style="width:225px" value="#{userBean.role}" required="false">
+                <p:selectOneMenu id="role" style="width:225px" value="#{userBean.role}" required="true" requiredMessage="Role is required.">
+                    <f:selectItem itemLabel="Select a role ..." />
                     <f:selectItems value="#{userBean.roles}" var="role" itemLabel="#{role.description}" itemValue="#{role.code}"/>
                 </p:selectOneMenu>
             </h:panelGrid>

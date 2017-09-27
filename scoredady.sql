@@ -1,6 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.72, for apple-darwin10.3.0 (i386)
+CREATE DATABASE  IF NOT EXISTS `scoredaddy` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `scoredaddy`;
+-- MySQL dump 10.13  Distrib 5.6.13, for osx10.6 (i386)
 --
--- Host: localhost    Database: tsascore
+-- Host: 127.0.0.1    Database: scoredaddy
 -- ------------------------------------------------------
 -- Server version	5.1.72
 
@@ -65,7 +67,7 @@ CREATE TABLE `competition_codes` (
 
 LOCK TABLES `competition_codes` WRITE;
 /*!40000 ALTER TABLE `competition_codes` DISABLE KEYS */;
-INSERT INTO `competition_codes` VALUES (1,'GSSF','GSSF Indoor League'),(2,'BULLSEYE','Bullseye League');
+INSERT INTO `competition_codes` VALUES (1,'GSSFI','GSSF Indoor League');
 /*!40000 ALTER TABLE `competition_codes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,8 +87,8 @@ CREATE TABLE `competition_details` (
   KEY `code_idx` (`code`),
   KEY `date_idx` (`date`),
   KEY `course_idx` (`course`),
-  CONSTRAINT `course` FOREIGN KEY (`course`) REFERENCES `course_codes` (`course`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `code` FOREIGN KEY (`id`) REFERENCES `competition_codes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `course` FOREIGN KEY (`course`) REFERENCES `course_codes` (`course`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `id` FOREIGN KEY (`id`) REFERENCES `competition` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -163,8 +165,8 @@ DROP TABLE IF EXISTS `competitor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `competitor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(45) NOT NULL,
-  `last_name` varchar(45) NOT NULL,
+  `first_name` varchar(20) NOT NULL,
+  `last_name` varchar(20) NOT NULL,
   `gssf_id` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -230,7 +232,7 @@ CREATE TABLE `division_codes` (
 
 LOCK TABLES `division_codes` WRITE;
 /*!40000 ALTER TABLE `division_codes` DISABLE KEYS */;
-INSERT INTO `division_codes` VALUES (1,'GSSF_JUNIOR','GSSF Junior Division'),(1,'GSSF_POCKET','GSSF Pocket Division'),(1,'GSSF_SENIOR','GSSF Senior Divsion'),(1,'GSSF_STOCK','GSSF Stock Division'),(1,'GSSF_UNLIMITED','GSSF Unlimited Division'),(1,'GSSF_WOMAN','GSSF Woman Division'),(2,'TSA_REVOLVER','TSA Bullseye Revolver'),(2,'TSA_RIMFIRE','TSA Bullseye Rimfire'),(2,'TSA_STOCK','TSA Bullseye Unlimited'),(2,'TSA_UNLIMITED','TSA Bullseye Unlimited');
+INSERT INTO `division_codes` VALUES (1,'GSSF_JUNIOR','GSSF Junior Division'),(1,'GSSF_POCKET','GSSF Pocket Division'),(1,'GSSF_SENIOR','GSSF Senior Divsion'),(1,'GSSF_STOCK','GSSF Stock Division'),(1,'GSSF_UNLIMITED','GSSF Unlimited Division'),(1,'GSSF_WOMAN','GSSF Woman Division');
 /*!40000 ALTER TABLE `division_codes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +309,7 @@ CREATE TABLE `role_codes` (
 
 LOCK TABLES `role_codes` WRITE;
 /*!40000 ALTER TABLE `role_codes` DISABLE KEYS */;
-INSERT INTO `role_codes` VALUES ('A','Admin'),('C','Competitor'),('R','Range Officer');
+INSERT INTO `role_codes` VALUES ('A','Admin'),('C','Competitor'),('M','Manager');
 /*!40000 ALTER TABLE `role_codes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +351,8 @@ CREATE TABLE `users` (
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `username` varchar(10) NOT NULL,
-  `password` varchar(10) NOT NULL,
+  `password` varchar(166) NOT NULL,
+  `email` varchar(256) DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -365,7 +368,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'A','Vinh','Dang','vinh','dang','2017-08-09 22:04:40',NULL);
+INSERT INTO `users` VALUES (3,'A','Vinh','Dang','vinh','dang',NULL,'2017-08-09 22:04:40',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -378,4 +381,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-26  0:21:17
+-- Dump completed on 2017-09-26 22:31:03
