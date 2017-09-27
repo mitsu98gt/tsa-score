@@ -1,8 +1,10 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.Encryption;
 import com.envisageconsulting.primefaces.scoredaddy.dao.UserDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.User;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -11,14 +13,17 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name="userBean")
 @SessionScoped
 public class UserBean implements Serializable {
 
-    private User user=new User();
-    private List<UserRole> roles;
+    private User user = new User();
+    private List<UserRole> roles =  new ArrayList<UserRole>();
     private String role;
     private String password2;
 
@@ -30,11 +35,20 @@ public class UserBean implements Serializable {
         roles = dao.getAllUserRoles();
     }
 
-    public void addUser() {
+    public void addUser() throws InvalidKeySpecException, NoSuchAlgorithmException {
         if (!isPasswordsMatch()){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords do not match.", "ERROR MSG"));
         } else {
-
+            UserRole userRole =  new UserRole();
+            userRole.setCode(role);
+            roles.add(userRole);
+            user.setRoles(roles);
+            user.setPassword(Encryption.generateStringPasswordHash(password2));
+            try {
+                dao.addUser(user);
+            } catch (MySQLIntegrityConstraintViolationException e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exists.", "ERROR MSG"));
+            }
         }
     }
 
