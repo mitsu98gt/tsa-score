@@ -6,6 +6,7 @@ import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,13 +18,8 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-	private static final long serialVersionUID = 7765876811740798583L;
-
 	@ManagedProperty("#{loginDAO}")
 	private LoginDAO dao;
-
-	// Simple user database :)
-	private static final String[] users = { "vinh:dang", "heather:dang" };
 
 	private String username;
 	private String password;
@@ -50,7 +46,7 @@ public class LoginBean implements Serializable {
 		} catch (Exception e) {
 
 		}
-
+		
 		// Set login ERROR
 		FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
