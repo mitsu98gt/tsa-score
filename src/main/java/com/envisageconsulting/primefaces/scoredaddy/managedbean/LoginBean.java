@@ -1,9 +1,11 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.Encryption;
 import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
-import com.envisageconsulting.primefaces.scoredaddy.dao.UserDAO;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,16 +39,16 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public String doLogin() {
-		// Get every user from our sample database :)
-		for (String user : users) {
-			String dbUsername = user.split(":")[0];
-			String dbPassword = user.split(":")[1];
 
-			// Successful login
-			if (dbUsername.equals(username) && dbPassword.equals(password)) {
+		String passwordHash = dao.getPasswordHash(username);
+
+		try {
+			if (validatePassword(passwordHash)) {
 				loggedIn = true;
 				return navigationBean.redirectToWelcome();
 			}
+		} catch (Exception e) {
+
 		}
 
 		// Set login ERROR
@@ -74,6 +76,11 @@ public class LoginBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		return navigationBean.toLogin();
+	}
+
+	public boolean validatePassword(String passwordHash) throws InvalidKeySpecException, NoSuchAlgorithmException {
+		Encryption encryption = new Encryption();
+		return encryption.validatePassword(password, passwordHash) ? true : false;
 	}
 
 	// ------------------------------
