@@ -16,7 +16,7 @@
     <h:form id="adduserfrm">
         <p:panel id="panel" header="Add User" style="width:400px">
             <h:panelGrid columns="2" layout="grid">
-                <p:outputLabel value="Username: " />
+                <p:outputLabel for="username" value="Username: " />
                 <p:inputText id="username" value="#{userBean.user.username}" style="width:250px" maxlength="10" required="true" requiredMessage="Username is required."/>
                 <p:outputLabel value="Password: " />
                 <p:password id="password" value="#{userBean.user.password}" style="width:250px" maxlength="10" required="true" requiredMessage="Password is required."/>

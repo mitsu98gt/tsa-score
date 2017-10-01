@@ -6,6 +6,9 @@ public class Competitor {
 	private String firstName;
 	private String lastName;
 	private String fullName;
+	private Address address;
+	private String phone;
+	private String email;
 	private String gssfId;
 
 	public String getCompetitorId() {
@@ -38,6 +41,30 @@ public class Competitor {
 
 	public String getFullName() {
 		return this.firstName + " " + this.lastName;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getGssfId() {

@@ -46,7 +46,7 @@ public class LoginBean implements Serializable {
 		} catch (Exception e) {
 
 		}
-		
+
 		// Set login ERROR
 		FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
 		msg.setSeverity(FacesMessage.SEVERITY_ERROR);

@@ -10,4 +10,5 @@ public interface UserDAO {
 
     public List<UserRole> getAllUserRoles();
     public void addUser(User user) throws MySQLIntegrityConstraintViolationException;
+
 }

@@ -1,6 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitorDAO;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 
 import javax.annotation.PostConstruct;
@@ -25,8 +26,10 @@ public class CompetitorBean implements Serializable {
 
     public void addCompetitor() {
 
+        dao.addCompetitor(getCompetitor());
 
     }
+
     public Competitor getCompetitor() {
         return competitor;
     }
