@@ -15,13 +15,14 @@ import java.io.Serializable;
 public class CompetitorBean implements Serializable {
 
     private Competitor competitor = new Competitor();
+    private Address address = new Address();
 
     @ManagedProperty("#{competitorDAO}")
     private CompetitorDAO dao;
 
     @PostConstruct
     public void init() {
-
+        competitor.setAddress(address);
     }
 
     public void addCompetitor() {

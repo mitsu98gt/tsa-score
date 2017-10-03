@@ -14,7 +14,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
     private DataSource dataSource;
 
     public void addCompetitor(Competitor competitor) {
-        String sql = "insert into users (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
 
