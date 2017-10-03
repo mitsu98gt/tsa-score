@@ -18,6 +18,35 @@ USE `scoredaddy`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `account`
+--
+
+DROP TABLE IF EXISTS `account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `street` varchar(100) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `state` varchar(2) NOT NULL,
+  `zipcode` varchar(10) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account`
+--
+
+LOCK TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `competition`
 --
 
@@ -58,7 +87,7 @@ CREATE TABLE `competition_codes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`code`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,11 +196,17 @@ CREATE TABLE `competitor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(20) NOT NULL,
   `last_name` varchar(20) NOT NULL,
+  `street` varchar(100) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `state` varchar(2) NOT NULL,
+  `zipcode` varchar(10) NOT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  `email` varchar(256) DEFAULT NULL,
   `gssf_id` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `gssf_id_UNIQUE` (`gssf_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +215,7 @@ CREATE TABLE `competitor` (
 
 LOCK TABLES `competitor` WRITE;
 /*!40000 ALTER TABLE `competitor` DISABLE KEYS */;
+INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678');
 /*!40000 ALTER TABLE `competitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,9 +393,10 @@ CREATE TABLE `users` (
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `role_code_idx` (`role_code`),
   CONSTRAINT `role_code` FOREIGN KEY (`role_code`) REFERENCES `role_codes` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,7 +405,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'A','Vinh','Dang','vinh','dang',NULL,'2017-08-09 22:04:40',NULL);
+INSERT INTO `users` VALUES (3,'A','Vinh','Dang','vinh','1000:c897941d33b757fa15979d4f2f2087b6:4d8f5ddbba694e1c8a66b9349d07875bab6c620d86029426908e2977e158b4e14b3db5876bfbeec13242cfb85c2904aef5f1ff8cf0b3d6bf7911c1984136a4a6','vinh@envisageconsulting.com','2017-08-09 22:04:40',NULL),(4,'A','Vinh','Dang','mitsu98gt','1000:60d85ba22889d434be9b90e187b05ee1:4fa0026edde9156f1065171b8ed2a3ae02289af13b852c8624da90c67634815e21eb0b04377c1d3636def116b60dd6d4eeb74460a55f0481b13f992fc5da6c63','vinh@envisageconsulting.com','2017-09-26 23:41:02',NULL),(8,'A','Vinh','Dang','mitsu98gt2','1000:60d85ba22889d434be9b90e187b05ee1:4fa0026edde9156f1065171b8ed2a3ae02289af13b852c8624da90c67634815e21eb0b04377c1d3636def116b60dd6d4eeb74460a55f0481b13f992fc5da6c63','vinh@envisageconsulting.com','2017-09-27 00:03:37',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -381,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-26 22:31:03
+-- Dump completed on 2017-10-02 23:54:30
