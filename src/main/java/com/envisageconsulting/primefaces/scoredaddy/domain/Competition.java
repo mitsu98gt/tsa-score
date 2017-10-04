@@ -2,17 +2,26 @@ package com.envisageconsulting.primefaces.scoredaddy.domain;
 
 public class Competition {
 
-    private String competitionId;
+    private String id;
+    private String accountId;
     private String name;
     private String description;
     private String status;
 
-    public String getCompetitionId() {
-        return competitionId;
+    public String getId() {
+        return id;
     }
 
-    public void setCompetitionId(String competitionId) {
-        this.competitionId = competitionId;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getName() {
