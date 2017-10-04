@@ -22,6 +22,7 @@ public class CompetitorBean implements Serializable {
 
     @PostConstruct
     public void init() {
+
         competitor.setAddress(address);
     }
 
