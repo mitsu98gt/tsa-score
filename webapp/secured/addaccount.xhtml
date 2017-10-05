@@ -33,6 +33,7 @@
         </p:panel>
         <br/>
         <p:commandButton value="Save" id="saveBtn" actionListener="#{accountBean.addAccount}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:commandButton value="Mail" id="mailBtn" actionListener="#{accountBean.sendMail}" ajax="false" style="width:100px" icon="fa fa-envelope"/>
         <p:messages style="width:400px"/>
     </h:form>
 </h:body>

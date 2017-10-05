@@ -134,6 +134,12 @@
 		  <scope>test</scope>
 	  </dependency>
 
+	  <dependency>
+		  <groupId>com.sun.mail</groupId>
+		  <artifactId>javax.mail</artifactId>
+		  <version>1.6.0</version>
+	  </dependency>
+
       <!--<dependency>
           <groupId>org.mybatis</groupId>
           <artifactId>mybatis</artifactId>
