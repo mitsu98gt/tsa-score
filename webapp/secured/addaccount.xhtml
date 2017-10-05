@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Add Account</title>
+    <h:outputStylesheet name="style.css" library="css" />
+</h:head>
+<h:body>
+    <h:form id="addcompetitorfrm">
+        <p:panel id="panel" header="Add Account" style="width:420px">
+            <p:focus context="panel"/>
+            <h:panelGrid columns="2" layout="grid">
+                <p:outputLabel for="name" value="Name: " />
+                <p:inputText id="name" value="#{accountBean.account.name}" style="width:250px" maxlength="45" required="true" requiredMessage="Name is required."/>
+                <p:outputLabel for="street" value="Street: " />
+                <p:inputText id="street" value="#{accountBean.account.address.street}" style="width:250px" maxlength="100" required="true" requiredMessage="Street is required."/>
+                <p:outputLabel for="city" value="City: " />
+                <p:inputText id="city" value="#{accountBean.account.address.city}" style="width:250px" maxlength="45" required="true" requiredMessage="City is required."/>
+                <p:outputLabel for="state" value="State: " />
+                <p:inputText id="state" value="#{accountBean.account.address.state}" style="width:25px" maxlength="2" required="true" requiredMessage="State is required."/>
+                <p:outputLabel for="zipcode" value="Zipcode: " />
+                <p:inputText id="zipcode" value="#{accountBean.account.address.zipcode}" style="width:75px" maxlength="10" required="true" requiredMessage="Zipcode is required."/>
+                <p:outputLabel for="phone" value="Phone: " />
+                <p:inputText id="phone" value="#{accountBean.account.phone}" style="width:250px" maxlength="10" required="true" requiredMessage="Phone is required."/>
+            </h:panelGrid>
+        </p:panel>
+        <br/>
+        <p:commandButton value="Save" id="saveBtn" actionListener="#{accountBean.addAccount}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:messages style="width:400px"/>
+    </h:form>
+</h:body>
+</html>

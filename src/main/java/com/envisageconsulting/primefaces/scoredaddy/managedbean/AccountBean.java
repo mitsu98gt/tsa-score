@@ -26,10 +26,26 @@ public class AccountBean implements Serializable {
     }
 
     public void addAccount() {
-        dao.addAccount(account);
+        dao.addAccount(getAccount());
     }
 
     public void setDao(AccountDAO dao) {
         this.dao = dao;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
