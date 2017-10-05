@@ -28,7 +28,7 @@
                 <p:outputLabel for="last" value="Last Name: " />
                 <p:inputText id="last" value="#{userBean.user.lastName}" style="width:250px" maxlength="45" required="true" requiredMessage="Last Name is required."/>
                 <p:outputLabel for="email" value="Email: " />
-                <p:inputText id="email" value="#{userBean.user.email}" style="width:250px" maxlength="256" required="true" requiredMessage="Email is required." validatorMessage="Invalid Email.">
+                <p:inputText id="email" value="#{userBean.user.email}" style="width:250px" maxlength="256" required="false" requiredMessage="Email is required." validatorMessage="Invalid Email.">
                     <f:validator validatorId="custom.emailValidator" />
                 </p:inputText>
                 <p:outputLabel for="role" value="Role: " />

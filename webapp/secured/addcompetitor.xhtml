@@ -14,7 +14,7 @@
 </h:head>
 <h:body>
     <h:form id="addcompetitorfrm">
-        <p:panel id="panel" header="Add Competitor" style="width:400px">
+        <p:panel id="panel" header="Add Competitor" style="width:420px">
             <p:focus context="panel"/>
             <h:panelGrid columns="2" layout="grid">
                 <p:outputLabel for="first" value="First Name: " />
@@ -22,17 +22,19 @@
                 <p:outputLabel for="last" value="Last Name: " />
                 <p:inputText id="last" value="#{competitorBean.competitor.lastName}" style="width:250px" maxlength="45" required="true" requiredMessage="Last Name is required."/>
                 <p:outputLabel for="street" value="Street: " />
-                <p:inputText id="street" value="#{competitorBean.competitor.address.street}" style="width:250px" maxlength="100" required="true"/>
+                <p:inputText id="street" value="#{competitorBean.competitor.address.street}" style="width:250px" maxlength="100" required="true" requiredMessage="Street is required."/>
                 <p:outputLabel for="city" value="City: " />
-                <p:inputText id="city" value="#{competitorBean.competitor.address.city}" style="width:250px" maxlength="45" required="true"/>
+                <p:inputText id="city" value="#{competitorBean.competitor.address.city}" style="width:250px" maxlength="45" required="true" requiredMessage="City is required."/>
                 <p:outputLabel for="state" value="State: " />
-                <p:inputText id="state" value="#{competitorBean.competitor.address.state}" style="width:25px" maxlength="2" required="true"/>
+                <p:inputText id="state" value="#{competitorBean.competitor.address.state}" style="width:25px" maxlength="2" required="true" requiredMessage="State is required."/>
                 <p:outputLabel for="zipcode" value="Zipcode: " />
-                <p:inputText id="zipcode" value="#{competitorBean.competitor.address.zipcode}" style="width:75px" maxlength="10" required="true"/>
+                <p:inputText id="zipcode" value="#{competitorBean.competitor.address.zipcode}" style="width:75px" maxlength="10" required="true" requiredMessage="Zipcode is required."/>
                 <p:outputLabel for="email" value="Email: " />
-                <p:inputText id="email" value="#{competitorBean.competitor.email}" style="width:250px" maxlength="256" required="true"/>
+                <p:inputText id="email" value="#{competitorBean.competitor.email}" style="width:250px" maxlength="256" required="false" validatorMessage="Invalid Email.">
+                    <f:validator validatorId="custom.emailValidator" />
+                </p:inputText>
                 <p:outputLabel for="phone" value="Phone: " />
-                <p:inputText id="phone" value="#{competitorBean.competitor.phone}" style="width:250px" maxlength="10" required="true"/>
+                <p:inputText id="phone" value="#{competitorBean.competitor.phone}" style="width:250px" maxlength="10" required="true" requiredMessage="Phone is required."/>
                 <p:outputLabel for="gssf" value="GSSF ID: " />
                 <p:inputText id="gssf" value="#{competitorBean.competitor.gssfId}" style="width:250px" maxlength="8" required="false"/>
             </h:panelGrid>
