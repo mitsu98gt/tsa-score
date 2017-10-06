@@ -26,5 +26,20 @@
         <p:commandButton value="Save" id="saveBtn" actionListener="#{competitionBean.addCompetition}" ajax="false" style="width:100px" icon="fa fa-save"/>
         <p:messages style="width:400px"/>
     </h:form>
+    <br/>
+    <h:form id="addcompetitiondetailsfrm">
+        <p:panel id="panel2" header="Add Competition Details" style="width:420px">
+            <h:panelGrid columns="2" layout="grid">
+                <p:outputLabel for="code" value="Competition Code: " />
+                <p:selectOneMenu id="code" style="width:225px" value="#{competitionBean.competitionDetails.competitionCode.competitionCodeId}" required="true" requiredMessage="Code is required.">
+                    <f:selectItem itemLabel="Select a code ..." />
+                    <f:selectItems value="#{competitionBean.competitionCodeList}" var="code" itemLabel="#{code.description}" itemValue="#{code.competitionCodeId}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </p:panel>
+        <br/>
+        <p:commandButton value="Save" id="saveBtn2" actionListener="#{competitionBean.addCompetitionDetails}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:messages style="width:400px"/>
+    </h:form>
 </h:body>
 </html>

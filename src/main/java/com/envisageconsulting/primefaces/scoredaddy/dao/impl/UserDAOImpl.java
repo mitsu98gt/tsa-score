@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
+import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.UserDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.User;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
@@ -65,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
             ps.setString(4, user.getPassword());
             ps.setString(5, user.getEmail());
             ps.setString(6, user.getRoles().get(0).getCode());
-            ps.setString(7, getDateTime());
+            ps.setString(7, DateUtils.getDateTime());
             ps.executeUpdate();
 
             ps.close();
@@ -78,12 +79,6 @@ public class UserDAOImpl implements UserDAO {
                 } catch (SQLException e) {}
             }
         }
-    }
-
-    public String getDateTime() {
-        Date dt = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return sdf.format(dt);
     }
 
     public void setDataSource(DataSource dataSource) {
