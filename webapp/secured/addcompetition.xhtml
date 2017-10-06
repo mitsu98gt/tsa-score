@@ -14,18 +14,16 @@
 </h:head>
 <h:body>
     <h:form id="addcompetitionfrm">
-        <p:panel id="panel" header="Add Competition" style="width:400px">
+        <p:panel id="panel" header="Add Competition" style="width:420px">
             <h:panelGrid columns="2" layout="grid">
-                <p:outputLabel value="First Name: " />
-                <p:inputText id="first" value="#{competitorBean.competitor.firstName}" style="width:250px" maxlength="45" required="true"/>
-                <p:outputLabel value="Last Name: " />
-                <p:inputText id="last" value="#{competitorBean.competitor.lastName}" style="width:250px" maxlength="45" required="true"/>
-                <p:outputLabel value="GSSF ID: " />
-                <p:inputText id="gssf" value="#{competitorBean.competitor.gssfId}" style="width:250px" maxlength="8" required="false"/>
+                <p:outputLabel for="name" value="Name: " />
+                <p:inputText id="name" value="#{competitionBean.competition.name}" style="width:250px" maxlength="45" required="true" requiredMessage="Name is required."/>
+                <p:outputLabel for="description" value="Description: " />
+                <p:inputText id="description" value="#{competitionBean.competition.description}" style="width:250px" maxlength="200" required="true" requiredMessage="Description is required."/>
             </h:panelGrid>
         </p:panel>
         <br/>
-        <p:commandButton value="Save" id="saveBtn" actionListener="#{userBean.addUser}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:commandButton value="Save" id="saveBtn" actionListener="#{competitionBean.addCompetition}" ajax="false" style="width:100px" icon="fa fa-save"/>
         <p:messages style="width:400px"/>
     </h:form>
 </h:body>
