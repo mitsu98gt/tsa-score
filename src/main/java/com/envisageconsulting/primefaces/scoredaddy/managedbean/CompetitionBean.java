@@ -4,6 +4,7 @@ import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionCode;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionDetails;
+import com.envisageconsulting.primefaces.scoredaddy.domain.CourseCode;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -21,6 +22,7 @@ public class CompetitionBean implements Serializable {
     Competition competition = new Competition();
     CompetitionDetails competitionDetails =  new CompetitionDetails();
     List<CompetitionCode> competitionCodeList = new ArrayList<CompetitionCode>();
+    List<CourseCode> courseCodeList = new ArrayList<CourseCode>();
 
     @ManagedProperty("#{competitionDAO}")
     private CompetitionDAO dao;
@@ -29,7 +31,7 @@ public class CompetitionBean implements Serializable {
     public void init() {
         getCompetitionDetails().setCompetitionCode(new CompetitionCode());
         setCompetitionCodeList(dao.getAllCompetitionCodes());
-
+        setCourseCodeList(dao.getAllCourseCodes());
     }
 
     public void addCompetition() {
@@ -39,8 +41,6 @@ public class CompetitionBean implements Serializable {
 
     public void addCompetitionDetails() {
         competitionDetails.setCompetitionDetailsId("1");
-        competitionDetails.setCourse("A");
-        competitionDetails.setDate(new Date());
         dao.addCompetitionDetails(getCompetitionDetails());
     }
 
@@ -70,5 +70,13 @@ public class CompetitionBean implements Serializable {
 
     public void setCompetitionCodeList(List<CompetitionCode> competitionCodeList) {
         this.competitionCodeList = competitionCodeList;
+    }
+
+    public List<CourseCode> getCourseCodeList() {
+        return courseCodeList;
+    }
+
+    public void setCourseCodeList(List<CourseCode> courseCodeList) {
+        this.courseCodeList = courseCodeList;
     }
 }

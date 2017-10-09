@@ -2,10 +2,7 @@ package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
 import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
-import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionCode;
-import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionDetails;
-import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
+import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -52,6 +49,38 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
+    public List<CourseCode> getAllCourseCodes() {
+
+        String sql = "select * from course_codes";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            List<CourseCode> codes = new ArrayList();
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                CourseCode code = new CourseCode();
+                code.setId(rs.getString("id"));
+                code.setCourse(rs.getString("course"));
+                codes.add(code);
+            }
+            rs.close();
+            ps.close();
+            return codes;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {}
+            }
+        }
+    }
+
     public void addCompetition(Competition competition) {
 
         String sql = "insert into competition (account_id, name, description) values (?, ?, ?)";
@@ -80,7 +109,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     public void addCompetitionDetails(CompetitionDetails competitionDetails) {
 
-        String sql = "insert into competition (id, code, date, course) values (?, ?, ?, ?)";
+        String sql = "insert into competition_details (id, code, date, course) values (?, ?, ?, ?)";
 
         Connection conn = null;
 
@@ -88,7 +117,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, competitionDetails.getCompetitionDetailsId());
-            ps.setString(2, competitionDetails.getCompetitionCode().getCode());
+            ps.setString(2, competitionDetails.getCompetitionCode().getCompetitionCodeId());
             ps.setString(3, DateUtils.getDateTime(competitionDetails.getDate()));
             ps.setString(4, competitionDetails.getCourse());
             ps.executeUpdate();
