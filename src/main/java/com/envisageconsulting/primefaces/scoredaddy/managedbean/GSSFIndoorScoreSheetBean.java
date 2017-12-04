@@ -35,7 +35,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     private StreamedContent file;
 
     @ManagedProperty("#{competitorDataSource}")
-    private CompetitorDataSource ds;
+    private CompetitorDataSource competitorDataSource;
 
     private String[] selectedDivisions;
 
@@ -101,7 +101,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public List<Competitor> complete(String query){
         // Assumed Datasource
-        return ds.queryByName(query);
+        return competitorDataSource.queryByName(query);
     }
 
     public void parseSelectedDivisions(){
@@ -117,12 +117,12 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     }
 
-    public CompetitorDataSource getDs() {
-        return ds;
+    public CompetitorDataSource getCompetitorDataSource() {
+        return competitorDataSource;
     }
 
-    public void setDs(CompetitorDataSource ds) {
-        this.ds = ds;
+    public void setCompetitorDataSource(CompetitorDataSource competitorDataSource) {
+        this.competitorDataSource = competitorDataSource;
     }
 
     public GSSFIndoorScoreSheet getScoreSheet() {
