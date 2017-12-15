@@ -12,7 +12,7 @@
 </h:head>
 	<h:body>
 	  <div class="ui-fluid">
-		<h:form>
+		<h:form id="scoresheet">
             <p:panelGrid id="grid1" style="margin-top:20px;width:85%">
             
 				<p:row style="text-align:center">
@@ -32,7 +32,7 @@
 								var="competitor"
 								itemValue="#{competitor}"
 								itemLabel="#{competitor.fullName}" converter="#{competitorConverter}">
-						</p:autoComplete>
+							</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
 	            			<p:calendar required="false" label="Date" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>

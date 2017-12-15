@@ -10,9 +10,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -20,7 +18,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-@SessionScoped
+@RequestScoped
 @ManagedBean(name="scoresheetBean")
 public class GSSFIndoorScoreSheetBean implements Serializable {
 
@@ -44,6 +42,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     @PostConstruct
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
+        competitorDataSource.init();
     }
 
     public void doScore() {

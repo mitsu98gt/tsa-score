@@ -7,11 +7,47 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompetitorDAOImpl implements CompetitorDAO {
 
     private DataSource dataSource;
+
+    public List<Competitor> getCompetitorsForScoreSheet() {
+
+        String sql = "select id, first_name, last_name from competitor";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            List<Competitor> competitorList = new ArrayList<Competitor>();
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competitor competitor =  new Competitor();
+                competitor.setCompetitorId(Integer.toString(rs.getInt("id")));
+                competitor.setFirstName(rs.getString("first_name"));
+                competitor.setLastName(rs.getString("last_name"));
+                competitorList.add(competitor);
+            }
+            rs.close();
+            ps.close();
+            return competitorList;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {}
+            }
+        }
+    }
 
     public void addCompetitor(Competitor competitor) {
         String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";

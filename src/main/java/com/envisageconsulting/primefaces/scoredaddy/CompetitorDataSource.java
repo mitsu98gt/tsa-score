@@ -3,49 +3,31 @@ package com.envisageconsulting.primefaces.scoredaddy;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitorDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 
 @ManagedBean(name = "competitorDataSource")
 @SessionScoped
 public class CompetitorDataSource {
 
+	@ManagedProperty("#{competitorDAO}")
+	private CompetitorDAO dao;
+
 	public List<Competitor> competitors = new ArrayList<Competitor>();
+
+	@PostConstruct
+	public void init() {
+
+		competitors = dao.getCompetitorsForScoreSheet();
+	}
 
 	public CompetitorDataSource(){
 		
-		Competitor competitor = new Competitor();
-		
-		competitor.setCompetitorId("1");
-		competitor.setFirstName("Vinh");
-		competitor.setLastName("Dang");
-
-		competitors.add(competitor);
-
-		competitor = new Competitor();
-		competitor.setCompetitorId("2");
-		competitor.setFirstName("Heather");
-		competitor.setLastName("Dang");
-
-		competitors.add(competitor);
-
-		competitor = new Competitor();
-		competitor.setCompetitorId("3");
-		competitor.setFirstName("Alexa");
-		competitor.setLastName("Dang");
-	
-		competitors.add(competitor);
-		
-		competitor = new Competitor();
-		competitor.setCompetitorId("4");
-		competitor.setFirstName("Brandon");
-		competitor.setLastName("Dang");
-	
-		competitors.add(competitor);
-		
-
 	}
 
 	public List<Competitor> getCompetitors() {
@@ -65,6 +47,10 @@ public class CompetitorDataSource {
 			}
 		}
 		return queried;
+	}
+
+	public void setDao(CompetitorDAO dao) {
+		this.dao = dao;
 	}
 	
 }
