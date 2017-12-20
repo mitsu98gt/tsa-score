@@ -6,7 +6,7 @@ public class GSSFIndoorScoreSheet {
 
 	private Competitor competitor;
 	private Date date = new Date();
-	private String model;
+	private Firearm firearm;
 	private String entry;
 	private boolean checkStock;
 	private boolean checkUnlimited;
@@ -57,12 +57,12 @@ public class GSSFIndoorScoreSheet {
 		this.date = date;
 	}
 
-	public String getModel() {
-		return model;
+	public Firearm getFirearm() {
+		return firearm;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setFirearm(Firearm firearm) {
+		this.firearm = firearm;
 	}
 
 	public String getEntry() {

@@ -1,8 +1,10 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.CompetitorDataSource;
+import com.envisageconsulting.primefaces.scoredaddy.FirearmDataSource;
 import com.envisageconsulting.primefaces.scoredaddy.GSSFIndoorScoreSheetPDF;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Firearm;
 import com.envisageconsulting.primefaces.scoredaddy.domain.GSSFIndoorScoreSheet;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.primefaces.context.RequestContext;
@@ -35,6 +37,11 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     @ManagedProperty("#{competitorDataSource}")
     private CompetitorDataSource competitorDataSource;
 
+    @ManagedProperty("#{firearmDataSource}")
+    private FirearmDataSource firearmDataSource;
+
+    private List<Firearm> firearmList;
+
     private String[] selectedDivisions;
 
     public GSSFIndoorScoreSheetBean(){}
@@ -43,6 +50,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
         competitorDataSource.init();
+        firearmList = firearmDataSource.getFirearms();
     }
 
     public void doScore() {
@@ -124,6 +132,14 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         this.competitorDataSource = competitorDataSource;
     }
 
+    public FirearmDataSource getFirearmDataSource() {
+        return firearmDataSource;
+    }
+
+    public void setFirearmDataSource(FirearmDataSource firearmDataSource) {
+        this.firearmDataSource = firearmDataSource;
+    }
+
     public GSSFIndoorScoreSheet getScoreSheet() {
         return scoreSheet;
     }
@@ -138,6 +154,14 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public void setSelectedDivisions(String[] selectedDivisions) {
         this.selectedDivisions = selectedDivisions;
+    }
+
+    public List<Firearm> getFirearmList() {
+        return firearmList;
+    }
+
+    public void setFirearmList(List<Firearm> firearmList) {
+        this.firearmList = firearmList;
     }
 
     public StreamedContent getFile() throws Exception {

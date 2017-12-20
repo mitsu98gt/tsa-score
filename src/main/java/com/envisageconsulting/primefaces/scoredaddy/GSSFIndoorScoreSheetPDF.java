@@ -60,7 +60,7 @@ public class GSSFIndoorScoreSheetPDF {
         date.setValue(df.format(scoreSheet.getDate()));
 
         PDTextField model = (PDTextField) acroForm.getField("model");
-        model.setValue(scoreSheet.getModel());
+        model.setValue(scoreSheet.getFirearm().getModel());
 
         PDTextField entry = (PDTextField) acroForm.getField("entry");
         entry.setValue(scoreSheet.getEntry());

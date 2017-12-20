@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.73, for redhat-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: localhost    Database: scoredaddy
 -- ------------------------------------------------------
--- Server version	5.1.73
+-- Server version	5.7.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,7 +41,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'Vinh\'s Shooting Academy','11634 Cannington Circle','Fishers','IN','46037','5743298039');
+INSERT INTO `account` VALUES (1,'Tims Shooting Academy','17777 Commerce Dr','Westfield','IN','46074','3173997918');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +147,6 @@ CREATE TABLE `competition_results` (
   `date` datetime NOT NULL,
   `competitor_id` int(11) NOT NULL,
   `firearm_id` int(11) NOT NULL,
-  `firearm_model` varchar(15) NOT NULL,
   `division_codes` varchar(60) NOT NULL,
   `target_one_x` int(11) NOT NULL,
   `target_one_ten` int(11) NOT NULL,
@@ -162,20 +161,18 @@ CREATE TABLE `competition_results` (
   `penalty` int(11) NOT NULL,
   `range_officer_initials` varchar(3) NOT NULL,
   `competitor_initials` varchar(3) NOT NULL,
-  PRIMARY KEY (`id`,`code`,`date`,`competitor_id`,`firearm_id`,`firearm_model`),
+  PRIMARY KEY (`id`,`code`,`date`,`competitor_id`,`firearm_id`),
   KEY `division_code_idx` (`division_codes`),
   KEY `competitor_id_idx` (`competitor_id`),
   KEY `code_idx` (`code`),
   KEY `id_idx` (`id`),
   KEY `competition_date` (`date`),
-  KEY `firearm_model_idx` (`firearm_model`),
   KEY `firearm_id_idx` (`firearm_id`),
   CONSTRAINT `competition_date` FOREIGN KEY (`date`) REFERENCES `competition_details` (`date`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `competition_detail_code` FOREIGN KEY (`code`) REFERENCES `competition_details` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `competition_detail_id` FOREIGN KEY (`id`) REFERENCES `competition_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `competitor_id` FOREIGN KEY (`competitor_id`) REFERENCES `competitor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `firearm_id` FOREIGN KEY (`firearm_id`) REFERENCES `firearm_brands` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `firearm_model` FOREIGN KEY (`firearm_model`) REFERENCES `firearm_models` (`model`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `firearm_id` FOREIGN KEY (`firearm_id`) REFERENCES `firearm_brands` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -209,7 +206,7 @@ CREATE TABLE `competitor` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `gssf_id_UNIQUE` (`gssf_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +215,7 @@ CREATE TABLE `competitor` (
 
 LOCK TABLES `competitor` WRITE;
 /*!40000 ALTER TABLE `competitor` DISABLE KEYS */;
-INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678');
+INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678'),(2,'Bugs','Bunny','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','1'),(4,'Elmer','Fudd','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','2'),(5,'daffy','duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','3'),(6,'Porky','Pig','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','4'),(7,'Donald','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','5');
 /*!40000 ALTER TABLE `competitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,11 +306,11 @@ DROP TABLE IF EXISTS `firearm_models`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `firearm_models` (
   `id` int(11) NOT NULL,
+  `brand_id` int(11) NOT NULL,
   `model` varchar(15) NOT NULL,
   `caliber` varchar(10) NOT NULL,
-  PRIMARY KEY (`model`,`id`),
-  KEY `firearm_model_id_idx` (`id`),
-  CONSTRAINT `firearm_model_id` FOREIGN KEY (`id`) REFERENCES `firearm_brands` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`id`),
+  KEY `firearm_model_id_idx` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -323,7 +320,7 @@ CREATE TABLE `firearm_models` (
 
 LOCK TABLES `firearm_models` WRITE;
 /*!40000 ALTER TABLE `firearm_models` DISABLE KEYS */;
-INSERT INTO `firearm_models` VALUES (1,'G17','9X19'),(1,'G17C','9X19'),(1,'G17L','9X19'),(1,'G19','9X19'),(1,'G19C','9X19'),(1,'G20','10mm Auto'),(1,'G21','.45 Auto'),(1,'G22','.40'),(1,'G22C','.40'),(1,'G23','.40'),(1,'G23C','.40'),(1,'G24','.40'),(1,'G26','9X19'),(1,'G27','.40'),(1,'G29','10mm Auto'),(1,'G30','.45 Auto'),(1,'G31','.357'),(1,'G32','.357'),(1,'G33','.357'),(1,'G34','9X19'),(1,'G35','.40'),(1,'G36 ','.45 Auto'),(1,'G37','.45 G.A.P.'),(1,'G38','.45 G.A.P.'),(1,'G39','.45 G.A.P.'),(1,'G40','10mm Auto'),(1,'G41','.45 Auto'),(1,'G42','.380 Auto'),(1,'G43','9X19');
+INSERT INTO `firearm_models` VALUES (1,1,'G17','9X19'),(2,1,'G17C','9X19'),(3,1,'G17L','9X19'),(4,1,'G19','9X19'),(5,1,'G19C','9X19'),(6,1,'G20','10mm Auto'),(7,1,'G21','.45 Auto'),(8,1,'G22','.40'),(9,1,'G22C','.40'),(10,1,'G23','.40'),(11,1,'G23C','.40'),(12,1,'G24','.40'),(13,1,'G26','9X19'),(14,1,'G27','.40'),(15,1,'G29','10mm Auto'),(16,1,'G30','.45 Auto'),(17,1,'G31','.357'),(18,1,'G32','.357'),(19,1,'G33','.357'),(20,1,'G34','9X19'),(21,1,'G35','.40'),(22,1,'G36 ','.45 Auto'),(23,1,'G37','.45 G.A.P.'),(24,1,'G38','.45 G.A.P.'),(25,1,'G39','.45 G.A.P.'),(26,1,'G40','10mm Auto'),(27,1,'G41','.45 Auto'),(28,1,'G42','.380 Auto'),(29,1,'G43','9X19');
 /*!40000 ALTER TABLE `firearm_models` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-13 23:35:50
+-- Dump completed on 2017-12-20  1:00:24

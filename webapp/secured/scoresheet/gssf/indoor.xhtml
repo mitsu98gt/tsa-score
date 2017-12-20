@@ -38,14 +38,8 @@
 	            			<p:calendar required="false" label="Date" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
-	            			<p:selectOneMenu required="false" id="model" label="Model" value="#{scoresheetBean.scoreSheet.model}">
-            					<f:selectItem itemLabel="" itemValue="" />
-            					<f:selectItem itemLabel="G19" itemValue="G19" />
-            					<f:selectItem itemLabel="G17" itemValue="G17" />
-            					<f:selectItem itemLabel="G34" itemValue="G34" />
-            					<f:selectItem itemLabel="G22" itemValue="G22" />
-            					<f:selectItem itemLabel="G23" itemValue="G23" />
-            					<f:selectItem itemLabel="G35" itemValue="G35" />
+	            			<p:selectOneMenu required="false" id="model" label="Model" value="#{scoresheetBean.scoreSheet.firearm}" converter="#{firearmConverter}">
+								<f:selectItems value="#{scoresheetBean.firearmList}" var="firearm" itemLabel="#{firearm.model}" itemValue="#{firearm}"/>
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
