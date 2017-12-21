@@ -1,6 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy;
 
-import com.envisageconsulting.primefaces.scoredaddy.domain.GSSFIndoorScoreSheet;
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDCheckBox;
@@ -67,32 +67,32 @@ public class GSSFIndoorScoreSheetPDF {
 
         //
 
-        if (scoreSheet.getCheckStock()) {
+        if (scoreSheet.getDivsion().isStock()) {
             PDField checkStock = (PDField) acroForm.getField("checkStock");
             ((PDCheckBox) checkStock).check();
         }
 
-        if (scoreSheet.getCheckUnlimited()) {
+        if (scoreSheet.getDivsion().isUnlimited()) {
             PDField checkUnlimited = (PDField) acroForm.getField("checkUnlimited");
             ((PDCheckBox) checkUnlimited).check();
         }
 
-        if (scoreSheet.getCheckPocket()) {
+        if (scoreSheet.getDivsion().isPocket()) {
             PDField checkPocket = (PDField) acroForm.getField("checkPocket");
             ((PDCheckBox) checkPocket).check();
         }
 
-        if (scoreSheet.getCheckWoman()) {
+        if (scoreSheet.getDivsion().isWoman()) {
             PDField checkWoman = (PDField) acroForm.getField("checkWoman");
             ((PDCheckBox) checkWoman).check();
         }
 
-        if (scoreSheet.getCheckSenior()) {
+        if (scoreSheet.getDivsion().isSenior()) {
             PDField checkSenior = (PDField) acroForm.getField("checkSenior");
             ((PDCheckBox) checkSenior).check();
         }
 
-        if (scoreSheet.getCheckJunior()) {
+        if (scoreSheet.getDivsion().isJunior()) {
             PDField checkJunior = (PDField) acroForm.getField("checkJunior");
             ((PDCheckBox) checkJunior).check();
         }
@@ -100,76 +100,76 @@ public class GSSFIndoorScoreSheetPDF {
         //
 
         PDTextField targetOneX = (PDTextField) acroForm.getField("targetOneX");
-        targetOneX.setValue(Integer.toString(scoreSheet.getTargetOneX()));
+        targetOneX.setValue(Integer.toString(scoreSheet.getTargetOne().getX()));
 
         PDTextField targetOneTen = (PDTextField) acroForm.getField("targetOneTen");
-        targetOneTen.setValue(Integer.toString(scoreSheet.getTargetOneTen()));
+        targetOneTen.setValue(Integer.toString(scoreSheet.getTargetOne().getTen()));
 
         PDTextField targetOneEight = (PDTextField) acroForm.getField("targetOneEight");
-        targetOneEight.setValue(Integer.toString(scoreSheet.getTargetOneEight()));
+        targetOneEight.setValue(Integer.toString(scoreSheet.getTargetOne().getEight()));
 
         PDTextField targetOneFive = (PDTextField) acroForm.getField("targetOneFive");
-        targetOneFive.setValue(Integer.toString(scoreSheet.getTargetOneFive()));
+        targetOneFive.setValue(Integer.toString(scoreSheet.getTargetOne().getFive()));
 
         PDTextField targetOneMisses = (PDTextField) acroForm.getField("targetOneMisses");
-        targetOneMisses.setValue(Integer.toString(scoreSheet.getTargetOneMisses()));
+        targetOneMisses.setValue(Integer.toString(scoreSheet.getTargetOne().getMisses()));
 
         PDTextField targetOneTotal = (PDTextField) acroForm.getField("targetOneTotal");
-        targetOneTotal.setValue(Integer.toString(scoreSheet.getTargetOneTotal()));
+        targetOneTotal.setValue(Integer.toString(scoreSheet.getTargetOne().getTotal()));
 
         //
 
         PDTextField targetTwoX = (PDTextField) acroForm.getField("targetTwoX");
-        targetTwoX.setValue(Integer.toString(scoreSheet.getTargetTwoX()));
+        targetTwoX.setValue(Integer.toString(scoreSheet.getTargetTwo().getX()));
 
         PDTextField targetTwoTen = (PDTextField) acroForm.getField("targetTwoTen");
-        targetTwoTen.setValue(Integer.toString(scoreSheet.getTargetTwoTen()));
+        targetTwoTen.setValue(Integer.toString(scoreSheet.getTargetTwo().getTen()));
 
         PDTextField targetTwoEight = (PDTextField) acroForm.getField("targetTwoEight");
-        targetTwoEight.setValue(Integer.toString(scoreSheet.getTargetTwoEight()));
+        targetTwoEight.setValue(Integer.toString(scoreSheet.getTargetTwo().getEight()));
 
         PDTextField targetTwoFive = (PDTextField) acroForm.getField("targetTwoFive");
-        targetTwoFive.setValue(Integer.toString(scoreSheet.getTargetTwoFive()));
+        targetTwoFive.setValue(Integer.toString(scoreSheet.getTargetTwo().getFive()));
 
         PDTextField targetTwoMisses = (PDTextField) acroForm.getField("targetTwoMisses");
-        targetTwoMisses.setValue(Integer.toString(scoreSheet.getTargetTwoMisses()));
+        targetTwoMisses.setValue(Integer.toString(scoreSheet.getTargetTwo().getMisses()));
 
         PDTextField targetTwoTotal = (PDTextField) acroForm.getField("targetTwoTotal");
-        targetTwoTotal.setValue(Integer.toString(scoreSheet.getTargetTwoTotal()));
+        targetTwoTotal.setValue(Integer.toString(scoreSheet.getTargetTwo().getTotal()));
 
         //
 
         PDTextField sumX = (PDTextField) acroForm.getField("sumX");
-        sumX.setValue(Integer.toString(scoreSheet.getSumX()));
+        sumX.setValue(Integer.toString(scoreSheet.getSumRow().getX()));
 
         PDTextField sumTen = (PDTextField) acroForm.getField("sumTen");
-        sumTen.setValue(Integer.toString(scoreSheet.getSumTen()));
+        sumTen.setValue(Integer.toString(scoreSheet.getSumRow().getTen()));
 
         PDTextField sumEight = (PDTextField) acroForm.getField("sumEight");
-        sumEight.setValue(Integer.toString(scoreSheet.getSumEight()));
+        sumEight.setValue(Integer.toString(scoreSheet.getSumRow().getEight()));
 
         PDTextField sumFive = (PDTextField) acroForm.getField("sumFive");
-        sumFive.setValue(Integer.toString(scoreSheet.getSumFive()));
+        sumFive.setValue(Integer.toString(scoreSheet.getSumRow().getFive()));
 
         PDTextField sumMisses = (PDTextField) acroForm.getField("sumMisses");
-        sumMisses.setValue(Integer.toString(scoreSheet.getSumMisses()));
+        sumMisses.setValue(Integer.toString(scoreSheet.getSumRow().getMisses()));
 
         PDTextField sumTotal = (PDTextField) acroForm.getField("sumTotal");
-        sumTotal.setValue(Integer.toString(scoreSheet.getSumTotal()));
+        sumTotal.setValue(Integer.toString(scoreSheet.getSumRow().getTotal()));
 
         //
 
         PDTextField totalX = (PDTextField) acroForm.getField("totalX");
-        totalX.setValue(Integer.toString(scoreSheet.getTotalX()));
+        totalX.setValue(Integer.toString(scoreSheet.getTotalRow().getX()));
 
         PDTextField totalTen = (PDTextField) acroForm.getField("totalTen");
-        totalTen.setValue(Integer.toString(scoreSheet.getTotalTen()));
+        totalTen.setValue(Integer.toString(scoreSheet.getTotalRow().getTen()));
 
         PDTextField toalEight = (PDTextField) acroForm.getField("totalEight");
-        toalEight.setValue(Integer.toString(scoreSheet.getTotalEight()));
+        toalEight.setValue(Integer.toString(scoreSheet.getTotalRow().getEight()));
 
         PDTextField totalFive = (PDTextField) acroForm.getField("totalFive");
-        totalFive.setValue(Integer.toString(scoreSheet.getTotalFive()));
+        totalFive.setValue(Integer.toString(scoreSheet.getTotalRow().getFive()));
 
         PDTextField penalty = (PDTextField) acroForm.getField("penalty");
         penalty.setValue(Integer.toString(scoreSheet.getPenalty()));

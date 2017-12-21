@@ -1,5 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy.domain;
 
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
+
 public class CompetitionResults {
 
     private String competitionResultsId;

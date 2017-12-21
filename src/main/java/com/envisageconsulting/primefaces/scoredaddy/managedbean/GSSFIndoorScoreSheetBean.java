@@ -5,17 +5,12 @@ import com.envisageconsulting.primefaces.scoredaddy.FirearmDataSource;
 import com.envisageconsulting.primefaces.scoredaddy.GSSFIndoorScoreSheetPDF;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Firearm;
-import com.envisageconsulting.primefaces.scoredaddy.domain.GSSFIndoorScoreSheet;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.primefaces.context.RequestContext;
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -73,37 +68,37 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public void calculateTargetTotals() {
-        scoreSheet.setTargetOneTotal(calculateTargetOneTotals());
-        scoreSheet.setTargetTwoTotal(calculateTargetTwoTotals());
+        scoreSheet.getTargetOne().setTotal(calculateTargetOneTotals());
+        scoreSheet.getTargetTwo().setTotal(calculateTargetTwoTotals());
     }
 
     public void calculateSumRow() {
-        scoreSheet.setSumX(scoreSheet.getTargetOneX() + scoreSheet.getTargetTwoX());
-        scoreSheet.setSumTen(scoreSheet.getTargetOneTen() + scoreSheet.getTargetTwoTen());
-        scoreSheet.setSumEight(scoreSheet.getTargetOneEight() + scoreSheet.getTargetTwoEight());
-        scoreSheet.setSumFive(scoreSheet.getTargetOneFive() + scoreSheet.getTargetTwoFive());
-        scoreSheet.setSumMisses(scoreSheet.getTargetOneMisses() + scoreSheet.getTargetTwoMisses());
-        scoreSheet.setSumTotal(scoreSheet.getTargetOneTotal() + scoreSheet.getTargetTwoTotal());
+        scoreSheet.getSumRow().setX(scoreSheet.getTargetOne().getX() + scoreSheet.getTargetTwo().getX());
+        scoreSheet.getSumRow().setTen(scoreSheet.getTargetOne().getTen() + scoreSheet.getTargetTwo().getTen());
+        scoreSheet.getSumRow().setEight(scoreSheet.getTargetOne().getEight() + scoreSheet.getTargetTwo().getEight());
+        scoreSheet.getSumRow().setFive(scoreSheet.getTargetOne().getFive() + scoreSheet.getTargetTwo().getFive());
+        scoreSheet.getSumRow().setMisses(scoreSheet.getTargetOne().getMisses() + scoreSheet.getTargetTwo().getMisses());
+        scoreSheet.getSumRow().setTotal(scoreSheet.getTargetOne().getTotal() + scoreSheet.getTargetTwo().getTotal());
     }
 
     public void calculateTotalRow() {
-        scoreSheet.setTotalX(scoreSheet.getSumX() * 10);
-        scoreSheet.setTotalTen(scoreSheet.getSumTen() * 10);
-        scoreSheet.setTotalEight(scoreSheet.getSumEight() * 8);
-        scoreSheet.setTotalFive(scoreSheet.getSumFive() * 5);
+        scoreSheet.getTotalRow().setX(scoreSheet.getSumRow().getX() * 10);
+        scoreSheet.getTotalRow().setTen(scoreSheet.getSumRow().getTen() * 10);
+        scoreSheet.getTotalRow().setEight(scoreSheet.getSumRow().getEight() * 8);
+        scoreSheet.getTotalRow().setFive(scoreSheet.getSumRow().getFive() * 5);
         scoreSheet.setFinalScore(calculateTotalScore() - scoreSheet.getPenalty());
     }
 
     public Integer calculateTargetOneTotals() {
-        return (scoreSheet.getTargetOneX() + scoreSheet.getTargetOneTen() + scoreSheet.getTargetOneEight() + scoreSheet.getTargetOneFive() + scoreSheet.getTargetOneMisses());
+        return (scoreSheet.getTargetOne().getX() + scoreSheet.getTargetOne().getTen() + scoreSheet.getTargetOne().getEight() + scoreSheet.getTargetOne().getFive() + scoreSheet.getTargetOne().getMisses());
     }
 
     public Integer calculateTargetTwoTotals() {
-        return (scoreSheet.getTargetTwoX() + scoreSheet.getTargetTwoTen() + scoreSheet.getTargetTwoEight() + scoreSheet.getTargetTwoFive() + scoreSheet.getTargetTwoMisses());
+        return (scoreSheet.getTargetTwo().getX() + scoreSheet.getTargetTwo().getTen() + scoreSheet.getTargetTwo().getEight() + scoreSheet.getTargetTwo().getFive() + scoreSheet.getTargetTwo().getMisses());
     }
 
     public Integer calculateTotalScore() {
-        return (scoreSheet.getTotalX() + scoreSheet.getTotalTen() + scoreSheet.getTotalEight() + scoreSheet.getTotalFive());
+        return (scoreSheet.getTotalRow().getX() + scoreSheet.getTotalRow().getTen() + scoreSheet.getTotalRow().getEight() + scoreSheet.getTotalRow().getFive());
     }
 
     public List<Competitor> complete(String query){
@@ -115,12 +110,12 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
         List<String> divisionList = Arrays.asList(getSelectedDivisions());
 
-        scoreSheet.setCheckUnlimited(divisionList.contains(GSSF_UNLIMITED) ? true : false);
-        scoreSheet.setCheckStock(divisionList.contains(GSSF_STOCK) ? true : false);
-        scoreSheet.setCheckPocket(divisionList.contains(GSSF_POCKET) ? true : false);
-        scoreSheet.setCheckWoman(divisionList.contains(GSSF_WOMAN) ? true : false);
-        scoreSheet.setCheckSenior(divisionList.contains(GSSF_SENIOR) ? true : false);
-        scoreSheet.setCheckJunior(divisionList.contains(GSSF_JUNIOR) ? true : false);
+        scoreSheet.getDivsion().setUnlimited(divisionList.contains(GSSF_UNLIMITED) ? true : false);
+        scoreSheet.getDivsion().setStock(divisionList.contains(GSSF_STOCK) ? true : false);
+        scoreSheet.getDivsion().setPocket(divisionList.contains(GSSF_POCKET) ? true : false);
+        scoreSheet.getDivsion().setWoman(divisionList.contains(GSSF_WOMAN) ? true : false);
+        scoreSheet.getDivsion().setSenior(divisionList.contains(GSSF_SENIOR) ? true : false);
+        scoreSheet.getDivsion().setJunior(divisionList.contains(GSSF_JUNIOR) ? true : false);
 
     }
 

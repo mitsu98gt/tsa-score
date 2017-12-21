@@ -95,22 +95,22 @@
 						Target 1
 					</p:column>
 					<p:column>
-						<p:inputText id="targetonex" value="#{scoresheetBean.scoreSheet.targetOneX}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targetonex" value="#{scoresheetBean.scoreSheet.targetOne.x}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targetoneten" value="#{scoresheetBean.scoreSheet.targetOneTen}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targetoneten" value="#{scoresheetBean.scoreSheet.targetOne.ten}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targetoneeight" value="#{scoresheetBean.scoreSheet.targetOneEight}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targetoneeight" value="#{scoresheetBean.scoreSheet.targetOne.eight}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targetonefive" value="#{scoresheetBean.scoreSheet.targetOneFive}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targetonefive" value="#{scoresheetBean.scoreSheet.targetOne.five}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targetonemisses" value="#{scoresheetBean.scoreSheet.targetOneMisses}"  required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targetonemisses" value="#{scoresheetBean.scoreSheet.targetOne.misses}"  required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:outputLabel id="targetonetotal" value="#{scoresheetBean.scoreSheet.targetOneTotal}"/>
+						<p:outputLabel id="targetonetotal" value="#{scoresheetBean.scoreSheet.targetOne.total}"/>
 					</p:column>
 				</p:row>
 				
@@ -119,22 +119,22 @@
 						Target 2
 					</p:column>
 					<p:column>
-						<p:inputText id="targettwox" value="#{scoresheetBean.scoreSheet.targetTwoX}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targettwox" value="#{scoresheetBean.scoreSheet.targetTwo.x}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targettwoten" value="#{scoresheetBean.scoreSheet.targetTwoTen}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targettwoten" value="#{scoresheetBean.scoreSheet.targetTwo.ten}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targettwoeight" value="#{scoresheetBean.scoreSheet.targetTwoEight}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targettwoeight" value="#{scoresheetBean.scoreSheet.targetTwo.eight}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targettwofive" value="#{scoresheetBean.scoreSheet.targetTwoFive}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targettwofive" value="#{scoresheetBean.scoreSheet.targetTwo.five}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:inputText id="targettwomisses" value="#{scoresheetBean.scoreSheet.targetTwoMisses}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+						<p:inputText id="targettwomisses" value="#{scoresheetBean.scoreSheet.targetTwo.misses}" required="false" maxlength="2" style="text-align:center;width:50px"/>
 					</p:column>
 					<p:column>
-						<p:outputLabel id="targettwototal" value="#{scoresheetBean.scoreSheet.targetTwoTotal}"/>
+						<p:outputLabel id="targettwototal" value="#{scoresheetBean.scoreSheet.targetTwo.total}"/>
 					</p:column>
 				</p:row>
 				
@@ -143,22 +143,22 @@
 						Sum
 					</p:column>
 					<p:column>
-						<p:outputLabel id="sumx" value="#{scoresheetBean.scoreSheet.sumX}" />
+						<p:outputLabel id="sumx" value="#{scoresheetBean.scoreSheet.sumRow.x}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="sumten" value="#{scoresheetBean.scoreSheet.sumTen}" />
+						<p:outputLabel id="sumten" value="#{scoresheetBean.scoreSheet.sumRow.ten}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="sumeight" value="#{scoresheetBean.scoreSheet.sumEight}" />
+						<p:outputLabel id="sumeight" value="#{scoresheetBean.scoreSheet.sumRow.eight}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="sumfive" value="#{scoresheetBean.scoreSheet.sumFive}" />
+						<p:outputLabel id="sumfive" value="#{scoresheetBean.scoreSheet.sumRow.five}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="summisses" value="#{scoresheetBean.scoreSheet.sumMisses}" />
+						<p:outputLabel id="summisses" value="#{scoresheetBean.scoreSheet.sumRow.misses}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="sumtotal" value="#{scoresheetBean.scoreSheet.sumTotal}" />
+						<p:outputLabel id="sumtotal" value="#{scoresheetBean.scoreSheet.sumRow.total}" />
 					</p:column>
 				</p:row>
 				
@@ -191,16 +191,16 @@
 						Total
 					</p:column>
 					<p:column>
-						<p:outputLabel id="totalx" value="#{scoresheetBean.scoreSheet.totalX}" />
+						<p:outputLabel id="totalx" value="#{scoresheetBean.scoreSheet.totalRow.x}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="totalten" value="#{scoresheetBean.scoreSheet.totalTen}" />
+						<p:outputLabel id="totalten" value="#{scoresheetBean.scoreSheet.totalRow.ten}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="totaleight" value="#{scoresheetBean.scoreSheet.totalEight}" />
+						<p:outputLabel id="totaleight" value="#{scoresheetBean.scoreSheet.totalRow.eight}" />
 					</p:column>
 					<p:column>
-						<p:outputLabel id="totalfive" value="#{scoresheetBean.scoreSheet.totalFive}" />
+						<p:outputLabel id="totalfive" value="#{scoresheetBean.scoreSheet.totalRow.five}" />
 					</p:column>
 					<p:column>
 						<p:inputText id="penalty" value="#{scoresheetBean.scoreSheet.penalty}" required="false" maxlength="2" style="text-align:center;width:50px"/>
