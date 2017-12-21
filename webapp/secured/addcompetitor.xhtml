@@ -22,13 +22,13 @@
                 <p:outputLabel for="last" value="Last Name: " />
                 <p:inputText id="last" value="#{competitorBean.competitor.lastName}" style="width:250px" maxlength="45" required="true" requiredMessage="Last Name is required."/>
                 <p:outputLabel for="street" value="Street: " />
-                <p:inputText id="street" value="#{competitorBean.competitor.address.street}" style="width:250px" maxlength="100" required="true" requiredMessage="Street is required."/>
+                <p:inputText id="street" value="#{competitorBean.competitor.address.street}" style="width:250px" maxlength="100" required="false"/>
                 <p:outputLabel for="city" value="City: " />
-                <p:inputText id="city" value="#{competitorBean.competitor.address.city}" style="width:250px" maxlength="45" required="true" requiredMessage="City is required."/>
+                <p:inputText id="city" value="#{competitorBean.competitor.address.city}" style="width:250px" maxlength="45" required="false"/>
                 <p:outputLabel for="state" value="State: " />
-                <p:inputText id="state" value="#{competitorBean.competitor.address.state}" style="width:25px" maxlength="2" required="true" requiredMessage="State is required."/>
+                <p:inputText id="state" value="#{competitorBean.competitor.address.state}" style="width:25px" maxlength="2" required="false"/>
                 <p:outputLabel for="zipcode" value="Zipcode: " />
-                <p:inputText id="zipcode" value="#{competitorBean.competitor.address.zipcode}" style="width:75px" maxlength="10" required="true" requiredMessage="Zipcode is required."/>
+                <p:inputText id="zipcode" value="#{competitorBean.competitor.address.zipcode}" style="width:75px" maxlength="10" required="false"/>
                 <p:outputLabel for="email" value="Email: " />
                 <p:inputText id="email" value="#{competitorBean.competitor.email}" style="width:250px" maxlength="256" required="false" validatorMessage="Invalid Email.">
                     <f:validator validatorId="custom.emailValidator" />

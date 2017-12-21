@@ -25,7 +25,7 @@
         			<p:row style="text-align:center">
 	            		<p:column>
 	            			<p:autoComplete id="name" label="Name"
-	            					required="false" dropdown="true" maxlength="40"
+	            					required="true" dropdown="true" maxlength="40"
 	            					minQueryLength="3"
 	            					value="#{scoresheetBean.scoreSheet.competitor}"
 								completeMethod="#{scoresheetBean.complete}"
@@ -35,15 +35,16 @@
 							</p:autoComplete>
 	            		</p:column>
 	            		<p:column>
-	            			<p:calendar required="false" label="Date" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
+	            			<p:calendar required="true" label="Date" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
 	            		</p:column>
 	            		<p:column>
-	            			<p:selectOneMenu required="false" id="model" label="Model" value="#{scoresheetBean.scoreSheet.firearm}" converter="#{firearmConverter}">
+	            			<p:selectOneMenu required="true" id="model" label="Model" value="#{scoresheetBean.scoreSheet.firearm}" converter="#{firearmConverter}">
+								<f:selectItem itemLabel="Select Model" itemValue="" />
 								<f:selectItems value="#{scoresheetBean.firearmList}" var="firearm" itemLabel="#{firearm.model}" itemValue="#{firearm}"/>
         					</p:selectOneMenu>
 	            		</p:column>
 	            		<p:column>
-	            			<p:inputText id="entry" required="true" label="Entry Number" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="8"/>
+	            			<p:inputText id="entry" required="false" label="Entry Number" value="#{scoresheetBean.scoreSheet.entry}" style="text-align:center;width:110px" maxlength="10"/>
 	            		</p:column>
         			</p:row>
 			</p:panelGrid>
@@ -51,7 +52,7 @@
 			<p:panelGrid style="margin-top:20px;width:85%">
 				<p:row>
 				  <p:column colspan="6">
-					<p:selectManyCheckbox id="divisions" value="#{scoresheetBean.selectedDivisions}" layout="responsive" columns="6">
+					<p:selectManyCheckbox id="divisions" value="#{scoresheetBean.selectedDivisions}" layout="responsive" columns="6" required="true">
         					<f:selectItem itemLabel="Stock" itemValue="GSSF_STOCK" />
         					<f:selectItem itemLabel="Unlimited" itemValue="GSSF_UNLIMITED" />
         					<f:selectItem itemLabel="Pocket" itemValue="GSSF_POCKET" />

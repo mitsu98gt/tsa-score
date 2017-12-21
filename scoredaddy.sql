@@ -41,7 +41,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'Tims Shooting Academy','17777 Commerce Dr','Westfield','IN','46074','3173997918');
+INSERT INTO `account` VALUES (1,'Vinh\'s Shooting Academy','17777 Commerce Dr','Westfield','IN','46074','3173997918');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,9 +204,8 @@ CREATE TABLE `competitor` (
   `email` varchar(256) DEFAULT NULL,
   `gssf_id` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `gssf_id_UNIQUE` (`gssf_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +214,7 @@ CREATE TABLE `competitor` (
 
 LOCK TABLES `competitor` WRITE;
 /*!40000 ALTER TABLE `competitor` DISABLE KEYS */;
-INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678'),(2,'Bugs','Bunny','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','1'),(4,'Elmer','Fudd','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','2'),(5,'daffy','duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','3'),(6,'Porky','Pig','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','4'),(7,'Donald','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','5');
+INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678'),(2,'Bugs','Bunny','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','1'),(4,'Elmer','Fudd','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','2'),(5,'daffy','duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','3'),(6,'Porky','Pig','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','4'),(7,'Donald','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','5'),(8,'Mickey','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','Mickey.Mouse@test.com','');
 /*!40000 ALTER TABLE `competitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,4 +417,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-20  1:00:24
+-- Dump completed on 2017-12-21  0:20:27
