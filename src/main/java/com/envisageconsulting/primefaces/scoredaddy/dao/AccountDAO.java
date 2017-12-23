@@ -4,6 +4,6 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.Account;
 
 public interface AccountDAO {
 
-    public void addAccount(Account account);
+    public void addAccount(Account account) throws Exception;
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CompetitorDAO {
 
-    public List<Competitor> getCompetitorsForScoreSheet();
-    public void addCompetitor(Competitor competitor);
+    public List<Competitor> getCompetitorsForScoreSheet() throws Exception;
+    public void addCompetitor(Competitor competitor) throws Exception;
 
 }

@@ -23,7 +23,11 @@ public class CompetitorDataSource {
 	@PostConstruct
 	public void init() {
 
-		competitors = dao.getCompetitorsForScoreSheet();
+		try {
+			competitors = dao.getCompetitorsForScoreSheet();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public CompetitorDataSource(){

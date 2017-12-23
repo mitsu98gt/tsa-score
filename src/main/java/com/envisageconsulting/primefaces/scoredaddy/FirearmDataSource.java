@@ -22,7 +22,11 @@ public class FirearmDataSource {
     @PostConstruct
     public void init() {
 
-        firearms = dao.getFirearmForScoreSheet();
+        try {
+            firearms = dao.getFirearmForScoreSheet();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Firearm> getFirearms() {

@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
 
-    public List<UserRole> getAllUserRoles() {
+    public List<UserRole> getAllUserRoles() throws Exception {
 
         String sql = "select * from role_codes";
 
@@ -42,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
             ps.close();
             return userRoles;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new Exception(e);
         } finally {
             if (conn != null) {
                 try {
@@ -52,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    public void addUser(User user) throws MySQLIntegrityConstraintViolationException {
+    public void addUser(User user) throws Exception {
         String sql = "insert into users (first_name, last_name, username, password, email, role_code, create_date) values (?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
@@ -71,7 +71,7 @@ public class UserDAOImpl implements UserDAO {
 
             ps.close();
         } catch (SQLException ex) {
-            throw new MySQLIntegrityConstraintViolationException();
+            throw new Exception("Failed to add User!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

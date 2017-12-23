@@ -32,7 +32,11 @@ public class UserBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        setRoles(dao.getAllUserRoles());
+        try {
+            setRoles(dao.getAllUserRoles());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void addUser() throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -46,8 +50,8 @@ public class UserBean implements Serializable {
             user.setPassword(Encryption.generateStringPasswordHash(password2));
             try {
                 dao.addUser(user);
-            } catch (MySQLIntegrityConstraintViolationException e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exists.", "ERROR MSG"));
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error with adding a User!", "ERROR MSG"));
             }
         }
     }

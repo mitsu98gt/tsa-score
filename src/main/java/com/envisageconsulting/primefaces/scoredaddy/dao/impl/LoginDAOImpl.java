@@ -15,7 +15,7 @@ public class LoginDAOImpl implements LoginDAO {
 
     private DataSource dataSource;
 
-    public String getPasswordHash(String username) {
+    public String getPasswordHash(String username) throws Exception {
 
         String sql = "select password from users where username = ?";
         String passwordHash = "";
@@ -36,7 +36,7 @@ public class LoginDAOImpl implements LoginDAO {
             ps.close();
             return passwordHash;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new Exception(e);
         } finally {
             if (conn != null) {
                 try {

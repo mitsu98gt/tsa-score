@@ -16,7 +16,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     private DataSource dataSource;
 
-    public List<CompetitionCode> getAllCompetitionCodes() {
+    public List<CompetitionCode> getAllCompetitionCodes() throws Exception {
 
         String sql = "select * from competition_codes";
 
@@ -39,7 +39,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ps.close();
             return codes;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new Exception(e);
         } finally {
             if (conn != null) {
                 try {
@@ -49,7 +49,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
-    public List<CourseCode> getAllCourseCodes() {
+    public List<CourseCode> getAllCourseCodes() throws Exception {
 
         String sql = "select * from course_codes";
 
@@ -71,7 +71,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ps.close();
             return codes;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new Exception(e);
         } finally {
             if (conn != null) {
                 try {
@@ -81,7 +81,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
-    public void addCompetition(Competition competition) {
+    public void addCompetition(Competition competition) throws Exception {
 
         String sql = "insert into competition (account_id, name, description) values (?, ?, ?)";
 
@@ -97,7 +97,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
             ps.close();
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new Exception("Failed to add Competition!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {
@@ -107,7 +107,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
-    public void addCompetitionDetails(CompetitionDetails competitionDetails) {
+    public void addCompetitionDetails(CompetitionDetails competitionDetails) throws Exception {
 
         String sql = "insert into competition_details (id, code, date, course) values (?, ?, ?, ?)";
 
@@ -124,7 +124,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
             ps.close();
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new Exception(ex);
         } finally {
             if (conn != null) {
                 try {

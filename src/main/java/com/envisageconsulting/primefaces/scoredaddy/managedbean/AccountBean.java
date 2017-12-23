@@ -33,7 +33,11 @@ public class AccountBean implements Serializable {
     }
 
     public void addAccount() {
-        dao.addAccount(getAccount());
+        try {
+            dao.addAccount(getAccount());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMail() {

@@ -28,7 +28,11 @@ public class CompetitorBean implements Serializable {
 
     public void addCompetitor() {
 
-        dao.addCompetitor(getCompetitor());
+        try {
+            dao.addCompetitor(getCompetitor());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

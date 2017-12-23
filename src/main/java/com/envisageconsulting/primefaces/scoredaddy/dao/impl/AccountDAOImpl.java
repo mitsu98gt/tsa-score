@@ -12,7 +12,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     private DataSource dataSource;
 
-    public void addAccount(Account account) {
+    public void addAccount(Account account) throws Exception {
         String sql = "insert into account (name, street, city, state, zipcode, phone) values (?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
@@ -30,7 +30,7 @@ public class AccountDAOImpl implements AccountDAO {
 
             ps.close();
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new Exception("Failed to add an Account!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

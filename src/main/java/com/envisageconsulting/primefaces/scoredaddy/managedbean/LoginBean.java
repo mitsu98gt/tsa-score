@@ -36,9 +36,10 @@ public class LoginBean implements Serializable {
 	 */
 	public String doLogin() {
 
-		String passwordHash = dao.getPasswordHash(username);
-
 		try {
+
+			String passwordHash = dao.getPasswordHash(username);
+
 			if (validatePassword(passwordHash)) {
 				loggedIn = true;
 				return navigationBean.redirectToWelcome();

@@ -16,7 +16,7 @@ public class FirearmDAOimpl implements FirearmDAO {
 
     private DataSource dataSource;
 
-    public List<Firearm> getFirearmForScoreSheet() {
+    public List<Firearm> getFirearmForScoreSheet() throws Exception {
 
         String sql = "select id, model from firearm_models order by model";
 
@@ -38,7 +38,7 @@ public class FirearmDAOimpl implements FirearmDAO {
             ps.close();
             return firearmList;
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new Exception(ex);
         } finally {
             if (conn != null) {
                 try {

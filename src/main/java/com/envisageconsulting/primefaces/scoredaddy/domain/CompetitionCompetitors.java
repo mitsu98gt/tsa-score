@@ -4,7 +4,7 @@ public class CompetitionCompetitors {
 
     private String competitionId;
     private String competitorId;
-    private String firearm;
+    private String firearmId;
 
     public String getCompetitionId() {
         return competitionId;
@@ -22,11 +22,11 @@ public class CompetitionCompetitors {
         this.competitorId = competitorId;
     }
 
-    public String getFirearm() {
-        return firearm;
+    public String getFirearmId() {
+        return firearmId;
     }
 
-    public void setFirearm(String firearm) {
-        this.firearm = firearm;
+    public void setFirearmId(String firearmId) {
+        this.firearmId = firearmId;
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserDAO {
 
-    public List<UserRole> getAllUserRoles();
-    public void addUser(User user) throws MySQLIntegrityConstraintViolationException;
+    public List<UserRole> getAllUserRoles() throws Exception;
+    public void addUser(User user) throws Exception;
 
 }

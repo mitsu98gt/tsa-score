@@ -16,7 +16,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
     private DataSource dataSource;
 
-    public List<Competitor> getCompetitorsForScoreSheet() {
+    public List<Competitor> getCompetitorsForScoreSheet() throws Exception {
 
         String sql = "select id, first_name, last_name from competitor";
 
@@ -39,7 +39,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             ps.close();
             return competitorList;
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new Exception(ex);
         } finally {
             if (conn != null) {
                 try {
@@ -49,7 +49,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
         }
     }
 
-    public void addCompetitor(Competitor competitor) {
+    public void addCompetitor(Competitor competitor) throws Exception {
         String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
@@ -70,7 +70,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
             ps.close();
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new Exception("Failed to add Competitor! " + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

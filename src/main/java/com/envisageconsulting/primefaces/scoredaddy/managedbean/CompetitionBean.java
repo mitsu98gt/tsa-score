@@ -30,18 +30,30 @@ public class CompetitionBean implements Serializable {
     @PostConstruct
     public void init() {
         getCompetitionDetails().setCompetitionCode(new CompetitionCode());
-        setCompetitionCodeList(dao.getAllCompetitionCodes());
-        setCourseCodeList(dao.getAllCourseCodes());
+        try {
+            setCompetitionCodeList(dao.getAllCompetitionCodes());
+            setCourseCodeList(dao.getAllCourseCodes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void addCompetition() {
         competition.setAccountId("1"); //TODO Testing only, Remove this at some point.
-        dao.addCompetition(getCompetition());
+        try {
+            dao.addCompetition(getCompetition());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void addCompetitionDetails() {
         competitionDetails.setCompetitionDetailsId("1");
-        dao.addCompetitionDetails(getCompetitionDetails());
+        try {
+            dao.addCompetitionDetails(getCompetitionDetails());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setDao(CompetitionDAO dao) {

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FirearmDAO {
 
-    public List<Firearm> getFirearmForScoreSheet();
+    public List<Firearm> getFirearmForScoreSheet() throws Exception;
 
 }
