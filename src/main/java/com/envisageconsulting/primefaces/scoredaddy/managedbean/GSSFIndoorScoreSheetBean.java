@@ -94,6 +94,8 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         competitionCompetitors.setFirearmId(scoreSheet.getFirearm().getId());
         competitionResults.setCompetitionCompetitors(competitionCompetitors);
 
+        parseSelectedDivisions();
+
         competitionResults.setGssfIndoorScoreSheet(scoreSheet);
 
         return competitionResults;
