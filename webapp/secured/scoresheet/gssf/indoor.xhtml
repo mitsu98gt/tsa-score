@@ -233,8 +233,9 @@
 			<p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" style="width:150px">
 				<p:fileDownload value="#{scoresheetBean.file}" />
 			</p:commandButton>
+			<p:commandButton value="Save to DB!" id="persistBtn" actionListener="#{scoresheetBean.saveToDatabase}" ajax="false" style="width:250px"/>
 			<br/>
-			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
 		</h:form>
        </div>
 		<p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">

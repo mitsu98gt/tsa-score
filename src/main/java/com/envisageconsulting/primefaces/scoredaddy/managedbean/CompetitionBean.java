@@ -48,7 +48,7 @@ public class CompetitionBean implements Serializable {
     }
 
     public void addCompetitionDetails() {
-        competitionDetails.setCompetitionDetailsId("1");
+        competitionDetails.setCompetitionDetailsId("1"); //TODO Testing only, Remove this at some point.
         try {
             dao.addCompetitionDetails(getCompetitionDetails());
         } catch (Exception e) {

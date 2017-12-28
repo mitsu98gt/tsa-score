@@ -56,4 +56,5 @@ public class Division {
     public void setJunior(boolean junior) {
         this.junior = junior;
     }
+
 }

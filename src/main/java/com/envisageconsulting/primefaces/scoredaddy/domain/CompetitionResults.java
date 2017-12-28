@@ -4,18 +4,9 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoor
 
 public class CompetitionResults {
 
-    private String competitionResultsId;
     private CompetitionDetails competitionDetails;
     private CompetitionCompetitors competitionCompetitors;
     private GSSFIndoorScoreSheet gssfIndoorScoreSheet;
-
-    public String getCompetitionResultsId() {
-        return competitionResultsId;
-    }
-
-    public void setCompetitionResultsId(String competitionResultsId) {
-        this.competitionResultsId = competitionResultsId;
-    }
 
     public CompetitionDetails getCompetitionDetails() {
         return competitionDetails;

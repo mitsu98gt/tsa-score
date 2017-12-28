@@ -1,30 +1,24 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
-import com.envisageconsulting.primefaces.scoredaddy.CompetitorDataSource;
-import com.envisageconsulting.primefaces.scoredaddy.FirearmDataSource;
-import com.envisageconsulting.primefaces.scoredaddy.GSSFIndoorScoreSheetPDF;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Firearm;
+import com.envisageconsulting.primefaces.scoredaddy.*;
+import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
+import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
 @RequestScoped
 @ManagedBean(name="scoresheetBean")
 public class GSSFIndoorScoreSheetBean implements Serializable {
-
-    private static final String GSSF_UNLIMITED = "GSSF_UNLIMITED";
-    private static final String GSSF_STOCK = "GSSF_STOCK";
-    private static final String GSSF_POCKET = "GSSF_POCKET";
-    private static final String GSSF_WOMAN = "GSSF_WOMAN";
-    private static final String GSSF_SENIOR = "GSSF_SENIOR";
-    private static final String GSSF_JUNIOR = "GSSF_JUNIOR";
 
 	private GSSFIndoorScoreSheet scoreSheet;
     private StreamedContent file;
@@ -34,6 +28,9 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     @ManagedProperty("#{firearmDataSource}")
     private FirearmDataSource firearmDataSource;
+
+    @ManagedProperty("#{competitionResultsDAO}")
+    private CompetitionResultsDAO competitionResultsDAO;
 
     private List<Firearm> firearmList;
 
@@ -65,6 +62,41 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         doScore();
         GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
         return new DefaultStreamedContent(pdf.downloadPDF(scoreSheet), "application/pdf", "scoresheet.pdf");
+    }
+
+    public void saveToDatabase() {
+
+        try {
+            competitionResultsDAO.addCompetitionResults(buildCompetitionResults());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Scores saved successfully!"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Scores did not save!"));
+        }
+
+    }
+
+    public CompetitionResults buildCompetitionResults() throws Exception {
+
+        CompetitionResults competitionResults = new CompetitionResults();
+        CompetitionDetails competitionDetails = new CompetitionDetails();
+        CompetitionCode competitionCode = new CompetitionCode();
+
+        competitionCode.setCode("1");
+        competitionDetails.setCompetitionCode(competitionCode);
+
+        competitionDetails.setCompetitionDetailsId("1");
+        competitionDetails.setDate(DateUtils.getDateFromString("2018-01-06"));
+        competitionResults.setCompetitionDetails(competitionDetails);
+
+        CompetitionCompetitors competitionCompetitors = new CompetitionCompetitors();
+        competitionCompetitors.setCompetitorId(scoreSheet.getCompetitor().getCompetitorId());
+        competitionCompetitors.setFirearmId(scoreSheet.getFirearm().getId());
+        competitionResults.setCompetitionCompetitors(competitionCompetitors);
+
+        competitionResults.setGssfIndoorScoreSheet(scoreSheet);
+
+        return competitionResults;
     }
 
     public void calculateTargetTotals() {
@@ -110,12 +142,12 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
         List<String> divisionList = Arrays.asList(getSelectedDivisions());
 
-        scoreSheet.getDivsion().setUnlimited(divisionList.contains(GSSF_UNLIMITED) ? true : false);
-        scoreSheet.getDivsion().setStock(divisionList.contains(GSSF_STOCK) ? true : false);
-        scoreSheet.getDivsion().setPocket(divisionList.contains(GSSF_POCKET) ? true : false);
-        scoreSheet.getDivsion().setWoman(divisionList.contains(GSSF_WOMAN) ? true : false);
-        scoreSheet.getDivsion().setSenior(divisionList.contains(GSSF_SENIOR) ? true : false);
-        scoreSheet.getDivsion().setJunior(divisionList.contains(GSSF_JUNIOR) ? true : false);
+        scoreSheet.getDivsion().setUnlimited(divisionList.contains(Constants.GSSF_UNLIMITED) ? true : false);
+        scoreSheet.getDivsion().setStock(divisionList.contains(Constants.GSSF_STOCK) ? true : false);
+        scoreSheet.getDivsion().setPocket(divisionList.contains(Constants.GSSF_POCKET) ? true : false);
+        scoreSheet.getDivsion().setWoman(divisionList.contains(Constants.GSSF_WOMAN) ? true : false);
+        scoreSheet.getDivsion().setSenior(divisionList.contains(Constants.GSSF_SENIOR) ? true : false);
+        scoreSheet.getDivsion().setJunior(divisionList.contains(Constants.GSSF_JUNIOR) ? true : false);
 
     }
 
@@ -133,6 +165,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public void setFirearmDataSource(FirearmDataSource firearmDataSource) {
         this.firearmDataSource = firearmDataSource;
+    }
+
+    public void setCompetitionResultsDAO(CompetitionResultsDAO competitionResultsDAO) {
+        this.competitionResultsDAO = competitionResultsDAO;
     }
 
     public GSSFIndoorScoreSheet getScoreSheet() {

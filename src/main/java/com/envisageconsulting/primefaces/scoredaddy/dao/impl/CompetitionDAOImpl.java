@@ -118,7 +118,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, competitionDetails.getCompetitionDetailsId());
             ps.setString(2, competitionDetails.getCompetitionCode().getCompetitionCodeId());
-            ps.setString(3, DateUtils.getDateTime(competitionDetails.getDate()));
+            ps.setString(3, DateUtils.getDate(competitionDetails.getDate()));
             ps.setString(4, competitionDetails.getCourse());
             ps.executeUpdate();
 
