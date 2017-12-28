@@ -32,7 +32,7 @@ CREATE TABLE `account` (
   `phone` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'Vinh\'s Shooting Academy','17777 Commerce Dr','Westfield','IN','46074','3173997918');
+INSERT INTO `account` VALUES (1,'Vinh\'s Shooting Academy','11634 Cannington Circle','Fishers','IN','46037','5743298039'),(2,'Tim\'s Shooting Academy','17777 Commerce Dr','Westfield','IN','46074','3173997918');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +62,7 @@ CREATE TABLE `competition` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `account_id_idx` (`account_id`),
   CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `competition` (
 
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
-INSERT INTO `competition` VALUES (1,1,'GSSF Competition','Winter Competition','N'),(2,1,'GSSF Competition','Summer Competition','N');
+INSERT INTO `competition` VALUES (1,2,'GSSF Competition','Winter Competition','N');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +112,7 @@ DROP TABLE IF EXISTS `competition_details`;
 CREATE TABLE `competition_details` (
   `id` int(11) NOT NULL,
   `code` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `course` varchar(1) NOT NULL,
   PRIMARY KEY (`id`,`code`,`date`),
   KEY `code_idx` (`code`),
@@ -130,7 +130,7 @@ CREATE TABLE `competition_details` (
 
 LOCK TABLES `competition_details` WRITE;
 /*!40000 ALTER TABLE `competition_details` DISABLE KEYS */;
-INSERT INTO `competition_details` VALUES (1,1,'2017-10-10 00:00:00','A');
+INSERT INTO `competition_details` VALUES (1,1,'2018-01-06','A');
 /*!40000 ALTER TABLE `competition_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,10 +144,15 @@ DROP TABLE IF EXISTS `competition_results`;
 CREATE TABLE `competition_results` (
   `id` int(11) NOT NULL,
   `code` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `competitor_id` int(11) NOT NULL,
   `firearm_id` int(11) NOT NULL,
-  `division_codes` varchar(60) NOT NULL,
+  `stock_division` bit(1) NOT NULL,
+  `unlimited_division` bit(1) NOT NULL,
+  `pocket_division` bit(1) NOT NULL,
+  `woman_division` bit(1) NOT NULL,
+  `senior_division` bit(1) NOT NULL,
+  `junior_division` bit(1) NOT NULL,
   `target_one_x` int(11) NOT NULL,
   `target_one_ten` int(11) NOT NULL,
   `target_one_eight` int(11) NOT NULL,
@@ -162,17 +167,16 @@ CREATE TABLE `competition_results` (
   `range_officer_initials` varchar(3) NOT NULL,
   `competitor_initials` varchar(3) NOT NULL,
   PRIMARY KEY (`id`,`code`,`date`,`competitor_id`,`firearm_id`),
-  KEY `division_code_idx` (`division_codes`),
   KEY `competitor_id_idx` (`competitor_id`),
   KEY `code_idx` (`code`),
   KEY `id_idx` (`id`),
-  KEY `competition_date` (`date`),
   KEY `firearm_id_idx` (`firearm_id`),
+  KEY `competition_date_idx` (`date`),
   CONSTRAINT `competition_date` FOREIGN KEY (`date`) REFERENCES `competition_details` (`date`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `competition_detail_code` FOREIGN KEY (`code`) REFERENCES `competition_details` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `competition_detail_id` FOREIGN KEY (`id`) REFERENCES `competition_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `competitor_id` FOREIGN KEY (`competitor_id`) REFERENCES `competitor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `firearm_id` FOREIGN KEY (`firearm_id`) REFERENCES `firearm_brands` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `firearm_id` FOREIGN KEY (`firearm_id`) REFERENCES `firearm_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -182,6 +186,7 @@ CREATE TABLE `competition_results` (
 
 LOCK TABLES `competition_results` WRITE;
 /*!40000 ALTER TABLE `competition_results` DISABLE KEYS */;
+INSERT INTO `competition_results` VALUES (1,1,'2018-01-06',1,5,'\0','\0','\0','\0','\0','\0',20,0,0,0,0,30,0,0,0,0,0,'RO','VD');
 /*!40000 ALTER TABLE `competition_results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,4 +422,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-21  0:20:27
+-- Dump completed on 2017-12-28  0:01:04
