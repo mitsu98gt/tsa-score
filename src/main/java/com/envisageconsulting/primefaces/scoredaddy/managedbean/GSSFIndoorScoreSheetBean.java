@@ -78,6 +78,8 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public CompetitionResults buildCompetitionResults() throws Exception {
 
+        doScore();
+
         CompetitionResults competitionResults = new CompetitionResults();
         CompetitionDetails competitionDetails = new CompetitionDetails();
         CompetitionCode competitionCode = new CompetitionCode();
@@ -95,6 +97,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         competitionResults.setCompetitionCompetitors(competitionCompetitors);
 
         parseSelectedDivisions();
+        scoreSheet.setTotalX(calculateTotalX());
 
         competitionResults.setGssfIndoorScoreSheet(scoreSheet);
 
@@ -121,6 +124,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         scoreSheet.getTotalRow().setEight(scoreSheet.getSumRow().getEight() * 8);
         scoreSheet.getTotalRow().setFive(scoreSheet.getSumRow().getFive() * 5);
         scoreSheet.setFinalScore(calculateTotalScore() - scoreSheet.getPenalty());
+    }
+
+    public Integer calculateTotalX() {
+        return scoreSheet.getTargetOne().getX() + scoreSheet.getTargetTwo().getX();
     }
 
     public Integer calculateTargetOneTotals() {

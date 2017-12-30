@@ -20,8 +20,8 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         String sql = "insert into competition_results (id, code, competition_results.date, competitor_id, firearm_id, stock_division, unlimited_division, " +
                 "pocket_division, woman_division, senior_division, junior_division, " +
                 "target_one_x, target_one_ten, target_one_eight, target_one_five, target_one_misses, target_two_x, " +
-                "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, " +
-                "range_officer_initials, competitor_initials) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, final_score, total_x, " +
+                "range_officer_initials, competitor_initials) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
 
@@ -51,8 +51,10 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setInt(20, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getFive());
             ps.setInt(21, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getMisses());
             ps.setInt(22, competitionResults.getGssfIndoorScoreSheet().getPenalty());
-            ps.setString(23, competitionResults.getGssfIndoorScoreSheet().getRangeOfficerInitials());
-            ps.setString(24, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials());
+            ps.setInt(23, competitionResults.getGssfIndoorScoreSheet().getFinalScore());
+            ps.setInt(24, competitionResults.getGssfIndoorScoreSheet().getTotalX());
+            ps.setString(25, competitionResults.getGssfIndoorScoreSheet().getRangeOfficerInitials().toUpperCase());
+            ps.setString(26, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials().toUpperCase());
             ps.executeUpdate();
 
             ps.close();

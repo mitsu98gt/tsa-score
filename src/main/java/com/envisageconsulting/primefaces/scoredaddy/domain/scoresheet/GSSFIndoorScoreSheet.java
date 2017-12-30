@@ -18,6 +18,7 @@ public class GSSFIndoorScoreSheet {
 	private TotalRow totalRow = new TotalRow();
 	private Integer penalty;
 	private Integer finalScore;
+	private Integer totalX;
 	private String rangeOfficerInitials;
 	private String competitorInitials;
 
@@ -107,6 +108,14 @@ public class GSSFIndoorScoreSheet {
 
 	public void setFinalScore(Integer finalScore) {
 		this.finalScore = finalScore;
+	}
+
+	public Integer getTotalX() {
+		return totalX;
+	}
+
+	public void setTotalX(Integer totalX) {
+		this.totalX = totalX;
 	}
 
 	public String getRangeOfficerInitials() {
