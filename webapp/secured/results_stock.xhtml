@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Results 1</title>
+</h:head>
+<h:body>
+    <div class="ui-fluid">
+        <h:form>
+            <p:panel header="STOCK">
+               <p:panelGrid id="grid1" style="margin-top:20px;width:100%">
+
+                <p:row style="text-align:center;font-weight:bold">
+                    <p:column colspan="4">CLASS A</p:column>
+                    <p:column colspan="8">#{gssfResultsBean.competitionDate}</p:column>
+                </p:row>
+
+                <p:row style="text-align:center;font-weight:bold">
+                    <p:column></p:column>
+                    <p:column colspan="2">Name</p:column>
+                    <p:column>Model</p:column>
+                    <p:column>X</p:column>
+                    <p:column>10</p:column>
+                    <p:column>8</p:column>
+                    <p:column>5</p:column>
+                    <p:column>Miss</p:column>
+                    <p:column>Penalty</p:column>
+                    <p:column>Total</p:column>
+                    <p:column>Total Xs</p:column>
+                </p:row>
+
+                <p:row style="text-align:center">
+                    <p:column>1</p:column>
+                    <p:column>Vinh</p:column>
+                    <p:column>Dang</p:column>
+                    <p:column>G34</p:column>
+                    <p:column>50</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>500</p:column>
+                    <p:column>50</p:column>
+                </p:row>
+
+                <p:row style="text-align:center">
+                    <p:column>2</p:column>
+                    <p:column>Mickey</p:column>
+                    <p:column>Mouse</p:column>
+                    <p:column>G19</p:column>
+                    <p:column>48</p:column>
+                    <p:column>1</p:column>
+                    <p:column>1</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>498</p:column>
+                    <p:column>48</p:column>
+                </p:row>
+
+                <p:row style="text-align:center">
+                    <p:column>3</p:column>
+                    <p:column>Donald</p:column>
+                    <p:column>Duck</p:column>
+                    <p:column>G17</p:column>
+                    <p:column>46</p:column>
+                    <p:column>2</p:column>
+                    <p:column>2</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>0</p:column>
+                    <p:column>496</p:column>
+                    <p:column>46</p:column>
+                </p:row>
+
+               </p:panelGrid>
+
+            </p:panel>
+
+        </h:form>
+    </div>
+</h:body>
+</html>

@@ -2,18 +2,102 @@ package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
 import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
+import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionDetails;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionResults;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Firearm;
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.TargetOne;
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.TargetTwo;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.lang.annotation.Target;
+import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
     private DataSource dataSource;
+
+    public List<CompetitionResults> getStockCompetitionResultsByCompetitionId(int competitionId) throws Exception {
+
+        List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
+
+        String sql = "select * from scoredaddy.competition_results cr, scoredaddy.competitor cm, " +
+                "scoredaddy.firearm_models fm where cr.id = ? and cr.stock_division = 1 " +
+                "and cr.competitor_id = cm.id and cr.firearm_id = fm.id order by final_score desc, total_x desc;";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, competitionId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                CompetitionResults competitionResults = new CompetitionResults();
+                CompetitionDetails competitionDetails = new CompetitionDetails();
+
+                competitionDetails.setDate(rs.getDate("date"));
+                competitionResults.setCompetitionDetails(competitionDetails);
+
+                GSSFIndoorScoreSheet gssfIndoorScoreSheet = new GSSFIndoorScoreSheet();
+
+                Competitor competitor = new Competitor();
+                competitor.setFirstName(rs.getString("first_name"));
+                competitor.setLastName(rs.getString("last_name"));
+                gssfIndoorScoreSheet.setCompetitor(competitor);
+
+                Firearm firearm = new Firearm();
+                firearm.setModel(rs.getString("model"));
+                gssfIndoorScoreSheet.setFirearm(firearm);
+
+                TargetOne targetOne = new TargetOne();
+                targetOne.setX(rs.getInt("target_one_x"));
+                targetOne.setTen(rs.getInt("target_one_ten"));
+                targetOne.setEight(rs.getInt("target_one_eight"));
+                targetOne.setFive(rs.getInt("target_one_five"));
+                targetOne.setMisses(rs.getInt("target_one_misses"));
+                gssfIndoorScoreSheet.setTargetOne(targetOne);
+
+                TargetTwo targetTwo = new TargetTwo();
+                targetTwo.setX(rs.getInt("target_two_x"));
+                targetTwo.setTen(rs.getInt("target_two_ten"));
+                targetTwo.setEight(rs.getInt("target_two_eight"));
+                targetTwo.setFive(rs.getInt("target_two_five"));
+                targetTwo.setMisses(rs.getInt("target_two_misses"));
+                gssfIndoorScoreSheet.setTargetTwo(targetTwo);
+
+                gssfIndoorScoreSheet.setPenalty(rs.getInt("penalty"));
+                gssfIndoorScoreSheet.setFinalScore(rs.getInt("final_score"));
+                gssfIndoorScoreSheet.setTotalX(rs.getInt("total_x"));
+
+                competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
+
+                competitionResultsList.add(competitionResults);
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return competitionResultsList;
+
+        } catch (SQLException ex) {
+            throw new Exception(ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {}
+            }
+        }
+    }
 
     public void addCompetitionResults(CompetitionResults competitionResults) throws Exception {
 
