@@ -5,85 +5,100 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>Results 1</title>
+    <title>Stock Scores</title>
+    <h:outputStylesheet name="style.css" library="css" />
 </h:head>
 <h:body>
     <div class="ui-fluid">
-        <h:form>
-            <p:panel header="STOCK">
-               <p:panelGrid id="grid1" style="margin-top:20px;width:100%">
+        <h:form id="scoresfrm">
+            <p:panel>
 
-                <p:row style="text-align:center;font-weight:bold">
-                    <p:column colspan="4">CLASS A</p:column>
-                    <p:column colspan="8">#{gssfResultsBean.competitionDate}</p:column>
-                </p:row>
+                <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="scoresTable" var="scores" value="#{gssfResultsBean.competitionStockResultsList}" style="font-size:13px;text-align:center">
 
-                <p:row style="text-align:center;font-weight:bold">
-                    <p:column></p:column>
-                    <p:column colspan="2">Name</p:column>
-                    <p:column>Model</p:column>
-                    <p:column>X</p:column>
-                    <p:column>10</p:column>
-                    <p:column>8</p:column>
-                    <p:column>5</p:column>
-                    <p:column>Miss</p:column>
-                    <p:column>Penalty</p:column>
-                    <p:column>Total</p:column>
-                    <p:column>Total Xs</p:column>
-                </p:row>
+                    <f:facet name="header">
+                        GSSF Scores
+                    </f:facet>
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column colspan="3" headerText="CLASS A"/>
+                            <p:column colspan="8" headerText="December 1st, 2017"/>
+                        </p:row>
+                        <p:row>
+                            <p:column headerText="Rank" exportable="true"/>
+                            <p:column headerText="First" filterBy="#{scores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                            <p:column headerText="Last" filterBy="#{scores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                            <p:column headerText="Model" filterBy="#{scores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="10"/>
+                            <p:column headerText="8"/>
+                            <p:column headerText="5"/>
+                            <p:column headerText="Miss"/>
+                            <p:column headerText="Penalty"/>
+                            <p:column headerText="Score"/>
+                        </p:row>
+                    </p:columnGroup>
 
-                <p:row style="text-align:center">
-                    <p:column>1</p:column>
-                    <p:column>Vinh</p:column>
-                    <p:column>Dang</p:column>
-                    <p:column>G34</p:column>
-                    <p:column>50</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>500</p:column>
-                    <p:column>50</p:column>
-                </p:row>
+                    <p:column>
+                        <h:outputText value="#{scores.rank}" />
+                    </p:column>
 
-                <p:row style="text-align:center">
-                    <p:column>2</p:column>
-                    <p:column>Mickey</p:column>
-                    <p:column>Mouse</p:column>
-                    <p:column>G19</p:column>
-                    <p:column>48</p:column>
-                    <p:column>1</p:column>
-                    <p:column>1</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>498</p:column>
-                    <p:column>48</p:column>
-                </p:row>
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.competitor.firstName}" />
+                    </p:column>
 
-                <p:row style="text-align:center">
-                    <p:column>3</p:column>
-                    <p:column>Donald</p:column>
-                    <p:column>Duck</p:column>
-                    <p:column>G17</p:column>
-                    <p:column>46</p:column>
-                    <p:column>2</p:column>
-                    <p:column>2</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>0</p:column>
-                    <p:column>496</p:column>
-                    <p:column>46</p:column>
-                </p:row>
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.competitor.lastName}" />
+                    </p:column>
 
-               </p:panelGrid>
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.firearm.model}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.x + scores.gssfIndoorScoreSheet.targetTwo.x}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.ten + scores.gssfIndoorScoreSheet.targetTwo.ten}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.eight + scores.gssfIndoorScoreSheet.targetTwo.eight}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.five + scores.gssfIndoorScoreSheet.targetTwo.five}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.misses + scores.gssfIndoorScoreSheet.targetTwo.misses}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.penalty}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{scores.gssfIndoorScoreSheet.finalScore}" />
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:commandLink>
+                    XLS
+                    <pe:exporter type="xlsx" target="scoresTable" fileName="Scores" subTable="false"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    PDF
+                    <pe:exporter type="pdf" target="scoresTable" fileName="Scores" subTable="false" orientation="Landscape"/>
+                </h:commandLink>
 
             </p:panel>
-
         </h:form>
     </div>
 </h:body>

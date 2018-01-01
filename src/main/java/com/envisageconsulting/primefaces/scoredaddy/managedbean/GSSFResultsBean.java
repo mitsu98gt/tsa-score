@@ -7,10 +7,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
 
-@RequestScoped
+@ViewScoped
 @ManagedBean(name="gssfResultsBean")
 public class GSSFResultsBean implements Serializable {
 
@@ -18,6 +19,8 @@ public class GSSFResultsBean implements Serializable {
     private CompetitionResultsDAO competitionResultsDAO;
 
     private List<CompetitionResults> competitionStockResultsList;
+    private List<CompetitionResults> filtered;
+
     private String competitionDate;
 
     @PostConstruct
@@ -34,7 +37,19 @@ public class GSSFResultsBean implements Serializable {
         return "January 6th, 2018";
     }
 
+    public List<CompetitionResults> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(List<CompetitionResults> filtered) {
+        this.filtered = filtered;
+    }
+
     public void setCompetitionResultsDAO(CompetitionResultsDAO competitionResultsDAO) {
         this.competitionResultsDAO = competitionResultsDAO;
+    }
+
+    public List<CompetitionResults> getCompetitionStockResultsList() {
+        return competitionStockResultsList;
     }
 }

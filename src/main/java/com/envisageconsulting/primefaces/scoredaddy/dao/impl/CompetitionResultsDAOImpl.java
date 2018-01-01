@@ -37,7 +37,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setInt(1, competitionId);
 
             ResultSet rs = ps.executeQuery();
-
+            int rank = 0;
             while (rs.next()) {
 
                 CompetitionResults competitionResults = new CompetitionResults();
@@ -78,6 +78,8 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 gssfIndoorScoreSheet.setTotalX(rs.getInt("total_x"));
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
+                competitionResults.setRank(rank + 1);
+                rank++;
 
                 competitionResultsList.add(competitionResults);
 
