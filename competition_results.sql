@@ -1,5 +1,5 @@
 select 
-	*, cr.id, 
+	cr.id, 
     cr.code, 
     cr.date, 
     cr.competitor_id, 

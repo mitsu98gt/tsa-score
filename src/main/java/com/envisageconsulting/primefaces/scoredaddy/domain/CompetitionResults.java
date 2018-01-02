@@ -5,6 +5,7 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoor
 public class CompetitionResults {
 
     private int rank;
+    private String classification;
     private Competition competition;
     private Account account;
     private CompetitionDetails competitionDetails;
@@ -17,6 +18,14 @@ public class CompetitionResults {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
     }
 
     public Competition getCompetition() {

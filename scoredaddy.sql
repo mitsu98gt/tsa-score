@@ -153,20 +153,22 @@ CREATE TABLE `competition_results` (
   `woman_division` bit(1) NOT NULL,
   `senior_division` bit(1) NOT NULL,
   `junior_division` bit(1) NOT NULL,
-  `target_one_x` int(11) NOT NULL,
-  `target_one_ten` int(11) NOT NULL,
-  `target_one_eight` int(11) NOT NULL,
-  `target_one_five` int(11) NOT NULL,
-  `target_one_misses` int(11) NOT NULL,
-  `target_two_x` int(11) NOT NULL,
-  `target_two_ten` int(11) NOT NULL,
-  `target_two_eight` int(11) NOT NULL,
-  `target_two_five` int(11) NOT NULL,
-  `target_two_misses` int(11) NOT NULL,
-  `penalty` int(11) NOT NULL,
+  `target_one_x` int(2) NOT NULL,
+  `target_one_ten` int(2) NOT NULL,
+  `target_one_eight` int(2) NOT NULL,
+  `target_one_five` int(2) NOT NULL,
+  `target_one_misses` int(2) NOT NULL,
+  `target_two_x` int(2) NOT NULL,
+  `target_two_ten` int(2) NOT NULL,
+  `target_two_eight` int(2) NOT NULL,
+  `target_two_five` int(2) NOT NULL,
+  `target_two_misses` int(2) NOT NULL,
+  `penalty` int(2) NOT NULL,
+  `final_score` int(3) NOT NULL,
+  `total_x` int(3) NOT NULL,
   `range_officer_initials` varchar(3) NOT NULL,
   `competitor_initials` varchar(3) NOT NULL,
-  PRIMARY KEY (`id`,`code`,`date`,`competitor_id`,`firearm_id`),
+  PRIMARY KEY (`id`,`code`,`date`,`competitor_id`,`firearm_id`,`stock_division`,`unlimited_division`,`pocket_division`),
   KEY `competitor_id_idx` (`competitor_id`),
   KEY `code_idx` (`code`),
   KEY `id_idx` (`id`),
@@ -186,7 +188,7 @@ CREATE TABLE `competition_results` (
 
 LOCK TABLES `competition_results` WRITE;
 /*!40000 ALTER TABLE `competition_results` DISABLE KEYS */;
-INSERT INTO `competition_results` VALUES (1,1,'2018-01-06',1,5,'\0','\0','\0','\0','\0','\0',20,0,0,0,0,30,0,0,0,0,0,'RO','VD');
+INSERT INTO `competition_results` VALUES (1,1,'2018-01-06',1,20,'','\0','\0','\0','\0','\0',20,0,0,0,0,22,7,1,0,0,0,498,42,'RO','VD'),(1,1,'2018-01-06',2,1,'','\0','\0','\0','\0','\0',20,0,0,0,0,10,7,10,3,0,0,465,30,'RO','BB'),(1,1,'2018-01-06',4,26,'','\0','\0','\0','\0','\0',20,0,0,0,0,9,8,10,3,0,0,465,29,'RO','EF'),(1,1,'2018-01-06',5,18,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,2,1,0,0,489,37,'RO','DD'),(1,1,'2018-01-06',6,14,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,3,0,0,0,492,37,'RO','DD'),(1,1,'2018-01-06',7,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,15,5,5,5,0,0,461,30,'RO','DD'),(1,1,'2018-01-06',8,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,16,4,5,5,0,0,461,31,'RO','MM'),(1,1,'2018-01-06',9,9,'','\0','\0','\0','\0','\0',16,4,0,0,0,16,4,5,5,0,0,465,32,'RO','MM'),(1,1,'2018-01-06',10,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,16,4,4,6,0,0,460,31,'RO','KF'),(1,1,'2018-01-06',11,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,15,4,4,7,0,0,455,30,'RO','JM');
 /*!40000 ALTER TABLE `competition_results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +212,7 @@ CREATE TABLE `competitor` (
   `gssf_id` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -219,7 +221,7 @@ CREATE TABLE `competitor` (
 
 LOCK TABLES `competitor` WRITE;
 /*!40000 ALTER TABLE `competitor` DISABLE KEYS */;
-INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678'),(2,'Bugs','Bunny','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','1'),(4,'Elmer','Fudd','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','2'),(5,'daffy','duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','3'),(6,'Porky','Pig','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','4'),(7,'Donald','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','5'),(8,'Mickey','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','Mickey.Mouse@test.com','');
+INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678'),(2,'Bugs','Bunny','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','1'),(4,'Elmer','Fudd','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','2'),(5,'Daffy','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','3'),(6,'Porky','Pig','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','4'),(7,'Donald','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','5'),(8,'Mickey','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','6'),(9,'Minnie','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','7'),(10,'Kermit','Frog','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','8'),(11,'Jerry','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','8');
 /*!40000 ALTER TABLE `competitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,4 +424,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-28  0:01:04
+-- Dump completed on 2018-01-01 22:52:25

@@ -28,7 +28,7 @@
                             <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.competitionDate}"/>
                         </p:row>
                         <p:row>
-                            <p:column headerText="Rank" exportable="true"/>
+                            <p:column headerText="" exportable="true"/>
                             <p:column headerText="First" filterBy="#{scores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
                             <p:column headerText="Last" filterBy="#{scores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
                             <p:column headerText="Model" filterBy="#{scores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
@@ -43,7 +43,7 @@
                     </p:columnGroup>
 
                     <p:column>
-                        <h:outputText value="#{scores.rank}" />
+                        <h:outputText value="#{scores.rank} - #{scores.classification}" />
                     </p:column>
 
                     <p:column>

@@ -1,6 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionResults;
 
 import javax.annotation.PostConstruct;
@@ -30,13 +31,33 @@ public class GSSFResultsBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            competitionStockResultsList = competitionResultsDAO.getStockCompetitionResultsByCompetitionId(1);
+            competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getStockCompetitionResultsByCompetitionId(1));
             competitionDate = getCompetitionDate();
             accountName = getAccountInfoName();
             competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<CompetitionResults> calculateClassifcation(List<CompetitionResults> list) {
+
+        int groups = list.size() / 3;
+        int classA = groups;
+        int classB = groups * 2;
+
+        for (int i=0; i < list.size(); i++) {
+            if (i < classA) {
+                list.get(i).setClassification("A");
+            } else if (i >= classA && i < classB) {
+                list.get(i).setClassification("B");
+            } else {
+                list.get(i).setClassification("C");
+            }
+
+        }
+
+        return list;
     }
 
     public String getCompetitionDate() {
