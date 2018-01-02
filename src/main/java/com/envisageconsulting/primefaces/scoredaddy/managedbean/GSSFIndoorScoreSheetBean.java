@@ -46,10 +46,26 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public void doScore() {
-        parseSelectedDivisions();
-        calculateTargetTotals();
-        calculateSumRow();
-        calculateTotalRow();
+        if (validate()){
+            parseSelectedDivisions();
+            calculateTargetTotals();
+            calculateSumRow();
+            calculateTotalRow();
+        }
+    }
+
+    public boolean validate() {
+
+        boolean pass = true;
+        if (calculateTargetOneTotals() != 20) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 1 totals are incorrect!"));
+            pass = false;
+        }
+        if (calculateTargetTwoTotals() != 30) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 2 totals are incorrect!"));
+            pass = false;
+        }
+        return pass;
     }
 
     public void saveScoreSheetPDF() throws Exception {
@@ -126,19 +142,19 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         scoreSheet.setFinalScore(calculateTotalScore() - scoreSheet.getPenalty());
     }
 
-    public Integer calculateTotalX() {
+    public int calculateTotalX() {
         return scoreSheet.getTargetOne().getX() + scoreSheet.getTargetTwo().getX();
     }
 
-    public Integer calculateTargetOneTotals() {
+    public int calculateTargetOneTotals() {
         return (scoreSheet.getTargetOne().getX() + scoreSheet.getTargetOne().getTen() + scoreSheet.getTargetOne().getEight() + scoreSheet.getTargetOne().getFive() + scoreSheet.getTargetOne().getMisses());
     }
 
-    public Integer calculateTargetTwoTotals() {
+    public int calculateTargetTwoTotals() {
         return (scoreSheet.getTargetTwo().getX() + scoreSheet.getTargetTwo().getTen() + scoreSheet.getTargetTwo().getEight() + scoreSheet.getTargetTwo().getFive() + scoreSheet.getTargetTwo().getMisses());
     }
 
-    public Integer calculateTotalScore() {
+    public int calculateTotalScore() {
         return (scoreSheet.getTotalRow().getX() + scoreSheet.getTotalRow().getTen() + scoreSheet.getTotalRow().getEight() + scoreSheet.getTotalRow().getFive());
     }
 
