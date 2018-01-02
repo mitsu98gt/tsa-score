@@ -16,9 +16,9 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
     private DataSource dataSource;
 
-    public List<Competitor> getCompetitorsForScoreSheet() throws Exception {
+    public List<Competitor> getCompetitorsForScoreSheetByCompetitionId(int competitionId) throws Exception {
 
-        String sql = "select id, first_name, last_name from competitor";
+        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competition_competitors where competition_id = ?);";
 
         Connection conn = null;
 
@@ -27,6 +27,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             List<Competitor> competitorList = new ArrayList<Competitor>();
 
+            ps.setInt(1, competitionId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Competitor competitor =  new Competitor();

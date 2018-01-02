@@ -134,6 +134,29 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
+    public void addCompetitionCompetitors(int competitionId, int competitorId) throws Exception {
+
+        String sql = "insert into competition_competitors (competition_id, competitor_id) values (?, ?)";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, competitionId);
+            ps.setInt(2, competitorId);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new Exception(ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {}
+            }
+        }
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

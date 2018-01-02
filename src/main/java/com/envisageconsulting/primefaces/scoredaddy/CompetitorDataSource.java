@@ -21,10 +21,11 @@ public class CompetitorDataSource {
 	public List<Competitor> competitors = new ArrayList<Competitor>();
 
 	@PostConstruct
-	public void init() {
+	public void init() { }
 
+	public void getCompetitorsForScoreSheetByCompetitionId(int id) {
 		try {
-			competitors = dao.getCompetitorsForScoreSheet();
+			competitors = dao.getCompetitorsForScoreSheetByCompetitionId(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -41,7 +41,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     @PostConstruct
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
-        competitorDataSource.init();
+        competitorDataSource.getCompetitorsForScoreSheetByCompetitionId(2); //TODO Do Not Hard Code
         firearmList = firearmDataSource.getFirearms();
     }
 
