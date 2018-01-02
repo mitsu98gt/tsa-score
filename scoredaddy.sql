@@ -61,8 +61,10 @@ CREATE TABLE `competition` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `account_id_idx` (`account_id`),
-  CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `status_idx` (`status`),
+  CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `status` FOREIGN KEY (`status`) REFERENCES `status_codes` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +73,7 @@ CREATE TABLE `competition` (
 
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
-INSERT INTO `competition` VALUES (1,2,'GSSF Competition','Winter Competition','N');
+INSERT INTO `competition` VALUES (1,1,'GSSF Competition','Winter Competition','I');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,6 +102,31 @@ LOCK TABLES `competition_codes` WRITE;
 /*!40000 ALTER TABLE `competition_codes` DISABLE KEYS */;
 INSERT INTO `competition_codes` VALUES (1,'GSSFI','GSSF Indoor League');
 /*!40000 ALTER TABLE `competition_codes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `competition_competitors`
+--
+
+DROP TABLE IF EXISTS `competition_competitors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `competition_competitors` (
+  `competition_id` int(11) NOT NULL,
+  `competitor_id` int(11) NOT NULL,
+  PRIMARY KEY (`competition_id`,`competitor_id`),
+  KEY `competitor_id_idx` (`competitor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `competition_competitors`
+--
+
+LOCK TABLES `competition_competitors` WRITE;
+/*!40000 ALTER TABLE `competition_competitors` DISABLE KEYS */;
+INSERT INTO `competition_competitors` VALUES (1,1),(2,1),(1,2),(2,2),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12);
+/*!40000 ALTER TABLE `competition_competitors` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -188,7 +215,7 @@ CREATE TABLE `competition_results` (
 
 LOCK TABLES `competition_results` WRITE;
 /*!40000 ALTER TABLE `competition_results` DISABLE KEYS */;
-INSERT INTO `competition_results` VALUES (1,1,'2018-01-06',1,20,'','\0','\0','\0','\0','\0',20,0,0,0,0,22,7,1,0,0,0,498,42,'RO','VD'),(1,1,'2018-01-06',2,1,'','\0','\0','\0','\0','\0',20,0,0,0,0,10,7,10,3,0,0,465,30,'RO','BB'),(1,1,'2018-01-06',4,26,'','\0','\0','\0','\0','\0',20,0,0,0,0,9,8,10,3,0,0,465,29,'RO','EF'),(1,1,'2018-01-06',5,18,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,2,1,0,0,489,37,'RO','DD'),(1,1,'2018-01-06',6,14,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,3,0,0,0,492,37,'RO','DD'),(1,1,'2018-01-06',7,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,15,5,5,5,0,0,461,30,'RO','DD'),(1,1,'2018-01-06',8,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,16,4,5,5,0,0,461,31,'RO','MM'),(1,1,'2018-01-06',9,9,'','\0','\0','\0','\0','\0',16,4,0,0,0,16,4,5,5,0,0,465,32,'RO','MM'),(1,1,'2018-01-06',10,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,16,4,4,6,0,0,460,31,'RO','KF'),(1,1,'2018-01-06',11,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,15,4,4,7,0,0,455,30,'RO','JM');
+INSERT INTO `competition_results` VALUES (1,1,'2018-01-06',1,20,'','\0','\0','\0','\0','\0',20,0,0,0,0,22,7,1,0,0,0,498,42,'RO','VD'),(1,1,'2018-01-06',2,1,'','\0','\0','\0','\0','\0',20,0,0,0,0,10,7,10,3,0,0,465,30,'RO','BB'),(1,1,'2018-01-06',4,26,'','\0','\0','\0','\0','\0',20,0,0,0,0,9,8,10,3,0,0,465,29,'RO','EF'),(1,1,'2018-01-06',5,18,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,2,1,0,0,489,37,'RO','DD'),(1,1,'2018-01-06',6,14,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,3,0,0,0,492,37,'RO','DD'),(1,1,'2018-01-06',7,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,15,5,5,5,0,0,461,30,'RO','DD'),(1,1,'2018-01-06',8,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,16,4,5,5,0,0,461,31,'RO','MM'),(1,1,'2018-01-06',9,9,'','\0','\0','\0','\0','\0',16,4,0,0,0,16,4,5,5,0,0,465,32,'RO','MM'),(1,1,'2018-01-06',10,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,16,4,4,6,0,0,460,31,'RO','KF'),(1,1,'2018-01-06',11,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,15,4,4,7,0,0,455,30,'RO','JM'),(1,1,'2018-01-06',12,21,'','\0','\0','\0','\0','\0',18,1,1,0,0,20,5,3,2,0,8,474,38,'RO','TC');
 /*!40000 ALTER TABLE `competition_results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +239,7 @@ CREATE TABLE `competitor` (
   `gssf_id` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +248,7 @@ CREATE TABLE `competitor` (
 
 LOCK TABLES `competitor` WRITE;
 /*!40000 ALTER TABLE `competitor` DISABLE KEYS */;
-INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678'),(2,'Bugs','Bunny','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','1'),(4,'Elmer','Fudd','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','2'),(5,'Daffy','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','3'),(6,'Porky','Pig','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','4'),(7,'Donald','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','5'),(8,'Mickey','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','6'),(9,'Minnie','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','7'),(10,'Kermit','Frog','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','8'),(11,'Jerry','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','8');
+INSERT INTO `competitor` VALUES (1,'Vinh','Dang','11634 Cannington Circle','Fishers','IN','46037','5743298039','vinh@envisageconsulting.com','12345678'),(2,'Bugs','Bunny','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','1'),(4,'Elmer','Fudd','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','2'),(5,'Daffy','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','3'),(6,'Porky','Pig','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','4'),(7,'Donald','Duck','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','5'),(8,'Mickey','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','6'),(9,'Minnie','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','7'),(10,'Kermit','Frog','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','8'),(11,'Jerry','Mouse','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','8'),(12,'Tom','Cat','1000 Looney Tunes','Hollywood','CA','12345','5555551212','','8');
 /*!40000 ALTER TABLE `competitor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,4 +451,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-01 22:52:25
+-- Dump completed on 2018-01-02  1:36:11
