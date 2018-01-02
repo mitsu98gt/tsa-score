@@ -2,10 +2,7 @@ package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
 import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
-import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionDetails;
-import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionResults;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Firearm;
+import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.TargetOne;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.TargetTwo;
@@ -25,9 +22,45 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
         List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
 
-        String sql = "select * from scoredaddy.competition_results cr, scoredaddy.competitor cm, " +
-                "scoredaddy.firearm_models fm where cr.id = ? and cr.stock_division = 1 " +
-                "and cr.competitor_id = cm.id and cr.firearm_id = fm.id order by final_score desc, total_x desc;";
+        String sql = "select" +
+                " cr.id," +
+                "    cr.code," +
+                "    cr.date," +
+                "    cr.competitor_id," +
+                "    cr.firearm_id," +
+                "    cr.target_one_x," +
+                "    cr.target_one_ten," +
+                "    cr.target_one_eight," +
+                "    cr.target_one_five," +
+                "    cr.target_one_misses," +
+                "    cr.target_two_x," +
+                "    cr.target_two_ten," +
+                "    cr.target_two_eight," +
+                "    cr.target_two_five," +
+                "    cr.target_two_misses," +
+                "    cr.penalty," +
+                "    cr.final_score," +
+                "    cr.total_x," +
+                "    cm.first_name," +
+                "    cm.last_name," +
+                "    fm.model," +
+                "    comp.description," +
+                "    ac.name" +
+                " from" +
+                "   scoredaddy.competition_results cr," +
+                "   scoredaddy.competitor cm," +
+                "   scoredaddy.firearm_models fm," +
+                "   scoredaddy.competition comp," +
+                "   scoredaddy.account ac" +
+                " where" +
+                "   cr.id = ?" +
+                " and cr.stock_division = 1" +
+                " and cr.competitor_id = cm.id" +
+                " and cr.firearm_id = fm.id" +
+                " and cr.id = comp.id" +
+                " and comp.account_id = ac.id" +
+                " order by" +
+                "   final_score desc, total_x desc";
 
         Connection conn = null;
 
@@ -80,6 +113,14 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
                 competitionResults.setRank(rank + 1);
                 rank++;
+
+                Competition competition = new Competition();
+                competition.setDescription(rs.getString("description"));
+                competitionResults.setCompetition(competition);
+
+                Account account = new Account();
+                account.setName(rs.getString("name"));
+                competitionResults.setAccount(account);
 
                 competitionResultsList.add(competitionResults);
 

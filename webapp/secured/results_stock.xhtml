@@ -20,12 +20,12 @@
                 <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="scoresTable" var="scores" value="#{gssfResultsBean.competitionStockResultsList}" style="font-size:13px;text-align:center">
 
                     <f:facet name="header">
-                        GSSF Scores
+                        GSSF Scores - Stock
                     </f:facet>
                     <p:columnGroup type="header">
                         <p:row>
-                            <p:column colspan="3" headerText="CLASS A"/>
-                            <p:column colspan="8" headerText="December 1st, 2017"/>
+                            <p:column colspan="3" headerText="#{gssfResultsBean.accountName} - #{gssfResultsBean.competitionDescription}"/>
+                            <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.competitionDate}"/>
                         </p:row>
                         <p:row>
                             <p:column headerText="Rank" exportable="true"/>

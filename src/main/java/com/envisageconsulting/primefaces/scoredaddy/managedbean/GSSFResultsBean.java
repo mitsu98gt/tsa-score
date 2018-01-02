@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @ViewScoped
@@ -22,19 +24,33 @@ public class GSSFResultsBean implements Serializable {
     private List<CompetitionResults> filtered;
 
     private String competitionDate;
+    private String accountName;
+    private String competitionDescription;
 
     @PostConstruct
     public void init() {
         try {
             competitionStockResultsList = competitionResultsDAO.getStockCompetitionResultsByCompetitionId(1);
             competitionDate = getCompetitionDate();
+            accountName = getAccountInfoName();
+            competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public String getCompetitionDate() {
-        return "January 6th, 2018";
+        Date competitionDate = competitionStockResultsList.get(0).getCompetitionDetails().getDate();
+        SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
+        return format.format(competitionDate);
+    }
+
+    public String getAccountInfoName() {
+        return competitionStockResultsList.get(0).getAccount().getName();
+    }
+
+    public String getCompetitionInfoDescription() {
+        return competitionStockResultsList.get(0).getCompetition().getDescription();
     }
 
     public List<CompetitionResults> getFiltered() {
@@ -51,5 +67,21 @@ public class GSSFResultsBean implements Serializable {
 
     public List<CompetitionResults> getCompetitionStockResultsList() {
         return competitionStockResultsList;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getCompetitionDescription() {
+        return competitionDescription;
+    }
+
+    public void setCompetitionDescription(String competitionDescription) {
+        this.competitionDescription = competitionDescription;
     }
 }
