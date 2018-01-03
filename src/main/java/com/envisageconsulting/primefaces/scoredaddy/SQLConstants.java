@@ -4,6 +4,10 @@ public class SQLConstants {
 
     public static final String STOCK_DIVISION = "cr.stock_division = 1";
 
+    public static final String UNLIMITED_DIVISION = "cr.unlimited_division = 1";
+
+    public static final String POCKET_DIVISION = "cr.pocket_division = 1";
+
     public static final String COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID =
             "select" +
             "    cr.id," +

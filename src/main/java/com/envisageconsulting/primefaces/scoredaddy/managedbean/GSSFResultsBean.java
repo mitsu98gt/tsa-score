@@ -23,6 +23,9 @@ public class GSSFResultsBean implements Serializable {
     private CompetitionResultsDAO competitionResultsDAO;
 
     private List<CompetitionResults> competitionStockResultsList;
+    private List<CompetitionResults> competitionUnlimitedResultsList;
+    private List<CompetitionResults> competitionPocketResultsList;
+    
     private List<CompetitionResults> filtered;
 
     private String competitionDate;
@@ -33,6 +36,8 @@ public class GSSFResultsBean implements Serializable {
     public void init() {
         try {
             competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, 1));
+            competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, 1);
+            competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, 1);
             competitionDate = getCompetitionDate();
             accountName = getAccountInfoName();
             competitionDescription = getCompetitionInfoDescription();
@@ -89,6 +94,14 @@ public class GSSFResultsBean implements Serializable {
 
     public List<CompetitionResults> getCompetitionStockResultsList() {
         return competitionStockResultsList;
+    }
+
+    public List<CompetitionResults> getCompetitionUnlimitedResultsList() {
+        return competitionUnlimitedResultsList;
+    }
+
+    public List<CompetitionResults> getCompetitionPocketResultsList() {
+        return competitionPocketResultsList;
     }
 
     public String getAccountName() {

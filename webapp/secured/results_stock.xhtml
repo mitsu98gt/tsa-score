@@ -17,7 +17,7 @@
         <h:form id="scoresfrm">
             <p:panel>
 
-                <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="scoresTable" var="scores" value="#{gssfResultsBean.competitionStockResultsList}" style="font-size:13px;text-align:center">
+                <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="scoresTable" var="sscores" value="#{gssfResultsBean.competitionStockResultsList}" style="font-size:13px;text-align:center">
 
                     <f:facet name="header">
                         GSSF Scores - Stock
@@ -29,9 +29,9 @@
                         </p:row>
                         <p:row>
                             <p:column headerText="" exportable="true"/>
-                            <p:column headerText="First" filterBy="#{scores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
-                            <p:column headerText="Last" filterBy="#{scores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
-                            <p:column headerText="Model" filterBy="#{scores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                            <p:column headerText="First" filterBy="#{sscores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                            <p:column headerText="Last" filterBy="#{sscores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                            <p:column headerText="Model" filterBy="#{sscores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
                             <p:column headerText="X"/>
                             <p:column headerText="10"/>
                             <p:column headerText="8"/>
@@ -43,59 +43,225 @@
                     </p:columnGroup>
 
                     <p:column>
-                        <h:outputText value="#{scores.rank} - #{scores.classification}" />
+                        <h:outputText value="#{sscores.rank} - #{sscores.classification}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.competitor.firstName}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.competitor.firstName}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.competitor.lastName}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.competitor.lastName}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.firearm.model}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.firearm.model}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.x + scores.gssfIndoorScoreSheet.targetTwo.x}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.targetOne.x + sscores.gssfIndoorScoreSheet.targetTwo.x}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.ten + scores.gssfIndoorScoreSheet.targetTwo.ten}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.targetOne.ten + sscores.gssfIndoorScoreSheet.targetTwo.ten}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.eight + scores.gssfIndoorScoreSheet.targetTwo.eight}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.targetOne.eight + sscores.gssfIndoorScoreSheet.targetTwo.eight}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.five + scores.gssfIndoorScoreSheet.targetTwo.five}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.targetOne.five + sscores.gssfIndoorScoreSheet.targetTwo.five}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.misses + scores.gssfIndoorScoreSheet.targetTwo.misses}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.targetOne.misses + sscores.gssfIndoorScoreSheet.targetTwo.misses}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.penalty}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.penalty}" />
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.finalScore}" />
+                        <h:outputText value="#{sscores.gssfIndoorScoreSheet.finalScore}" />
                     </p:column>
 
                 </p:dataTable>
 
                 <h:commandLink>
                     XLS
-                    <pe:exporter type="xlsx" target="scoresTable" fileName="Scores" subTable="false"/>
+                    <pe:exporter type="xlsx" target="sscoresTable" fileName="Stock_Scores" subTable="false"/>
                 </h:commandLink>
 
                 <h:commandLink>
                     PDF
-                    <pe:exporter type="pdf" target="scoresTable" fileName="Scores" subTable="false" orientation="Landscape"/>
+                    <pe:exporter type="pdf" target="sscoresTable" fileName="Stock_Scores" subTable="false" orientation="Landscape"/>
+                </h:commandLink>
+
+                <br/><br/>
+
+                <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="uscoresTable" var="uscores" value="#{gssfResultsBean.competitionUnlimitedResultsList}" style="font-size:13px;text-align:center">
+
+                    <f:facet name="header">
+                        GSSF Scores - Unlimited
+                    </f:facet>
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column colspan="3" headerText="#{gssfResultsBean.accountName} - #{gssfResultsBean.competitionDescription}"/>
+                            <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.competitionDate}"/>
+                        </p:row>
+                        <p:row>
+                            <p:column headerText="" exportable="true"/>
+                            <p:column headerText="First" filterBy="#{uscores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                            <p:column headerText="Last" filterBy="#{uscores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                            <p:column headerText="Model" filterBy="#{uscores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="10"/>
+                            <p:column headerText="8"/>
+                            <p:column headerText="5"/>
+                            <p:column headerText="Miss"/>
+                            <p:column headerText="Penalty"/>
+                            <p:column headerText="Score"/>
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.rank} - #{uscores.classification}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.competitor.firstName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.competitor.lastName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.firearm.model}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.targetOne.x + uscores.gssfIndoorScoreSheet.targetTwo.x}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.targetOne.ten + uscores.gssfIndoorScoreSheet.targetTwo.ten}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.targetOne.eight + uscores.gssfIndoorScoreSheet.targetTwo.eight}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.targetOne.five + uscores.gssfIndoorScoreSheet.targetTwo.five}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.targetOne.misses + uscores.gssfIndoorScoreSheet.targetTwo.misses}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.penalty}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{uscores.gssfIndoorScoreSheet.finalScore}" />
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:commandLink>
+                    XLS
+                    <pe:exporter type="xlsx" target="uscoresTable" fileName="Unlimited_Scores" subTable="false"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    PDF
+                    <pe:exporter type="pdf" target="uscoresTable" fileName="Unlimited_Scores" subTable="false" orientation="Landscape"/>
+                </h:commandLink>
+
+                <br/><br/>
+
+                <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="pscoresTable" var="pscores" value="#{gssfResultsBean.competitionPocketResultsList}" style="font-size:13px;text-align:center">
+
+                    <f:facet name="header">
+                        GSSF Scores - Pocket
+                    </f:facet>
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column colspan="3" headerText="#{gssfResultsBean.accountName} - #{gssfResultsBean.competitionDescription}"/>
+                            <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.competitionDate}"/>
+                        </p:row>
+                        <p:row>
+                            <p:column headerText="" exportable="true"/>
+                            <p:column headerText="First" filterBy="#{pscores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                            <p:column headerText="Last" filterBy="#{pscores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                            <p:column headerText="Model" filterBy="#{pscores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                            <p:column headerText="X"/>
+                            <p:column headerText="10"/>
+                            <p:column headerText="8"/>
+                            <p:column headerText="5"/>
+                            <p:column headerText="Miss"/>
+                            <p:column headerText="Penalty"/>
+                            <p:column headerText="Score"/>
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.rank} - #{pscores.classification}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.competitor.firstName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.competitor.lastName}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.firearm.model}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.targetOne.x + pscores.gssfIndoorScoreSheet.targetTwo.x}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.targetOne.ten + pscores.gssfIndoorScoreSheet.targetTwo.ten}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.targetOne.eight + pscores.gssfIndoorScoreSheet.targetTwo.eight}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.targetOne.five + pscores.gssfIndoorScoreSheet.targetTwo.five}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.targetOne.misses + pscores.gssfIndoorScoreSheet.targetTwo.misses}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.penalty}" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{pscores.gssfIndoorScoreSheet.finalScore}" />
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:commandLink>
+                    XLS
+                    <pe:exporter type="xlsx" target="uscoresTable" fileName="Pocket_Scores" subTable="false"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    PDF
+                    <pe:exporter type="pdf" target="uscoresTable" fileName="Pocket_Scores" subTable="false" orientation="Landscape"/>
                 </h:commandLink>
 
             </p:panel>

@@ -94,7 +94,48 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             return false;
         }
 
+        if (!validateWoman()) {
+            return false;
+        }
 
+        if (!validateSenior()) {
+            return false;
+        }
+
+        if (!validateJunior()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean validateWoman() {
+        if (scoreSheet.getDivsion().isWoman()) {
+            if(scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Woman division applies to only Stock!"));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateSenior() {
+        if (scoreSheet.getDivsion().isSenior()) {
+            if(scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Senior division applies to only Stock!"));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateJunior() {
+        if (scoreSheet.getDivsion().isJunior()) {
+            if(scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Junior division applies to only Stock!"));
+                return false;
+            }
+        }
         return true;
     }
 
@@ -103,7 +144,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Senior and Junior divisions can't be both selected!"));
             return false;
         }
-
         return true;
     }
 
@@ -133,8 +173,8 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public boolean isOnlyPocket() {
         if (scoreSheet.getDivsion().isPocket()) {
-            if (scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isStock()) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, or Pocket divisions can be selected!"));
+            if (scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isWoman() || scoreSheet.getDivsion().isSenior() || scoreSheet.getDivsion().isJunior()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only Pocket division can be selected!"));
                 return false;
             }
         }
