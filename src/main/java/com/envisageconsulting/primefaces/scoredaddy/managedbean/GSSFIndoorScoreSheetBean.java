@@ -41,29 +41,136 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     @PostConstruct
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
-        competitorDataSource.getCompetitorsForScoreSheetByCompetitionId(2); //TODO Do Not Hard Code
+        competitorDataSource.getCompetitorsForScoreSheetByCompetitionId(1); //TODO Do Not Hard Code
         firearmList = firearmDataSource.getFirearms();
     }
 
     public void doScore() {
-        if (validate()){
-            parseSelectedDivisions();
+        parseSelectedDivisions();
+        if (doValidation()){
             calculateTargetTotals();
             calculateSumRow();
             calculateTotalRow();
         }
     }
 
-    public boolean validate() {
+    public boolean doValidation() {
+
+        if (!validateDivisions()) {
+            return false;
+        }
+
+        if (!validateStockTotals()) {
+            return false;
+        }
+
+        if (!validatePocketTotals()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean validateDivisions() {
+
+        if (!isDivisionSelected()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Please select a division!"));
+            return false;
+        }
+
+        if (!isOnlyStock()) {
+            return false;
+        }
+
+        if (!isOnlyUnlimited()) {
+            return false;
+        }
+
+        if (!isOnlyPocket()) {
+            return false;
+        }
+
+        if (!validateSeniorJunior()) {
+            return false;
+        }
+
+
+        return true;
+    }
+
+    public boolean validateSeniorJunior() {
+        if (scoreSheet.getDivsion().isSenior() && scoreSheet.getDivsion().isJunior()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Senior and Junior divisions can't be both selected!"));
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isDivisionSelected() {
+        return (scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) ? true : false;
+    }
+
+    public boolean isOnlyStock() {
+        if (scoreSheet.getDivsion().isStock()) {
+            if (scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, or Pocket divisions can be selected!"));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isOnlyUnlimited() {
+        if (scoreSheet.getDivsion().isUnlimited()) {
+            if (scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isPocket()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, or Pocket divisions can be selected!"));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isOnlyPocket() {
+        if (scoreSheet.getDivsion().isPocket()) {
+            if (scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isStock()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, or Pocket divisions can be selected!"));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateStockTotals() {
 
         boolean pass = true;
-        if (calculateTargetOneTotals() != 20) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 1 totals are incorrect!"));
-            pass = false;
+
+        if (!scoreSheet.getDivsion().isPocket()) {
+            if (calculateTargetOneTotals() != 20) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 1 totals are incorrect!"));
+                pass = false;
+            }
+            if (calculateTargetTwoTotals() != 30) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 2 totals are incorrect!"));
+                pass = false;
+            }
         }
-        if (calculateTargetTwoTotals() != 30) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 2 totals are incorrect!"));
-            pass = false;
+        return pass;
+    }
+
+    public boolean validatePocketTotals() {
+
+        boolean pass = true;
+
+        if (scoreSheet.getDivsion().isPocket()) {
+            if (calculateTargetOneTotals() != 10) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 1 totals are incorrect!"));
+                pass = false;
+            }
+            if (calculateTargetTwoTotals() != 15) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 2 totals are incorrect!"));
+                pass = false;
+            }
         }
         return pass;
     }
