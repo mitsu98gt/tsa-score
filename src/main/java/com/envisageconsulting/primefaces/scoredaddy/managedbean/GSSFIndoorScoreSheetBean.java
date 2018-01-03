@@ -177,6 +177,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only Pocket division can be selected!"));
                 return false;
             }
+            if (!scoreSheet.getFirearm().getModel().equals("G42") && !scoreSheet.getFirearm().getModel().equals("G43")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Firearm model not applicable for Pocket division!"));
+                return false;
+            }
         }
         return true;
     }
