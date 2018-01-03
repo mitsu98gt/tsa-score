@@ -64,7 +64,7 @@ CREATE TABLE `competition` (
   KEY `status_idx` (`status`),
   CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `status` FOREIGN KEY (`status`) REFERENCES `status_codes` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `competition` (
 
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
-INSERT INTO `competition` VALUES (1,1,'GSSF Competition','Winter Competition','I');
+INSERT INTO `competition` VALUES (1,1,'GSSF Competition','Winter Series 1','I'),(2,1,'GSSF Competition','Winter Series 2','N');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,6 +422,7 @@ CREATE TABLE `users` (
   `username` varchar(10) NOT NULL,
   `password` varchar(166) NOT NULL,
   `email` varchar(256) DEFAULT NULL,
+  `account_id` int(11) DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -429,7 +430,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `role_code_idx` (`role_code`),
   CONSTRAINT `role_code` FOREIGN KEY (`role_code`) REFERENCES `role_codes` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -438,7 +439,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'A','Vinh','Dang','vinh','1000:c897941d33b757fa15979d4f2f2087b6:4d8f5ddbba694e1c8a66b9349d07875bab6c620d86029426908e2977e158b4e14b3db5876bfbeec13242cfb85c2904aef5f1ff8cf0b3d6bf7911c1984136a4a6','vinh@envisageconsulting.com','2017-08-09 22:04:40',NULL),(4,'A','Vinh','Dang','mitsu98gt','1000:60d85ba22889d434be9b90e187b05ee1:4fa0026edde9156f1065171b8ed2a3ae02289af13b852c8624da90c67634815e21eb0b04377c1d3636def116b60dd6d4eeb74460a55f0481b13f992fc5da6c63','vinh@envisageconsulting.com','2017-09-26 23:41:02',NULL),(8,'A','Vinh','Dang','mitsu98gt2','1000:60d85ba22889d434be9b90e187b05ee1:4fa0026edde9156f1065171b8ed2a3ae02289af13b852c8624da90c67634815e21eb0b04377c1d3636def116b60dd6d4eeb74460a55f0481b13f992fc5da6c63','vinh@envisageconsulting.com','2017-09-27 00:03:37',NULL);
+INSERT INTO `users` VALUES (3,'A','Vinh','Dang','vinh','1000:c897941d33b757fa15979d4f2f2087b6:4d8f5ddbba694e1c8a66b9349d07875bab6c620d86029426908e2977e158b4e14b3db5876bfbeec13242cfb85c2904aef5f1ff8cf0b3d6bf7911c1984136a4a6','vinh@envisageconsulting.com',1,'2017-08-09 22:04:40',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -451,4 +452,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-02 23:15:41
+-- Dump completed on 2018-01-03  1:09:04
