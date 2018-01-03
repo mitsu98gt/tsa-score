@@ -1,0 +1,90 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="juniorscorestable" var="juniorscores" value="#{gssfResultsBean.competitionJuniorResultsList}" style="font-size:13px;text-align:center">
+
+        <f:facet name="header">
+            GSSF Scores - Junior
+        </f:facet>
+        <p:columnGroup type="header">
+            <p:row>
+                <p:column colspan="3" headerText="#{gssfResultsBean.accountName} - #{gssfResultsBean.competitionDescription}"/>
+                <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.competitionDate}"/>
+            </p:row>
+            <p:row>
+                <p:column headerText="" exportable="true"/>
+                <p:column headerText="First" filterBy="#{juniorscores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                <p:column headerText="Last" filterBy="#{juniorscores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                <p:column headerText="Model" filterBy="#{juniorscores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                <p:column headerText="X"/>
+                <p:column headerText="10"/>
+                <p:column headerText="8"/>
+                <p:column headerText="5"/>
+                <p:column headerText="Miss"/>
+                <p:column headerText="Penalty"/>
+                <p:column headerText="Score"/>
+            </p:row>
+        </p:columnGroup>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.rank}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.competitor.firstName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.competitor.lastName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.firearm.model}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.targetOne.x + juniorscores.gssfIndoorScoreSheet.targetTwo.x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.targetOne.ten + juniorscores.gssfIndoorScoreSheet.targetTwo.ten}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.targetOne.eight + juniorscores.gssfIndoorScoreSheet.targetTwo.eight}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.targetOne.five + juniorscores.gssfIndoorScoreSheet.targetTwo.five}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.targetOne.misses + juniorscores.gssfIndoorScoreSheet.targetTwo.misses}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.penalty}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{juniorscores.gssfIndoorScoreSheet.finalScore}" />
+        </p:column>
+
+    </p:dataTable>
+
+    <h:commandLink>
+        XLS
+        <pe:exporter type="xlsx" target="juniorscorestable" fileName="Junior_Scores" subTable="false"/>
+    </h:commandLink>
+
+    <h:commandLink>
+        PDF
+        <pe:exporter type="pdf" target="juniorscorestable" fileName="Junior_Scores" subTable="false" orientation="Landscape"/>
+    </h:commandLink>
+
+</ui:composition>

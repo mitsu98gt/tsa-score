@@ -1,0 +1,90 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="pocketscorestable" var="pocketscores" value="#{gssfResultsBean.competitionPocketResultsList}" style="font-size:13px;text-align:center">
+
+        <f:facet name="header">
+            GSSF Scores - Pocket
+        </f:facet>
+        <p:columnGroup type="header">
+            <p:row>
+                <p:column colspan="3" headerText="#{gssfResultsBean.accountName} - #{gssfResultsBean.competitionDescription}"/>
+                <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.competitionDate}"/>
+            </p:row>
+            <p:row>
+                <p:column headerText="" exportable="true"/>
+                <p:column headerText="First" filterBy="#{pocketscores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                <p:column headerText="Last" filterBy="#{pocketscores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                <p:column headerText="Model" filterBy="#{pocketscores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                <p:column headerText="X"/>
+                <p:column headerText="10"/>
+                <p:column headerText="8"/>
+                <p:column headerText="5"/>
+                <p:column headerText="Miss"/>
+                <p:column headerText="Penalty"/>
+                <p:column headerText="Score"/>
+            </p:row>
+        </p:columnGroup>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.rank}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.competitor.firstName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.competitor.lastName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.firearm.model}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.targetOne.x + pocketscores.gssfIndoorScoreSheet.targetTwo.x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.targetOne.ten + pocketscores.gssfIndoorScoreSheet.targetTwo.ten}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.targetOne.eight + pocketscores.gssfIndoorScoreSheet.targetTwo.eight}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.targetOne.five + pocketscores.gssfIndoorScoreSheet.targetTwo.five}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.targetOne.misses + pocketscores.gssfIndoorScoreSheet.targetTwo.misses}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.penalty}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{pocketscores.gssfIndoorScoreSheet.finalScore}" />
+        </p:column>
+
+    </p:dataTable>
+
+    <h:commandLink>
+        XLS
+        <pe:exporter type="xlsx" target="pocketscorestable" fileName="Pocket_Scores" subTable="false"/>
+    </h:commandLink>
+
+    <h:commandLink>
+        PDF
+        <pe:exporter type="pdf" target="pocketscorestable" fileName="Pocket_Scores" subTable="false" orientation="Landscape"/>
+    </h:commandLink>
+
+</ui:composition>
