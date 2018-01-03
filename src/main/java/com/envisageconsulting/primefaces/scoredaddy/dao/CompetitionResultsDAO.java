@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CompetitionResultsDAO {
 
-    public List<CompetitionResults> getStockCompetitionResultsByCompetitionId(int competitionId) throws Exception;
+    public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception;
     public void addCompetitionResults(CompetitionResults competitionResults) throws Exception;
 
 }
