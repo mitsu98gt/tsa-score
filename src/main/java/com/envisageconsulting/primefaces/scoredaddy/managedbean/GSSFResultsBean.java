@@ -25,7 +25,9 @@ public class GSSFResultsBean implements Serializable {
     private List<CompetitionResults> competitionStockResultsList;
     private List<CompetitionResults> competitionUnlimitedResultsList;
     private List<CompetitionResults> competitionPocketResultsList;
-    
+    private List<CompetitionResults> competitionWomanResultsList;
+    private List<CompetitionResults> competitionSeniorResultsList;
+    private List<CompetitionResults> competitionJuniorResultsList;
     private List<CompetitionResults> filtered;
 
     private String competitionDate;
@@ -38,6 +40,9 @@ public class GSSFResultsBean implements Serializable {
             competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, 1));
             competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, 1);
             competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, 1);
+            competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, 1);
+            competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, 1);
+            competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, 1);
             competitionDate = getCompetitionDate();
             accountName = getAccountInfoName();
             competitionDescription = getCompetitionInfoDescription();
@@ -102,6 +107,18 @@ public class GSSFResultsBean implements Serializable {
 
     public List<CompetitionResults> getCompetitionPocketResultsList() {
         return competitionPocketResultsList;
+    }
+
+    public List<CompetitionResults> getCompetitionWomanResultsList() {
+        return competitionWomanResultsList;
+    }
+
+    public List<CompetitionResults> getCompetitionSeniorResultsList() {
+        return competitionSeniorResultsList;
+    }
+
+    public List<CompetitionResults> getCompetitionJuniorResultsList() {
+        return competitionJuniorResultsList;
     }
 
     public String getAccountName() {
