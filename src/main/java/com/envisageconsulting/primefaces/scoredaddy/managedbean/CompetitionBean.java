@@ -7,13 +7,17 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionDetails;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CourseCode;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @ManagedBean(name="competitionBean")
 @SessionScoped
@@ -39,9 +43,10 @@ public class CompetitionBean implements Serializable {
     }
 
     public void addCompetition() {
-        competition.setAccountId("1"); //TODO Testing only, Remove this at some point.
+        competition.setAccountId(getAccountIdFromSession());
         try {
             dao.addCompetition(getCompetition());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,9 +56,16 @@ public class CompetitionBean implements Serializable {
         competitionDetails.setCompetitionDetailsId("1"); //TODO Testing only, Remove this at some point.
         try {
             dao.addCompetitionDetails(getCompetitionDetails());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition Details added successfully!", "INFO MSG"));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int getAccountIdFromSession() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        return (int) sessionMap.get("accountId");
     }
 
     public void setDao(CompetitionDAO dao) {

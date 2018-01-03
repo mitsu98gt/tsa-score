@@ -6,12 +6,14 @@ import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
@@ -42,10 +44,11 @@ public class LoginBean implements Serializable {
 
 			if (validatePassword(passwordHash)) {
 				loggedIn = true;
+				addSessionObject(dao.getUserAccountId(username));
 				return navigationBean.redirectToWelcome();
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		// Set login ERROR
@@ -55,6 +58,14 @@ public class LoginBean implements Serializable {
 
 		// To to login page
 		return navigationBean.toLogin();
+
+	}
+
+	public void addSessionObject(int accountId) {
+
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		sessionMap.put("accountId", accountId);
 
 	}
 

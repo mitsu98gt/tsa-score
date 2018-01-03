@@ -46,6 +46,39 @@ public class LoginDAOImpl implements LoginDAO {
         }
     }
 
+    public int getUserAccountId(String username) throws Exception {
+
+        String sql = "select account_id from users where username = ?";
+
+        int accountId = 0;
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                accountId = rs.getInt("account_id");
+            }
+
+            rs.close();
+            ps.close();
+            return accountId;
+        } catch (SQLException e) {
+            throw new Exception(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {}
+            }
+        }
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

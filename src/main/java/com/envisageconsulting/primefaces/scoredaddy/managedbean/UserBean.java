@@ -50,6 +50,7 @@ public class UserBean implements Serializable {
             user.setPassword(Encryption.generateStringPasswordHash(password2));
             try {
                 dao.addUser(user);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User added successfully!", "INFO MSG"));
             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error with adding a User!", "ERROR MSG"));
             }
