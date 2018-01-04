@@ -85,7 +85,44 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
-    public List<Competition> getCompetitionsByAccountId(int accountId, String status) throws Exception {
+    public List<Competition> getAllCompetitionsByAccountId(int accountId) throws Exception {
+
+        String sql = "select id, name, description, status from competition where account_id = ?";
+
+        Connection conn = null;
+
+        try {
+            List<Competition> competitions = new ArrayList();
+
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competition competition = new Competition();
+                competition.setId(rs.getString("id"));
+                competition.setName(rs.getString("name"));
+                competition.setDescription(rs.getString("description"));
+                competition.setStatus(rs.getString("status"));
+                competitions.add(competition);
+            }
+            rs.close();
+            ps.close();
+            return competitions;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get all Competitions by AccountId!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Competition> getCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
 
         String sql = "select id, name, description from competition where account_id = ? and status = ?";
 
@@ -110,7 +147,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ps.close();
             return competitions;
         } catch (SQLException ex) {
-            throw new Exception("Failed to get Competitions by AccountId!" + ex.getMessage());
+            throw new Exception("Failed to get Competitions by AccountId and Status!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {
@@ -193,6 +230,31 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new Exception("Failed to add Competitors to Competition!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void updateCompetitionStatus(String status, int competitionId) throws Exception {
+
+        String sql = "update competition set status = ? where id = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, competitionId);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new Exception("Failed to update Competition status!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {
