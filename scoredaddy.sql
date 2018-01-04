@@ -73,7 +73,7 @@ CREATE TABLE `competition` (
 
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
-INSERT INTO `competition` VALUES (1,1,'GSSF Competition','Winter Series 1','I'),(2,1,'GSSF Competition','Winter Series 2','N');
+INSERT INTO `competition` VALUES (1,1,'GSSF Winter 1','Winter Series 1','I'),(2,1,'GSSF Winter 2','Winter Series 2','I');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +125,7 @@ CREATE TABLE `competition_competitors` (
 
 LOCK TABLES `competition_competitors` WRITE;
 /*!40000 ALTER TABLE `competition_competitors` DISABLE KEYS */;
-INSERT INTO `competition_competitors` VALUES (1,1),(2,1),(1,2),(2,2),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12);
+INSERT INTO `competition_competitors` VALUES (1,1),(2,1),(1,2),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(2,12);
 /*!40000 ALTER TABLE `competition_competitors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `competition_details` (
   KEY `code_idx` (`code`),
   KEY `date_idx` (`date`),
   KEY `course_idx` (`course`),
-  CONSTRAINT `code` FOREIGN KEY (`id`) REFERENCES `competition_codes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `code` FOREIGN KEY (`code`) REFERENCES `competition_codes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `course` FOREIGN KEY (`course`) REFERENCES `course_codes` (`course`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `id` FOREIGN KEY (`id`) REFERENCES `competition` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -157,7 +157,7 @@ CREATE TABLE `competition_details` (
 
 LOCK TABLES `competition_details` WRITE;
 /*!40000 ALTER TABLE `competition_details` DISABLE KEYS */;
-INSERT INTO `competition_details` VALUES (1,1,'2018-01-06','A');
+INSERT INTO `competition_details` VALUES (1,1,'2018-01-06','A'),(2,1,'2018-02-06','A');
 /*!40000 ALTER TABLE `competition_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +215,7 @@ CREATE TABLE `competition_results` (
 
 LOCK TABLES `competition_results` WRITE;
 /*!40000 ALTER TABLE `competition_results` DISABLE KEYS */;
-INSERT INTO `competition_results` VALUES (1,1,'2018-01-06',1,20,'\0','','\0','\0','\0','\0',20,0,0,0,0,28,1,1,0,0,0,498,48,'RO','VD'),(1,1,'2018-01-06',1,20,'','\0','\0','\0','\0','\0',20,0,0,0,0,22,7,1,0,0,0,498,42,'RO','VD'),(1,1,'2018-01-06',1,29,'\0','\0','','\0','\0','\0',10,0,0,0,0,14,1,0,0,0,0,250,24,'',''),(1,1,'2018-01-06',2,1,'','\0','\0','\0','','\0',20,0,0,0,0,10,7,10,3,0,0,465,30,'RO','BB'),(1,1,'2018-01-06',2,2,'\0','','\0','\0','\0','\0',20,0,0,0,0,25,1,2,2,0,0,486,45,'RO','BB'),(1,1,'2018-01-06',4,4,'\0','','\0','\0','\0','\0',20,0,0,0,0,27,1,2,0,0,0,496,47,'RO','EF'),(1,1,'2018-01-06',4,26,'','\0','\0','\0','\0','\0',20,0,0,0,0,9,8,10,3,0,0,465,29,'RO','EF'),(1,1,'2018-01-06',5,4,'\0','','\0','\0','\0','\0',20,0,0,0,0,20,5,3,2,0,0,484,40,'RO','EF'),(1,1,'2018-01-06',5,18,'','\0','\0','\0','','\0',19,0,1,0,0,18,9,2,1,0,0,489,37,'RO','DD'),(1,1,'2018-01-06',6,14,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,3,0,0,0,492,37,'RO','DD'),(1,1,'2018-01-06',7,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,15,5,5,5,0,0,461,30,'RO','DD'),(1,1,'2018-01-06',8,9,'','\0','\0','\0','','\0',15,3,2,0,0,16,4,5,5,0,0,461,31,'RO','MM'),(1,1,'2018-01-06',9,9,'','\0','\0','','\0','\0',16,4,0,0,0,16,4,5,5,0,0,465,32,'RO','MM'),(1,1,'2018-01-06',9,28,'\0','\0','','\0','\0','\0',10,0,0,0,0,12,2,1,0,0,0,248,22,'RO','MM'),(1,1,'2018-01-06',10,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,16,4,4,6,0,0,460,31,'RO','KF'),(1,1,'2018-01-06',10,29,'\0','\0','','\0','\0','\0',10,0,0,0,0,14,0,1,0,0,0,248,24,'RO','KF'),(1,1,'2018-01-06',11,9,'','\0','\0','\0','\0','',15,4,1,0,0,15,4,4,7,0,0,455,30,'RO','JM'),(1,1,'2018-01-06',12,21,'','\0','\0','\0','\0','',18,1,1,0,0,20,5,3,2,0,8,474,38,'RO','TC');
+INSERT INTO `competition_results` VALUES (1,1,'2018-01-06',1,20,'\0','','\0','\0','\0','\0',20,0,0,0,0,28,1,1,0,0,0,498,48,'RO','VD'),(1,1,'2018-01-06',1,20,'','\0','\0','\0','\0','\0',20,0,0,0,0,22,7,1,0,0,0,498,42,'RO','VD'),(1,1,'2018-01-06',1,29,'\0','\0','','\0','\0','\0',10,0,0,0,0,14,1,0,0,0,0,250,24,'',''),(1,1,'2018-01-06',2,1,'','\0','\0','\0','','\0',20,0,0,0,0,10,7,10,3,0,0,465,30,'RO','BB'),(1,1,'2018-01-06',2,2,'\0','','\0','\0','\0','\0',20,0,0,0,0,25,1,2,2,0,0,486,45,'RO','BB'),(1,1,'2018-01-06',4,4,'\0','','\0','\0','\0','\0',20,0,0,0,0,27,1,2,0,0,0,496,47,'RO','EF'),(1,1,'2018-01-06',4,26,'','\0','\0','\0','\0','\0',20,0,0,0,0,9,8,10,3,0,0,465,29,'RO','EF'),(1,1,'2018-01-06',5,4,'\0','','\0','\0','\0','\0',20,0,0,0,0,20,5,3,2,0,0,484,40,'RO','EF'),(1,1,'2018-01-06',5,18,'','\0','\0','\0','','\0',19,0,1,0,0,18,9,2,1,0,0,489,37,'RO','DD'),(1,1,'2018-01-06',6,14,'','\0','\0','\0','\0','\0',19,0,1,0,0,18,9,3,0,0,0,492,37,'RO','DD'),(1,1,'2018-01-06',7,9,'','\0','\0','\0','\0','\0',15,3,2,0,0,15,5,5,5,0,0,461,30,'RO','DD'),(1,1,'2018-01-06',8,9,'','\0','\0','\0','','\0',15,3,2,0,0,16,4,5,5,0,0,461,31,'RO','MM'),(1,1,'2018-01-06',9,9,'','\0','\0','','\0','\0',16,4,0,0,0,16,4,5,5,0,0,465,32,'RO','MM'),(1,1,'2018-01-06',9,28,'\0','\0','','\0','\0','\0',10,0,0,0,0,12,2,1,0,0,0,248,22,'RO','MM'),(1,1,'2018-01-06',10,9,'','\0','\0','\0','\0','\0',15,4,1,0,0,16,4,4,6,0,0,460,31,'RO','KF'),(1,1,'2018-01-06',10,29,'\0','\0','','\0','\0','\0',10,0,0,0,0,14,0,1,0,0,0,248,24,'RO','KF'),(1,1,'2018-01-06',11,9,'','\0','\0','\0','\0','',15,4,1,0,0,15,4,4,7,0,0,455,30,'RO','JM'),(1,1,'2018-01-06',12,21,'','\0','\0','\0','\0','',18,1,1,0,0,20,5,3,2,0,8,474,38,'RO','TC'),(2,1,'2018-02-06',1,1,'','\0','\0','\0','\0','\0',20,0,0,0,0,30,0,0,0,0,0,500,50,'RO','VD');
 /*!40000 ALTER TABLE `competition_results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,7 +239,7 @@ CREATE TABLE `competitor` (
   `gssf_id` varchar(8) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -430,7 +430,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `role_code_idx` (`role_code`),
   CONSTRAINT `role_code` FOREIGN KEY (`role_code`) REFERENCES `role_codes` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -452,4 +452,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-03  1:09:04
+-- Dump completed on 2018-01-04  2:20:12
