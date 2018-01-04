@@ -1,11 +1,14 @@
 package com.envisageconsulting.primefaces.scoredaddy.domain;
 
+import java.util.Date;
+
 public class Competition {
 
     private String id;
     private int accountId;
     private String name;
     private String description;
+    private Date date;
     private String status;
 
     public String getId() {
@@ -38,6 +41,14 @@ public class Competition {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getStatus() {

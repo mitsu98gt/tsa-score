@@ -36,13 +36,18 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     private String[] selectedDivisions;
 
+    private Competition competition;
+
     public GSSFIndoorScoreSheetBean(){}
 
     @PostConstruct
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
-        competitorDataSource.getCompetitorsForScoreSheetByCompetitionId(1); //TODO Do Not Hard Code
         firearmList = firearmDataSource.getFirearms();
+    }
+
+    public void onCompetitionChange() {
+        competitorDataSource.getCompetitorsForScoreSheetByCompetitionId(Integer.valueOf(competition.getId()));
     }
 
     public void doScore() {
@@ -254,8 +259,9 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         competitionCode.setCode("1");
         competitionDetails.setCompetitionCode(competitionCode);
 
-        competitionDetails.setCompetitionDetailsId("1");
-        competitionDetails.setDate(DateUtils.getDateFromString("2018-01-06"));
+        competitionDetails.setCompetitionDetailsId(competition.getId());
+        //competitionDetails.setDate(DateUtils.getDateFromString("2018-01-06"));
+        competitionDetails.setDate(competition.getDate());
         competitionResults.setCompetitionDetails(competitionDetails);
 
         CompetitionCompetitors competitionCompetitors = new CompetitionCompetitors();
@@ -361,6 +367,14 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public void setSelectedDivisions(String[] selectedDivisions) {
         this.selectedDivisions = selectedDivisions;
+    }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
     }
 
     public List<Firearm> getFirearmList() {

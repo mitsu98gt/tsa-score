@@ -124,7 +124,8 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     public List<Competition> getCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
 
-        String sql = "select id, name, description from competition where account_id = ? and status = ?";
+        //String sql = "select id, name, description from competition where account_id = ? and status = ?";
+        String sql = "select c.id, c.name, c.description, cd.date from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id order by c.id";
 
         Connection conn = null;
 
@@ -141,6 +142,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
                 competition.setId(rs.getString("id"));
                 competition.setName(rs.getString("name"));
                 competition.setDescription(rs.getString("description"));
+                competition.setDate(rs.getDate("date"));
                 competitions.add(competition);
             }
             rs.close();

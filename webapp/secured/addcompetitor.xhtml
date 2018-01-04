@@ -34,7 +34,7 @@
                     <f:validator validatorId="custom.emailValidator" />
                 </p:inputText>
                 <p:outputLabel for="phone" value="Phone: " />
-                <p:inputText id="phone" value="#{competitorBean.competitor.phone}" style="width:250px" maxlength="10" required="true" requiredMessage="Phone is required."/>
+                <p:inputText id="phone" value="#{competitorBean.competitor.phone}" style="width:250px" maxlength="10" required="false"/>
                 <p:outputLabel for="gssf" value="GSSF ID: " />
                 <p:inputText id="gssf" value="#{competitorBean.competitor.gssfId}" style="width:250px" maxlength="8" required="false"/>
             </h:panelGrid>
