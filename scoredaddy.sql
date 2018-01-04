@@ -144,6 +144,7 @@ CREATE TABLE `competition_details` (
   PRIMARY KEY (`id`,`code`,`date`),
   KEY `code_idx` (`code`),
   KEY `date_idx` (`date`),
+  CONSTRAINT `code` FOREIGN KEY (`code`) REFERENCES `competition_codes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `id` FOREIGN KEY (`id`) REFERENCES `competition` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -449,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-04 18:05:23
+-- Dump completed on 2018-01-04 18:13:39
