@@ -141,7 +141,7 @@ CREATE TABLE `competition_details` (
   `code` int(11) NOT NULL,
   `date` date NOT NULL,
   `course` varchar(1) NOT NULL,
-  PRIMARY KEY (`id`,`code`),
+  PRIMARY KEY (`id`,`code`,`date`),
   KEY `code_idx` (`code`),
   KEY `date_idx` (`date`),
   CONSTRAINT `code` FOREIGN KEY (`code`) REFERENCES `competition_codes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -450,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-04 18:16:50
+-- Dump completed on 2018-01-04 18:23:57
