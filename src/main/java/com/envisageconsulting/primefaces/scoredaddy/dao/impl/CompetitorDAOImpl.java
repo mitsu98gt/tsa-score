@@ -45,12 +45,15 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public void addCompetitor(Competitor competitor) throws Exception {
+
         String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
@@ -76,7 +79,9 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

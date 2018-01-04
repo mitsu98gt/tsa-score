@@ -38,13 +38,15 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             rs.close();
             ps.close();
             return codes;
-        } catch (SQLException e) {
-            throw new Exception(e);
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get competition codes!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -70,13 +72,52 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             rs.close();
             ps.close();
             return codes;
-        } catch (SQLException e) {
-            throw new Exception(e);
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get course codes!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Competition> getCompetitionsByAccountId(int accountId, String status) throws Exception {
+
+        String sql = "select id, name, description from competition where account_id = ? and status = ?";
+
+        Connection conn = null;
+
+        try {
+            List<Competition> competitions = new ArrayList();
+
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ps.setString(2, status);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competition competition = new Competition();
+                competition.setId(rs.getString("id"));
+                competition.setName(rs.getString("name"));
+                competition.setDescription(rs.getString("description"));
+                competitions.add(competition);
+            }
+            rs.close();
+            ps.close();
+            return competitions;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get Competitions by AccountId!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -102,7 +143,9 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -124,12 +167,14 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
             ps.close();
         } catch (SQLException ex) {
-            throw new Exception(ex);
+            throw new Exception("Failed to add Competition Details!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -147,12 +192,14 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ps.setInt(2, competitorId);
             ps.executeUpdate();
         } catch (SQLException ex) {
-            throw new Exception(ex);
+            throw new Exception("Failed to add Competitors to Competition!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

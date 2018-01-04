@@ -41,7 +41,9 @@ public class LoginDAOImpl implements LoginDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -74,7 +76,9 @@ public class LoginDAOImpl implements LoginDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

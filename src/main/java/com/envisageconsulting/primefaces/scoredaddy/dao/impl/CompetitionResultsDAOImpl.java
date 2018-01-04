@@ -100,7 +100,9 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -154,7 +156,9 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

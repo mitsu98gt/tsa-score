@@ -43,7 +43,9 @@ public class FirearmDAOimpl implements FirearmDAO {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

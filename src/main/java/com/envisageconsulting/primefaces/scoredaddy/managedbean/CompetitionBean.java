@@ -43,8 +43,8 @@ public class CompetitionBean implements Serializable {
     }
 
     public void addCompetition() {
-        competition.setAccountId(getAccountIdFromSession());
         try {
+            competition.setAccountId(getAccountIdFromSession());
             dao.addCompetition(getCompetition());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
         } catch (Exception e) {

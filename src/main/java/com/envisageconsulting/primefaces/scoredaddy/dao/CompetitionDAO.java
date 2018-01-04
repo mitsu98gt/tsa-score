@@ -13,6 +13,7 @@ public interface CompetitionDAO {
     public void addCompetitionDetails(CompetitionDetails competitionDetails) throws Exception;
     public List<CompetitionCode> getAllCompetitionCodes() throws Exception;
     public List<CourseCode> getAllCourseCodes() throws Exception;
+    public List<Competition> getCompetitionsByAccountId(int accountId, String status) throws Exception;
     public void addCompetitionCompetitors(int competitionId, int competitorId) throws Exception;
 
 }

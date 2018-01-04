@@ -5,9 +5,11 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 @ManagedBean(name="competitorBean")
@@ -30,10 +32,22 @@ public class CompetitorBean implements Serializable {
 
         try {
             dao.addCompetitor(getCompetitor());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competitor added successfully!", "INFO MSG"));
         } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Competitor was not added!", "ERROR MSG"));
             e.printStackTrace();
         }
 
+    }
+
+    public void registerCompetitor() {
+        try {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competitor registered successfully!", "INFO MSG"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Competitor was not registered!", "ERROR MSG"));
+            e.printStackTrace();
+        }
     }
 
     public Competitor getCompetitor() {
