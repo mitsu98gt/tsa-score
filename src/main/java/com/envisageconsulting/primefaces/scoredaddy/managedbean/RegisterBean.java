@@ -31,6 +31,7 @@ public class RegisterBean implements Serializable {
     private CompetitionDAO competitionDAO;
 
     private Competitor competitor;
+    private Competition competition;
 
     @PostConstruct
     public void init() {
@@ -53,7 +54,6 @@ public class RegisterBean implements Serializable {
     }
 
     public List<Competitor> complete(String query){
-        // Assumed Datasource
         return queryByName(query);
     }
 
@@ -104,5 +104,13 @@ public class RegisterBean implements Serializable {
 
     public void setCompetitor(Competitor competitor) {
         this.competitor = competitor;
+    }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
     }
 }

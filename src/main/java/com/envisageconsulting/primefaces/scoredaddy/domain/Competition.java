@@ -47,4 +47,15 @@ public class Competition {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public boolean equals(Object obj){
+        if(obj instanceof Competition){
+            Competition competition = (Competition)obj;
+            if(null != this.id && this.id.equals(competition.getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

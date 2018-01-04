@@ -14,7 +14,7 @@
 </h:head>
 <h:body>
     <h:form id="regcompetitorfrm">
-        <p:panel id="panel" header="Register Competitor" style="width:420px">
+        <p:panel id="panel" header="Register Competitor For A Competition" style="width:420px">
             <p:focus context="panel"/>
             <h:panelGrid columns="2" layout="grid">
                 <p:outputLabel for="name" value="Competitor Name: " />
@@ -27,6 +27,11 @@
                                 itemValue="#{competitor}"
                                 itemLabel="#{competitor.fullName}" converter="#{registerCompetitorConverter}">
                 </p:autoComplete>
+                <p:outputLabel for="competition" value="Competition: " />
+                <p:selectOneMenu required="true" id="competition" label="Competition" value="#{registerBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
+                    <f:selectItem itemLabel="Select Competition" itemValue="" />
+                    <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
+                </p:selectOneMenu>
             </h:panelGrid>
         </p:panel>
         <br/>
