@@ -45,10 +45,10 @@ public class RegisterBean implements Serializable {
 
     public void registerCompetitor() {
         try {
-
+            competitionDAO.addCompetitionCompetitors(Integer.valueOf(competition.getId()), Integer.valueOf(competitor.getCompetitorId()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competitor registered successfully!", "INFO MSG"));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Competitor was not registered!", "ERROR MSG"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Competitor was not registered! Competitor may have been already registered.", "ERROR MSG"));
             e.printStackTrace();
         }
     }

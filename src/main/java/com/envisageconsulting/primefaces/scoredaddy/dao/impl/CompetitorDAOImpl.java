@@ -18,7 +18,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
     public List<Competitor> getAllCompetitors() throws Exception {
 
-        String sql = "select id, first_name, last_name from competitor";
+        String sql = "select id, first_name, last_name from competitor order by first_name";
 
         Connection conn = null;
 
@@ -53,7 +53,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
     public List<Competitor> getCompetitorsForScoreSheetByCompetitionId(int competitionId) throws Exception {
 
-        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competition_competitors where competition_id = ?)";
+        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competition_competitors where competition_id = ?) order by first_name";
 
         Connection conn = null;
 
