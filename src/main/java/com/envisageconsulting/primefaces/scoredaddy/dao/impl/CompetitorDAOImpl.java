@@ -16,9 +16,44 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
     private DataSource dataSource;
 
+    public List<Competitor> getAllCompetitors() throws Exception {
+
+        String sql = "select id, first_name, last_name from competitor";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            List<Competitor> competitorList = new ArrayList<Competitor>();
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competitor competitor =  new Competitor();
+                competitor.setCompetitorId(Integer.toString(rs.getInt("id")));
+                competitor.setFirstName(rs.getString("first_name"));
+                competitor.setLastName(rs.getString("last_name"));
+                competitorList.add(competitor);
+            }
+            rs.close();
+            ps.close();
+            return competitorList;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get all Competitors! " + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public List<Competitor> getCompetitorsForScoreSheetByCompetitionId(int competitionId) throws Exception {
 
-        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competition_competitors where competition_id = ?);";
+        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competition_competitors where competition_id = ?)";
 
         Connection conn = null;
 
@@ -40,7 +75,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             ps.close();
             return competitorList;
         } catch (SQLException ex) {
-            throw new Exception(ex);
+            throw new Exception("Failed to get competitors by copetitionId! " + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

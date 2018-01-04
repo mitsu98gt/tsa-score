@@ -134,7 +134,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, accountId);
-            ps.setString(2, status);
+            ps.setString(2, status.toUpperCase());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Competition competition = new Competition();

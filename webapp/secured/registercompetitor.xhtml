@@ -14,33 +14,23 @@
 </h:head>
 <h:body>
     <h:form id="regcompetitorfrm">
-        <p:panel id="panel" header="Add Competitor" style="width:420px">
+        <p:panel id="panel" header="Register Competitor" style="width:420px">
             <p:focus context="panel"/>
             <h:panelGrid columns="2" layout="grid">
-                <p:outputLabel for="first" value="First Name: " />
-                <p:inputText id="first" value="#{competitorBean.competitor.firstName}" style="width:250px" maxlength="45" required="true" requiredMessage="First Name is required."/>
-                <p:outputLabel for="last" value="Last Name: " />
-                <p:inputText id="last" value="#{competitorBean.competitor.lastName}" style="width:250px" maxlength="45" required="true" requiredMessage="Last Name is required."/>
-                <p:outputLabel for="street" value="Street: " />
-                <p:inputText id="street" value="#{competitorBean.competitor.address.street}" style="width:250px" maxlength="100" required="false"/>
-                <p:outputLabel for="city" value="City: " />
-                <p:inputText id="city" value="#{competitorBean.competitor.address.city}" style="width:250px" maxlength="45" required="false"/>
-                <p:outputLabel for="state" value="State: " />
-                <p:inputText id="state" value="#{competitorBean.competitor.address.state}" style="width:25px" maxlength="2" required="false"/>
-                <p:outputLabel for="zipcode" value="Zipcode: " />
-                <p:inputText id="zipcode" value="#{competitorBean.competitor.address.zipcode}" style="width:75px" maxlength="10" required="false"/>
-                <p:outputLabel for="email" value="Email: " />
-                <p:inputText id="email" value="#{competitorBean.competitor.email}" style="width:250px" maxlength="256" required="false" validatorMessage="Invalid Email.">
-                    <f:validator validatorId="custom.emailValidator" />
-                </p:inputText>
-                <p:outputLabel for="phone" value="Phone: " />
-                <p:inputText id="phone" value="#{competitorBean.competitor.phone}" style="width:250px" maxlength="10" required="true" requiredMessage="Phone is required."/>
-                <p:outputLabel for="gssf" value="GSSF ID: " />
-                <p:inputText id="gssf" value="#{competitorBean.competitor.gssfId}" style="width:250px" maxlength="8" required="false"/>
+                <p:outputLabel for="name" value="Competitor Name: " />
+                <p:autoComplete id="name" label="Name"
+                                required="true" dropdown="true" maxlength="40" requiredMessage="Name is required."
+                                minQueryLength="3"
+                                value="#{registerBean.competitor}"
+                                completeMethod="#{registerBean.complete}"
+                                var="competitor"
+                                itemValue="#{competitor}"
+                                itemLabel="#{competitor.fullName}" converter="#{registerCompetitorConverter}">
+                </p:autoComplete>
             </h:panelGrid>
         </p:panel>
         <br/>
-        <p:commandButton value="Save" id="saveBtn" actionListener="#{competitorBean.registerCompetitor}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:commandButton value="Register" id="registerBtn" actionListener="#{registerBean.registerCompetitor}" ajax="false" style="width:100px" icon="fa fa-save"/>
         <p:messages style="width:400px"/>
     </h:form>
 </h:body>

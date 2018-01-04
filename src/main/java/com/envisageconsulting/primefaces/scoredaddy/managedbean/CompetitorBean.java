@@ -40,16 +40,6 @@ public class CompetitorBean implements Serializable {
 
     }
 
-    public void registerCompetitor() {
-        try {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competitor registered successfully!", "INFO MSG"));
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Competitor was not registered!", "ERROR MSG"));
-            e.printStackTrace();
-        }
-    }
-
     public Competitor getCompetitor() {
         return competitor;
     }
