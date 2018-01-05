@@ -19,7 +19,8 @@
                     <p:outputLabel for="password" value="Password:" />
                     <p:password id="password" value="#{loginBean.password}" required="true" label="Password" requiredMessage="password is required."/>
                 </h:panelGrid>
-                <p:commandButton id="button" value="Sign In" ajax="false" action="#{loginBean.doLogin}"/>
+                <br/>
+                <p:commandButton id="button" value="Sign In" icon="fa fa-sign-in" ajax="false" action="#{loginBean.doLogin}"/>
         </p:panel>
         <p:messages style="width:350px"/>
     </h:form>

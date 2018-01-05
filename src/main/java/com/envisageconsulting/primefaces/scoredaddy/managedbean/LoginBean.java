@@ -45,7 +45,7 @@ public class LoginBean implements Serializable {
 			if (validatePassword(passwordHash)) {
 				loggedIn = true;
 				addSessionObject(dao.getUserAccountId(username));
-				return navigationBean.redirectToWelcome();
+				return navigationBean.redirectToLayout();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

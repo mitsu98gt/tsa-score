@@ -56,8 +56,8 @@ public class NavigationBean implements Serializable {
 		return "/secured/welcome.xhtml?faces-redirect=true";
 	}
 
-	public String redirectToViewResults() {
-		return "/secured/layout/indoor_results.xhtml?faces-redirect=true";
+	public String redirectToLayout() {
+		return "/secured/layout.xhtml?faces-redirect=true";
 	}
 
 	/**
