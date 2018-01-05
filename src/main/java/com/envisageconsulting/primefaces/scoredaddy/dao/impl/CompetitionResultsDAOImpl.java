@@ -107,9 +107,9 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public List<CompetitionResults> getAverageTwoCompetitionResultsByCopetitorIdAndDivision(int competitorId, String divisionName, int division, int competitionId1, int competitionId2) throws Exception {
+    public CompetitionResultsRow getAverageTwoCompetitionResultsByCopetitorIdAndDivision(int competitorId, String divisionName, int division, int competitionId1, int competitionId2) throws Exception {
 
-        List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
+        CompetitionResultsRow competitionResultsRow = new CompetitionResultsRow();
 
         String sql = String.format(SQLConstants
                 .COMPETITION_RESULTS_QUERY_AVERAGE_TWO_COMPETITIONS_BY_COMPETITOR_ID_DIVISION, divisionName,
@@ -180,14 +180,29 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
             while (rs.next()) {
 
-
-
+                competitionResultsRow.setCurrent_results_date(rs.getString("current_results_date"));
+                competitionResultsRow.setPrevious_results_date(rs.getString("previous_results_date"));
+                competitionResultsRow.setCurrent_x(rs.getString("current_x"));
+                competitionResultsRow.setCurrent_ten(rs.getString("current_ten"));
+                competitionResultsRow.setCurrent_eight(rs.getString("current_eight"));
+                competitionResultsRow.setCurrent_five(rs.getString("current_five"));
+                competitionResultsRow.setCurrent_misses(rs.getString("current_misses"));
+                competitionResultsRow.setCurrent_penalty(rs.getString("current_penalty"));
+                competitionResultsRow.setCurrent_score(rs.getString("current_score"));
+                competitionResultsRow.setPrevious_score(rs.getString("previous_score"));
+                competitionResultsRow.setPrevious_x(rs.getString("previous_x"));
+                competitionResultsRow.setAverage_score(rs.getString("average_score"));
+                competitionResultsRow.setTotal_x(rs.getString("total_x"));
+                competitionResultsRow.setFirst_name(rs.getString("first_name"));
+                competitionResultsRow.setLast_name(rs.getString("last_name"));
+                competitionResultsRow.setAccount_name(rs.getString("account_name"));
+                competitionResultsRow.setCompetition_description(rs.getString("competition_description"));
             }
 
             rs.close();
             ps.close();
 
-            return competitionResultsList;
+            return competitionResultsRow;
 
         } catch (SQLException ex) {
             throw new Exception(ex);
