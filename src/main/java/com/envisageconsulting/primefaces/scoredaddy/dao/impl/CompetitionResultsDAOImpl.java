@@ -107,6 +107,101 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
+    public List<CompetitionResults> getAverageTwoCompetitionResultsByCopetitorIdAndDivision(int competitorId, String divisionName, int division, int competition1d1, int competitionId2) throws Exception {
+
+        List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
+
+        String sql = String.format(SQLConstants
+                .COMPETITION_RESULTS_QUERY_AVERAGE_TWO_COMPETITIONS_BY_COMPETITOR_ID_DIVISION, divisionName,
+                divisionName, divisionName, divisionName, divisionName, divisionName, divisionName, divisionName,
+                divisionName, divisionName, divisionName, divisionName, divisionName, divisionName, divisionName,
+                divisionName, divisionName, divisionName, divisionName, divisionName, divisionName);
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setInt(1, 1);
+            ps.setInt(2, 1);
+            ps.setInt(3, 1);
+            ps.setInt(4, 1);
+            ps.setInt(5, 1);
+            ps.setInt(6, 1);
+            ps.setInt(7, 1);
+            ps.setInt(8, 1);
+            ps.setInt(9, 1);
+            ps.setInt(10, 1);
+            ps.setInt(11, 1);
+            ps.setInt(12, 1);
+            ps.setInt(13, 1);
+            ps.setInt(14, 1);
+            ps.setInt(15, 1);
+            ps.setInt(16, 1);
+            ps.setInt(17, 1);
+            ps.setInt(18, 1);
+            ps.setInt(19, 1);
+            ps.setInt(20, 1);
+            ps.setInt(21, 1);
+            ps.setInt(22, 1);
+            ps.setInt(23, 1);
+            ps.setInt(24, 1);
+            ps.setInt(25, 1);
+            ps.setInt(26, 1);
+            ps.setInt(27, 1);
+            ps.setInt(28, 1);
+            ps.setInt(29, 1);
+            ps.setInt(30, 1);
+            ps.setInt(31, 1);
+            ps.setInt(32, 1);
+            ps.setInt(33, 1);
+            ps.setInt(34, 1);
+            ps.setInt(35, 1);
+            ps.setInt(36, 1);
+            ps.setInt(37, 1);
+            ps.setInt(38, 1);
+            ps.setInt(39, 1);
+            ps.setInt(40, 1);
+            ps.setInt(41, 1);
+            ps.setInt(42, 1);
+            ps.setInt(43, 1);
+            ps.setInt(44, 1);
+            ps.setInt(45, 1);
+            ps.setInt(46, 1);
+            ps.setInt(47, 1);
+            ps.setInt(48, 1);
+            ps.setInt(49, 1);
+            ps.setInt(50, 1);
+            ps.setInt(51, 1);
+
+            ResultSet rs = ps.executeQuery();
+            int rank = 0;
+
+            while (rs.next()) {
+
+
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return competitionResultsList;
+
+        } catch (SQLException ex) {
+            throw new Exception(ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void addCompetitionResults(CompetitionResults competitionResults) throws Exception {
 
         String sql = "insert into competition_results (id, code, competition_results.date, competitor_id, firearm_id, stock_division, unlimited_division, " +

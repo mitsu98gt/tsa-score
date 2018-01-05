@@ -2,6 +2,8 @@ package com.envisageconsulting.primefaces.scoredaddy.domain;
 
 public class CompetitionResultsRow {
 
+    private int rank;
+    private String classification;
     private String current_results_date;
     private String previous_results_date;
     private String current_x;
@@ -19,6 +21,22 @@ public class CompetitionResultsRow {
     private String last_name;
     private String account_name;
     private String competition_description;
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
 
     public String getCurrent_results_date() {
         return current_results_date;
