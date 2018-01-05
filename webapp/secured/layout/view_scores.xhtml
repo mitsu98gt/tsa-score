@@ -13,29 +13,18 @@
                 <h:panelGrid columns="2" layout="grid">
                     <p:outputLabel for="competition" value="Select Competition: " />
                     <p:selectOneMenu required="true" id="competition" label="Competition" value="#{gssfResultsBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
-                        <p:ajax listener="#{gssfResultsBean.viewScores}" update="scorespanel" />
+                        <p:ajax listener="#{gssfResultsBean.viewScores}" update="resultspanel" />
                         <f:selectItem itemLabel="" itemValue="" />
                         <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
                     </p:selectOneMenu>
                 </h:panelGrid>
             </p:panel>
-            <br/>
-            <p:commandButton value="View Scores" id="viewBtn" actionListener="#{gssfResultsBean.viewScores}" ajax="false" style="width:170px" icon="fa fa-list-ol"/>
-            <p:messages style="width:400px"/>
-            <p:panel id="scorespanel">
-                <ui:include src="/secured/results/stock.xhtml" />
-                <br/><br/>
-                <ui:include src="/secured/results/unlimited.xhtml" />
-                <br/><br/>
-                <ui:include src="/secured/results/pocket.xhtml" />
-                <br/><br/>
-                <ui:include src="/secured/results/woman.xhtml" />
-                <br/><br/>
-                <ui:include src="/secured/results/senior.xhtml" />
-                <br/><br/>
-                <ui:include src="/secured/results/junior.xhtml" />
-            </p:panel>
         </h:form>
+        <br/>
+        <br/>
+        <p:panel id="resultspanel">
+            <ui:include src="indoor_results.xhtml"/>
+        </p:panel>
     </div>
     </ui:define>
 </ui:composition>

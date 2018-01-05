@@ -77,14 +77,9 @@
 
     </p:dataTable>
 
-    <h:commandLink>
-    XLS
-    <pe:exporter type="xlsx" target="stockscorestable" fileName="Stock_Scores" subTable="false"/>
-    </h:commandLink>
+    <p:commandButton value="Download Excel" ajax="false" icon="fa fa-file-excel-o" style="width:200px">
+        <pe:exporter ajax="false" type="xlsx" target="stockscorestable" fileName="Stock_Scores" subTable="false"/>
+    </p:commandButton>
 
-    <h:commandLink>
-    PDF
-    <pe:exporter type="pdf" target="stockscorestable" fileName="Stock_Scores" subTable="false" orientation="Landscape"/>
-    </h:commandLink>
 
 </ui:composition>

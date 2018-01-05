@@ -77,14 +77,8 @@
 
     </p:dataTable>
 
-    <h:commandLink>
-        XLS
-        <pe:exporter type="xlsx" target="seniorscorestable" fileName="Senior_Scores" subTable="false"/>
-    </h:commandLink>
-
-    <h:commandLink>
-        PDF
-        <pe:exporter type="pdf" target="seniorscorestable" fileName="Senior_Scores" subTable="false" orientation="Landscape"/>
-    </h:commandLink>
+    <p:commandButton value="Download Excel" ajax="false" icon="fa fa-file-excel-o" style="width:200px">
+        <pe:exporter ajax="false" type="xlsx" target="seniorscorestable" fileName="Senior_Scores" subTable="false"/>
+    </p:commandButton>
 
 </ui:composition>

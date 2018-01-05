@@ -12,6 +12,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,15 +40,15 @@ public class GSSFResultsBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, 1));
-            competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, 1);
-            competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, 1);
-            competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, 1);
-            competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, 1);
-            competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, 1);
-            competitionDate = getCompetitionDate();
-            accountName = getAccountInfoName();
-            competitionDescription = getCompetitionInfoDescription();
+            competitionStockResultsList = new ArrayList<CompetitionResults>();
+            competitionUnlimitedResultsList = new ArrayList<CompetitionResults>();
+            competitionPocketResultsList = new ArrayList<CompetitionResults>();
+            competitionWomanResultsList = new ArrayList<CompetitionResults>();
+            competitionSeniorResultsList = new ArrayList<CompetitionResults>();
+            competitionJuniorResultsList = new ArrayList<CompetitionResults>();
+            competitionDate = "";
+            accountName = "";
+            competitionDescription = "";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,17 +91,20 @@ public class GSSFResultsBean implements Serializable {
     }
 
     public String getCompetitionDate() {
+        if (competitionStockResultsList.size() == 0) {
+            return "";
+        }
         Date competitionDate = competitionStockResultsList.get(0).getCompetitionDetails().getDate();
         SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
         return format.format(competitionDate);
     }
 
     public String getAccountInfoName() {
-        return competitionStockResultsList.get(0).getAccount().getName();
+        return competitionStockResultsList.size() == 0 ? "" : competitionStockResultsList.get(0).getAccount().getName();
     }
 
     public String getCompetitionInfoDescription() {
-        return competitionStockResultsList.get(0).getCompetition().getDescription();
+        return competitionStockResultsList.size() == 0 ? "" : competitionStockResultsList.get(0).getCompetition().getDescription();
     }
 
     public List<CompetitionResults> getFiltered() {

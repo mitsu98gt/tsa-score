@@ -56,6 +56,10 @@ public class NavigationBean implements Serializable {
 		return "/secured/welcome.xhtml?faces-redirect=true";
 	}
 
+	public String redirectToViewResults() {
+		return "/secured/layout/indoor_results.xhtml?faces-redirect=true";
+	}
+
 	/**
 	 * Go to welcome page.
 	 * 
