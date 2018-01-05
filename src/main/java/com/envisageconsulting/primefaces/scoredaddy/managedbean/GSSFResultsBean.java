@@ -34,6 +34,8 @@ public class GSSFResultsBean implements Serializable {
     private String accountName;
     private String competitionDescription;
 
+    private Competition competition;
+
     @PostConstruct
     public void init() {
         try {
@@ -43,6 +45,22 @@ public class GSSFResultsBean implements Serializable {
             competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, 1);
             competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, 1);
             competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, 1);
+            competitionDate = getCompetitionDate();
+            accountName = getAccountInfoName();
+            competitionDescription = getCompetitionInfoDescription();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void viewScores() {
+        try {
+            competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId())));
+            competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
+            competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()));
+            competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()));
+            competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
+            competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
             competitionDate = getCompetitionDate();
             accountName = getAccountInfoName();
             competitionDescription = getCompetitionInfoDescription();
@@ -135,5 +153,13 @@ public class GSSFResultsBean implements Serializable {
 
     public void setCompetitionDescription(String competitionDescription) {
         this.competitionDescription = competitionDescription;
+    }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
     }
 }
