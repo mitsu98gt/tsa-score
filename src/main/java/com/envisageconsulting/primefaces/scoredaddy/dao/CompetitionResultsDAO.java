@@ -8,7 +8,7 @@ import java.util.List;
 public interface CompetitionResultsDAO {
 
     public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception;
-    public CompetitionResultsRow getAverageTwoCompetitionResultsByCopetitorIdAndDivision(int competitorId, String divisionName, int division, int competitionId1, int competitionId2) throws Exception;
+    public CompetitionResultsRow getAverageTwoCompetitionResultsByCompetitorIdAndDivision(int competitorId, String divisionName, int division, int competitionId1, int competitionId2) throws Exception;
     public void addCompetitionResults(CompetitionResults competitionResults) throws Exception;
 
 }

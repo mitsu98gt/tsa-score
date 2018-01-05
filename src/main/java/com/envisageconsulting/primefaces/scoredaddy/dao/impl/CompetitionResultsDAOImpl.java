@@ -107,7 +107,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public CompetitionResultsRow getAverageTwoCompetitionResultsByCopetitorIdAndDivision(int competitorId, String divisionName, int division, int competitionId1, int competitionId2) throws Exception {
+    public CompetitionResultsRow getAverageTwoCompetitionResultsByCompetitorIdAndDivision(int competitorId, String divisionName, int division, int competitionId1, int competitionId2) throws Exception {
 
         CompetitionResultsRow competitionResultsRow = new CompetitionResultsRow();
 
