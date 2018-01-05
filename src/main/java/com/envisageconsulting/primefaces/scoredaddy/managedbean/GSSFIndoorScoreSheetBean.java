@@ -47,6 +47,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public void onCompetitionChange() {
+        scoreSheet.setDate(competition.getDate());
         competitorDataSource.getCompetitorsForScoreSheetByCompetitionId(Integer.valueOf(competition.getId()));
     }
 
@@ -233,7 +234,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     public StreamedContent downloadScoreSheetPDF() throws Exception {
         doScore();
         GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
-        return new DefaultStreamedContent(pdf.downloadPDF(scoreSheet), "application/pdf", "scoresheet.pdf");
+        return new DefaultStreamedContent(pdf.downloadPDF(scoreSheet), "application/pdf", scoreSheet.getCompetitor().getFirstName()+scoreSheet.getCompetitor().getLastName()+"_Scoresheet_"+competition.getDate().toString()+".pdf");
     }
 
     public void saveToDatabase() {

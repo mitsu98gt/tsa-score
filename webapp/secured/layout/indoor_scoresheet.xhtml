@@ -13,7 +13,7 @@
 
                 <p:row style="text-align:center">
                     <p:selectOneMenu required="true" id="competition" label="Competition" value="#{scoresheetBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
-                        <p:ajax listener="#{scoresheetBean.onCompetitionChange}" update="name" />
+                        <p:ajax listener="#{scoresheetBean.onCompetitionChange}" update="name,date" />
                         <f:selectItem itemLabel="Select Competition" itemValue="" />
                         <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
                     </p:selectOneMenu>
@@ -39,7 +39,7 @@
                         </p:autoComplete>
                     </p:column>
                     <p:column>
-                        <p:calendar required="true" label="Date" inputStyle="width:200px" id="button" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true" requiredMessage="Date is required."/>
+                        <p:calendar required="true" label="Date" inputStyle="width:200px" id="date" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true" requiredMessage="Date is required."/>
                     </p:column>
                     <p:column>
                         <p:selectOneMenu required="true" id="model" label="Model" value="#{scoresheetBean.scoreSheet.firearm}" converter="#{firearmConverter}" requiredMessage="Model is required.">
@@ -232,12 +232,11 @@
                 </p:row>
             </p:panelGrid>
             <br/>
-            <p:commandButton value="Score Me!" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:150px"/>
-            <p:commandButton value="Save ScoreSheet!" id="scoreSheetBtn" actionListener="#{scoresheetBean.saveScoreSheetPDF}" ajax="false" style="width:250px"/>
+            <p:commandButton value="Calculate Score" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:210px" icon="fa fa-bullseye"/>
             <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" style="width:150px">
                 <p:fileDownload value="#{scoresheetBean.file}" />
             </p:commandButton>
-            <p:commandButton value="Save to DB!" id="persistBtn" actionListener="#{scoresheetBean.saveToDatabase}" ajax="false" style="width:250px"/>
+            <p:commandButton value="Save Scores" id="persistBtn" actionListener="#{scoresheetBean.saveToDatabase}" ajax="false" style="width:250px" icon="fa fa-save"/>
             <br/>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
         </h:form>
