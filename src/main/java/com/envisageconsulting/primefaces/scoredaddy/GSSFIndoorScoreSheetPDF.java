@@ -172,7 +172,7 @@ public class GSSFIndoorScoreSheetPDF {
         totalFive.setValue(Integer.toString(scoreSheet.getTotalRow().getFive()));
 
         PDTextField penalty = (PDTextField) acroForm.getField("penalty");
-        penalty.setValue(Integer.toString(scoreSheet.getPenalty()));
+        penalty.setValue(Integer.toString(scoreSheet.getTargetOne().getMisses() + scoreSheet.getTargetTwo().getMisses()));
 
         PDTextField finalScore = (PDTextField) acroForm.getField("finalScore");
         finalScore.setValue(Integer.toString(scoreSheet.getFinalScore()));
