@@ -107,11 +107,11 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public CompetitionResultsRow getCompetitionResultsByCompetitionCompetitorFirearmDivision(int competition_id, int competitor_id, int firearm_id, String division) throws Exception {
+    public CompetitionResultsRow getCompetitionResultsByCompetitionAndDivision(int competition_id, String division) throws Exception {
 
         CompetitionResultsRow competitionResultsRow = new CompetitionResultsRow();
 
-        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITON_COMPETITOR_FIREARM_DIVISION, division);
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITON_AND_DIVISION, division);
 
         Connection conn = null;
 
@@ -120,9 +120,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, competition_id);
-            ps.setInt(2, competitor_id);
-            ps.setInt(3, firearm_id);
-            ps.setString(4, division);
+            ps.setString(2, division);
 
             ResultSet rs = ps.executeQuery();
 

@@ -50,7 +50,7 @@ public class SQLConstants {
             " order by" +
             "   final_score desc, total_x desc";
 
-    public static final String COMPETITION_RESULTS_QUERY_BY_COMPETITON_COMPETITOR_FIREARM_DIVISION =
+    public static final String COMPETITION_RESULTS_QUERY_BY_COMPETITON_AND_DIVISION =
             "select" +
             "  max(cm.first_name) as first_name," +
             "  max(cm.last_name) as last_name," +
@@ -69,8 +69,6 @@ public class SQLConstants {
             "  scoredaddy.firearm_models fm" +
             " where" +
             "  cr.id = ?" + // competition
-            " and " + "cr.competitor_id = ?" + // competitor
-            " and fm.id = ?" + // firearm
             " and %s" + // division
             " and cr.competitor_id = cm.id" +
             " and cr.firearm_id = fm.id" +
