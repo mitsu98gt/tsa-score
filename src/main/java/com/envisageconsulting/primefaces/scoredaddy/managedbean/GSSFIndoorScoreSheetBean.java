@@ -297,7 +297,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         scoreSheet.getTotalRow().setTen(scoreSheet.getSumRow().getTen() * 10);
         scoreSheet.getTotalRow().setEight(scoreSheet.getSumRow().getEight() * 8);
         scoreSheet.getTotalRow().setFive(scoreSheet.getSumRow().getFive() * 5);
-        scoreSheet.setFinalScore(calculateTotalScore() - scoreSheet.getPenalty());
+        scoreSheet.setFinalScore(calculateTotalScore());
     }
 
     public int calculateTotalX() {

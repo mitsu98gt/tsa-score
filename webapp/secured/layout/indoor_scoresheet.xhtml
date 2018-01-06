@@ -208,7 +208,7 @@
                         <p:outputLabel id="totalfive" value="#{scoresheetBean.scoreSheet.totalRow.five}" />
                     </p:column>
                     <p:column>
-                        <p:inputText id="penalty" value="#{scoresheetBean.scoreSheet.penalty}" required="false" maxlength="2" style="text-align:center;width:50px"/>
+                        <p:inputText id="penalty" value="#{scoresheetBean.scoreSheet.targetOne.misses + scoresheetBean.scoreSheet.targetTwo.misses}" required="false" maxlength="2" style="text-align:center;width:50px" disabled="true"/>
                     </p:column>
                     <p:column>
                         <p:outputLabel id="finalscore" value="#{scoresheetBean.scoreSheet.finalScore}" />
