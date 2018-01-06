@@ -107,15 +107,11 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public CompetitionResultsRow getAverageTwoCompetitionResultsByCompetitorIdAndDivision(int competitorId, String divisionName, int division, int competitionId1, int competitionId2) throws Exception {
+    public CompetitionResultsRow getCompetitionResultsByCompetitionCompetitorFirearmDivision(int competition_id, int competitor_id, int firearm_id, String division) throws Exception {
 
         CompetitionResultsRow competitionResultsRow = new CompetitionResultsRow();
 
-        String sql = String.format(SQLConstants
-                .COMPETITION_RESULTS_QUERY_AVERAGE_TWO_COMPETITIONS_BY_COMPETITOR_ID_DIVISION, divisionName,
-                divisionName, divisionName, divisionName, divisionName, divisionName, divisionName, divisionName,
-                divisionName, divisionName, divisionName, divisionName, divisionName, divisionName, divisionName,
-                divisionName, divisionName, divisionName, divisionName, divisionName, divisionName);
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITON_COMPETITOR_FIREARM_DIVISION, division);
 
         Connection conn = null;
 
@@ -123,80 +119,27 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, competitorId);
-            ps.setInt(2, competitionId1);
-            ps.setInt(3, competitionId2);
-            ps.setInt(4, competitorId);
-            ps.setInt(5, competitorId);
-            ps.setInt(6, competitionId1);
-            ps.setInt(7, competitionId2);
-            ps.setInt(8, competitorId);
-            ps.setInt(9, competitorId);
-            ps.setInt(10, competitionId1);
-            ps.setInt(11, competitionId2);
-            ps.setInt(12, competitorId);
-            ps.setInt(13, competitorId);
-            ps.setInt(14, competitionId1);
-            ps.setInt(15, competitionId2);
-            ps.setInt(16, competitorId);
-            ps.setInt(17, competitorId);
-            ps.setInt(18, competitionId1);
-            ps.setInt(19, competitionId2);
-            ps.setInt(20, competitorId);
-            ps.setInt(21, competitionId1);
-            ps.setInt(22, competitionId2);
-            ps.setInt(23, competitorId);
-            ps.setInt(24, competitionId1);
-            ps.setInt(25, competitionId2);
-            ps.setInt(26, competitorId);
-            ps.setInt(27, competitionId1);
-            ps.setInt(28, competitionId2);
-            ps.setInt(29, competitorId);
-            ps.setInt(30, competitionId1);
-            ps.setInt(31, competitionId2);
-            ps.setInt(32, competitorId);
-            ps.setInt(33, competitionId1);
-            ps.setInt(34, competitionId2);
-            ps.setInt(35, competitorId);
-            ps.setInt(36, competitionId1);
-            ps.setInt(37, competitionId2);
-            ps.setInt(38, competitorId);
-            ps.setInt(39, competitorId);
-            ps.setInt(40, competitionId1);
-            ps.setInt(41, competitionId2);
-            ps.setInt(42, competitorId);
-            ps.setInt(43, competitorId);
-            ps.setInt(44, competitionId1);
-            ps.setInt(45, competitionId2);
-            ps.setInt(46, competitorId);
-            ps.setInt(47, competitionId1);
-            ps.setInt(48, competitionId2);
-            ps.setInt(49, competitorId);
-            ps.setInt(50, competitionId1);
-            ps.setInt(51, competitionId2);
+            ps.setInt(1, competition_id);
+            ps.setInt(2, competitor_id);
+            ps.setInt(3, firearm_id);
+            ps.setString(4, division);
 
             ResultSet rs = ps.executeQuery();
-            int rank = 0;
 
             while (rs.next()) {
 
-                competitionResultsRow.setCurrent_results_date(rs.getString("current_results_date"));
-                competitionResultsRow.setPrevious_results_date(rs.getString("previous_results_date"));
-                competitionResultsRow.setCurrent_x(rs.getString("current_x"));
-                competitionResultsRow.setCurrent_ten(rs.getString("current_ten"));
-                competitionResultsRow.setCurrent_eight(rs.getString("current_eight"));
-                competitionResultsRow.setCurrent_five(rs.getString("current_five"));
-                competitionResultsRow.setCurrent_misses(rs.getString("current_misses"));
-                competitionResultsRow.setCurrent_penalty(rs.getString("current_penalty"));
-                competitionResultsRow.setCurrent_score(rs.getString("current_score"));
-                competitionResultsRow.setPrevious_score(rs.getString("previous_score"));
-                competitionResultsRow.setPrevious_x(rs.getString("previous_x"));
-                competitionResultsRow.setAverage_score(rs.getString("average_score"));
-                competitionResultsRow.setTotal_x(rs.getString("total_x"));
-                competitionResultsRow.setFirst_name(rs.getString("first_name"));
-                competitionResultsRow.setLast_name(rs.getString("last_name"));
-                competitionResultsRow.setAccount_name(rs.getString("account_name"));
-                competitionResultsRow.setCompetition_description(rs.getString("competition_description"));
+               competitionResultsRow.setFirst_name(rs.getString("first_name"));
+               competitionResultsRow.setLast_name(rs.getString("last_name"));
+               competitionResultsRow.setFirearm_model(rs.getString("firearm_model"));
+               competitionResultsRow.setDate(rs.getDate("date"));
+               competitionResultsRow.setTotal_x(rs.getString("total_x"));
+               competitionResultsRow.setTotal_ten(rs.getString("total_ten"));
+               competitionResultsRow.setTotal_eight(rs.getString("total_ten"));
+               competitionResultsRow.setTotal_five(rs.getString("total_five"));
+               competitionResultsRow.setTotal_misses(rs.getString("total_misses"));
+               competitionResultsRow.setPenalty(rs.getString("penalty"));
+               competitionResultsRow.setFinal_score(rs.getString("final_score"));
+
             }
 
             rs.close();
