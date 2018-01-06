@@ -57,6 +57,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             calculateTargetTotals();
             calculateSumRow();
             calculateTotalRow();
+            calculatePenalty();
         }
     }
 
@@ -298,6 +299,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         scoreSheet.getTotalRow().setEight(scoreSheet.getSumRow().getEight() * 8);
         scoreSheet.getTotalRow().setFive(scoreSheet.getSumRow().getFive() * 5);
         scoreSheet.setFinalScore(calculateTotalScore());
+    }
+
+    public void calculatePenalty() {
+        scoreSheet.setPenalty(scoreSheet.getTargetOne().getMisses() + scoreSheet.getTargetTwo().getMisses());
     }
 
     public int calculateTotalX() {
