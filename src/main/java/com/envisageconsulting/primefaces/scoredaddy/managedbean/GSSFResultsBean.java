@@ -1,6 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
+import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionResults;
@@ -10,11 +11,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @ViewScoped
 @ManagedBean(name="gssfResultsBean")
@@ -23,6 +27,9 @@ public class GSSFResultsBean implements Serializable {
     @ManagedProperty("#{competitionResultsDAO}")
     private CompetitionResultsDAO competitionResultsDAO;
 
+    @ManagedProperty("#{competitionDAO}")
+    private CompetitionDAO competitionDAO;
+
     private List<CompetitionResults> competitionStockResultsList;
     private List<CompetitionResults> competitionUnlimitedResultsList;
     private List<CompetitionResults> competitionPocketResultsList;
@@ -30,6 +37,8 @@ public class GSSFResultsBean implements Serializable {
     private List<CompetitionResults> competitionSeniorResultsList;
     private List<CompetitionResults> competitionJuniorResultsList;
     private List<CompetitionResults> filtered;
+
+    private List<Competition> allCompetitions;
 
     private String competitionDate;
     private String accountName;
@@ -42,9 +51,14 @@ public class GSSFResultsBean implements Serializable {
     @PostConstruct
     public void init() {
         renderSingleScores = false;
+        try {
+            allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(getAccountIdFromSession(), "I");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
-    public void viewScores() {
+    public void viewSingleScores() {
         try {
             renderSingleScores = true;
             competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId())));
@@ -58,6 +72,15 @@ public class GSSFResultsBean implements Serializable {
             competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void viewAveragedScores() {
+
+        try {
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -79,6 +102,12 @@ public class GSSFResultsBean implements Serializable {
         }
 
         return list;
+    }
+
+    public int getAccountIdFromSession() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        return (int) sessionMap.get("accountId");
     }
 
     public String getCompetitionDate() {
@@ -108,6 +137,14 @@ public class GSSFResultsBean implements Serializable {
 
     public void setCompetitionResultsDAO(CompetitionResultsDAO competitionResultsDAO) {
         this.competitionResultsDAO = competitionResultsDAO;
+    }
+
+    public CompetitionDAO getCompetitionDAO() {
+        return competitionDAO;
+    }
+
+    public void setCompetitionDAO(CompetitionDAO competitionDAO) {
+        this.competitionDAO = competitionDAO;
     }
 
     public List<CompetitionResults> getCompetitionStockResultsList() {
@@ -164,5 +201,13 @@ public class GSSFResultsBean implements Serializable {
 
     public void setRenderSingleScores(boolean renderSingleScores) {
         this.renderSingleScores = renderSingleScores;
+    }
+
+    public List<Competition> getAllCompetitions() {
+        return allCompetitions;
+    }
+
+    public void setAllCompetitions(List<Competition> allCompetitions) {
+        this.allCompetitions = allCompetitions;
     }
 }

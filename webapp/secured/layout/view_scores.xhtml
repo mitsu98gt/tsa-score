@@ -16,16 +16,16 @@
                         <p:selectOneMenu required="true" id="competition" label="Competition" value="#{gssfResultsBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
                             <!--<p:ajax listener="#{gssfResultsBean.viewScores}" update="singleResultsPanelGroup" />-->
                             <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
-                            <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
+                            <f:selectItems value="#{gssfResultsBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
                 </p:panel>
                 <p:panel id="overallpanel" header="Overall Tournament Scores">
-                    <p:commandButton id="overallBtn" value="View Averages" ajax="false" actionListener="#{gssfResultsBean.viewScores}" icon="fa fa-list-ol" style="width:175px;height:33px"/>
+                    <p:commandButton id="overallBtn" value="View Averages" ajax="false" actionListener="#{gssfResultsBean.viewSingleScores}" icon="fa fa-list-ol" style="width:175px;height:33px"/>
                 </p:panel>
             </p:panelGrid>
             <br/>
-            <p:commandButton id="individualBtn" value="View Scores" ajax="false" actionListener="#{gssfResultsBean.viewScores}" icon="fa fa-list-ol" style="width:150px"/>
+            <p:commandButton id="individualBtn" value="View Scores" ajax="false" actionListener="#{gssfResultsBean.viewSingleScores}" icon="fa fa-list-ol" style="width:150px"/>
             <p:messages id="scoremessages" style="width:400px"/>
         </h:form>
         <br/>
