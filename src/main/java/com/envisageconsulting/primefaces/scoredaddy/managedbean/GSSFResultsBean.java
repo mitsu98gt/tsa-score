@@ -42,19 +42,6 @@ public class GSSFResultsBean implements Serializable {
     @PostConstruct
     public void init() {
         renderSingleScores = false;
-        /*try {
-            competitionStockResultsList = new ArrayList<CompetitionResults>();
-            competitionUnlimitedResultsList = new ArrayList<CompetitionResults>();
-            competitionPocketResultsList = new ArrayList<CompetitionResults>();
-            competitionWomanResultsList = new ArrayList<CompetitionResults>();
-            competitionSeniorResultsList = new ArrayList<CompetitionResults>();
-            competitionJuniorResultsList = new ArrayList<CompetitionResults>();
-            competitionDate = "";
-            accountName = "";
-            competitionDescription = "";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     public void viewScores() {

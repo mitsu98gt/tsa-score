@@ -107,11 +107,11 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public CompetitionResultsRow getCompetitionResultsByCompetitionAndDivision(int competition_id, String division) throws Exception {
+    public List<Integer> getCompetitorIdByCompetitionAndDivision(int competition_id, String division) throws Exception {
 
-        CompetitionResultsRow competitionResultsRow = new CompetitionResultsRow();
+        List<Integer> competitorIdList = new ArrayList<Integer>();
 
-        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITON_AND_DIVISION, division);
+        String sql = "select distinct(competitor_id) from competition_results where id = ? and stock_division = ? order by competitor_id";
 
         Connection conn = null;
 
@@ -121,6 +121,87 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
             ps.setInt(1, competition_id);
             ps.setString(2, division);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                competitorIdList.add(rs.getInt("competitor_id"));
+            }
+
+            rs.close();
+            ps.close();
+
+            return competitorIdList;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get competitor Ids! " + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Integer> getCompetitorFirearmByCompetitionAndDivision(int competitor_id, int competition_id, String division) throws Exception {
+
+        List<Integer> competitorFirearmList = new ArrayList<Integer>();
+
+        String sql = "select firearm_id from competition_results where competitor_id = ? and id = ? and stock_division = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, competitor_id);
+            ps.setInt(2, competition_id);
+            ps.setString(3, division);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                competitorFirearmList.add(rs.getInt("firearm_id"));
+            }
+
+            rs.close();
+            ps.close();
+
+            return competitorFirearmList;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get competitor and firearm from competition results! " + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public CompetitionResultsRow getCompetitionResultsByCompetitionCompetitorFirearmDivision(int competition_id, int competitor_id, int firearm_id, String division) throws Exception {
+
+        CompetitionResultsRow competitionResultsRow = new CompetitionResultsRow();
+
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITON_COMPETITOR_FIREARM_DIVISION, division);
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, competition_id);
+            ps.setInt(2, competitor_id);
+            ps.setInt(3, firearm_id);
+            ps.setString(4, division);
 
             ResultSet rs = ps.executeQuery();
 
@@ -146,7 +227,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             return competitionResultsRow;
 
         } catch (SQLException ex) {
-            throw new Exception(ex);
+            throw new Exception("Failed to get competion results by competition, competitor, firearm, and divsion! " + ex);
         } finally {
             if (conn != null) {
                 try {
