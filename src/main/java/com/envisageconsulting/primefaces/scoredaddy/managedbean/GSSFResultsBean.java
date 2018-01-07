@@ -37,9 +37,12 @@ public class GSSFResultsBean implements Serializable {
 
     private Competition competition;
 
+    private boolean renderSingleScores;
+
     @PostConstruct
     public void init() {
-        try {
+        renderSingleScores = false;
+        /*try {
             competitionStockResultsList = new ArrayList<CompetitionResults>();
             competitionUnlimitedResultsList = new ArrayList<CompetitionResults>();
             competitionPocketResultsList = new ArrayList<CompetitionResults>();
@@ -51,11 +54,12 @@ public class GSSFResultsBean implements Serializable {
             competitionDescription = "";
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public void viewScores() {
         try {
+            renderSingleScores = true;
             competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId())));
             competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
             competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()));
@@ -165,5 +169,13 @@ public class GSSFResultsBean implements Serializable {
 
     public void setCompetition(Competition competition) {
         this.competition = competition;
+    }
+
+    public boolean isRenderSingleScores() {
+        return renderSingleScores;
+    }
+
+    public void setRenderSingleScores(boolean renderSingleScores) {
+        this.renderSingleScores = renderSingleScores;
     }
 }
