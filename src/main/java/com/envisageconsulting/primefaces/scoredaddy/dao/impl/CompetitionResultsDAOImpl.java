@@ -107,25 +107,27 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public List<Integer> getCompetitorIdByCompetitionAndDivision(int competition_id, String division) throws Exception {
+    public List<Competitor> getCompetitorIdByCompetitionAndDivision(int competition_id, String division) throws Exception {
 
-        List<Integer> competitorIdList = new ArrayList<Integer>();
+        List<Competitor> competitorIdList = new ArrayList<Competitor>();
 
-        String sql = "select distinct(competitor_id) from competition_results where id = ? and stock_division = ? order by competitor_id";
+        String sql = "select distinct(competitor_id) from competition_results cr where id = ? and %s order by competitor_id";
+        String formattedSql = String.format(sql, division);
 
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(formattedSql);
 
             ps.setInt(1, competition_id);
-            ps.setString(2, division);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                competitorIdList.add(rs.getInt("competitor_id"));
+                Competitor competitor =  new Competitor();
+                competitor.setCompetitorId(rs.getString("competitor_id"));
+                competitorIdList.add(competitor);
             }
 
             rs.close();
@@ -146,26 +148,28 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public List<Integer> getCompetitorFirearmByCompetitionAndDivision(int competitor_id, int competition_id, String division) throws Exception {
+    public List<Firearm> getCompetitorFirearmByCompetitionAndDivision(int competitor_id, int competition_id, String division) throws Exception {
 
-        List<Integer> competitorFirearmList = new ArrayList<Integer>();
+        List<Firearm> competitorFirearmList = new ArrayList<Firearm>();
 
-        String sql = "select firearm_id from competition_results where competitor_id = ? and id = ? and stock_division = ?";
+        String sql = "select firearm_id from competition_results cr where competitor_id = ? and id = ? and %s";
+        String formattedSql = String.format(sql, division);
 
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(formattedSql);
 
             ps.setInt(1, competitor_id);
             ps.setInt(2, competition_id);
-            ps.setString(3, division);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                competitorFirearmList.add(rs.getInt("firearm_id"));
+                Firearm firearm = new Firearm();
+                firearm.setId(rs.getString("firearm_id"));
+                competitorFirearmList.add(firearm);
             }
 
             rs.close();
@@ -201,7 +205,6 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setInt(1, competition_id);
             ps.setInt(2, competitor_id);
             ps.setInt(3, firearm_id);
-            ps.setString(4, division);
 
             ResultSet rs = ps.executeQuery();
 

@@ -23,6 +23,11 @@ public class CompetitorFirearmKey {
         this.firearm_id = firearm_id;
     }
 
+    public CompetitorFirearmKey(int competitor_id, int firearm_id) {
+        this.competitor_id = competitor_id;
+        this.firearm_id = firearm_id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
