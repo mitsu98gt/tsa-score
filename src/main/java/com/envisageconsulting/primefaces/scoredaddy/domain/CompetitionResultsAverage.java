@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class CompetitionResultsAverage {
 
+    private String rank;
+    private String classification;
     private String first_name;
     private String last_name;
     private String firearm_model;
@@ -20,6 +22,22 @@ public class CompetitionResultsAverage {
     private String previous_x;
     private String average_score;
     private String total_x;
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
 
     public String getFirst_name() {
         return first_name;
@@ -148,4 +166,5 @@ public class CompetitionResultsAverage {
     public void setTotal_x(String total_x) {
         this.total_x = total_x;
     }
+
 }

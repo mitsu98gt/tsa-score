@@ -1,6 +1,8 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.CompetitionResultsComparator;
 import com.envisageconsulting.primefaces.scoredaddy.Constants;
+import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
@@ -40,6 +42,9 @@ public class GSSFResultsBean implements Serializable {
     private List<Competition> allCompetitions;
 
     private String competitionDate;
+    private String competitionDateAverages;
+    private String previousCompetitionDate;
+    private String currentCompetitionDate;
     private String accountName;
     private String competitionDescription;
 
@@ -48,6 +53,9 @@ public class GSSFResultsBean implements Serializable {
     private boolean renderSingleScores;
     private boolean renderAveragedScores;
     private boolean disableAveragedScoresButton;
+
+    private List<CompetitionResultsAverage> resultsAverageList;
+    private List<CompetitionResultsAverage> resultsAverageListFiltered;
 
     @PostConstruct
     public void init() {
@@ -91,34 +99,38 @@ public class GSSFResultsBean implements Serializable {
         int numberOfCompetitions = allCompetitions.size();
 
         if (numberOfCompetitions == 2) {
-            calculateAveragesForTwoCompetitions();
+            calculateAveragesForTwoCompetitions(SQLConstants.STOCK_DIVISION);
         } else {
             calculateAveragesForThreeCompetitions();
         }
     }
 
-    public void calculateAveragesForTwoCompetitions() {
+    public void calculateAveragesForTwoCompetitions(String division) {
 
         try {
             int competitionId1 = Integer.valueOf(allCompetitions.get(0).getId());
             int competitionId2 = Integer.valueOf(allCompetitions.get(1).getId());
 
+            competitionDateAverages = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
+            previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
+            currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
+
             List<Competitor> listOfCompetitors1 = new ArrayList<Competitor>();
-            listOfCompetitors1 = competitionResultsDAO.getCompetitorIdByCompetitionAndDivision(competitionId1, SQLConstants.STOCK_DIVISION);
+            listOfCompetitors1 = competitionResultsDAO.getCompetitorIdByCompetitionAndDivision(competitionId1, division);
             List<Competitor> listOfCompetitors2 = new ArrayList<Competitor>();
-            listOfCompetitors2 = competitionResultsDAO.getCompetitorIdByCompetitionAndDivision(competitionId2, SQLConstants.STOCK_DIVISION);
+            listOfCompetitors2 = competitionResultsDAO.getCompetitorIdByCompetitionAndDivision(competitionId2, division);
 
             Map<Competitor, List<Firearm>> competitorFirearmMap1 = new HashMap<>();
             for (int i = 0; i < listOfCompetitors1.size(); i++) {
                 int competitorId = Integer.valueOf(listOfCompetitors1.get(i).getCompetitorId());
-                List<Firearm> firearmList = competitionResultsDAO.getCompetitorFirearmByCompetitionAndDivision(competitorId, competitionId1, SQLConstants.STOCK_DIVISION);
+                List<Firearm> firearmList = competitionResultsDAO.getCompetitorFirearmByCompetitionAndDivision(competitorId, competitionId1, division);
                 competitorFirearmMap1.put(listOfCompetitors1.get(i), firearmList);
             }
 
             Map<Competitor, List<Firearm>> competitorFirearmMap2 = new HashMap<>();
             for (int i = 0; i < listOfCompetitors2.size(); i++) {
                 int competitorId = Integer.valueOf(listOfCompetitors2.get(i).getCompetitorId());
-                List<Firearm> firearmList = competitionResultsDAO.getCompetitorFirearmByCompetitionAndDivision(competitorId, competitionId2, SQLConstants.STOCK_DIVISION);
+                List<Firearm> firearmList = competitionResultsDAO.getCompetitorFirearmByCompetitionAndDivision(competitorId, competitionId2, division);
                 competitorFirearmMap2.put(listOfCompetitors2.get(i), firearmList);
             }
 
@@ -128,7 +140,7 @@ public class GSSFResultsBean implements Serializable {
                 for (int i = 0; i < firearmList1.size(); i++) {
                     int competitorId1 = Integer.valueOf(entry.getKey().getCompetitorId());
                     int firearmId1 = Integer.valueOf(firearmList1.get(i).getId());
-                    CompetitionResultsRow competitionResultsRow1 = competitionResultsDAO.getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitionId1, competitorId1, firearmId1, SQLConstants.STOCK_DIVISION);
+                    CompetitionResultsRow competitionResultsRow1 = competitionResultsDAO.getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitionId1, competitorId1, firearmId1, division);
                     competitorResultsMap1.put(new CompetitorFirearmKey(competitorId1, firearmId1), competitionResultsRow1);
                 }
             }
@@ -139,7 +151,7 @@ public class GSSFResultsBean implements Serializable {
                 for (int i = 0; i < firearmList2.size(); i++) {
                     int competitorId2 = Integer.valueOf(entry.getKey().getCompetitorId());
                     int firearmId2 = Integer.valueOf(firearmList2.get(i).getId());
-                    CompetitionResultsRow competitionResultsRow2 = competitionResultsDAO.getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitionId2, competitorId2, firearmId2, SQLConstants.STOCK_DIVISION);
+                    CompetitionResultsRow competitionResultsRow2 = competitionResultsDAO.getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitionId2, competitorId2, firearmId2, division);
                     competitorResultsMap2.put(new CompetitorFirearmKey(competitorId2, firearmId2), competitionResultsRow2);
                 }
             }
@@ -161,15 +173,41 @@ public class GSSFResultsBean implements Serializable {
                 CompetitionResultsAverage competitionResultsAverage = new CompetitionResultsAverage();
 
                 List<CompetitionResultsRow> crlist = mmap.getValue();
-                CompetitionResultsRow competitionResultsRow1 = crlist.get(0);
-                CompetitionResultsRow competitionResultsRow2 = crlist.get(1);
+                CompetitionResultsRow previousCompetitionResultsRow = crlist.get(0);
+                CompetitionResultsRow currentCompetitionResultsRow = crlist.get(1);
 
-                competitionResultsAverage.setFirst_name(competitionResultsRow1.getFirst_name());
-                competitionResultsAverage.setLast_name(competitionResultsRow1.getLast_name());
-                competitionResultsAverage.setFirearm_model(competitionResultsRow1.getFirearm_model());
+                competitionResultsAverage.setFirst_name(currentCompetitionResultsRow.getFirst_name());
+                competitionResultsAverage.setLast_name(currentCompetitionResultsRow.getLast_name());
+                competitionResultsAverage.setFirearm_model(currentCompetitionResultsRow.getFirearm_model());
+                competitionResultsAverage.setCurrent_date(currentCompetitionResultsRow.getDate());
+                competitionResultsAverage.setPrevious_date(previousCompetitionResultsRow.getDate());
+                competitionResultsAverage.setCurrent_x(currentCompetitionResultsRow.getTotal_x());
+                competitionResultsAverage.setCurrent_ten(currentCompetitionResultsRow.getTotal_ten());
+                competitionResultsAverage.setCurrent_eight(currentCompetitionResultsRow.getTotal_eight());
+                competitionResultsAverage.setCurrent_five(currentCompetitionResultsRow.getTotal_five());
+                competitionResultsAverage.setCurrent_misses(currentCompetitionResultsRow.getTotal_misses());
+                competitionResultsAverage.setCurrent_penalty(currentCompetitionResultsRow.getPenalty());
+                competitionResultsAverage.setCurrent_score(currentCompetitionResultsRow.getFinal_score());
+                competitionResultsAverage.setPrevious_score(previousCompetitionResultsRow.getFinal_score());
+                competitionResultsAverage.setPrevious_x(previousCompetitionResultsRow.getTotal_x());
 
+                float averageScore = (float)((Float.valueOf(previousCompetitionResultsRow.getFinal_score()) + Float.valueOf(currentCompetitionResultsRow.getFinal_score())) / 2);
+                competitionResultsAverage.setAverage_score(String.valueOf(averageScore));
+                competitionResultsAverage.setTotal_x(String.valueOf(Integer.valueOf(previousCompetitionResultsRow.getTotal_x()) + Integer.valueOf(currentCompetitionResultsRow.getTotal_x())));
 
                 competitionResultsAverageList.add(competitionResultsAverage);
+                Collections.sort(competitionResultsAverageList, new CompetitionResultsComparator());
+
+                for (int i = 0; i < competitionResultsAverageList.size(); i++) {
+                    competitionResultsAverageList.get(i).setRank(String.valueOf(i+1));
+                }
+
+                if (division.equalsIgnoreCase(SQLConstants.STOCK_DIVISION)) {
+                    setResultsAverageList(calculateClassificationForAverage(competitionResultsAverageList));
+                } else {
+                    setResultsAverageList(competitionResultsAverageList);
+                }
+
             }
 
             System.out.println("");
@@ -208,6 +246,26 @@ public class GSSFResultsBean implements Serializable {
         return list;
     }
 
+    public List<CompetitionResultsAverage> calculateClassificationForAverage(List<CompetitionResultsAverage> list) {
+
+        int groups = list.size() / 3;
+        int classA = groups;
+        int classB = groups * 2;
+
+        for (int i=0; i < list.size(); i++) {
+            if (i < classA) {
+                list.get(i).setClassification("A");
+            } else if (i >= classA && i < classB) {
+                list.get(i).setClassification("B");
+            } else {
+                list.get(i).setClassification("C");
+            }
+
+        }
+
+        return list;
+    }
+
     public int getAccountIdFromSession() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
@@ -221,6 +279,18 @@ public class GSSFResultsBean implements Serializable {
         Date competitionDate = competitionStockResultsList.get(0).getCompetitionDetails().getDate();
         SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
         return format.format(competitionDate);
+    }
+
+    public String getPreviousCompetitionDate() {
+        return previousCompetitionDate;
+    }
+
+    public String getCurrentCompetitionDate() {
+        return currentCompetitionDate;
+    }
+
+    public String getCompetitionDateAverages() {
+        return competitionDateAverages;
     }
 
     public String getAccountInfoName() {
@@ -329,5 +399,21 @@ public class GSSFResultsBean implements Serializable {
 
     public void setAllCompetitions(List<Competition> allCompetitions) {
         this.allCompetitions = allCompetitions;
+    }
+
+    public List<CompetitionResultsAverage> getResultsAverageList() {
+        return resultsAverageList;
+    }
+
+    public void setResultsAverageList(List<CompetitionResultsAverage> resultsAverageList) {
+        this.resultsAverageList = resultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getResultsAverageListFiltered() {
+        return resultsAverageListFiltered;
+    }
+
+    public void setResultsAverageListFiltered(List<CompetitionResultsAverage> resultsAverageListFiltered) {
+        this.resultsAverageListFiltered = resultsAverageListFiltered;
     }
 }
