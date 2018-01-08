@@ -229,7 +229,6 @@ public class GSSFResultsBean implements Serializable {
                     mmRow1.setFirearm_model(map1.getValue().getFirearm_model());
                     if (division.equals(SQLConstants.STOCK_DIVISION)) {
                         mmRow1.setRank("UNQ");
-                        mmRow1.setClassification("N/A");
                     } else {
                         mmRow1.setRank("UNQ");
                     }
@@ -245,7 +244,6 @@ public class GSSFResultsBean implements Serializable {
                     mmRow2.setFirearm_model(map2.getValue().getFirearm_model());
                     if (division.equals(SQLConstants.STOCK_DIVISION)) {
                         mmRow2.setRank("UNQ");
-                        mmRow2.setClassification("N/A");
                     } else {
                         mmRow2.setRank("UNQ");
                     }
