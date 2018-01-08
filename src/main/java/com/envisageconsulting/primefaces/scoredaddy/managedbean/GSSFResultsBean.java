@@ -5,6 +5,7 @@ import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -56,6 +57,8 @@ public class GSSFResultsBean implements Serializable {
 
         try {
             allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(getAccountIdFromSession(), "I");
+            accountName = allCompetitions.get(0).getName();
+            competitionDescription = allCompetitions.get(0).getDescription();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -143,7 +146,32 @@ public class GSSFResultsBean implements Serializable {
 
             Set<CompetitorFirearmKey> matchingSet = new HashSet<>(competitorResultsMap1.keySet());
             matchingSet.retainAll(competitorResultsMap2.keySet());
-            
+
+            Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingMap = new HashMap<>();
+            for (CompetitorFirearmKey c : matchingSet) {
+                List<CompetitionResultsRow> matchingCompetitionResultsRowList = new ArrayList<CompetitionResultsRow>();
+                matchingCompetitionResultsRowList.add(competitorResultsMap1.get(c));
+                matchingCompetitionResultsRowList.add(competitorResultsMap2.get(c));
+                matchingMap.put(c, matchingCompetitionResultsRowList);
+            }
+
+            List<CompetitionResultsAverage> competitionResultsAverageList = new ArrayList<CompetitionResultsAverage>();
+            for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> mmap : matchingMap.entrySet()) {
+
+                CompetitionResultsAverage competitionResultsAverage = new CompetitionResultsAverage();
+
+                List<CompetitionResultsRow> crlist = mmap.getValue();
+                CompetitionResultsRow competitionResultsRow1 = crlist.get(0);
+                CompetitionResultsRow competitionResultsRow2 = crlist.get(1);
+
+                competitionResultsAverage.setFirst_name(competitionResultsRow1.getFirst_name());
+                competitionResultsAverage.setLast_name(competitionResultsRow1.getLast_name());
+                competitionResultsAverage.setFirearm_model(competitionResultsRow1.getFirearm_model());
+
+
+                competitionResultsAverageList.add(competitionResultsAverage);
+            }
+
             System.out.println("");
 
         } catch (Exception ex) {
@@ -187,7 +215,7 @@ public class GSSFResultsBean implements Serializable {
     }
 
     public String getCompetitionDate() {
-        if (competitionStockResultsList.size() == 0) {
+        if (null == competitionStockResultsList || competitionStockResultsList.size() == 0) {
             return "";
         }
         Date competitionDate = competitionStockResultsList.get(0).getCompetitionDetails().getDate();
@@ -196,11 +224,11 @@ public class GSSFResultsBean implements Serializable {
     }
 
     public String getAccountInfoName() {
-        return competitionStockResultsList.size() == 0 ? "" : competitionStockResultsList.get(0).getAccount().getName();
+        return (null == competitionStockResultsList || competitionStockResultsList.size() == 0) ? "" : competitionStockResultsList.get(0).getAccount().getName();
     }
 
     public String getCompetitionInfoDescription() {
-        return competitionStockResultsList.size() == 0 ? "" : competitionStockResultsList.get(0).getCompetition().getDescription();
+        return (null == competitionStockResultsList || competitionStockResultsList.size() == 0) ? "" : competitionStockResultsList.get(0).getCompetition().getDescription();
     }
 
     public List<CompetitionResults> getFiltered() {

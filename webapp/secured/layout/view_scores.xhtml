@@ -37,6 +37,11 @@
                 <ui:include src="indoor_results.xhtml"/>
             </p:panel>
         </h:panelGroup>
+        <h:panelGroup id="resultsAverage2PanelGroup" layout="block">
+            <p:panel id="resultsAverage2Panel" rendered="#{gssfResultsBean.renderAveragedScores}">
+                <ui:include src="indoor_results_average2.xhtml"/>
+            </p:panel>
+        </h:panelGroup>
     </div>
     </ui:define>
 </ui:composition>
