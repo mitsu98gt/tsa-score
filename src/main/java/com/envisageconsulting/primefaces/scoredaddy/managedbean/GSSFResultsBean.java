@@ -171,6 +171,7 @@ public class GSSFResultsBean implements Serializable {
             Set<CompetitorFirearmKey> matchingSet = new HashSet<>(competitorResultsMap1.keySet());
             matchingSet.retainAll(competitorResultsMap2.keySet());
 
+
             Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingMap = new HashMap<>();
             for (CompetitorFirearmKey c : matchingSet) {
                 List<CompetitionResultsRow> matchingCompetitionResultsRowList = new ArrayList<CompetitionResultsRow>();
@@ -217,6 +218,39 @@ public class GSSFResultsBean implements Serializable {
                     competitionResultsAverageList = calculateClassificationForAverage(competitionResultsAverageList);
                 }
 
+            }
+
+            //Mismatches
+            for(Map.Entry<CompetitorFirearmKey, CompetitionResultsRow> map1 : competitorResultsMap1.entrySet()) {
+                if (!competitorResultsMap2.containsKey(map1.getKey())) {
+                    CompetitionResultsAverage mmRow1 = new CompetitionResultsAverage();
+                    mmRow1.setFirst_name(map1.getValue().getFirst_name());
+                    mmRow1.setLast_name(map1.getValue().getLast_name());
+                    mmRow1.setFirearm_model(map1.getValue().getFirearm_model());
+                    if (division.equals(SQLConstants.STOCK_DIVISION)) {
+                        mmRow1.setRank("UNQ");
+                        mmRow1.setClassification("N/A");
+                    } else {
+                        mmRow1.setRank("UNQ");
+                    }
+                    competitionResultsAverageList.add(mmRow1);
+                }
+            }
+
+            for(Map.Entry<CompetitorFirearmKey, CompetitionResultsRow> map2 : competitorResultsMap2.entrySet()) {
+                if (!competitorResultsMap1.containsKey(map2.getKey())) {
+                    CompetitionResultsAverage mmRow2 = new CompetitionResultsAverage();
+                    mmRow2.setFirst_name(map2.getValue().getFirst_name());
+                    mmRow2.setLast_name(map2.getValue().getLast_name());
+                    mmRow2.setFirearm_model(map2.getValue().getFirearm_model());
+                    if (division.equals(SQLConstants.STOCK_DIVISION)) {
+                        mmRow2.setRank("UNQ");
+                        mmRow2.setClassification("N/A");
+                    } else {
+                        mmRow2.setRank("UNQ");
+                    }
+                    competitionResultsAverageList.add(mmRow2);
+                }
             }
 
         } catch (Exception ex) {
