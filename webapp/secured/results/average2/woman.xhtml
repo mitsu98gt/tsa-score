@@ -6,10 +6,10 @@
         xmlns:pe="http://primefaces.org/ui/extensions"
         xmlns:p="http://primefaces.org/ui">
 
-    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.resultsAverageListFiltered}" id="averagestockscorestable" var="averagestockscores" value="#{gssfResultsBean.competitionStockResultsAverageList}" style="font-size:13px;text-align:center">
+    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.resultsAverageListFiltered}" id="averagewomanscorestable" var="averagewomanscores" value="#{gssfResultsBean.competitionWomanResultsAverageList}" style="font-size:13px;text-align:center">
 
         <f:facet name="header">
-            GSSF Scores - Stock
+            GSSF Scores - Woman
         </f:facet>
         <p:columnGroup type="header">
             <p:row>
@@ -22,9 +22,9 @@
             </p:row>
             <p:row>
                 <p:column headerText="" exportable="true"/>
-                <p:column headerText="First" filterBy="#{averagestockscores.first_name}" filterMatchMode="contains"/>
-                <p:column headerText="Last" filterBy="#{averagestockscores.last_name}" filterMatchMode="contains"/>
-                <p:column headerText="Model" filterBy="#{averagestockscores.firearm_model}" filterMatchMode="contains"/>
+                <p:column headerText="First" filterBy="#{averagewomanscores.first_name}" filterMatchMode="contains"/>
+                <p:column headerText="Last" filterBy="#{averagewomanscores.last_name}" filterMatchMode="contains"/>
+                <p:column headerText="Model" filterBy="#{averagewomanscores.firearm_model}" filterMatchMode="contains"/>
                 <p:column headerText="X"/>
                 <p:column headerText="10"/>
                 <p:column headerText="8"/>
@@ -42,77 +42,77 @@
         </p:columnGroup>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.rank} - #{averagestockscores.classification}" />
+            <h:outputText value="#{averagewomanscores.rank}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.first_name}" />
+            <h:outputText value="#{averagewomanscores.first_name}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.last_name}" />
+            <h:outputText value="#{averagewomanscores.last_name}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.firearm_model}" />
+            <h:outputText value="#{averagewomanscores.firearm_model}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_x}" />
+            <h:outputText value="#{averagewomanscores.current_x}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_ten}" />
+            <h:outputText value="#{averagewomanscores.current_ten}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_eight}" />
+            <h:outputText value="#{averagewomanscores.current_eight}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_five}" />
+            <h:outputText value="#{averagewomanscores.current_five}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_misses}" />
+            <h:outputText value="#{averagewomanscores.current_misses}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_penalty}" />
+            <h:outputText value="#{averagewomanscores.current_penalty}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_score}" />
+            <h:outputText value="#{averagewomanscores.current_score}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.previous_score}" />
+            <h:outputText value="#{averagewomanscores.previous_score}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.previous_x}" />
+            <h:outputText value="#{averagewomanscores.previous_x}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_score}" />
+            <h:outputText value="#{averagewomanscores.current_score}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.current_x}" />
+            <h:outputText value="#{averagewomanscores.current_x}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.average_score}" />
+            <h:outputText value="#{averagewomanscores.average_score}" />
         </p:column>
 
         <p:column>
-            <h:outputText value="#{averagestockscores.total_x}" />
+            <h:outputText value="#{averagewomanscores.total_x}" />
         </p:column>
 
     </p:dataTable>
 
     <p:commandButton value="Download Excel" ajax="false" icon="fa fa-file-excel-o" style="width:200px">
-        <pe:exporter ajax="false" type="xlsx" target="averagestockscorestable" fileName="Stock_Scores" subTable="false"/>
+        <pe:exporter ajax="false" type="xlsx" target="averagewomanscorestable" fileName="Woman_Scores" subTable="false"/>
     </p:commandButton>
 
 

@@ -54,7 +54,12 @@ public class GSSFResultsBean implements Serializable {
     private boolean renderAveragedScores;
     private boolean disableAveragedScoresButton;
 
-    private List<CompetitionResultsAverage> resultsAverageList;
+    private List<CompetitionResultsAverage> competitionStockResultsAverageList;
+    private List<CompetitionResultsAverage> competitionUnlimitedResultsAverageList;
+    private List<CompetitionResultsAverage> competitionPocketResultsAverageList;
+    private List<CompetitionResultsAverage> competitionWomanResultsAverageList;
+    private List<CompetitionResultsAverage> competitionSeniorResultsAverageList;
+    private List<CompetitionResultsAverage> competitionJuniorResultsAverageList;
     private List<CompetitionResultsAverage> resultsAverageListFiltered;
 
     @PostConstruct
@@ -99,13 +104,20 @@ public class GSSFResultsBean implements Serializable {
         int numberOfCompetitions = allCompetitions.size();
 
         if (numberOfCompetitions == 2) {
-            calculateAveragesForTwoCompetitions(SQLConstants.STOCK_DIVISION);
+            competitionStockResultsAverageList = calculateAveragesForTwoCompetitions(SQLConstants.STOCK_DIVISION);
+            competitionUnlimitedResultsAverageList = calculateAveragesForTwoCompetitions(SQLConstants.UNLIMITED_DIVISION);
+            competitionPocketResultsAverageList = calculateAveragesForTwoCompetitions(SQLConstants.POCKET_DIVISION);
+            competitionWomanResultsAverageList = calculateAveragesForTwoCompetitions(SQLConstants.WOMAN_DIVISION);
+            competitionSeniorResultsAverageList = calculateAveragesForTwoCompetitions(SQLConstants.SENIOR_DIVISION);
+            competitionJuniorResultsAverageList = calculateAveragesForTwoCompetitions(SQLConstants.JUNIOR_DIVISION);
         } else {
             calculateAveragesForThreeCompetitions();
         }
     }
 
-    public void calculateAveragesForTwoCompetitions(String division) {
+    public List<CompetitionResultsAverage> calculateAveragesForTwoCompetitions(String division) {
+
+        List<CompetitionResultsAverage> competitionResultsAverageList = new ArrayList<CompetitionResultsAverage>();
 
         try {
             int competitionId1 = Integer.valueOf(allCompetitions.get(0).getId());
@@ -167,7 +179,6 @@ public class GSSFResultsBean implements Serializable {
                 matchingMap.put(c, matchingCompetitionResultsRowList);
             }
 
-            List<CompetitionResultsAverage> competitionResultsAverageList = new ArrayList<CompetitionResultsAverage>();
             for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> mmap : matchingMap.entrySet()) {
 
                 CompetitionResultsAverage competitionResultsAverage = new CompetitionResultsAverage();
@@ -203,18 +214,16 @@ public class GSSFResultsBean implements Serializable {
                 }
 
                 if (division.equalsIgnoreCase(SQLConstants.STOCK_DIVISION)) {
-                    setResultsAverageList(calculateClassificationForAverage(competitionResultsAverageList));
-                } else {
-                    setResultsAverageList(competitionResultsAverageList);
+                    competitionResultsAverageList = calculateClassificationForAverage(competitionResultsAverageList);
                 }
 
             }
 
-            System.out.println("");
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        return competitionResultsAverageList;
 
     }
 
@@ -401,12 +410,52 @@ public class GSSFResultsBean implements Serializable {
         this.allCompetitions = allCompetitions;
     }
 
-    public List<CompetitionResultsAverage> getResultsAverageList() {
-        return resultsAverageList;
+    public List<CompetitionResultsAverage> getCompetitionStockResultsAverageList() {
+        return competitionStockResultsAverageList;
     }
 
-    public void setResultsAverageList(List<CompetitionResultsAverage> resultsAverageList) {
-        this.resultsAverageList = resultsAverageList;
+    public void setCompetitionStockResultsAverageList(List<CompetitionResultsAverage> competitionStockResultsAverageList) {
+        this.competitionStockResultsAverageList = competitionStockResultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getCompetitionUnlimitedResultsAverageList() {
+        return competitionUnlimitedResultsAverageList;
+    }
+
+    public void setCompetitionUnlimitedResultsAverageList(List<CompetitionResultsAverage> competitionUnlimitedResultsAverageList) {
+        this.competitionUnlimitedResultsAverageList = competitionUnlimitedResultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getCompetitionPocketResultsAverageList() {
+        return competitionPocketResultsAverageList;
+    }
+
+    public void setCompetitionPocketResultsAverageList(List<CompetitionResultsAverage> competitionPocketResultsAverageList) {
+        this.competitionPocketResultsAverageList = competitionPocketResultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getCompetitionWomanResultsAverageList() {
+        return competitionWomanResultsAverageList;
+    }
+
+    public void setCompetitionWomanResultsAverageList(List<CompetitionResultsAverage> competitionWomanResultsAverageList) {
+        this.competitionWomanResultsAverageList = competitionWomanResultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getCompetitionSeniorResultsAverageList() {
+        return competitionSeniorResultsAverageList;
+    }
+
+    public void setCompetitionSeniorResultsAverageList(List<CompetitionResultsAverage> competitionSeniorResultsAverageList) {
+        this.competitionSeniorResultsAverageList = competitionSeniorResultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getCompetitionJuniorResultsAverageList() {
+        return competitionJuniorResultsAverageList;
+    }
+
+    public void setCompetitionJuniorResultsAverageList(List<CompetitionResultsAverage> competitionJuniorResultsAverageList) {
+        this.competitionJuniorResultsAverageList = competitionJuniorResultsAverageList;
     }
 
     public List<CompetitionResultsAverage> getResultsAverageListFiltered() {
