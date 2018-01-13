@@ -7,7 +7,9 @@ import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +22,14 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @ViewScoped
 @ManagedBean(name="gssfResultsBean")
@@ -201,6 +210,12 @@ public class GSSFResultsBean implements Serializable {
         return competitionResultsAverageList;
     }
 
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
+    {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
     public List<CompetitionResultsAverage> calculateAveragesForTwoCompetitions(List<Competition> allCompetitions, String division) {
 
         List<CompetitionResultsAverage> competitionResultsAverageList = new ArrayList<CompetitionResultsAverage>();
@@ -223,19 +238,36 @@ public class GSSFResultsBean implements Serializable {
                 competitorResultsMap.add(getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitorFirearmMap.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division));
             }
 
-            // Get Unique List of Entries (Competitor & Firearm)
-            /*List<Set<CompetitorFirearmKey>> unqiueSetListOfEntries = new ArrayList<Set<CompetitorFirearmKey>>();
+            Multimap<CompetitorFirearmKey, CompetitionResultsRow> combinedCompetitorResultsMap = ArrayListMultimap.create();
             for (int j=0; j < competitorResultsMap.size(); j++) {
-                if (j != competitorResultsMap.size()-1) {
-                    Set<CompetitorFirearmKey> thisMatchingSet = new HashSet<>(competitorResultsMap.get(j).keySet());
-                    for (int k = 0; k < competitorResultsMap.size(); k++) {
-                        if (!(j<=k)) {
-                            thisMatchingSet.retainAll(competitorResultsMap.get(k).keySet());
-                            unqiueSetListOfEntries.add(thisMatchingSet);
-                        }
-                    }
+                for (Map.Entry<CompetitorFirearmKey, CompetitionResultsRow> entry : competitorResultsMap.get(j).entrySet())
+                {
+                    combinedCompetitorResultsMap.put(entry.getKey(), entry.getValue());
                 }
-            }*/
+            }
+
+            HashSet<CompetitorFirearmKey> matchingSetOfKeys = new HashSet<CompetitorFirearmKey>();
+            HashSet<CompetitorFirearmKey> tempSetMatching = new HashSet<CompetitorFirearmKey>();
+
+            for (CompetitorFirearmKey matchingKey : combinedCompetitorResultsMap.keys()) {
+                if (!tempSetMatching.add(matchingKey)) {
+                    matchingSetOfKeys.add(matchingKey);
+                }
+            }
+
+            List<CompetitorFirearmKey> nonMatchingSetOfKeys = new ArrayList<CompetitorFirearmKey>();
+            List<CompetitorFirearmKey> tempSetNonMatching = new ArrayList<CompetitorFirearmKey>();
+            for (CompetitorFirearmKey nonMatchingKey : combinedCompetitorResultsMap.keys()) {
+                if (tempSetNonMatching.contains(nonMatchingKey)) {
+                    nonMatchingSetOfKeys.remove(nonMatchingKey);
+                } else {
+                    tempSetNonMatching.add(nonMatchingKey);
+                    nonMatchingSetOfKeys.add(nonMatchingKey);
+                }
+            }
+
+            //HashSet<CompetitorFirearmKey> distinctSetOfKeys = Sets.newHashSet(combinedCompetitorResultsMap.keys());
+
 
             List<Competitor> listOfCompetitors1 = getListOfCompetitorsForByCompetitionIdAndDivision(competitionId1, division);
             List<Competitor> listOfCompetitors2 = getListOfCompetitorsForByCompetitionIdAndDivision(competitionId2, division);
