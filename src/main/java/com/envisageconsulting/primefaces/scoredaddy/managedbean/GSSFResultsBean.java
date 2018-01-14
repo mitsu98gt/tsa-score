@@ -41,8 +41,7 @@ public class GSSFResultsBean implements Serializable {
 
     private List<Competition> allCompetitions;
 
-    private String competitionDate;
-    private String competitionDateAverages;
+    private String currentCompetitionFullSpellingDate;
     private String previousCompetitionDate;
     private String currentCompetitionDate;
     private String accountName;
@@ -89,7 +88,7 @@ public class GSSFResultsBean implements Serializable {
             competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()));
             competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
             competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
-            competitionDate = getCompetitionDate();
+            currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(competitionStockResultsList.get(0).getCompetitionDetails().getDate());
             accountName = getAccountInfoName();
             competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {
@@ -116,7 +115,7 @@ public class GSSFResultsBean implements Serializable {
 
         try {
 
-            competitionDateAverages = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
+            currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
             previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
             currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
 
@@ -329,13 +328,8 @@ public class GSSFResultsBean implements Serializable {
         return (int) sessionMap.get("accountId");
     }
 
-    public String getCompetitionDate() {
-        if (null == competitionStockResultsList || competitionStockResultsList.size() == 0) {
-            return "";
-        }
-        Date competitionDate = competitionStockResultsList.get(0).getCompetitionDetails().getDate();
-        SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
-        return format.format(competitionDate);
+    public String getCurrentCompetitionFullSpellingDate() {
+        return currentCompetitionFullSpellingDate;
     }
 
     public String getPreviousCompetitionDate() {
@@ -344,10 +338,6 @@ public class GSSFResultsBean implements Serializable {
 
     public String getCurrentCompetitionDate() {
         return currentCompetitionDate;
-    }
-
-    public String getCompetitionDateAverages() {
-        return competitionDateAverages;
     }
 
     public String getAccountInfoName() {
