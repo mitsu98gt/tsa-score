@@ -183,13 +183,8 @@ public class GSSFResultsBean implements Serializable {
 
             // Sort the qualified entries if 3rd Round Match
             if (thirdRoundMatch) {
-                //Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesSortedScoresMap = new HashMap<CompetitorFirearmKey, List<CompetitionResultsRow>>();
                 for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntries : matchingEntriesMap.entrySet()) {
                     Collections.sort(matchingEntries.getValue(), new CompetitionResultsRowComparator());
-                /*List<CompetitionResultsRow> newCompetitionResultsRow = new ArrayList<CompetitionResultsRow>();
-                newCompetitionResultsRow.add(matchingEntries.getValue().get(0));
-                newCompetitionResultsRow.add(matchingEntries.getValue().get(1));
-                matchingEntriesTwoHighestScoresMap.put(matchingEntries.getKey(), newCompetitionResultsRow);*/
                 }
             }
 
@@ -288,9 +283,12 @@ public class GSSFResultsBean implements Serializable {
             List<CompetitionResultsRow> crlist = mmap.getValue();
 
             if (secondRoundMatch) {
+
                 previousCompetitionResultsRow = crlist.get(0);
                 currentCompetitionResultsRow = crlist.get(1);
+
             } else {
+
                 String firstMatchDate = DateUtils.getDate(allCompetitions.get(0).getDate());
                 String secondMatchDate = DateUtils.getDate(allCompetitions.get(1).getDate());
                 String thirdMatchDate = DateUtils.getDate(allCompetitions.get(2).getDate());
@@ -299,37 +297,23 @@ public class GSSFResultsBean implements Serializable {
                 boolean previous = false;
                 boolean current = false;
 
-                for (int v=0; v < crlist.size(); v++) {
+                for (int resultRows=0; resultRows < crlist.size(); resultRows++) {
 
-                    if (DateUtils.getDate(crlist.get(v).getDate()).equals(firstMatchDate)) {
-                        firstCompetitionResultsRow = crlist.get(v);
-                        missedRow.setFirst_name(crlist.get(v).getFirst_name());
-                        missedRow.setLast_name(crlist.get(v).getLast_name());
-                        missedRow.setFirearm_model(crlist.get(v).getFirearm_model());
+                    if (DateUtils.getDate(crlist.get(resultRows).getDate()).equals(firstMatchDate)) {
+                        firstCompetitionResultsRow = crlist.get(resultRows);
+                        missedRow = getDataForMissedRow(crlist.get(resultRows));
                         first = true;
-                    } else if (DateUtils.getDate(crlist.get(v).getDate()).equals(secondMatchDate)) {
-                        previousCompetitionResultsRow = crlist.get(v);
-                        missedRow.setFirst_name(crlist.get(v).getFirst_name());
-                        missedRow.setLast_name(crlist.get(v).getLast_name());
-                        missedRow.setFirearm_model(crlist.get(v).getFirearm_model());
+                    } else if (DateUtils.getDate(crlist.get(resultRows).getDate()).equals(secondMatchDate)) {
+                        previousCompetitionResultsRow = crlist.get(resultRows);
+                        missedRow = getDataForMissedRow(crlist.get(resultRows));
                         previous = true;
-                    } else if (DateUtils.getDate(crlist.get(v).getDate()).equals(thirdMatchDate)) {
-                        currentCompetitionResultsRow = crlist.get(v);
-                        missedRow.setFirst_name(crlist.get(v).getFirst_name());
-                        missedRow.setLast_name(crlist.get(v).getLast_name());
-                        missedRow.setFirearm_model(crlist.get(v).getFirearm_model());
+                    } else if (DateUtils.getDate(crlist.get(resultRows).getDate()).equals(thirdMatchDate)) {
+                        currentCompetitionResultsRow = crlist.get(resultRows);
+                        missedRow = getDataForMissedRow(crlist.get(resultRows));
                         current = true;
                     }
 
                 }
-
-                missedRow.setTotal_x("0");
-                missedRow.setTotal_ten("0");
-                missedRow.setTotal_eight("0");
-                missedRow.setTotal_five("0");
-                missedRow.setTotal_misses("0");
-                missedRow.setPenalty("0");
-                missedRow.setFinal_score("0");
 
                 if (!first) {
                     firstCompetitionResultsRow = missedRow;
@@ -388,6 +372,21 @@ public class GSSFResultsBean implements Serializable {
 
     public boolean isMultipleCompetitions() {
         return allCompetitions.size() > 1 ? false : true;
+    }
+
+    public CompetitionResultsRow getDataForMissedRow(CompetitionResultsRow row) {
+        CompetitionResultsRow missedRow =  new CompetitionResultsRow();
+        missedRow.setFirst_name(row.getFirst_name());
+        missedRow.setLast_name(row.getLast_name());
+        missedRow.setFirearm_model(row.getFirearm_model());
+        missedRow.setTotal_x("N/A");
+        missedRow.setTotal_ten("N/A");
+        missedRow.setTotal_eight("N/A");
+        missedRow.setTotal_five("N/A");
+        missedRow.setTotal_misses("N/A");
+        missedRow.setPenalty("N/A");
+        missedRow.setFinal_score("N/A");
+        return missedRow;
     }
 
     public List<CompetitionResults> calculateClassifcation(List<CompetitionResults> list) {
