@@ -11,6 +11,7 @@ public class CompetitionResultsAverage {
     private String firearm_model;
     private Date current_date;
     private Date previous_date;
+    private Date first_date;
     private String current_x;
     private String current_ten;
     private String current_eight;
@@ -20,6 +21,12 @@ public class CompetitionResultsAverage {
     private String current_score;
     private String previous_score;
     private String previous_x;
+    private String first_score;
+    private String first_x;
+    private String top_score;
+    private String top_x;
+    private String second_score;
+    private String second_x;
     private String average_score;
     private String total_x;
 
@@ -77,6 +84,14 @@ public class CompetitionResultsAverage {
 
     public void setPrevious_date(Date previous_date) {
         this.previous_date = previous_date;
+    }
+
+    public Date getFirst_date() {
+        return first_date;
+    }
+
+    public void setFirst_date(Date first_date) {
+        this.first_date = first_date;
     }
 
     public String getCurrent_x() {
@@ -149,6 +164,54 @@ public class CompetitionResultsAverage {
 
     public void setPrevious_x(String previous_x) {
         this.previous_x = previous_x;
+    }
+
+    public String getFirst_score() {
+        return first_score;
+    }
+
+    public void setFirst_score(String first_score) {
+        this.first_score = first_score;
+    }
+
+    public String getFirst_x() {
+        return first_x;
+    }
+
+    public void setFirst_x(String first_x) {
+        this.first_x = first_x;
+    }
+
+    public String getTop_score() {
+        return top_score;
+    }
+
+    public void setTop_score(String top_score) {
+        this.top_score = top_score;
+    }
+
+    public String getTop_x() {
+        return top_x;
+    }
+
+    public void setTop_x(String top_x) {
+        this.top_x = top_x;
+    }
+
+    public String getSecond_score() {
+        return second_score;
+    }
+
+    public void setSecond_score(String second_score) {
+        this.second_score = second_score;
+    }
+
+    public String getSecond_x() {
+        return second_x;
+    }
+
+    public void setSecond_x(String second_x) {
+        this.second_x = second_x;
     }
 
     public String getAverage_score() {
