@@ -1,5 +1,6 @@
 <ui:composition template="/secured/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -39,7 +40,12 @@
         </h:panelGroup>
         <h:panelGroup id="resultsDoublePanelGroup" layout="block">
             <p:panel id="resultsDoublePanel" rendered="#{gssfResultsBean.renderAveragedScores}">
-                <ui:include src="indoor_triple_results.xhtml"/>
+                <c:if test="#{gssfResultsBean.secondRoundMatch}">
+                    <ui:include src="indoor_double_results.xhtml"/>
+                </c:if>
+                <c:if test="#{gssfResultsBean.thirdRoundMatch}">
+                    <ui:include src="indoor_triple_results.xhtml"/>
+                </c:if>
             </p:panel>
         </h:panelGroup>
     </div>

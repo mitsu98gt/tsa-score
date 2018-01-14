@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.*;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -53,6 +54,9 @@ public class GSSFResultsBean implements Serializable {
     private boolean renderSingleScores;
     private boolean renderAveragedScores;
     private boolean disableAveragedScoresButton;
+    private boolean secondRoundMatch;
+    private boolean thirdRoundMatch;
+
 
     private List<CompetitionResultsAverage> competitionStockResultsAverageList;
     private List<CompetitionResultsAverage> competitionUnlimitedResultsAverageList;
@@ -117,10 +121,14 @@ public class GSSFResultsBean implements Serializable {
         try {
 
             if (allCompetitions.size() == 2) {
+                secondRoundMatch = true;
+                thirdRoundMatch = false;
                 currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
                 previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
                 currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
             } else {
+                secondRoundMatch = false;
+                thirdRoundMatch = true;
                 currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(2).getDate());
                 firstCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
                 previousCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
@@ -168,22 +176,25 @@ public class GSSFResultsBean implements Serializable {
                 }
             }
 
+            //Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesForCalculationsMap = new HashMap<CompetitorFirearmKey, List<CompetitionResultsRow>>();
+
             // Get the data for qualified entries
             Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesMap = getMatchingMapOfEntries(matchingSetOfKeys, competitorResultsMapList);
 
-            // Get the 2 highest scores for each qualified entries
-            Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesTwoHighestScoresMap = new HashMap<CompetitorFirearmKey, List<CompetitionResultsRow>>();
-            for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntries : matchingEntriesMap.entrySet()) {
-                //Collections.sort(competitionResultsAverageList, new CompetitionResultsAverageComparator());
-                Collections.sort(matchingEntries.getValue(), new CompetitionResultsRowComparator());
-                List<CompetitionResultsRow> newCompetitionResultsRow = new ArrayList<CompetitionResultsRow>();
+            // Sort the qualified entries if 3rd Round Match
+            if (thirdRoundMatch) {
+                //Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesSortedScoresMap = new HashMap<CompetitorFirearmKey, List<CompetitionResultsRow>>();
+                for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntries : matchingEntriesMap.entrySet()) {
+                    Collections.sort(matchingEntries.getValue(), new CompetitionResultsRowComparator());
+                /*List<CompetitionResultsRow> newCompetitionResultsRow = new ArrayList<CompetitionResultsRow>();
                 newCompetitionResultsRow.add(matchingEntries.getValue().get(0));
                 newCompetitionResultsRow.add(matchingEntries.getValue().get(1));
-                matchingEntriesTwoHighestScoresMap.put(matchingEntries.getKey(), newCompetitionResultsRow);
+                matchingEntriesTwoHighestScoresMap.put(matchingEntries.getKey(), newCompetitionResultsRow);*/
+                }
             }
 
             // Get the calculated results of qualified entries
-            competitionResultsAverageList = getCompetitionResultsAverageList(matchingEntriesTwoHighestScoresMap, division);
+            competitionResultsAverageList = getCompetitionResultsAverageList(matchingEntriesMap, division);
 
             // Get Unqualified Entries - First we need to convert MultiMap to Map
             Map<CompetitorFirearmKey, CompetitionResultsRow> combinedCompetitorResultsMap = new HashMap<>();
@@ -241,13 +252,20 @@ public class GSSFResultsBean implements Serializable {
         return competitorResultsMap;
     }
 
-    public Map<CompetitorFirearmKey, List<CompetitionResultsRow>> getMatchingMapOfEntries(Set<CompetitorFirearmKey> matchingSet, List<Map<CompetitorFirearmKey, CompetitionResultsRow>> competitorResultsMapList) {
+    public Map<CompetitorFirearmKey, List<CompetitionResultsRow>> getMatchingMapOfEntries(Set<CompetitorFirearmKey> matchingSet, List<Map<CompetitorFirearmKey, CompetitionResultsRow>> competitorResultsMapList) throws ParseException {
         Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingMap = new HashMap<>();
         for (CompetitorFirearmKey c : matchingSet) {
             List<CompetitionResultsRow> matchingCompetitionResultsRowList = new ArrayList<CompetitionResultsRow>();
             for (int b=0; b < competitorResultsMapList.size(); b++) {
                 if (competitorResultsMapList.get(b).containsKey(c)){
                     matchingCompetitionResultsRowList.add(competitorResultsMapList.get(b).get(c));
+                    matchingMap.put(c, matchingCompetitionResultsRowList);
+                } else {
+                    CompetitionResultsRow nonShootRow = new CompetitionResultsRow();
+                    nonShootRow.setFinal_score("0");
+                    nonShootRow.setTotal_x("0");
+                    nonShootRow.setDate(DateUtils.getDateFromString("9999-12-31"));
+                    matchingCompetitionResultsRowList.add(nonShootRow);
                     matchingMap.put(c, matchingCompetitionResultsRowList);
                 }
             }
@@ -262,10 +280,68 @@ public class GSSFResultsBean implements Serializable {
         for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> mmap : matchingMap.entrySet()) {
 
             CompetitionResultsAverage competitionResultsAverage = new CompetitionResultsAverage();
+            CompetitionResultsRow previousCompetitionResultsRow = new CompetitionResultsRow();
+            CompetitionResultsRow currentCompetitionResultsRow = new CompetitionResultsRow();
+            CompetitionResultsRow firstCompetitionResultsRow = new CompetitionResultsRow();
+            CompetitionResultsRow missedRow = new CompetitionResultsRow();
 
             List<CompetitionResultsRow> crlist = mmap.getValue();
-            CompetitionResultsRow previousCompetitionResultsRow = crlist.get(0);
-            CompetitionResultsRow currentCompetitionResultsRow = crlist.get(1);
+
+            if (secondRoundMatch) {
+                previousCompetitionResultsRow = crlist.get(0);
+                currentCompetitionResultsRow = crlist.get(1);
+            } else {
+                String firstMatchDate = DateUtils.getDate(allCompetitions.get(0).getDate());
+                String secondMatchDate = DateUtils.getDate(allCompetitions.get(1).getDate());
+                String thirdMatchDate = DateUtils.getDate(allCompetitions.get(2).getDate());
+
+                boolean first = false;
+                boolean previous = false;
+                boolean current = false;
+
+                for (int v=0; v < crlist.size(); v++) {
+
+                    if (DateUtils.getDate(crlist.get(v).getDate()).equals(firstMatchDate)) {
+                        firstCompetitionResultsRow = crlist.get(v);
+                        missedRow.setFirst_name(crlist.get(v).getFirst_name());
+                        missedRow.setLast_name(crlist.get(v).getLast_name());
+                        missedRow.setFirearm_model(crlist.get(v).getFirearm_model());
+                        first = true;
+                    } else if (DateUtils.getDate(crlist.get(v).getDate()).equals(secondMatchDate)) {
+                        previousCompetitionResultsRow = crlist.get(v);
+                        missedRow.setFirst_name(crlist.get(v).getFirst_name());
+                        missedRow.setLast_name(crlist.get(v).getLast_name());
+                        missedRow.setFirearm_model(crlist.get(v).getFirearm_model());
+                        previous = true;
+                    } else if (DateUtils.getDate(crlist.get(v).getDate()).equals(thirdMatchDate)) {
+                        currentCompetitionResultsRow = crlist.get(v);
+                        missedRow.setFirst_name(crlist.get(v).getFirst_name());
+                        missedRow.setLast_name(crlist.get(v).getLast_name());
+                        missedRow.setFirearm_model(crlist.get(v).getFirearm_model());
+                        current = true;
+                    }
+
+                }
+
+                missedRow.setTotal_x("0");
+                missedRow.setTotal_ten("0");
+                missedRow.setTotal_eight("0");
+                missedRow.setTotal_five("0");
+                missedRow.setTotal_misses("0");
+                missedRow.setPenalty("0");
+                missedRow.setFinal_score("0");
+
+                if (!first) {
+                    firstCompetitionResultsRow = missedRow;
+                }
+                if (!previous) {
+                    previousCompetitionResultsRow = missedRow;
+                }
+                if (!current) {
+                    currentCompetitionResultsRow = missedRow;
+                }
+
+            }
 
             competitionResultsAverage.setFirst_name(currentCompetitionResultsRow.getFirst_name());
             competitionResultsAverage.setLast_name(currentCompetitionResultsRow.getLast_name());
@@ -279,12 +355,21 @@ public class GSSFResultsBean implements Serializable {
             competitionResultsAverage.setCurrent_misses(currentCompetitionResultsRow.getTotal_misses());
             competitionResultsAverage.setCurrent_penalty(currentCompetitionResultsRow.getPenalty());
             competitionResultsAverage.setCurrent_score(currentCompetitionResultsRow.getFinal_score());
+
+            competitionResultsAverage.setFirst_score(firstCompetitionResultsRow.getFinal_score());
+            competitionResultsAverage.setFirst_x(firstCompetitionResultsRow.getTotal_x());
+
             competitionResultsAverage.setPrevious_score(previousCompetitionResultsRow.getFinal_score());
             competitionResultsAverage.setPrevious_x(previousCompetitionResultsRow.getTotal_x());
 
-            float averageScore = (float) ((Float.valueOf(previousCompetitionResultsRow.getFinal_score()) + Float.valueOf(currentCompetitionResultsRow.getFinal_score())) / 2);
+            competitionResultsAverage.setTop_score(crlist.get(0).getFinal_score());
+            competitionResultsAverage.setTop_x(crlist.get(0).getTotal_x());
+            competitionResultsAverage.setSecond_score(crlist.get(1).getFinal_score());
+            competitionResultsAverage.setSecond_x(crlist.get(1).getTotal_x());
+
+            float averageScore = (float) ((Float.valueOf(crlist.get(0).getFinal_score()) + Float.valueOf(crlist.get(1).getFinal_score())) / 2);
             competitionResultsAverage.setAverage_score(String.valueOf(averageScore));
-            competitionResultsAverage.setTotal_x(String.valueOf(Integer.valueOf(previousCompetitionResultsRow.getTotal_x()) + Integer.valueOf(currentCompetitionResultsRow.getTotal_x())));
+            competitionResultsAverage.setTotal_x(String.valueOf(Integer.valueOf(crlist.get(0).getTotal_x()) + Integer.valueOf(crlist.get(1).getTotal_x())));
 
             competitionResultsAverageList.add(competitionResultsAverage);
             Collections.sort(competitionResultsAverageList, new CompetitionResultsAverageComparator());
@@ -529,5 +614,13 @@ public class GSSFResultsBean implements Serializable {
 
     public void setResultsAverageListFiltered(List<CompetitionResultsAverage> resultsAverageListFiltered) {
         this.resultsAverageListFiltered = resultsAverageListFiltered;
+    }
+
+    public boolean isSecondRoundMatch() {
+        return secondRoundMatch;
+    }
+
+    public boolean isThirdRoundMatch() {
+        return thirdRoundMatch;
     }
 }
