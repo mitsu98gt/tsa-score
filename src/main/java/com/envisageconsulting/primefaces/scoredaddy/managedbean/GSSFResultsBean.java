@@ -101,20 +101,98 @@ public class GSSFResultsBean implements Serializable {
 
         renderAveragedScores = true;
         renderSingleScores = false;
-        int numberOfCompetitions = allCompetitions.size();
 
-        if (numberOfCompetitions == 2) {
-            competitionStockResultsAverageList = calculateAveragesForTwoCompetitions(allCompetitions, SQLConstants.STOCK_DIVISION);
-            competitionUnlimitedResultsAverageList = calculateAveragesForTwoCompetitions(allCompetitions, SQLConstants.UNLIMITED_DIVISION);
-            competitionPocketResultsAverageList = calculateAveragesForTwoCompetitions(allCompetitions, SQLConstants.POCKET_DIVISION);
-            competitionWomanResultsAverageList = calculateAveragesForTwoCompetitions(allCompetitions, SQLConstants.WOMAN_DIVISION);
-            competitionSeniorResultsAverageList = calculateAveragesForTwoCompetitions(allCompetitions, SQLConstants.SENIOR_DIVISION);
-            competitionJuniorResultsAverageList = calculateAveragesForTwoCompetitions(allCompetitions, SQLConstants.JUNIOR_DIVISION);
-        } else {
-            calculateAveragesForThreeCompetitions();
-        }
+        competitionStockResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION);
+        competitionUnlimitedResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION);
+        competitionPocketResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION);
+        competitionWomanResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.WOMAN_DIVISION);
+        competitionSeniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.SENIOR_DIVISION);
+        competitionJuniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.JUNIOR_DIVISION);
     }
 
+    public List<CompetitionResultsAverage> calculateAveragesForTournament(List<Competition> allCompetitions, String division) {
+
+        List<CompetitionResultsAverage> competitionResultsAverageList = new ArrayList<CompetitionResultsAverage>();
+
+        try {
+
+            competitionDateAverages = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
+            previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
+            currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
+
+            List<List<Competitor>> listOfCompetitors = new ArrayList<List<Competitor>>();
+            List<Map<Competitor, List<Firearm>>> competitorFirearmMapList = new ArrayList<>();
+            List<Map<CompetitorFirearmKey, CompetitionResultsRow>> competitorResultsMapList = new ArrayList<>();
+
+            for (int i = 0; i < allCompetitions.size(); i++) {
+                listOfCompetitors.add(getListOfCompetitorsForByCompetitionIdAndDivision(Integer.valueOf(allCompetitions.get(i).getId()), division));
+                competitorFirearmMapList.add(getListOfCompetitorFirearms(listOfCompetitors.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division));
+                competitorResultsMapList.add(getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitorFirearmMapList.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division));
+            }
+
+            // Combine all the entries from all competitions
+            Multimap<CompetitorFirearmKey, CompetitionResultsRow> combinedCompetitorResultsMultiMap = ArrayListMultimap.create();
+            for (int j = 0; j < competitorResultsMapList.size(); j++) {
+                for (Map.Entry<CompetitorFirearmKey, CompetitionResultsRow> entry : competitorResultsMapList.get(j).entrySet()) {
+                    combinedCompetitorResultsMultiMap.put(entry.getKey(), entry.getValue());
+                }
+            }
+
+            // Ge the qualified entries
+            HashSet<CompetitorFirearmKey> matchingSetOfKeys = new HashSet<CompetitorFirearmKey>();
+            HashSet<CompetitorFirearmKey> tempSetMatching = new HashSet<CompetitorFirearmKey>();
+            for (CompetitorFirearmKey matchingKey : combinedCompetitorResultsMultiMap.keys()) {
+                if (!tempSetMatching.add(matchingKey)) {
+                    matchingSetOfKeys.add(matchingKey);
+                }
+            }
+
+            // Get the unqualified entries
+            List<CompetitorFirearmKey> nonMatchingSetOfKeys = new ArrayList<CompetitorFirearmKey>();
+            List<CompetitorFirearmKey> tempSetNonMatching = new ArrayList<CompetitorFirearmKey>();
+            for (CompetitorFirearmKey nonMatchingKey : combinedCompetitorResultsMultiMap.keys()) {
+                if (tempSetNonMatching.contains(nonMatchingKey)) {
+                    nonMatchingSetOfKeys.remove(nonMatchingKey);
+                } else {
+                    tempSetNonMatching.add(nonMatchingKey);
+                    nonMatchingSetOfKeys.add(nonMatchingKey);
+                }
+            }
+
+            // Get the data for qualified entries
+            Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesMap = getMatchingMapOfEntries(matchingSetOfKeys, competitorResultsMapList);
+
+            // Get the calculated results of qualified entries
+            competitionResultsAverageList = getCompetitionResultsAverageList(matchingEntriesMap, division);
+
+            // Get Unqualified Entries - First we need to convert MultiMap to Map
+            Map<CompetitorFirearmKey, CompetitionResultsRow> combinedCompetitorResultsMap = new HashMap<>();
+            for (Map.Entry entry : combinedCompetitorResultsMultiMap.entries()) {
+                combinedCompetitorResultsMap.put((CompetitorFirearmKey)entry.getKey(), (CompetitionResultsRow)entry.getValue());
+            }
+
+            for (CompetitorFirearmKey nonMatchingKey : nonMatchingSetOfKeys) {
+                if (combinedCompetitorResultsMap.containsKey(nonMatchingKey)) {
+                    CompetitionResultsAverage unqalifiedRow = new CompetitionResultsAverage();
+                    unqalifiedRow.setFirst_name(combinedCompetitorResultsMap.get(nonMatchingKey).getFirst_name());
+                    unqalifiedRow.setLast_name(combinedCompetitorResultsMap.get(nonMatchingKey).getLast_name());
+                    unqalifiedRow.setFirearm_model(combinedCompetitorResultsMap.get(nonMatchingKey).getFirearm_model());
+                    if (division.equals(SQLConstants.STOCK_DIVISION)) {
+                        unqalifiedRow.setRank("UNQ");
+                    } else {
+                        unqalifiedRow.setRank("UNQ");
+                    }
+                    competitionResultsAverageList.add(unqalifiedRow);
+                }
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return competitionResultsAverageList;
+    }
+    
     public List<Competitor> getListOfCompetitorsForByCompetitionIdAndDivision(int competitionId, String division) throws Exception {
         return competitionResultsDAO.getCompetitorIdByCompetitionAndDivision(competitionId, division);
     }
@@ -199,91 +277,6 @@ public class GSSFResultsBean implements Serializable {
         }
 
         return competitionResultsAverageList;
-    }
-
-    public List<CompetitionResultsAverage> calculateAveragesForTwoCompetitions(List<Competition> allCompetitions, String division) {
-
-        List<CompetitionResultsAverage> competitionResultsAverageList = new ArrayList<CompetitionResultsAverage>();
-
-        try {
-
-            competitionDateAverages = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
-            previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
-            currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
-
-            List<List<Competitor>> listOfCompetitors = new ArrayList<List<Competitor>>();
-            List<Map<Competitor, List<Firearm>>> competitorFirearmMapList = new ArrayList<>();
-            List<Map<CompetitorFirearmKey, CompetitionResultsRow>> competitorResultsMapList = new ArrayList<>();
-
-            for (int i = 0; i < allCompetitions.size(); i++) {
-                listOfCompetitors.add(getListOfCompetitorsForByCompetitionIdAndDivision(Integer.valueOf(allCompetitions.get(i).getId()), division));
-                competitorFirearmMapList.add(getListOfCompetitorFirearms(listOfCompetitors.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division));
-                competitorResultsMapList.add(getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitorFirearmMapList.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division));
-            }
-
-            Multimap<CompetitorFirearmKey, CompetitionResultsRow> combinedCompetitorResultsMultiMap = ArrayListMultimap.create();
-            for (int j = 0; j < competitorResultsMapList.size(); j++) {
-                for (Map.Entry<CompetitorFirearmKey, CompetitionResultsRow> entry : competitorResultsMapList.get(j).entrySet()) {
-                    combinedCompetitorResultsMultiMap.put(entry.getKey(), entry.getValue());
-                }
-            }
-
-            HashSet<CompetitorFirearmKey> matchingSetOfKeys = new HashSet<CompetitorFirearmKey>();
-            HashSet<CompetitorFirearmKey> tempSetMatching = new HashSet<CompetitorFirearmKey>();
-
-            for (CompetitorFirearmKey matchingKey : combinedCompetitorResultsMultiMap.keys()) {
-                if (!tempSetMatching.add(matchingKey)) {
-                    matchingSetOfKeys.add(matchingKey);
-                }
-            }
-
-            List<CompetitorFirearmKey> nonMatchingSetOfKeys = new ArrayList<CompetitorFirearmKey>();
-            List<CompetitorFirearmKey> tempSetNonMatching = new ArrayList<CompetitorFirearmKey>();
-            for (CompetitorFirearmKey nonMatchingKey : combinedCompetitorResultsMultiMap.keys()) {
-                if (tempSetNonMatching.contains(nonMatchingKey)) {
-                    nonMatchingSetOfKeys.remove(nonMatchingKey);
-                } else {
-                    tempSetNonMatching.add(nonMatchingKey);
-                    nonMatchingSetOfKeys.add(nonMatchingKey);
-                }
-            }
-
-            Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesMap = getMatchingMapOfEntries(matchingSetOfKeys, competitorResultsMapList);
-
-            competitionResultsAverageList = getCompetitionResultsAverageList(matchingEntriesMap, division);
-
-            // Get Unqualified Entries - First we need to convert MultiMap to Map
-
-            Map<CompetitorFirearmKey, CompetitionResultsRow> combinedCompetitorResultsMap = new HashMap<>();
-            for (Map.Entry entry : combinedCompetitorResultsMultiMap.entries()) {
-                combinedCompetitorResultsMap.put((CompetitorFirearmKey)entry.getKey(), (CompetitionResultsRow)entry.getValue());
-            }
-
-            for (CompetitorFirearmKey nonMatchingKey : nonMatchingSetOfKeys) {
-                if (combinedCompetitorResultsMap.containsKey(nonMatchingKey)) {
-                    CompetitionResultsAverage unqalifiedRow = new CompetitionResultsAverage();
-                    unqalifiedRow.setFirst_name(combinedCompetitorResultsMap.get(nonMatchingKey).getFirst_name());
-                    unqalifiedRow.setLast_name(combinedCompetitorResultsMap.get(nonMatchingKey).getLast_name());
-                    unqalifiedRow.setFirearm_model(combinedCompetitorResultsMap.get(nonMatchingKey).getFirearm_model());
-                    if (division.equals(SQLConstants.STOCK_DIVISION)) {
-                        unqalifiedRow.setRank("UNQ");
-                    } else {
-                        unqalifiedRow.setRank("UNQ");
-                    }
-                    competitionResultsAverageList.add(unqalifiedRow);
-                }
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return competitionResultsAverageList;
-    }
-
-
-    public void calculateAveragesForThreeCompetitions() {
-
     }
 
     public boolean isMultipleCompetitions() {
