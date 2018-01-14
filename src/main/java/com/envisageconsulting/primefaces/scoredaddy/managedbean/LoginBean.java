@@ -2,6 +2,7 @@ package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.Encryption;
 import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Account;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -44,7 +45,7 @@ public class LoginBean implements Serializable {
 
 			if (validatePassword(passwordHash)) {
 				loggedIn = true;
-				addSessionObject(dao.getUserAccountId(username));
+				addSessionObject(dao.getUserAccount(username));
 				return navigationBean.redirectToLayout();
 			}
 		} catch (Exception e) {
@@ -61,11 +62,11 @@ public class LoginBean implements Serializable {
 
 	}
 
-	public void addSessionObject(int accountId) {
+	public void addSessionObject(Account account) {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
-		sessionMap.put("accountId", accountId);
+		sessionMap.put("accountId", Integer.valueOf(account.getId()));
 
 	}
 

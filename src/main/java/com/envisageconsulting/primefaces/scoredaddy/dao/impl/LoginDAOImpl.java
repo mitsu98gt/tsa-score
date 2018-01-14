@@ -1,6 +1,8 @@
 package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
 import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Account;
+import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
 
 import javax.sql.DataSource;
@@ -48,9 +50,11 @@ public class LoginDAOImpl implements LoginDAO {
         }
     }
 
-    public int getUserAccountId(String username) throws Exception {
+    public Account getUserAccount(String username) throws Exception {
 
-        String sql = "select account_id from users where username = ?";
+        Account account = new Account();
+
+        String sql = "select u.account_id, a.name, a.street, a.city, a.state, a.zipcode, a.phone from scoredaddy.users u, scoredaddy.account a where username = ? and u.account_id = a.id";
 
         int accountId = 0;
 
@@ -64,12 +68,19 @@ public class LoginDAOImpl implements LoginDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                accountId = rs.getInt("account_id");
+                Address address = new Address();
+                account.setId(rs.getString("account_id"));
+                account.setName(rs.getString("name"));
+                address.setStreet(rs.getString("street"));
+                address.setCity(rs.getString("city"));
+                address.setState(rs.getString("state"));
+                address.setZipcode(rs.getString("zipcode"));
+                account.setAddress(address);
             }
 
             rs.close();
             ps.close();
-            return accountId;
+            return account;
         } catch (SQLException e) {
             throw new Exception(e);
         } finally {

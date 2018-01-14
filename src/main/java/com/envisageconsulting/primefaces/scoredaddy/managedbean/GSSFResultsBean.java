@@ -176,8 +176,6 @@ public class GSSFResultsBean implements Serializable {
                 }
             }
 
-            //Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesForCalculationsMap = new HashMap<CompetitorFirearmKey, List<CompetitionResultsRow>>();
-
             // Get the data for qualified entries
             Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesMap = getMatchingMapOfEntries(matchingSetOfKeys, competitorResultsMapList);
 
