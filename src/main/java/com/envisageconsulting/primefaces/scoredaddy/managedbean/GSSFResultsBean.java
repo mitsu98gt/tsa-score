@@ -44,11 +44,10 @@ public class GSSFResultsBean implements Serializable {
 
     private Competition competition;
 
-    private boolean renderSingleScores;
-    private boolean renderAveragedScores;
     private boolean disableAveragedScoresButton;
-    private boolean secondRoundMatch;
-    private boolean thirdRoundMatch;
+    private boolean renderSingleScores;
+    private boolean renderDoubleScores;
+    private boolean renderTrippleScores;
 
 
     private List<CompetitionResultsAverage> competitionStockResultsAverageList;
@@ -63,7 +62,8 @@ public class GSSFResultsBean implements Serializable {
     public void init() {
 
         renderSingleScores = false;
-        renderAveragedScores = false;
+        renderDoubleScores = false;
+        renderTrippleScores = false;
 
         try {
             allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
@@ -79,7 +79,8 @@ public class GSSFResultsBean implements Serializable {
     public void viewSingleScores() {
         try {
             renderSingleScores = true;
-            renderAveragedScores = false;
+            renderDoubleScores = false;
+            renderTrippleScores = false;
             competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId())));
             competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
             competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()));
@@ -95,7 +96,6 @@ public class GSSFResultsBean implements Serializable {
 
     public void viewAveragedScores() {
 
-        renderAveragedScores = true;
         renderSingleScores = false;
 
         competitionStockResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION);
@@ -113,14 +113,15 @@ public class GSSFResultsBean implements Serializable {
         try {
 
             if (allCompetitions.size() == 2) {
-                secondRoundMatch = true;
-                thirdRoundMatch = false;
+                renderDoubleScores = true;
+                renderTrippleScores = false;
+
                 currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
                 previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
                 currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
             } else {
-                secondRoundMatch = false;
-                thirdRoundMatch = true;
+                renderDoubleScores = false;
+                renderTrippleScores = true;
                 currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(2).getDate());
                 firstCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
                 previousCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
@@ -172,7 +173,7 @@ public class GSSFResultsBean implements Serializable {
             Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesMap = getMatchingMapOfEntries(matchingSetOfKeys, competitorResultsMapList);
 
             // Sort the qualified entries if 3rd Round Match
-            if (thirdRoundMatch) {
+            if (renderTrippleScores) {
                 for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntries : matchingEntriesMap.entrySet()) {
                     Collections.sort(matchingEntries.getValue(), new CompetitionResultsRowComparator());
                 }
@@ -272,7 +273,7 @@ public class GSSFResultsBean implements Serializable {
 
             List<CompetitionResultsRow> crlist = mmap.getValue();
 
-            if (secondRoundMatch) {
+            if (renderDoubleScores) {
 
                 previousCompetitionResultsRow = crlist.get(0);
                 currentCompetitionResultsRow = crlist.get(1);
@@ -515,14 +516,6 @@ public class GSSFResultsBean implements Serializable {
         this.renderSingleScores = renderSingleScores;
     }
 
-    public boolean isRenderAveragedScores() {
-        return renderAveragedScores;
-    }
-
-    public void setRenderAveragedScores(boolean renderAveragedScores) {
-        this.renderAveragedScores = renderAveragedScores;
-    }
-
     public boolean isDisableAveragedScoresButton() {
         return disableAveragedScoresButton;
     }
@@ -595,11 +588,11 @@ public class GSSFResultsBean implements Serializable {
         this.resultsAverageListFiltered = resultsAverageListFiltered;
     }
 
-    public boolean isSecondRoundMatch() {
-        return secondRoundMatch;
+    public boolean isRenderDoubleScores() {
+        return renderDoubleScores;
     }
 
-    public boolean isThirdRoundMatch() {
-        return thirdRoundMatch;
+    public boolean isRenderTrippleScores() {
+        return renderTrippleScores;
     }
 }

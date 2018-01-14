@@ -39,13 +39,13 @@
             </p:panel>
         </h:panelGroup>
         <h:panelGroup id="resultsDoublePanelGroup" layout="block">
-            <p:panel id="resultsDoublePanel" rendered="#{gssfResultsBean.renderAveragedScores}">
-                <c:if test="#{gssfResultsBean.secondRoundMatch}">
-                    <ui:include src="indoor_double_results.xhtml"/>
-                </c:if>
-                <c:if test="#{gssfResultsBean.thirdRoundMatch}">
-                    <ui:include src="indoor_triple_results.xhtml"/>
-                </c:if>
+            <p:panel id="resultsDoublePanel" rendered="#{gssfResultsBean.renderDoubleScores}">
+                <ui:include src="indoor_double_results.xhtml"/>
+            </p:panel>
+        </h:panelGroup>
+        <h:panelGroup id="resultsTriplePanelGroup" layout="block">
+            <p:panel id="resultsTriplePanel" rendered="#{gssfResultsBean.renderTrippleScores}">
+                <ui:include src="indoor_triple_results.xhtml"/>
             </p:panel>
         </h:panelGroup>
     </div>
