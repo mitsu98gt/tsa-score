@@ -1,6 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
-import com.envisageconsulting.primefaces.scoredaddy.CompetitionResultsComparator;
+import com.envisageconsulting.primefaces.scoredaddy.CompetitionResultsAverageComparator;
+import com.envisageconsulting.primefaces.scoredaddy.CompetitionResultsRowComparator;
 import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
@@ -16,7 +17,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -171,8 +171,19 @@ public class GSSFResultsBean implements Serializable {
             // Get the data for qualified entries
             Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesMap = getMatchingMapOfEntries(matchingSetOfKeys, competitorResultsMapList);
 
+            // Get the 2 highest scores for each qualified entries
+            Map<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntriesTwoHighestScoresMap = new HashMap<CompetitorFirearmKey, List<CompetitionResultsRow>>();
+            for (Map.Entry<CompetitorFirearmKey, List<CompetitionResultsRow>> matchingEntries : matchingEntriesMap.entrySet()) {
+                //Collections.sort(competitionResultsAverageList, new CompetitionResultsAverageComparator());
+                Collections.sort(matchingEntries.getValue(), new CompetitionResultsRowComparator());
+                List<CompetitionResultsRow> newCompetitionResultsRow = new ArrayList<CompetitionResultsRow>();
+                newCompetitionResultsRow.add(matchingEntries.getValue().get(0));
+                newCompetitionResultsRow.add(matchingEntries.getValue().get(1));
+                matchingEntriesTwoHighestScoresMap.put(matchingEntries.getKey(), newCompetitionResultsRow);
+            }
+
             // Get the calculated results of qualified entries
-            competitionResultsAverageList = getCompetitionResultsAverageList(matchingEntriesMap, division);
+            competitionResultsAverageList = getCompetitionResultsAverageList(matchingEntriesTwoHighestScoresMap, division);
 
             // Get Unqualified Entries - First we need to convert MultiMap to Map
             Map<CompetitorFirearmKey, CompetitionResultsRow> combinedCompetitorResultsMap = new HashMap<>();
@@ -235,8 +246,10 @@ public class GSSFResultsBean implements Serializable {
         for (CompetitorFirearmKey c : matchingSet) {
             List<CompetitionResultsRow> matchingCompetitionResultsRowList = new ArrayList<CompetitionResultsRow>();
             for (int b=0; b < competitorResultsMapList.size(); b++) {
-                matchingCompetitionResultsRowList.add(competitorResultsMapList.get(b).get(c));
-                matchingMap.put(c, matchingCompetitionResultsRowList);
+                if (competitorResultsMapList.get(b).containsKey(c)){
+                    matchingCompetitionResultsRowList.add(competitorResultsMapList.get(b).get(c));
+                    matchingMap.put(c, matchingCompetitionResultsRowList);
+                }
             }
         }
         return matchingMap;
@@ -274,7 +287,7 @@ public class GSSFResultsBean implements Serializable {
             competitionResultsAverage.setTotal_x(String.valueOf(Integer.valueOf(previousCompetitionResultsRow.getTotal_x()) + Integer.valueOf(currentCompetitionResultsRow.getTotal_x())));
 
             competitionResultsAverageList.add(competitionResultsAverage);
-            Collections.sort(competitionResultsAverageList, new CompetitionResultsComparator());
+            Collections.sort(competitionResultsAverageList, new CompetitionResultsAverageComparator());
 
             for (int i = 0; i < competitionResultsAverageList.size(); i++) {
                 competitionResultsAverageList.get(i).setRank(String.valueOf(i + 1));
