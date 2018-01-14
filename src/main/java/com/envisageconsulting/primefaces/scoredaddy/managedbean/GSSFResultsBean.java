@@ -42,6 +42,7 @@ public class GSSFResultsBean implements Serializable {
     private List<Competition> allCompetitions;
 
     private String currentCompetitionFullSpellingDate;
+    private String firstCompetitionDate;
     private String previousCompetitionDate;
     private String currentCompetitionDate;
     private String accountName;
@@ -115,9 +116,16 @@ public class GSSFResultsBean implements Serializable {
 
         try {
 
-            currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
-            previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
-            currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
+            if (allCompetitions.size() == 2) {
+                currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
+                previousCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
+                currentCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
+            } else {
+                currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(2).getDate());
+                firstCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
+                previousCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
+                currentCompetitionDate = DateUtils.getDate(allCompetitions.get(2).getDate());
+            }
 
             List<List<Competitor>> listOfCompetitors = new ArrayList<List<Competitor>>();
             List<Map<Competitor, List<Firearm>>> competitorFirearmMapList = new ArrayList<>();
@@ -141,8 +149,10 @@ public class GSSFResultsBean implements Serializable {
             HashSet<CompetitorFirearmKey> matchingSetOfKeys = new HashSet<CompetitorFirearmKey>();
             HashSet<CompetitorFirearmKey> tempSetMatching = new HashSet<CompetitorFirearmKey>();
             for (CompetitorFirearmKey matchingKey : combinedCompetitorResultsMultiMap.keys()) {
-                if (!tempSetMatching.add(matchingKey)) {
+                if (tempSetMatching.contains(matchingKey)) {
                     matchingSetOfKeys.add(matchingKey);
+                } else {
+                    tempSetMatching.add(matchingKey);
                 }
             }
 
@@ -330,6 +340,10 @@ public class GSSFResultsBean implements Serializable {
 
     public String getCurrentCompetitionFullSpellingDate() {
         return currentCompetitionFullSpellingDate;
+    }
+
+    public String getFirstCompetitionDate() {
+        return firstCompetitionDate;
     }
 
     public String getPreviousCompetitionDate() {
