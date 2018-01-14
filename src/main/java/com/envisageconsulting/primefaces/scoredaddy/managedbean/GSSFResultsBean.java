@@ -1,9 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
-import com.envisageconsulting.primefaces.scoredaddy.CompetitionResultsAverageComparator;
-import com.envisageconsulting.primefaces.scoredaddy.CompetitionResultsRowComparator;
-import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
-import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
+import com.envisageconsulting.primefaces.scoredaddy.*;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
@@ -14,13 +11,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.*;
-
-import static java.util.stream.Collectors.groupingBy;
 
 @ViewScoped
 @ManagedBean(name="gssfResultsBean")
@@ -73,8 +66,8 @@ public class GSSFResultsBean implements Serializable {
         renderAveragedScores = false;
 
         try {
-            allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(getAccountIdFromSession(), "I");
-            accountName = allCompetitions.get(0).getName();
+            allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            accountName = SessionUtils.getAccountName();
             competitionDescription = allCompetitions.get(0).getDescription();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -94,7 +87,6 @@ public class GSSFResultsBean implements Serializable {
             competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
             competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
             currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(competitionStockResultsList.get(0).getCompetitionDetails().getDate());
-            accountName = getAccountInfoName();
             competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {
             e.printStackTrace();
@@ -427,12 +419,6 @@ public class GSSFResultsBean implements Serializable {
         return list;
     }
 
-    public int getAccountIdFromSession() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        return (int) sessionMap.get("accountId");
-    }
-
     public String getCurrentCompetitionFullSpellingDate() {
         return currentCompetitionFullSpellingDate;
     }
@@ -447,10 +433,6 @@ public class GSSFResultsBean implements Serializable {
 
     public String getCurrentCompetitionDate() {
         return currentCompetitionDate;
-    }
-
-    public String getAccountInfoName() {
-        return (null == competitionStockResultsList || competitionStockResultsList.size() == 0) ? "" : competitionStockResultsList.get(0).getAccount().getName();
     }
 
     public String getCompetitionInfoDescription() {

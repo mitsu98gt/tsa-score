@@ -9,4 +9,6 @@ public class Constants {
     public static final String GSSF_SENIOR = "GSSF_SENIOR";
     public static final String GSSF_JUNIOR = "GSSF_JUNIOR";
 
+    public static final String SESSION_ACCOUNT = "account";
+
 }

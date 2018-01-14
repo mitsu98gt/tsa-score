@@ -10,6 +10,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.mail.Session;
 import java.util.Map;
 
 @ManagedBean(name = "competitionConverter")
@@ -22,7 +23,7 @@ public class CompetitionConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            for(Competition c : competitionDAO.getCompetitionsByAccountIdAndStatus(getAccountIdFromSession(), "I")){
+            for(Competition c : competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I")){
                 if(c.getId().equals(value)){
                     return c;
                 }
@@ -40,12 +41,6 @@ public class CompetitionConverter implements Converter {
             return competition.getId();
         }
         return "";
-    }
-
-    public int getAccountIdFromSession() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        return (int) sessionMap.get("accountId");
     }
 
     public CompetitionDAO getCompetitionDAO() {

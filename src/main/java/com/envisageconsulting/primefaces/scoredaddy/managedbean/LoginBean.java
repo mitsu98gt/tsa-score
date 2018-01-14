@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.Constants;
 import com.envisageconsulting.primefaces.scoredaddy.Encryption;
 import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Account;
@@ -66,8 +67,7 @@ public class LoginBean implements Serializable {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
-		sessionMap.put("accountId", Integer.valueOf(account.getId()));
-
+		sessionMap.put(Constants.SESSION_ACCOUNT, account);
 	}
 
 	/**
