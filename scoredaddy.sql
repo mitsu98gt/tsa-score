@@ -67,7 +67,7 @@ CREATE TABLE `competition` (
   CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `status` FOREIGN KEY (`status`) REFERENCES `status_codes` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tournament_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournament` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `competition` (
 
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
-INSERT INTO `competition` VALUES (1,1,1,'GSSF Winter 1','Winter Series 1','I'),(2,1,1,'GSSF Winter 2','Winter Series 2','I'),(3,2,2,'GSSF Winter 1','GSSF Winter Round 1','I'),(4,2,2,'GSSF Winter 2','GSSF Winter Round 2','I'),(5,1,1,'GSSF Winter 3','Winter Series 3','I');
+INSERT INTO `competition` VALUES (1,1,1,'GSSF Winter 1','Winter Series 1','I'),(2,1,1,'GSSF Winter 2','Winter Series 2','I'),(3,2,2,'GSSF Winter 1','GSSF Winter Round 1','I'),(4,2,2,'GSSF Winter 2','GSSF Winter Round 2','I'),(5,1,1,'GSSF Winter 3','Winter Series 3','I'),(7,3,1,'Bullseye Winter Round 1','Bullseye Winter Round 1','N');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,7 @@ CREATE TABLE `competition_codes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`code`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `competition_codes` (
 
 LOCK TABLES `competition_codes` WRITE;
 /*!40000 ALTER TABLE `competition_codes` DISABLE KEYS */;
-INSERT INTO `competition_codes` VALUES (1,'GSSFI','GSSF Indoor League');
+INSERT INTO `competition_codes` VALUES (1,'GSSFI','GSSF Indoor League'),(2,'BULLSEYE','BULLSEYE League');
 /*!40000 ALTER TABLE `competition_codes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +157,7 @@ CREATE TABLE `competition_details` (
 
 LOCK TABLES `competition_details` WRITE;
 /*!40000 ALTER TABLE `competition_details` DISABLE KEYS */;
-INSERT INTO `competition_details` VALUES (1,1,'2018-01-06','A'),(2,1,'2018-02-06','A'),(3,1,'2017-12-02','A'),(4,1,'2018-01-06','A'),(5,1,'2018-03-06','A');
+INSERT INTO `competition_details` VALUES (1,1,'2018-01-06','A'),(2,1,'2018-02-06','A'),(3,1,'2017-12-02','A'),(4,1,'2018-01-06','A'),(5,1,'2018-03-06','A'),(7,2,'2018-01-27','A');
 /*!40000 ALTER TABLE `competition_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,10 +418,12 @@ CREATE TABLE `tournament` (
   `account_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `description` varchar(200) NOT NULL,
+  `status` varchar(1) NOT NULL DEFAULT 'I',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `account_id_idx` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  KEY `account_id_idx` (`account_id`),
+  KEY `status_idx` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -430,7 +432,7 @@ CREATE TABLE `tournament` (
 
 LOCK TABLES `tournament` WRITE;
 /*!40000 ALTER TABLE `tournament` DISABLE KEYS */;
-INSERT INTO `tournament` VALUES (1,1,'GSSF Winter Tournament 2018','Vinh\'s Shooting Academy Winter GSSF tournament'),(2,2,'GSSF Winter Tournament 2018','Tim\'s Shooting Academy Winter GSSF Tournament');
+INSERT INTO `tournament` VALUES (1,1,'GSSF Winter Tournament 2018','Vinh\'s Shooting Academy Winter GSSF tournament','I'),(2,2,'GSSF Winter Tournament 2018','Tim\'s Shooting Academy Winter GSSF Tournament','I'),(3,1,'Bullseye Winter Tournament 2018','Vinh\'s Shooting Academy Winter Bullseye','I');
 /*!40000 ALTER TABLE `tournament` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -479,4 +481,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-14 16:17:36
+-- Dump completed on 2018-01-14 23:57:15
