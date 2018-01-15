@@ -64,26 +64,6 @@ public class CompetitionBean implements Serializable {
         }
     }
 
-    public void addCompetition() {
-        try {
-            competition.setAccountId(SessionUtils.getAccountId());
-            dao.addCompetition(getCompetition());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addCompetitionDetails() {
-        competitionDetails.setCompetitionDetailsId("1"); //TODO Testing only, Remove this at some point.
-        try {
-            dao.addCompetitionDetails(getCompetitionDetails());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition Details added successfully!", "INFO MSG"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void setDao(CompetitionDAO dao) {
         this.dao = dao;
     }
