@@ -6,6 +6,9 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionCode;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionDetails;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CourseCode;
+import com.envisageconsulting.primefaces.scoredaddy.service.CompetitionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -32,6 +35,9 @@ public class CompetitionBean implements Serializable {
     @ManagedProperty("#{competitionDAO}")
     private CompetitionDAO dao;
 
+    @ManagedProperty("#{competitionService}")
+    private CompetitionService competitionService;
+
     @PostConstruct
     public void init() {
         getCompetitionDetails().setCompetitionCode(new CompetitionCode());
@@ -39,6 +45,16 @@ public class CompetitionBean implements Serializable {
             setCompetitionCodeList(dao.getAllCompetitionCodes());
             setCourseCodeList(dao.getAllCourseCodes());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertCompetition() {
+        try {
+            competitionService.insertCompetition();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Add Competition Failed!", "ERROR MSG"));
             e.printStackTrace();
         }
     }
@@ -65,6 +81,10 @@ public class CompetitionBean implements Serializable {
 
     public void setDao(CompetitionDAO dao) {
         this.dao = dao;
+    }
+
+    public void setCompetitionService(CompetitionService competitionService) {
+        this.competitionService = competitionService;
     }
 
     public Competition getCompetition() {
