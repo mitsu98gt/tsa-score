@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TournamentServiceImpl implements TournamentService {
 
@@ -18,6 +20,16 @@ public class TournamentServiceImpl implements TournamentService {
     public void insertTournament(Tournament tournament) throws Exception {
         try {
             tournamentDAO.addTournament(tournament);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("TournamentServiceImpl: Failed to insert Tournament!");
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
+    public List<Tournament> getAllTournamentsByAccountIdAndStatus(int accountId, String status) throws Exception {
+        try {
+            return tournamentDAO.getAllTournamentsByAccountIdAndStatus(accountId, status);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("TournamentServiceImpl: Failed to insert Tournament!");

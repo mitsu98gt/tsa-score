@@ -12,12 +12,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.util.List;
 
 @ManagedBean(name="tournamentBean")
 @RequestScoped
 public class TournamentBean implements Serializable {
 
     Tournament tournament = new Tournament();
+    List<Tournament> tournamentList;
 
     @ManagedProperty("#{tournamentService}")
     private TournamentService tournamentService;
@@ -46,6 +48,14 @@ public class TournamentBean implements Serializable {
 
     public void setTournament(Tournament tournament) {
         this.tournament = tournament;
+    }
+
+    public List<Tournament> getTournamentList() {
+        return tournamentList;
+    }
+
+    public void setTournamentList(List<Tournament> tournamentList) {
+        this.tournamentList = tournamentList;
     }
 
     public TournamentService getTournamentService() {

@@ -23,6 +23,11 @@
                     <f:selectItem itemLabel="Select a course ..." />
                     <f:selectItems value="#{competitionBean.courseCodeList}" var="course" itemLabel="#{course.course}" itemValue="#{course.course}"/>
                 </p:selectOneMenu>
+                <p:outputLabel for="tournament" value="Tournament: " />
+                <p:selectOneMenu id="tournament" style="width:225px" value="#{competitionBean.competition.tournament_id}" required="true" requiredMessage="Tournament is required.">
+                    <f:selectItem itemLabel="Select a tournament ..." />
+                    <f:selectItems value="#{competitionBean.tournamentList}" var="tournament" itemLabel="#{tournament.name}" itemValue="#{tournament.id}"/>
+                </p:selectOneMenu>
                 <p:outputLabel for="date" value="Date: " />
                 <p:calendar required="false" label="Date" style="width:225px" id="date" value="#{competitionBean.competitionDetails.date}" showOn="button" pattern="MM-dd-yyyy" mask="true"/>
             </h:panelGrid>

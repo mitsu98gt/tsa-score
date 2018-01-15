@@ -2,11 +2,9 @@ package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.SessionUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
-import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionCode;
-import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionDetails;
-import com.envisageconsulting.primefaces.scoredaddy.domain.CourseCode;
+import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 import com.envisageconsulting.primefaces.scoredaddy.service.CompetitionService;
+import com.envisageconsulting.primefaces.scoredaddy.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -32,6 +30,7 @@ public class CompetitionBean implements Serializable {
     CompetitionDetails competitionDetails =  new CompetitionDetails();
     List<CompetitionCode> competitionCodeList = new ArrayList<CompetitionCode>();
     List<CourseCode> courseCodeList = new ArrayList<CourseCode>();
+    List<Tournament> tournamentList = new ArrayList<Tournament>();
 
     @ManagedProperty("#{competitionDAO}")
     private CompetitionDAO dao;
@@ -39,12 +38,16 @@ public class CompetitionBean implements Serializable {
     @ManagedProperty("#{competitionService}")
     private CompetitionService competitionService;
 
+    @ManagedProperty("#{tournamentService}")
+    private TournamentService tournamentService;
+
     @PostConstruct
     public void init() {
         getCompetitionDetails().setCompetitionCode(new CompetitionCode());
         try {
             setCompetitionCodeList(dao.getAllCompetitionCodes());
             setCourseCodeList(dao.getAllCourseCodes());
+            setTournamentList(tournamentService.getAllTournamentsByAccountIdAndStatus(SessionUtils.getAccountId(), "I"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,7 +56,6 @@ public class CompetitionBean implements Serializable {
     public void insertCompetition() {
         try {
             competition.setAccountId(SessionUtils.getAccountId());
-            competition.setTournament_id(3); // TODO Testing Only
             competitionService.insertCompetition(getCompetition(), getCompetitionDetails());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
         } catch (Exception e) {
@@ -90,6 +92,10 @@ public class CompetitionBean implements Serializable {
         this.competitionService = competitionService;
     }
 
+    public void setTournamentService(TournamentService tournamentService) {
+        this.tournamentService = tournamentService;
+    }
+
     public Competition getCompetition() {
         return competition;
     }
@@ -121,4 +127,13 @@ public class CompetitionBean implements Serializable {
     public void setCourseCodeList(List<CourseCode> courseCodeList) {
         this.courseCodeList = courseCodeList;
     }
+
+    public List<Tournament> getTournamentList() {
+        return tournamentList;
+    }
+
+    public void setTournamentList(List<Tournament> tournamentList) {
+        this.tournamentList = tournamentList;
+    }
+
 }
