@@ -67,7 +67,7 @@ CREATE TABLE `competition` (
   CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `status` FOREIGN KEY (`status`) REFERENCES `status_codes` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tournament_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournament` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `competition` (
 
 LOCK TABLES `competition` WRITE;
 /*!40000 ALTER TABLE `competition` DISABLE KEYS */;
-INSERT INTO `competition` VALUES (1,1,1,'GSSF Winter 1','Winter Series 1','I'),(2,1,1,'GSSF Winter 2','Winter Series 2','I'),(3,2,2,'GSSF Winter 1','GSSF Winter Round 1','I'),(4,2,2,'GSSF Winter 2','GSSF Winter Round 2','I'),(5,1,1,'GSSF Winter 3','Winter Series 3','I'),(7,3,1,'Bullseye Winter Round 1','Bullseye Winter Round 1','N');
+INSERT INTO `competition` VALUES (1,1,1,'GSSF Winter 1','Winter Series 1','I'),(2,1,1,'GSSF Winter 2','Winter Series 2','I'),(3,2,2,'GSSF Winter 1','GSSF Winter Round 1','I'),(4,2,2,'GSSF Winter 2','GSSF Winter Round 2','I'),(5,1,1,'GSSF Winter 3','Winter Series 3','I'),(8,4,1,'Bullseye Winter Round 1','Bullseye Tournament','N');
 /*!40000 ALTER TABLE `competition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +157,7 @@ CREATE TABLE `competition_details` (
 
 LOCK TABLES `competition_details` WRITE;
 /*!40000 ALTER TABLE `competition_details` DISABLE KEYS */;
-INSERT INTO `competition_details` VALUES (1,1,'2018-01-06','A'),(2,1,'2018-02-06','A'),(3,1,'2017-12-02','A'),(4,1,'2018-01-06','A'),(5,1,'2018-03-06','A'),(7,2,'2018-01-27','A');
+INSERT INTO `competition_details` VALUES (1,1,'2018-01-06','A'),(2,1,'2018-02-06','A'),(3,1,'2017-12-02','A'),(4,1,'2018-01-06','A'),(5,1,'2018-03-06','A'),(8,2,'2018-01-27','A');
 /*!40000 ALTER TABLE `competition_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,7 +423,7 @@ CREATE TABLE `tournament` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `account_id_idx` (`account_id`),
   KEY `status_idx` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -432,7 +432,7 @@ CREATE TABLE `tournament` (
 
 LOCK TABLES `tournament` WRITE;
 /*!40000 ALTER TABLE `tournament` DISABLE KEYS */;
-INSERT INTO `tournament` VALUES (1,1,'GSSF Winter Tournament 2018','Vinh\'s Shooting Academy Winter GSSF tournament','I'),(2,2,'GSSF Winter Tournament 2018','Tim\'s Shooting Academy Winter GSSF Tournament','I'),(3,1,'Bullseye Winter Tournament 2018','Vinh\'s Shooting Academy Winter Bullseye','I');
+INSERT INTO `tournament` VALUES (1,1,'GSSF Winter Tournament 2018','Vinh\'s Shooting Academy Winter GSSF tournament','I'),(2,2,'GSSF Winter Tournament 2018','Tim\'s Shooting Academy Winter GSSF Tournament','I'),(4,1,'Bullseye Winter Tournament','Bullseye Winter Tournament','I');
 /*!40000 ALTER TABLE `tournament` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -481,4 +481,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-14 23:57:15
+-- Dump completed on 2018-01-15  1:25:23
