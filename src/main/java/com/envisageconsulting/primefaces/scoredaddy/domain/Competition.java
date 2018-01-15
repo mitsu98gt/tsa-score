@@ -5,6 +5,7 @@ import java.util.Date;
 public class Competition {
 
     private String id;
+    private int tournament_id;
     private int accountId;
     private String name;
     private String description;
@@ -17,6 +18,14 @@ public class Competition {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getTournament_id() {
+        return tournament_id;
+    }
+
+    public void setTournament_id(int tournament_id) {
+        this.tournament_id = tournament_id;
     }
 
     public int getAccountId() {

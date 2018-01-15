@@ -5,10 +5,7 @@ import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,21 +158,30 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
-    public void addCompetition(Competition competition) throws Exception {
+    public int addCompetition(Competition competition) throws Exception {
 
-        String sql = "insert into competition (account_id, name, description) values (?, ?, ?)";
+        String sql = "insert into competition (tournament_id, account_id, name, description) values (?, ?, ?, ?)";
 
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, competition.getAccountId());
-            ps.setString(2, competition.getName());
-            ps.setString(3, competition.getDescription());
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, competition.getTournament_id());
+            ps.setInt(2, competition.getAccountId());
+            ps.setString(3, competition.getName());
+            ps.setString(4, competition.getDescription());
             ps.executeUpdate();
 
+            ResultSet rs = ps.getGeneratedKeys();
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
             ps.close();
+            return generatedKey;
+
         } catch (SQLException ex) {
             throw new Exception("Failed to add Competition!" + ex.getMessage());
         } finally {

@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @ManagedBean(name="competitionBean")
-@SessionScoped
+@RequestScoped
 public class CompetitionBean implements Serializable {
 
     Competition competition = new Competition();
@@ -51,7 +52,9 @@ public class CompetitionBean implements Serializable {
 
     public void insertCompetition() {
         try {
-            competitionService.insertCompetition();
+            competition.setAccountId(SessionUtils.getAccountId());
+            competition.setTournament_id(3); // TODO Testing Only
+            competitionService.insertCompetition(getCompetition(), getCompetitionDetails());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Add Competition Failed!", "ERROR MSG"));
