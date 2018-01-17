@@ -23,7 +23,7 @@ public class FirearmDataSource {
     public void init() {
 
         try {
-            firearms = dao.getFirearmForScoreSheet();
+            firearms = dao.getGlockFirearmForScoreSheet();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -41,7 +41,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="firearmDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.FirearmDAOimpl">
+    <bean id="firearmDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.FirearmDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
@@ -65,6 +65,10 @@
 
     <bean id="tournamentService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.TournamentServiceImpl">
         <property name="tournamentDAO" ref="tournamentDAO" />
+    </bean>
+
+    <bean id="firearmService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.FirearmServiceImpl">
+        <property name="firearmDAO" ref="firearmDAO" />
     </bean>
 
 </beans>

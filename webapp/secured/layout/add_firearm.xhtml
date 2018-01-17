@@ -1,0 +1,26 @@
+<ui:composition template="/secured/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="pageContent">
+    <h:form id="addfirearmfrm">
+        <p:panel id="panel" header="Add Firearm" style="width:420px">
+            <h:panelGrid columns="2" layout="grid">
+                <p:outputLabel for="model" value="Model: " />
+                <p:inputText id="model" value="#{firearmBean.firearm.model}" style="width:250px" maxlength="45" required="true" requiredMessage="Model is required."/>
+                <p:outputLabel for="brand" value="Brand: " />
+                <p:selectOneMenu id="brand" style="width:225px" value="#{firearmBean.firearmBrand}" required="true" converter="#{firearmBrandConverter}" requiredMessage="Brand is required.">
+                    <f:selectItem itemLabel="Select a brand ..." />
+                    <f:selectItems value="#{firearmBean.firearmBrandList}" var="firearmBrand" itemLabel="#{firearmBrand.brand}" itemValue="#{firearmBrand}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </p:panel>
+        <br/>
+        <p:commandButton process="addfirearmfrm" value="Save" id="saveBtn" actionListener="#{firearmBean.insertFirearm}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:messages id="messages" style="width:400px"/>
+    </h:form>
+    </ui:define>
+</ui:composition>

@@ -68,7 +68,11 @@ public class GSSFResultsBean implements Serializable {
         try {
             allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             accountName = SessionUtils.getAccountName();
-            competitionDescription = allCompetitions.get(0).getDescription();
+            if (allCompetitions.size() == 0) {
+                competitionDescription = "";
+            } else {
+                competitionDescription = allCompetitions.get(0).getDescription();
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
