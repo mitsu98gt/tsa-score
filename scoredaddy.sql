@@ -128,7 +128,7 @@ CREATE TABLE `competition_competitors` (
 
 LOCK TABLES `competition_competitors` WRITE;
 /*!40000 ALTER TABLE `competition_competitors` DISABLE KEYS */;
-INSERT INTO `competition_competitors` VALUES (1,2),(2,2),(1,4),(2,4),(5,4),(1,5),(5,5),(1,6),(1,7),(1,8),(1,9),(2,9),(5,9),(1,10),(2,10),(1,11),(1,12),(2,12),(1,13),(5,13),(3,14),(4,14),(3,15),(4,15),(3,16),(4,16),(3,17),(4,17),(3,18),(3,19),(4,19),(3,20),(4,20),(3,21),(4,21),(3,22),(4,22),(3,23),(4,23),(3,24),(4,24),(3,25),(3,26),(4,26),(3,27),(4,27),(3,29),(4,29),(3,30),(4,30),(3,31),(3,32),(4,32),(3,34),(4,34),(3,35),(4,35),(3,36),(3,37),(4,37),(3,39),(4,39),(3,40),(4,40),(3,41),(4,41),(3,42),(4,42),(3,43),(4,43),(3,44),(3,45),(4,45),(3,46),(4,46),(3,47),(3,48),(4,48),(3,49),(4,49),(3,50),(4,50),(3,51),(4,51),(3,53),(4,53),(3,54),(4,54),(3,55),(4,55),(3,56),(3,57),(4,57),(3,58),(3,59),(4,59),(3,60),(4,60),(4,61),(4,62),(4,63),(4,64),(4,65),(4,66),(4,67),(4,68),(4,69),(4,70),(4,71),(4,72),(4,73),(4,74),(4,75),(4,76),(4,77),(4,78),(4,79),(4,80),(4,81),(4,82);
+INSERT INTO `competition_competitors` VALUES (1,2),(2,2),(1,4),(2,4),(5,4),(1,5),(5,5),(1,6),(1,7),(1,8),(1,9),(2,9),(5,9),(1,10),(2,10),(1,11),(1,12),(2,12),(5,12),(1,13),(5,13),(3,14),(4,14),(3,15),(4,15),(3,16),(4,16),(3,17),(4,17),(3,18),(3,19),(4,19),(3,20),(4,20),(3,21),(4,21),(3,22),(4,22),(3,23),(4,23),(3,24),(4,24),(3,25),(3,26),(4,26),(3,27),(4,27),(3,29),(4,29),(3,30),(4,30),(3,31),(3,32),(4,32),(3,34),(4,34),(3,35),(4,35),(3,36),(3,37),(4,37),(3,39),(4,39),(3,40),(4,40),(3,41),(4,41),(3,42),(4,42),(3,43),(4,43),(3,44),(3,45),(4,45),(3,46),(4,46),(3,47),(3,48),(4,48),(3,49),(4,49),(3,50),(4,50),(3,51),(4,51),(3,53),(4,53),(3,54),(4,54),(3,55),(4,55),(3,56),(3,57),(4,57),(3,58),(3,59),(4,59),(3,60),(4,60),(4,61),(4,62),(4,63),(4,64),(4,65),(4,66),(4,67),(4,68),(4,69),(4,70),(4,71),(4,72),(4,73),(4,74),(4,75),(4,76),(4,77),(4,78),(4,79),(4,80),(4,81),(4,82);
 /*!40000 ALTER TABLE `competition_competitors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,7 +316,7 @@ CREATE TABLE `firearm_brands` (
   `brand` varchar(35) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,13 +361,13 @@ DROP TABLE IF EXISTS `firearm_models`;
 CREATE TABLE `firearm_models` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `brand_id` int(11) NOT NULL,
-  `model` varchar(15) NOT NULL,
+  `model` varchar(25) NOT NULL,
   `caliber` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `firearm_model_id_idx` (`id`),
   KEY `brand_id_idx` (`brand_id`),
   CONSTRAINT `brand_id` FOREIGN KEY (`brand_id`) REFERENCES `firearm_brands` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,7 +376,7 @@ CREATE TABLE `firearm_models` (
 
 LOCK TABLES `firearm_models` WRITE;
 /*!40000 ALTER TABLE `firearm_models` DISABLE KEYS */;
-INSERT INTO `firearm_models` VALUES (1,1,'G17','9X19'),(2,1,'G17C','9X19'),(3,1,'G17L','9X19'),(4,1,'G19','9X19'),(5,1,'G19C','9X19'),(6,1,'G20','10mm Auto'),(7,1,'G21','.45 Auto'),(8,1,'G22','.40'),(9,1,'G22C','.40'),(10,1,'G23','.40'),(11,1,'G23C','.40'),(12,1,'G24','.40'),(13,1,'G26','9X19'),(14,1,'G27','.40'),(15,1,'G29','10mm Auto'),(16,1,'G30','.45 Auto'),(17,1,'G31','.357'),(18,1,'G32','.357'),(19,1,'G33','.357'),(20,1,'G34','9X19'),(21,1,'G35','.40'),(22,1,'G36 ','.45 Auto'),(23,1,'G37','.45 G.A.P.'),(24,1,'G38','.45 G.A.P.'),(25,1,'G39','.45 G.A.P.'),(26,1,'G40','10mm Auto'),(27,1,'G41','.45 Auto'),(28,1,'G42','.380 Auto'),(29,1,'G43','9X19'),(33,27,'Czechmate',NULL);
+INSERT INTO `firearm_models` VALUES (1,1,'G17','9X19'),(2,1,'G17C','9X19'),(3,1,'G17L','9X19'),(4,1,'G19','9X19'),(5,1,'G19C','9X19'),(6,1,'G20','10mm Auto'),(7,1,'G21','.45 Auto'),(8,1,'G22','.40'),(9,1,'G22C','.40'),(10,1,'G23','.40'),(11,1,'G23C','.40'),(12,1,'G24','.40'),(13,1,'G26','9X19'),(14,1,'G27','.40'),(15,1,'G29','10mm Auto'),(16,1,'G30','.45 Auto'),(17,1,'G31','.357'),(18,1,'G32','.357'),(19,1,'G33','.357'),(20,1,'G34','9X19'),(21,1,'G35','.40'),(22,1,'G36 ','.45 Auto'),(23,1,'G37','.45 G.A.P.'),(24,1,'G38','.45 G.A.P.'),(25,1,'G39','.45 G.A.P.'),(26,1,'G40','10mm Auto'),(27,1,'G41','.45 Auto'),(28,1,'G42','.380 Auto'),(29,1,'G43','9X19'),(33,27,'Czechmate',NULL),(34,27,'Tactical Sport Orange',NULL);
 /*!40000 ALTER TABLE `firearm_models` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -505,4 +505,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-17  2:20:05
+-- Dump completed on 2018-01-18  0:36:30
