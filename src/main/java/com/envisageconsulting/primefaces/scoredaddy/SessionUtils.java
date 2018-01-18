@@ -4,6 +4,8 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.Account;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Map;
 
 public class SessionUtils {
@@ -22,4 +24,8 @@ public class SessionUtils {
         return account.getName();
     }
 
+    public static void refreshPage() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+    }
 }

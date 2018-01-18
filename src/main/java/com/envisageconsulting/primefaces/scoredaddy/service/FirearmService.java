@@ -9,5 +9,6 @@ public interface FirearmService {
 
     public List<FirearmBrand> getAllFirearmBrands() throws Exception;
     public void insertFirearm(Firearm firearm) throws Exception;
+    public void insertFirearmBrand(String brand) throws Exception;
 
 }

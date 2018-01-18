@@ -37,6 +37,16 @@ public class FirearmServiceImpl implements FirearmService {
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
+    public void insertFirearmBrand(String brand) throws Exception {
+        try {
+            firearmDAO.addFirearmBrand(brand);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("FirearmServiceImpl: Failed to insert Firearm Brand!");
+        }
+    }
+
     public FirearmDAO getFirearmDAO() {
         return firearmDAO;
     }

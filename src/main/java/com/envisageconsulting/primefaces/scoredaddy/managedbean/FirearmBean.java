@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.SessionUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.FirearmDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Firearm;
 import com.envisageconsulting.primefaces.scoredaddy.domain.FirearmBrand;
@@ -11,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class FirearmBean implements Serializable {
     List<FirearmBrand> firearmBrandList = new ArrayList<FirearmBrand>();
     Firearm firearm = new Firearm();
     FirearmBrand firearmBrand = new FirearmBrand();
+    String newBrand = "";
 
     @ManagedProperty("#{firearmService}")
     private FirearmService firearmService;
@@ -31,6 +34,17 @@ public class FirearmBean implements Serializable {
         try {
             setFirearmBrandList(firearmService.getAllFirearmBrands());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertNewBrand() throws IOException {
+        try {
+            firearmService.insertFirearmBrand(newBrand);
+            setFirearmBrandList(firearmService.getAllFirearmBrands());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Brand added successfully!", "INFO MSG"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to add Brand!", "ERROR MSG"));
             e.printStackTrace();
         }
     }
@@ -76,5 +90,13 @@ public class FirearmBean implements Serializable {
 
     public void setFirearmBrand(FirearmBrand firearmBrand) {
         this.firearmBrand = firearmBrand;
+    }
+
+    public String getNewBrand() {
+        return newBrand;
+    }
+
+    public void setNewBrand(String newBrand) {
+        this.newBrand = newBrand;
     }
 }

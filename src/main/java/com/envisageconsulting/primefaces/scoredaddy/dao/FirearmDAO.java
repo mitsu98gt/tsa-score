@@ -11,5 +11,6 @@ public interface FirearmDAO {
     public List<Firearm> getGlockFirearmForScoreSheet() throws Exception;
     public List<FirearmBrand> getAllFirearmBrands() throws Exception;
     public void addFirearm(Firearm firearm) throws  Exception;
+    public void addFirearmBrand(String brand) throws  Exception;
 
 }

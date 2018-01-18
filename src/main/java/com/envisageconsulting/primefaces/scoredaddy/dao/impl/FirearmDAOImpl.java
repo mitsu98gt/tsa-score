@@ -114,6 +114,33 @@ public class FirearmDAOImpl implements FirearmDAO {
         }
     }
 
+    public void addFirearmBrand(String brand) throws  Exception {
+
+        String sql = "insert into firearm_brands (brand) values (?)";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, brand);
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to add Firearm Brand!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
