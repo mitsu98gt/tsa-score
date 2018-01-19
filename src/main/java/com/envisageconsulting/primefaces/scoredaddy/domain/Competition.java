@@ -11,6 +11,7 @@ public class Competition {
     private String description;
     private Date date;
     private String status;
+    private CompetitionDetails competitionDetails;
 
     public String getId() {
         return id;
@@ -66,6 +67,14 @@ public class Competition {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public CompetitionDetails getCompetitionDetails() {
+        return competitionDetails;
+    }
+
+    public void setCompetitionDetails(CompetitionDetails competitionDetails) {
+        this.competitionDetails = competitionDetails;
     }
 
     public boolean equals(Object obj){

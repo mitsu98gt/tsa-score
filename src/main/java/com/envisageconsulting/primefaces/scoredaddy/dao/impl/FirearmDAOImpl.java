@@ -18,6 +18,40 @@ public class FirearmDAOImpl implements FirearmDAO {
 
     private DataSource dataSource;
 
+    public Firearm getFirearmById(String id) throws Exception {
+
+        String sql = "select id, model from firearm_models where id = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, Integer.valueOf(id));
+            ResultSet rs = ps.executeQuery();
+
+            Firearm firearm = new Firearm();
+            while (rs.next()) {
+                firearm.setId(Integer.toString(rs.getInt("id")));
+                firearm.setModel(rs.getString("model"));
+            }
+            rs.close();
+            ps.close();
+            return firearm;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get Firearm by Id!" + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public List<Firearm> getGlockFirearmForScoreSheet() throws Exception {
 
         String sql = "select id, model from firearm_models where brand_id = 1 order by model";
@@ -41,6 +75,40 @@ public class FirearmDAOImpl implements FirearmDAO {
             return firearmList;
         } catch (SQLException ex) {
             throw new Exception("Failed to get all Glock Models!" + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Firearm> getAllFirearmsForScoreSheet() throws Exception {
+
+        String sql = "select id, model from firearm_models order by model";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            List<Firearm> firearmList = new ArrayList<Firearm>();
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Firearm firearm =  new Firearm();
+                firearm.setId(Integer.toString(rs.getInt("id")));
+                firearm.setModel(rs.getString("model"));
+                firearmList.add(firearm);
+            }
+            rs.close();
+            ps.close();
+            return firearmList;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get all firearms Models!" + ex);
         } finally {
             if (conn != null) {
                 try {
