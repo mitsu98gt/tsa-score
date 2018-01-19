@@ -3,8 +3,8 @@ package com.envisageconsulting.primefaces.scoredaddy.domain;
 public class Competitor {
 
 	private String competitorId;
-	private String firstName;
-	private String lastName;
+	private String firstName="";
+	private String lastName="";
 	private String fullName;
 	private Address address;
 	private String phone;

@@ -32,6 +32,7 @@ public class CompetitorBean implements Serializable {
 
         try {
             dao.addCompetitor(getCompetitor());
+            dao.getAllCompetitors(); // This populates the drop down again on add competitor page
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competitor added successfully!", "INFO MSG"));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Competitor was not added!", "ERROR MSG"));
