@@ -47,4 +47,14 @@ public class Tournament {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public boolean equals(Object obj){
+        if(obj instanceof Tournament){
+            Tournament tournament = (Tournament)obj;
+            if(0 != this.id && this.id == tournament.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -19,6 +19,7 @@
         <p:layoutUnit position="north" size="50">
             <h:form id="northfrm">
                 <p:commandButton value="Home" id="homeBtn" action="#{navigationBean.redirectToLayout}" ajax="false" style="width:100px" icon="fa fa-home"/>
+                <p:commandButton value="Logout" id="logoutBtn" action="#{loginBean.doLogout}" ajax="false" style="float:right;width:100px" icon="fa fa-sign-out"/>
             </h:form>
         </p:layoutUnit>
 
@@ -33,19 +34,19 @@
                 <br/>
                 <h:commandLink action="/secured/layout/add_competition.xhtml?faces-redirect=true" value="Add Competition"/>
                 <br/>
-                <h:commandLink action="/secured/layout/add_competitor.xhtml?faces-redirect=true" value="Add Competitor"/>
                 <br/>
-                <h:commandLink action="/secured/layout/add_firearm.xhtml?faces-redirect=true" value="Add Firearm"/>
+                <h:commandLink action="/secured/layout/add_competitor.xhtml?faces-redirect=true" value="Add Competitor"/>
                 <br/>
                 <h:commandLink action="/secured/layout/register_competitor.xhtml?faces-redirect=true" value="Register Competitor"/>
                 <br/>
                 <br/>
-                <h:commandLink action="/secured/layout/indoor_scoresheet.xhtml?faces-redirect=true" value="GSSF Scoresheet"/>
+                <h:commandLink action="/secured/layout/add_firearm.xhtml?faces-redirect=true" value="Add Firearm"/>
+                <br/>
                 <br/>
                 <h:commandLink action="/secured/layout/view_scores.xhtml?faces-redirect=true" value="View Scores"/>
                 <br/>
                 <br/>
-                <h:commandLink action="#{loginBean.doLogout}" value="Logout"/>
+                <h:commandLink action="/secured/layout/indoor_scoresheet.xhtml?faces-redirect=true" value="GSSF Scoresheet"/>
             </h:form>
         </p:layoutUnit>
 

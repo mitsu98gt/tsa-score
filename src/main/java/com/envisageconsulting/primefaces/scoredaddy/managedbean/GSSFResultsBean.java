@@ -3,6 +3,7 @@ package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 import com.envisageconsulting.primefaces.scoredaddy.*;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
+import com.envisageconsulting.primefaces.scoredaddy.dao.TournamentDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -25,6 +26,9 @@ public class GSSFResultsBean implements Serializable {
     @ManagedProperty("#{competitionDAO}")
     private CompetitionDAO competitionDAO;
 
+    @ManagedProperty("#{tournamentDAO}")
+    private TournamentDAO tournamentDAO;
+
     private List<CompetitionResults> competitionStockResultsList;
     private List<CompetitionResults> competitionUnlimitedResultsList;
     private List<CompetitionResults> competitionPocketResultsList;
@@ -34,6 +38,7 @@ public class GSSFResultsBean implements Serializable {
     private List<CompetitionResults> filtered;
 
     private List<Competition> allCompetitions;
+    private List<Tournament> allTournaments;
 
     private String currentCompetitionFullSpellingDate;
     private String firstCompetitionDate;
@@ -43,6 +48,7 @@ public class GSSFResultsBean implements Serializable {
     private String competitionDescription;
 
     private Competition competition;
+    private Tournament tournament;
 
     private boolean disableAveragedScoresButton;
     private boolean renderSingleScores;
@@ -67,6 +73,7 @@ public class GSSFResultsBean implements Serializable {
 
         try {
             allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            allTournaments = tournamentDAO.getAllTournamentsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             accountName = SessionUtils.getAccountName();
             if (allCompetitions.size() == 0) {
                 competitionDescription = "";
@@ -77,7 +84,7 @@ public class GSSFResultsBean implements Serializable {
             ex.printStackTrace();
         }
 
-        disableAveragedScoresButton = isMultipleCompetitions();
+        disableAveragedScoresButton = true;
     }
 
     public void viewSingleScores() {
@@ -108,6 +115,15 @@ public class GSSFResultsBean implements Serializable {
         competitionWomanResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.WOMAN_DIVISION);
         competitionSeniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.SENIOR_DIVISION);
         competitionJuniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.JUNIOR_DIVISION);
+    }
+
+    public void onTournamentChange() {
+        try {
+            allCompetitions = competitionDAO.getCompetitionsByTournamentIdAndStatus(tournament.getId(), "I");
+            disableAveragedScoresButton = isMultipleCompetitions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<CompetitionResultsAverage> calculateAveragesForTournament(List<Competition> allCompetitions, String division) {
@@ -464,6 +480,14 @@ public class GSSFResultsBean implements Serializable {
         this.competitionDAO = competitionDAO;
     }
 
+    public TournamentDAO getTournamentDAO() {
+        return tournamentDAO;
+    }
+
+    public void setTournamentDAO(TournamentDAO tournamentDAO) {
+        this.tournamentDAO = tournamentDAO;
+    }
+
     public List<CompetitionResults> getCompetitionStockResultsList() {
         return competitionStockResultsList;
     }
@@ -512,6 +536,14 @@ public class GSSFResultsBean implements Serializable {
         this.competition = competition;
     }
 
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
+
     public boolean isRenderSingleScores() {
         return renderSingleScores;
     }
@@ -534,6 +566,14 @@ public class GSSFResultsBean implements Serializable {
 
     public void setAllCompetitions(List<Competition> allCompetitions) {
         this.allCompetitions = allCompetitions;
+    }
+
+    public List<Tournament> getAllTournaments() {
+        return allTournaments;
+    }
+
+    public void setAllTournaments(List<Tournament> allTournaments) {
+        this.allTournaments = allTournaments;
     }
 
     public List<CompetitionResultsAverage> getCompetitionStockResultsAverageList() {
