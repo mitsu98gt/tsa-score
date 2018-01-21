@@ -14,7 +14,8 @@ public interface CompetitionDAO {
     public List<CompetitionCode> getAllCompetitionCodes() throws Exception;
     public List<CourseCode> getAllCourseCodes() throws Exception;
     public List<Competition> getCompetitionsByTournamentIdAndStatus(int tournamentId, String status) throws Exception;
-    public List<Competition> getCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception;
+    public List<Competition> getAllCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception;
+    public List<Competition> getGlockCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception;
     public List<Competition> getBullseyeCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception;
     public List<Competition> getAllCompetitionsByAccountId(int accountId) throws Exception;
     public void addCompetitionCompetitors(int competitionId, int competitorId) throws Exception;

@@ -52,7 +52,7 @@
                                     itemLabel="#{competitor.fullName}" converter="#{registerCompetitorConverter}">
                     </p:autoComplete>
                     <p:outputLabel for="competition" value="Competition: " />
-                    <p:selectOneMenu required="true" id="competition" label="Competition" value="#{registerBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
+                    <p:selectOneMenu required="true" id="competition" label="Competition" value="#{registerBean.competition}" converter="#{allCompetitionConverter}" requiredMessage="Competition is required." style="width:180px;">
                         <f:selectItem itemLabel="Select Competition" itemValue="" />
                         <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
                     </p:selectOneMenu>

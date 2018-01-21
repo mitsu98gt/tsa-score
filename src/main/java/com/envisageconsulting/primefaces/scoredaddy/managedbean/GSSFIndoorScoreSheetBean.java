@@ -50,7 +50,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
         try {
-            allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            allCompetitions = competitionDAO.getGlockCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             firearmList = firearmDataSource.getFirearms();
         } catch (Exception ex) {
             ex.printStackTrace();

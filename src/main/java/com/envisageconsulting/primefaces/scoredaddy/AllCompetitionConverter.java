@@ -6,16 +6,13 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.mail.Session;
-import java.util.Map;
 
-@ManagedBean(name = "competitionConverter")
-@FacesConverter(value = "competitionConverter")
-public class CompetitionConverter implements Converter {
+@ManagedBean(name = "allCompetitionConverter")
+@FacesConverter(value = "allCompetitionConverter")
+public class AllCompetitionConverter implements Converter {
 
     @ManagedProperty("#{competitionDAO}")
     private CompetitionDAO competitionDAO;
@@ -23,7 +20,7 @@ public class CompetitionConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            for(Competition c : competitionDAO.getGlockCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I")){
+            for(Competition c : competitionDAO.getAllCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I")){
                 if(c.getId().equals(value)){
                     return c;
                 }

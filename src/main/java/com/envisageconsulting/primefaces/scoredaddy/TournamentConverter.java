@@ -22,7 +22,7 @@ public class TournamentConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            for(Tournament c : tournamentDAO.getAllTournamentsByAccountIdAndStatus(SessionUtils.getAccountId(), "I")){
+            for(Tournament c : tournamentDAO.getAllGlockTournamentsByAccountIdAndStatus(SessionUtils.getAccountId(), "I")){
                 if(String.valueOf(c.getId()).equals(value)){
                     return c;
                 }
