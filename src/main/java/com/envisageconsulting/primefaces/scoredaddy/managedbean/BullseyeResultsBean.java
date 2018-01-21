@@ -74,10 +74,10 @@ public class BullseyeResultsBean implements Serializable {
         renderTrippleScores = false;
 
         try {
-            allCompetitions = competitionDAO.getBullseyeCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            //allCompetitions = competitionDAO.getBullseyeCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             allTournaments = tournamentDAO.getAllBullseyeTournamentsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             accountName = SessionUtils.getAccountName();
-            if (allCompetitions.size() == 0) {
+            if (null == allCompetitions || allCompetitions.size() == 0) {
                 competitionDescription = "";
             } else {
                 competitionDescription = allCompetitions.get(0).getDescription();

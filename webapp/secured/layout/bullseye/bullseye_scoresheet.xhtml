@@ -235,9 +235,6 @@
             </p:panelGrid>
             <br/>
             <p:commandButton value="Calculate Score" id="scoreMeBtn" actionListener="#{bullseyeBean.doScore}" ajax="false" style="width:210px" icon="fa fa-bullseye"/>
-            <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" style="width:150px">
-                <p:fileDownload value="#{bullseyeBean.file}" />
-            </p:commandButton>
             <p:commandButton value="Save Scores" id="persistBtn" actionListener="#{bullseyeBean.saveToDatabase}" ajax="false" style="width:250px" icon="fa fa-save"/>
             <br/>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" style="width:610px;"/>

@@ -72,10 +72,10 @@ public class GSSFResultsBean implements Serializable {
         renderTrippleScores = false;
 
         try {
-            allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            //allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             allTournaments = tournamentDAO.getAllTournamentsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             accountName = SessionUtils.getAccountName();
-            if (allCompetitions.size() == 0) {
+            if (null == allCompetitions || allCompetitions.size() == 0) {
                 competitionDescription = "";
             } else {
                 competitionDescription = allCompetitions.get(0).getDescription();
