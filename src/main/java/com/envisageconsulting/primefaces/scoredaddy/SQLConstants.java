@@ -9,6 +9,10 @@ public class SQLConstants {
     public static final String SENIOR_DIVISION = "cr.senior_division = 1";
     public static final String JUNIOR_DIVISION = "cr.junior_division = 1";
 
+    public static final String LIMITED_DIVISION = "cr.limited_division = 1";
+    public static final String REVOLVER_DIVISION = "cr.revolver_division = 1";
+    public static final String RIMFIRE_DIVISION = "cr.rimfire_division = 1";
+
     public static final String COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID =
             "select" +
             "    cr.id," +

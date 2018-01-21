@@ -6,17 +6,17 @@
         xmlns:pe="http://primefaces.org/ui/extensions"
         xmlns:p="http://primefaces.org/ui">
 
-    <p:dataTable resizableColumns="true" reflow="true" filteredValue="#{gssfResultsBean.resultsAverageListFiltered}" id="averageunlimitedscorestable" var="averageunlimitedscores" value="#{gssfResultsBean.competitionUnlimitedResultsAverageList}" style="font-size:13px;text-align:center">
+    <p:dataTable resizableColumns="true" reflow="true" filteredValue="#{bullseyeResultsBean.resultsAverageListFiltered}" id="averageunlimitedscorestable" var="averageunlimitedscores" value="#{bullseyeResultsBean.competitionUnlimitedResultsAverageList}" style="font-size:13px;text-align:center">
 
         <f:facet name="header">
-            GSSF Scores - Unlimited
+            Bullseye Scores - Unlimited
         </f:facet>
         <p:columnGroup type="header">
             <p:row>
-                <p:column colspan="4" headerText="#{gssfResultsBean.accountName} - Averaged Scores"/>
-                <p:column colspan="7" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionFullSpellingDate}"/>
-                <p:column colspan="2" style="alignment: center" headerText="#{gssfResultsBean.firstCompetitionDate}"/>
-                <p:column colspan="2" style="alignment: center" headerText="#{gssfResultsBean.previousCompetitionDate}"/>
+                <p:column colspan="4" headerText="#{bullseyeResultsBean.accountName} - Averaged Scores"/>
+                <p:column colspan="7" style="alignment: center" headerText="#{bullseyeResultsBean.currentCompetitionFullSpellingDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{bullseyeResultsBean.firstCompetitionDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{bullseyeResultsBean.previousCompetitionDate}"/>
                 <p:column colspan="2" style="alignment: center" headerText="Top"/>
                 <p:column colspan="2" style="alignment: center" headerText="2nd"/>
                 <p:column colspan="1" style="alignment: center" headerText="Average"/>

@@ -6,15 +6,15 @@
         xmlns:pe="http://primefaces.org/ui/extensions"
         xmlns:p="http://primefaces.org/ui">
 
-    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="womanscorestable" var="womanscores" value="#{gssfResultsBean.competitionWomanResultsList}" style="font-size:13px;text-align:center">
+    <p:dataTable reflow="true" filteredValue="#{bullseyeResultsBean.filtered}" id="womanscorestable" var="womanscores" value="#{bullseyeResultsBean.competitionWomanResultsList}" style="font-size:13px;text-align:center">
 
         <f:facet name="header">
-            GSSF Scores - Woman
+            Bullseye Scores - Woman
         </f:facet>
         <p:columnGroup type="header">
             <p:row>
-                <p:column colspan="3" headerText="#{gssfResultsBean.accountName} - #{gssfResultsBean.competitionDescription}"/>
-                <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionFullSpellingDate}"/>
+                <p:column colspan="3" headerText="#{bullseyeResultsBean.accountName} - #{bullseyeResultsBean.competitionDescription}"/>
+                <p:column colspan="8" style="alignment: center" headerText="#{bullseyeResultsBean.currentCompetitionFullSpellingDate}"/>
             </p:row>
             <p:row>
                 <p:column headerText="" exportable="true"/>

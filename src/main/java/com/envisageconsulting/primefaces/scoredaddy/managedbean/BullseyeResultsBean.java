@@ -29,9 +29,10 @@ public class BullseyeResultsBean implements Serializable {
     @ManagedProperty("#{tournamentDAO}")
     private TournamentDAO tournamentDAO;
 
-    private List<CompetitionResults> competitionStockResultsList;
     private List<CompetitionResults> competitionUnlimitedResultsList;
-    private List<CompetitionResults> competitionPocketResultsList;
+    private List<CompetitionResults> competitionLimitedResultsList;
+    private List<CompetitionResults> competitionRevolverResultsList;
+    private List<CompetitionResults> competitionRimfireResultsList;
     private List<CompetitionResults> competitionWomanResultsList;
     private List<CompetitionResults> competitionSeniorResultsList;
     private List<CompetitionResults> competitionJuniorResultsList;
@@ -56,9 +57,10 @@ public class BullseyeResultsBean implements Serializable {
     private boolean renderTrippleScores;
 
 
-    private List<CompetitionResultsAverage> competitionStockResultsAverageList;
+    private List<CompetitionResultsAverage> competitionLimitedResultsAverageList;
     private List<CompetitionResultsAverage> competitionUnlimitedResultsAverageList;
-    private List<CompetitionResultsAverage> competitionPocketResultsAverageList;
+    private List<CompetitionResultsAverage> competitionRevolverResultsAverageList;
+    private List<CompetitionResultsAverage> competitionRimfireResultsAverageList;
     private List<CompetitionResultsAverage> competitionWomanResultsAverageList;
     private List<CompetitionResultsAverage> competitionSeniorResultsAverageList;
     private List<CompetitionResultsAverage> competitionJuniorResultsAverageList;
@@ -92,13 +94,14 @@ public class BullseyeResultsBean implements Serializable {
             renderSingleScores = true;
             renderDoubleScores = false;
             renderTrippleScores = false;
-            competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId())));
+            competitionLimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.LIMITED_DIVISION, Integer.valueOf(competition.getId()));
             competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
-            competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()));
+            competitionRevolverResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.REVOLVER_DIVISION, Integer.valueOf(competition.getId()));
+            competitionRimfireResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()));
             competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()));
             competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
             competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
-            currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(competitionStockResultsList.get(0).getCompetitionDetails().getDate());
+            currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(competitionLimitedResultsList.get(0).getCompetitionDetails().getDate());
             competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,9 +112,10 @@ public class BullseyeResultsBean implements Serializable {
 
         renderSingleScores = false;
 
-        competitionStockResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION);
+        competitionLimitedResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.LIMITED_DIVISION);
         competitionUnlimitedResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION);
-        competitionPocketResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION);
+        competitionRevolverResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.REVOLVER_DIVISION);
+        competitionRimfireResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.RIMFIRE_DIVISION);
         competitionWomanResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.WOMAN_DIVISION);
         competitionSeniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.SENIOR_DIVISION);
         competitionJuniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.JUNIOR_DIVISION);
@@ -373,9 +377,6 @@ public class BullseyeResultsBean implements Serializable {
                 competitionResultsAverageList.get(i).setRank(String.valueOf(i + 1));
             }
 
-            if (division.equalsIgnoreCase(SQLConstants.STOCK_DIVISION)) {
-                competitionResultsAverageList = calculateClassificationForAverage(competitionResultsAverageList);
-            }
         }
 
         return competitionResultsAverageList;
@@ -400,46 +401,6 @@ public class BullseyeResultsBean implements Serializable {
         return missedRow;
     }
 
-    public List<CompetitionResults> calculateClassifcation(List<CompetitionResults> list) {
-
-        int groups = list.size() / 3;
-        int classA = groups;
-        int classB = groups * 2;
-
-        for (int i=0; i < list.size(); i++) {
-            if (i < classA) {
-                list.get(i).setClassification("A");
-            } else if (i >= classA && i < classB) {
-                list.get(i).setClassification("B");
-            } else {
-                list.get(i).setClassification("C");
-            }
-
-        }
-
-        return list;
-    }
-
-    public List<CompetitionResultsAverage> calculateClassificationForAverage(List<CompetitionResultsAverage> list) {
-
-        int groups = list.size() / 3;
-        int classA = groups;
-        int classB = groups * 2;
-
-        for (int i=0; i < list.size(); i++) {
-            if (i < classA) {
-                list.get(i).setClassification("A");
-            } else if (i >= classA && i < classB) {
-                list.get(i).setClassification("B");
-            } else {
-                list.get(i).setClassification("C");
-            }
-
-        }
-
-        return list;
-    }
-
     public String getCurrentCompetitionFullSpellingDate() {
         return currentCompetitionFullSpellingDate;
     }
@@ -457,7 +418,7 @@ public class BullseyeResultsBean implements Serializable {
     }
 
     public String getCompetitionInfoDescription() {
-        return (null == competitionStockResultsList || competitionStockResultsList.size() == 0) ? "" : competitionStockResultsList.get(0).getCompetition().getDescription();
+        return (null == competitionLimitedResultsList || competitionLimitedResultsList.size() == 0) ? "" : competitionLimitedResultsList.get(0).getCompetition().getDescription();
     }
 
     public List<CompetitionResults> getFiltered() {
@@ -488,16 +449,8 @@ public class BullseyeResultsBean implements Serializable {
         this.tournamentDAO = tournamentDAO;
     }
 
-    public List<CompetitionResults> getCompetitionStockResultsList() {
-        return competitionStockResultsList;
-    }
-
     public List<CompetitionResults> getCompetitionUnlimitedResultsList() {
         return competitionUnlimitedResultsList;
-    }
-
-    public List<CompetitionResults> getCompetitionPocketResultsList() {
-        return competitionPocketResultsList;
     }
 
     public List<CompetitionResults> getCompetitionWomanResultsList() {
@@ -576,14 +529,6 @@ public class BullseyeResultsBean implements Serializable {
         this.allTournaments = allTournaments;
     }
 
-    public List<CompetitionResultsAverage> getCompetitionStockResultsAverageList() {
-        return competitionStockResultsAverageList;
-    }
-
-    public void setCompetitionStockResultsAverageList(List<CompetitionResultsAverage> competitionStockResultsAverageList) {
-        this.competitionStockResultsAverageList = competitionStockResultsAverageList;
-    }
-
     public List<CompetitionResultsAverage> getCompetitionUnlimitedResultsAverageList() {
         return competitionUnlimitedResultsAverageList;
     }
@@ -592,12 +537,16 @@ public class BullseyeResultsBean implements Serializable {
         this.competitionUnlimitedResultsAverageList = competitionUnlimitedResultsAverageList;
     }
 
-    public List<CompetitionResultsAverage> getCompetitionPocketResultsAverageList() {
-        return competitionPocketResultsAverageList;
+    public List<CompetitionResultsAverage> getCompetitionLimitedResultsAverageList() {
+        return competitionLimitedResultsAverageList;
     }
 
-    public void setCompetitionPocketResultsAverageList(List<CompetitionResultsAverage> competitionPocketResultsAverageList) {
-        this.competitionPocketResultsAverageList = competitionPocketResultsAverageList;
+    public List<CompetitionResultsAverage> getCompetitionRevolverResultsAverageList() {
+        return competitionRevolverResultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getCompetitionRimfireResultsAverageList() {
+        return competitionRimfireResultsAverageList;
     }
 
     public List<CompetitionResultsAverage> getCompetitionWomanResultsAverageList() {
@@ -638,5 +587,17 @@ public class BullseyeResultsBean implements Serializable {
 
     public boolean isRenderTrippleScores() {
         return renderTrippleScores;
+    }
+
+    public List<CompetitionResults> getCompetitionLimitedResultsList() {
+        return competitionLimitedResultsList;
+    }
+
+    public List<CompetitionResults> getCompetitionRevolverResultsList() {
+        return competitionRevolverResultsList;
+    }
+
+    public List<CompetitionResults> getCompetitionRimfireResultsList() {
+        return competitionRimfireResultsList;
     }
 }

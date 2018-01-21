@@ -6,17 +6,17 @@
         xmlns:pe="http://primefaces.org/ui/extensions"
         xmlns:p="http://primefaces.org/ui">
 
-    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.resultsAverageListFiltered}" id="averagejuniorscorestable" var="averagejuniorscores" value="#{gssfResultsBean.competitionJuniorResultsAverageList}" style="font-size:13px;text-align:center">
+    <p:dataTable reflow="true" filteredValue="#{bullseyeResultsBean.resultsAverageListFiltered}" id="averagejuniorscorestable" var="averagejuniorscores" value="#{bullseyeResultsBean.competitionJuniorResultsAverageList}" style="font-size:13px;text-align:center">
 
         <f:facet name="header">
-            GSSF Scores - Junior
+            Bullseye Scores - Junior
         </f:facet>
         <p:columnGroup type="header">
             <p:row>
-                <p:column colspan="4" headerText="#{gssfResultsBean.accountName} - Averaged Scores"/>
-                <p:column colspan="7" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionFullSpellingDate}"/>
-                <p:column colspan="2" style="alignment: center" headerText="#{gssfResultsBean.previousCompetitionDate}"/>
-                <p:column colspan="2" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionDate}"/>
+                <p:column colspan="4" headerText="#{bullseyeResultsBean.accountName} - Averaged Scores"/>
+                <p:column colspan="7" style="alignment: center" headerText="#{bullseyeResultsBean.currentCompetitionFullSpellingDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{bullseyeResultsBean.previousCompetitionDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{bullseyeResultsBean.currentCompetitionDate}"/>
                 <p:column colspan="1" style="alignment: center" headerText="Average"/>
                 <p:column colspan="1" style="alignment: center" headerText="Total"/>
             </p:row>

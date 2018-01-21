@@ -1,0 +1,85 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable reflow="true" filteredValue="#{bullseyeResultsBean.filtered}" id="rimfirescorestable" var="rimfirescores" value="#{bullseyeResultsBean.competitionRimfireResultsList}" style="font-size:13px;text-align:center">
+
+        <f:facet name="header">
+            Bullseye Scores - Rimfire
+        </f:facet>
+        <p:columnGroup type="header">
+            <p:row>
+                <p:column colspan="3" headerText="#{bullseyeResultsBean.accountName} - #{bullseyeResultsBean.competitionDescription}"/>
+                <p:column colspan="8" style="alignment: center" headerText="#{bullseyeResultsBean.currentCompetitionFullSpellingDate}"/>
+            </p:row>
+            <p:row>
+                <p:column headerText="" exportable="true"/>
+                <p:column headerText="First" filterBy="#{rimfirescores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                <p:column headerText="Last" filterBy="#{rimfirescores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                <p:column headerText="Model" filterBy="#{rimfirescores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                <p:column headerText="X"/>
+                <p:column headerText="10"/>
+                <p:column headerText="8"/>
+                <p:column headerText="5"/>
+                <p:column headerText="Miss"/>
+                <p:column headerText="Penalty"/>
+                <p:column headerText="Score"/>
+            </p:row>
+        </p:columnGroup>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.rank} - #{rimfirescores.classification}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.competitor.firstName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.competitor.lastName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.firearm.model}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.targetOne.x + rimfirescores.gssfIndoorScoreSheet.targetTwo.x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.targetOne.ten + rimfirescores.gssfIndoorScoreSheet.targetTwo.ten}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.targetOne.eight + rimfirescores.gssfIndoorScoreSheet.targetTwo.eight}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.targetOne.five + rimfirescores.gssfIndoorScoreSheet.targetTwo.five}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.targetOne.misses + rimfirescores.gssfIndoorScoreSheet.targetTwo.misses}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.penalty}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{rimfirescores.gssfIndoorScoreSheet.finalScore}" />
+        </p:column>
+
+    </p:dataTable>
+
+    <p:commandButton value="Download Excel" ajax="false" icon="fa fa-file-excel-o" style="width:200px">
+        <pe:exporter ajax="false" type="xlsx" target="rimfirescorestable" fileName="Rimfire_Scores" subTable="false"/>
+    </p:commandButton>
+
+
+</ui:composition>
