@@ -19,7 +19,9 @@ public class TournamentDAOImpl implements TournamentDAO {
 
     public List<Tournament> getAllTournamentsByAccountIdAndStatus(int accountId, String status) throws Exception {
 
-        String sql = "select * from tournament where account_id = ? and status = ?";
+        String sql = "select id, account_id, name, description, status from tournament where " +
+                "id in (select c.tournament_id from competition c, competition_details cd where " +
+                "c.id = cd.id and cd.code = 1) and account_id = ? and status = ?";
 
         Connection conn = null;
 
@@ -48,6 +50,50 @@ public class TournamentDAOImpl implements TournamentDAO {
 
         } catch (SQLException ex) {
             throw new Exception("Failed to get tournaments by accountId and Status!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Tournament> getAllBullseyeTournamentsByAccountIdAndStatus(int accountId, String status) throws Exception {
+
+        String sql = "select id, account_id, name, description, status from tournament where " +
+                "id in (select c.tournament_id from competition c, competition_details cd where " +
+                "c.id = cd.id and cd.code = 2) and account_id = ? and status = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            List<Tournament> tournamentList = new ArrayList();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ps.setString(2, status);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Tournament tournament = new Tournament();
+                tournament.setId(rs.getInt("id"));
+                tournament.setAccount_id(rs.getInt("account_id"));
+                tournament.setName(rs.getString("name"));
+                tournament.setDescription(rs.getString("description"));
+                tournament.setStatus(rs.getString("status"));
+                tournamentList.add(tournament);
+            }
+
+            rs.close();
+            ps.close();
+            return tournamentList;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get bullseye tournaments by accountId and Status!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

@@ -245,10 +245,10 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
     public void addCompetitionResults(CompetitionResults competitionResults) throws Exception {
 
         String sql = "insert into competition_results (id, code, competition_results.date, competitor_id, firearm_id, stock_division, unlimited_division, " +
-                "pocket_division, woman_division, senior_division, junior_division, " +
+                "pocket_division, woman_division, senior_division, junior_division, limited_division, revolver_division, rimfire_division, " +
                 "target_one_x, target_one_ten, target_one_eight, target_one_five, target_one_misses, target_two_x, " +
                 "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, final_score, total_x, " +
-                "range_officer_initials, competitor_initials) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "range_officer_initials, competitor_initials) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
 
@@ -267,21 +267,24 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setBoolean(9, competitionResults.getGssfIndoorScoreSheet().getDivsion().isWoman());
             ps.setBoolean(10, competitionResults.getGssfIndoorScoreSheet().getDivsion().isSenior());
             ps.setBoolean(11, competitionResults.getGssfIndoorScoreSheet().getDivsion().isJunior());
-            ps.setInt(12, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getX());
-            ps.setInt(13, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getTen());
-            ps.setInt(14, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getEight());
-            ps.setInt(15, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getFive());
-            ps.setInt(16, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getMisses());
-            ps.setInt(17, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getX());
-            ps.setInt(18, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getTen());
-            ps.setInt(19, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getEight());
-            ps.setInt(20, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getFive());
-            ps.setInt(21, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getMisses());
-            ps.setInt(22, competitionResults.getGssfIndoorScoreSheet().getPenalty());
-            ps.setInt(23, competitionResults.getGssfIndoorScoreSheet().getFinalScore());
-            ps.setInt(24, competitionResults.getGssfIndoorScoreSheet().getTotalX());
-            ps.setString(25, competitionResults.getGssfIndoorScoreSheet().getRangeOfficerInitials().toUpperCase());
-            ps.setString(26, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials().toUpperCase());
+            ps.setBoolean(12, competitionResults.getGssfIndoorScoreSheet().getDivsion().isLimited());
+            ps.setBoolean(13, competitionResults.getGssfIndoorScoreSheet().getDivsion().isRevolver());
+            ps.setBoolean(14, competitionResults.getGssfIndoorScoreSheet().getDivsion().isRimfire());
+            ps.setInt(15, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getX());
+            ps.setInt(16, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getTen());
+            ps.setInt(17, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getEight());
+            ps.setInt(18, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getFive());
+            ps.setInt(19, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getMisses());
+            ps.setInt(20, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getX());
+            ps.setInt(21, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getTen());
+            ps.setInt(22, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getEight());
+            ps.setInt(23, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getFive());
+            ps.setInt(24, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getMisses());
+            ps.setInt(25, competitionResults.getGssfIndoorScoreSheet().getPenalty());
+            ps.setInt(26, competitionResults.getGssfIndoorScoreSheet().getFinalScore());
+            ps.setInt(27, competitionResults.getGssfIndoorScoreSheet().getTotalX());
+            ps.setString(28, competitionResults.getGssfIndoorScoreSheet().getRangeOfficerInitials().toUpperCase());
+            ps.setString(29, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials().toUpperCase());
             ps.executeUpdate();
 
             ps.close();

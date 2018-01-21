@@ -1,0 +1,85 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.filtered}" id="stockscorestable" var="stockscores" value="#{gssfResultsBean.competitionStockResultsList}" style="font-size:13px;text-align:center">
+
+        <f:facet name="header">
+            GSSF Scores - Stock
+        </f:facet>
+        <p:columnGroup type="header">
+            <p:row>
+                <p:column colspan="3" headerText="#{gssfResultsBean.accountName} - #{gssfResultsBean.competitionDescription}"/>
+                <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionFullSpellingDate}"/>
+            </p:row>
+            <p:row>
+                <p:column headerText="" exportable="true"/>
+                <p:column headerText="First" filterBy="#{stockscores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
+                <p:column headerText="Last" filterBy="#{stockscores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
+                <p:column headerText="Model" filterBy="#{stockscores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
+                <p:column headerText="X"/>
+                <p:column headerText="10"/>
+                <p:column headerText="8"/>
+                <p:column headerText="5"/>
+                <p:column headerText="Miss"/>
+                <p:column headerText="Penalty"/>
+                <p:column headerText="Score"/>
+            </p:row>
+        </p:columnGroup>
+
+        <p:column>
+            <h:outputText value="#{stockscores.rank} - #{stockscores.classification}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.competitor.firstName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.competitor.lastName}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.firearm.model}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.targetOne.x + stockscores.gssfIndoorScoreSheet.targetTwo.x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.targetOne.ten + stockscores.gssfIndoorScoreSheet.targetTwo.ten}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.targetOne.eight + stockscores.gssfIndoorScoreSheet.targetTwo.eight}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.targetOne.five + stockscores.gssfIndoorScoreSheet.targetTwo.five}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.targetOne.misses + stockscores.gssfIndoorScoreSheet.targetTwo.misses}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.penalty}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{stockscores.gssfIndoorScoreSheet.finalScore}" />
+        </p:column>
+
+    </p:dataTable>
+
+    <p:commandButton value="Download Excel" ajax="false" icon="fa fa-file-excel-o" style="width:200px">
+        <pe:exporter ajax="false" type="xlsx" target="stockscorestable" fileName="Stock_Scores" subTable="false"/>
+    </p:commandButton>
+
+
+</ui:composition>

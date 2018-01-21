@@ -169,7 +169,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
     public List<Competition> getCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
 
         //String sql = "select id, name, description from competition where account_id = ? and status = ?";
-        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id order by c.id";
+        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id and cd.code = 1 order by c.id";
 
         Connection conn = null;
 
@@ -202,6 +202,52 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             return competitions;
         } catch (SQLException ex) {
             throw new Exception("Failed to get Competitions by AccountId and Status!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Competition> getBullseyeCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
+
+        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id and cd.code = 2 order by c.id";
+
+        Connection conn = null;
+
+        try {
+            List<Competition> competitions = new ArrayList();
+
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ps.setString(2, status.toUpperCase());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competition competition = new Competition();
+                CompetitionDetails competitionDetails = new CompetitionDetails();
+                CompetitionCode competitionCode = new CompetitionCode();
+
+                competition.setId(rs.getString("id"));
+                competition.setName(rs.getString("name"));
+                competition.setDescription(rs.getString("description"));
+                competition.setDate(rs.getDate("date"));
+                competitionCode.setCode(rs.getString("code"));
+
+                competitionDetails.setCompetitionCode(competitionCode);
+                competition.setCompetitionDetails(competitionDetails);
+
+                competitions.add(competition);
+            }
+            rs.close();
+            ps.close();
+            return competitions;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get Bullseye Competitions by AccountId and Status!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

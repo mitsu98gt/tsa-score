@@ -8,6 +8,9 @@ public class Division {
     private boolean woman;
     private boolean senior;
     private boolean junior;
+    private boolean limited;
+    private boolean revolver;
+    private boolean rimfire;
 
     public boolean isStock() {
         return stock;
@@ -57,4 +60,27 @@ public class Division {
         this.junior = junior;
     }
 
+    public boolean isLimited() {
+        return limited;
+    }
+
+    public void setLimited(boolean limited) {
+        this.limited = limited;
+    }
+
+    public boolean isRevolver() {
+        return revolver;
+    }
+
+    public void setRevolver(boolean revolver) {
+        this.revolver = revolver;
+    }
+
+    public boolean isRimfire() {
+        return rimfire;
+    }
+
+    public void setRimfire(boolean rimfire) {
+        this.rimfire = rimfire;
+    }
 }
