@@ -15,7 +15,7 @@
 
                 <p:row style="text-align:center">
                     <p:selectOneMenu required="true" id="competition" label="Competition" value="#{bullseyeBean.competition}" converter="#{bullseyeCompetitionConverter}" requiredMessage="Competition is required." style="width:180px;">
-                        <p:ajax listener="#{bullseyeBean.onCompetitionChange}" update="name,date,model" />
+                        <p:ajax listener="#{bullseyeBean.onCompetitionChange}" update="name,date" />
                         <f:selectItem itemLabel="Select Competition" itemValue="" />
                         <f:selectItems value="#{bullseyeBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
                     </p:selectOneMenu>
@@ -24,7 +24,7 @@
                 <p:row style="text-align:center">
                     <p:column>Name</p:column>
                     <p:column>Date</p:column>
-                    <p:column>Model</p:column>
+                    <p:column>Firearm</p:column>
                     <p:column>Entry Number</p:column>
                 </p:row>
 
@@ -44,9 +44,9 @@
                         <p:calendar required="true" label="Date" inputStyle="width:200px" id="date" value="#{bullseyeBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true" requiredMessage="Date is required."/>
                     </p:column>
                     <p:column>
-                        <p:selectOneMenu required="true" id="model" label="Model" value="#{bullseyeBean.scoreSheet.firearm}" converter="#{firearmConverter}" requiredMessage="Model is required.">
-                            <f:selectItem itemLabel="Select Model" itemValue="" />
-                            <f:selectItems value="#{bullseyeBean.firearmList}" var="firearm" itemLabel="#{firearm.model}" itemValue="#{firearm}"/>
+                        <p:selectOneMenu required="true" id="model" label="model" value="#{bullseyeBean.scoreSheet.firearm}" converter="#{firearmConverter}" requiredMessage="Firearm is required.">
+                            <f:selectItem itemLabel="Select Firearm" itemValue="" />
+                            <f:selectItems value="#{bullseyeBean.firearmList}" var="firearm" itemLabel="#{firearm.brand} - #{firearm.model}" itemValue="#{firearm}"/>
                         </p:selectOneMenu>
                     </p:column>
                     <p:column>

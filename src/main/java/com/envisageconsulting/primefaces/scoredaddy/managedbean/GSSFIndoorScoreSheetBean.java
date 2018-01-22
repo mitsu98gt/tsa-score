@@ -74,11 +74,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public List<Firearm> getListOfFirearms() {
-        if (competition.getCompetitionDetails().getCompetitionCode().getCode().equals("1")) {
-            return firearmDataSource.getAllGlockFirearmsForScoreSheet();
-        } else {
-            return firearmDataSource.getAllFirearmsForScoreSheet();
-        }
+        return firearmDataSource.getAllGlockFirearmsForScoreSheet();
     }
 
     public boolean doValidation() {
