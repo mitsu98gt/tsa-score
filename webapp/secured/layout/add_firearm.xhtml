@@ -31,7 +31,7 @@
             </h:panelGrid>
         </p:panel>
         <br/>
-        <p:commandButton process="addmodelfrm" value="Save" id="saveBtn" actionListener="#{firearmBean.insertFirearm}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:commandButton process="addmodelfrm" value="Save" id="saveBtn" actionListener="#{firearmBean.insertFirearm}" ajax="false" style="width:100px" icon="fa fa-save" update="firearm"/>
         <p:messages id="addmodelfrmmessages" style="width:400px" rendered="#{form2.submitted}"/>
         </h:form>
         <br/>
