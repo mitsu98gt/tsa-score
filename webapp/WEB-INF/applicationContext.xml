@@ -71,4 +71,8 @@
         <property name="firearmDAO" ref="firearmDAO" />
     </bean>
 
+    <bean id="competitionResultsService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.CompetitionResultsServiceImpl">
+        <property name="CompetitionResultsDAO" ref="competitionResultsDAO" />
+    </bean>
+
 </beans>
