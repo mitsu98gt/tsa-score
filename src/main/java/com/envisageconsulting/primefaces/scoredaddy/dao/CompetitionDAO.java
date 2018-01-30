@@ -20,5 +20,6 @@ public interface CompetitionDAO {
     public List<Competition> getAllCompetitionsByAccountId(int accountId) throws Exception;
     public void addCompetitionCompetitors(int competitionId, int competitorId) throws Exception;
     public void updateCompetitionStatus(String status, int competitionId) throws Exception;
+    public List<String> getDivisionCodesByCompetitionCode(int competitionCode) throws Exception;
 
 }

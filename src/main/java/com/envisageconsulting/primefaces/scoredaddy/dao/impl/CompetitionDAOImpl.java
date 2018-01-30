@@ -420,6 +420,38 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
+    public List<String> getDivisionCodesByCompetitionCode(int competitionCode) throws Exception {
+
+        String sql = "select code from division_codes where id = ? order by code";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, competitionCode);
+            List<String> codes = new ArrayList();
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                codes.add(rs.getString("code"));
+            }
+            rs.close();
+            ps.close();
+            return codes;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get division codes by Competition Code!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
