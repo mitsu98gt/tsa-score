@@ -6,12 +6,15 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionResults;
 import com.envisageconsulting.primefaces.scoredaddy.service.CompetitionResultsService;
 import com.envisageconsulting.primefaces.scoredaddy.service.CompetitionService;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class UpdateScoresBean implements Serializable {
     private CompetitionResultsService competitionResultsService;
 
     private List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
+    private CompetitionResults selectedCompetitiononResults;
     private List<CompetitionResults> filtered;
     private List<String> divisionCodeList = new ArrayList<String>();
     private Competition competition = new Competition();
@@ -55,6 +59,19 @@ public class UpdateScoresBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void deleteRow() {
+        String test = "";
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        CompetitionResults results = (CompetitionResults) event.getObject();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update Successful!", "INFO MSG"));
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update Cancelled!", "INFO MSG"));
     }
 
     public String getConvertedDivisionCode(String division) {
@@ -90,6 +107,14 @@ public class UpdateScoresBean implements Serializable {
 
     public void setCompetitionResultsList(List<CompetitionResults> competitionResultsList) {
         this.competitionResultsList = competitionResultsList;
+    }
+
+    public CompetitionResults getSelectedCompetitiononResults() {
+        return selectedCompetitiononResults;
+    }
+
+    public void setSelectedCompetitiononResults(CompetitionResults selectedCompetitiononResults) {
+        this.selectedCompetitiononResults = selectedCompetitiononResults;
     }
 
     public List<CompetitionResults> getFiltered() {

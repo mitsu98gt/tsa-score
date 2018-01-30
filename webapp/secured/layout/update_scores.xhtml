@@ -30,30 +30,45 @@
         <br/>
         <p:panel id="singleResultsPanel" rendered="#{updateScoresBean.renderScores}">
             <h:form id="updatecompetitorfrm">
-                <p:dataTable reflow="true" filteredValue="#{updateScoresBean.filtered}" id="scorestable" var="scores" value="#{updateScoresBean.competitionResultsList}" style="font-size:13px;text-align:center">
+                <p:growl id="msgs" showDetail="false"/>
+                <p:dataTable reflow="true" editable="true" filteredValue="#{updateScoresBean.filtered}" id="scorestable" var="scores" value="#{updateScoresBean.competitionResultsList}" selection="#{updateScoresBean.selectedCompetitiononResults}" rowKey="#{scores.rank}" style="font-size:13px;text-align:center">
 
                     <f:facet name="header">
                         #{updateScoresBean.competition.name} - #{updateScoresBean.division}
                     </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{updateScoresBean.onRowEdit}" update=":updatecompetitorfrm:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{updateScoresBean.onRowCancel}" update=":updatecompetitorfrm:msgs" />
+
                     <p:columnGroup type="header">
                         <p:row>
-                            <p:column colspan="3" headerText="#{updateScoresBean.accountName} - #{updateScoresBean.competition.description}"/>
-                            <p:column colspan="8" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionFullSpellingDate}"/>
+                            <p:column colspan="4" headerText="#{updateScoresBean.accountName} - #{updateScoresBean.competition.description}"/>
+                            <p:column colspan="15" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionFullSpellingDate}"/>
                         </p:row>
                         <p:row>
-                            <p:column headerText="" exportable="true"/>
+                            <p:column headerText=""/>
+                            <p:column headerText=""/>
                             <p:column headerText="First" filterBy="#{scores.gssfIndoorScoreSheet.competitor.firstName}" filterMatchMode="contains"/>
                             <p:column headerText="Last" filterBy="#{scores.gssfIndoorScoreSheet.competitor.lastName}" filterMatchMode="contains"/>
-                            <p:column headerText="Model" filterBy="#{scores.gssfIndoorScoreSheet.firearm.model}" filterMatchMode="contains"/>
-                            <p:column headerText="X"/>
-                            <p:column headerText="10"/>
-                            <p:column headerText="8"/>
-                            <p:column headerText="5"/>
-                            <p:column headerText="Miss"/>
+                            <p:column headerText="Model"/>
+                            <p:column headerText="Target 1 Xs"/>
+                            <p:column headerText="Target 2 Xs"/>
+                            <p:column headerText="Target 1 10s"/>
+                            <p:column headerText="Target 2 10s"/>
+                            <p:column headerText="Target 1 8s"/>
+                            <p:column headerText="Target 2 8s"/>
+                            <p:column headerText="Target 1 5s"/>
+                            <p:column headerText="Target 2 5s"/>
+                            <p:column headerText="Target 1 Misses"/>
+                            <p:column headerText="Target 2 Misses"/>
                             <p:column headerText="Penalty"/>
                             <p:column headerText="Score"/>
+                            <p:column headerText=""/>
+                            <p:column headerText=""/>
                         </p:row>
                     </p:columnGroup>
+
+                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
 
                     <p:column>
                         <h:outputText value="#{scores.rank}" />
@@ -72,23 +87,73 @@
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.x + scores.gssfIndoorScoreSheet.targetTwo.x}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.x}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targeOneX" value="#{scores.gssfIndoorScoreSheet.targetOne.x}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.ten + scores.gssfIndoorScoreSheet.targetTwo.ten}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetTwo.x}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetTwoX" value="#{scores.gssfIndoorScoreSheet.targetTwo.x}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.eight + scores.gssfIndoorScoreSheet.targetTwo.eight}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.ten}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetOneTen" value="#{scores.gssfIndoorScoreSheet.targetOne.ten}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.five + scores.gssfIndoorScoreSheet.targetTwo.five}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetTwo.ten}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetTwoTen" value="#{scores.gssfIndoorScoreSheet.targetTwo.ten}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.misses + scores.gssfIndoorScoreSheet.targetTwo.misses}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.eight}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetOneEight" value="#{scores.gssfIndoorScoreSheet.targetOne.eight}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetTwo.eight}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetTwoEight" value="#{scores.gssfIndoorScoreSheet.targetTwo.eight}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.five}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetOneFive" value="#{scores.gssfIndoorScoreSheet.targetOne.five}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetTwo.five}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetTwoFive" value="#{scores.gssfIndoorScoreSheet.targetTwo.five}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetOne.misses}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetOneMisses" value="#{scores.gssfIndoorScoreSheet.targetOne.misses}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.targetTwo.misses}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="targetTwoMisses" value="#{scores.gssfIndoorScoreSheet.targetTwo.misses}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column>
@@ -97,6 +162,14 @@
 
                     <p:column>
                         <h:outputText value="#{scores.gssfIndoorScoreSheet.finalScore}" />
+                    </p:column>
+
+                    <p:column style="width:32px">
+                        <p:rowEditor />
+                    </p:column>
+
+                    <p:column style="width:20px">
+                        <p:commandButton actionListener="#{updateScoresBean.deleteRow}" ajax="false" update="singleResultsPanel" icon="fa fa-trash"/>
                     </p:column>
 
                 </p:dataTable>
