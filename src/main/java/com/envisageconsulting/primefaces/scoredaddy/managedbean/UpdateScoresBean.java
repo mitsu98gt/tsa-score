@@ -62,7 +62,18 @@ public class UpdateScoresBean implements Serializable {
     }
 
     public void deleteRow() {
-        String test = "";
+        if (null == selectedCompetitiononResults) {
+            FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please Select A Row!", "INFO ERROR"));
+        } else {
+            try {
+                competitionResultsService.deleteCompetitionResultByCompetitionResultsId(selectedCompetitiononResults.getCompetitionResultsId());
+                competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete Successful!", "INFO MSG"));
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete UnSuccessful!", "INFO ERROR"));
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void onRowEdit(RowEditEvent event) {

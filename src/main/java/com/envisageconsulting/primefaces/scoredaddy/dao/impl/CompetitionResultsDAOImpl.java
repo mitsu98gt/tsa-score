@@ -39,6 +39,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 CompetitionResults competitionResults = new CompetitionResults();
                 CompetitionDetails competitionDetails = new CompetitionDetails();
 
+                competitionResults.setCompetitionResultsId(rs.getInt("competition_results_id"));
                 competitionDetails.setDate(rs.getDate("date"));
                 competitionResults.setCompetitionDetails(competitionDetails);
 
@@ -290,6 +291,33 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.close();
         } catch (SQLException ex) {
             throw new Exception("Failed to add Competition Results!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void deleteCompetitionResultByCompetitionResultsId(int key) throws Exception {
+
+        String sql = "delete from competition_results where competition_results_id = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, key);
+
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException ex) {
+            throw new Exception("Failed to delete Competition Result by Competition Results Id!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

@@ -30,6 +30,16 @@ public class CompetitionResultsServiceImpl implements CompetitionResultsService 
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
+    public void deleteCompetitionResultByCompetitionResultsId(int competitionResultsId) throws Exception {
+        try {
+            competitionResultsDAO.deleteCompetitionResultByCompetitionResultsId(competitionResultsId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("CompetitionResultsServiceImpl: Failed to delete competition result by competition results id!");
+        }
+    }
+
     public CompetitionResultsDAO getCompetitionResultsDAO() {
         return competitionResultsDAO;
     }

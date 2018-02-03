@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="pageContent">
-        <h:form id="updatescoresfrm">
+        <h:form id="updatescoresfrm" binding="#{form1}">
             <p:panel id="updatescorespanel" header="Update Competitor Scores" style="width:420px">
                 <p:focus context="updatescorespanel"/>
                 <h:panelGrid columns="2" layout="grid">
@@ -25,7 +25,7 @@
             </p:panel>
             <br/>
             <p:commandButton value="Get Scores" id="getScoresBtn" actionListener="#{updateScoresBean.getScores}" ajax="false" style="width:150px" icon="fa fa-list-ol"/>
-            <p:messages id="registercompetitormessages" style="width:400px"/>
+            <p:messages id="registercompetitormessages" style="width:400px" rendered="#{form1.submitted}"/>
         </h:form>
         <br/>
         <p:panel id="singleResultsPanel" rendered="#{updateScoresBean.renderScores}">
@@ -169,7 +169,7 @@
                     </p:column>
 
                     <p:column style="width:20px">
-                        <p:commandButton actionListener="#{updateScoresBean.deleteRow}" ajax="false" update="singleResultsPanel" icon="fa fa-trash"/>
+                        <p:commandButton actionListener="#{updateScoresBean.deleteRow}" ajax="true" update=":updatecompetitorfrm" icon="fa fa-trash"/>
                     </p:column>
 
                 </p:dataTable>

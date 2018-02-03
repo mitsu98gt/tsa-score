@@ -15,6 +15,7 @@ public class SQLConstants {
 
     public static final String COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID =
             "select" +
+                    " cr.competition_results_id," +
             "    cr.id," +
             "    cr.code," +
             "    cr.date," +
