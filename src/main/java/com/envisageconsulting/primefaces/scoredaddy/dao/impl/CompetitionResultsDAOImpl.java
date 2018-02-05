@@ -4,6 +4,7 @@ import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.Division;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.TargetOne;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.TargetTwo;
@@ -38,13 +39,36 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
                 CompetitionResults competitionResults = new CompetitionResults();
                 CompetitionDetails competitionDetails = new CompetitionDetails();
+                competitionDetails.setCompetitionDetailsId(String.valueOf(rs.getInt("id")));
+
+                CompetitionCompetitors competitionCompetitors = new CompetitionCompetitors();
+                competitionCompetitors.setCompetitorId(String.valueOf(rs.getInt("competitor_id")));
+                competitionCompetitors.setFirearmId(String.valueOf(rs.getInt("firearm_id")));
+                competitionResults.setCompetitionCompetitors(competitionCompetitors);
 
                 competitionResults.setCompetitionResultsId(rs.getInt("competition_results_id"));
                 competitionDetails.setDate(rs.getDate("date"));
+
+                CompetitionCode competitionCode = new CompetitionCode();
+                competitionCode.setCompetitionCodeId(String.valueOf(rs.getInt("code")));
+                competitionDetails.setCompetitionCode(competitionCode);
+
                 competitionResults.setCompetitionDetails(competitionDetails);
 
                 GSSFIndoorScoreSheet gssfIndoorScoreSheet = new GSSFIndoorScoreSheet();
 
+                Division div = new Division();
+                div.setStock(rs.getBoolean("stock_division"));
+                div.setUnlimited(rs.getBoolean("unlimited_division"));
+                div.setPocket(rs.getBoolean("pocket_division"));
+                div.setWoman(rs.getBoolean("woman_division"));
+                div.setJunior(rs.getBoolean("junior_division"));
+                div.setSenior(rs.getBoolean("senior_division"));
+                div.setLimited(rs.getBoolean("limited_division"));
+                div.setRevolver(rs.getBoolean("revolver_division"));
+                div.setRimfire(rs.getBoolean("rimfire_division"));
+                gssfIndoorScoreSheet.setDivsion(div);
+                
                 Competitor competitor = new Competitor();
                 competitor.setFirstName(rs.getString("first_name"));
                 competitor.setLastName(rs.getString("last_name"));
@@ -73,6 +97,9 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 gssfIndoorScoreSheet.setPenalty(rs.getInt("penalty"));
                 gssfIndoorScoreSheet.setFinalScore(rs.getInt("final_score"));
                 gssfIndoorScoreSheet.setTotalX(rs.getInt("total_x"));
+
+                gssfIndoorScoreSheet.setRangeOfficerInitials(rs.getString("range_officer_initials"));
+                gssfIndoorScoreSheet.setCompetitorInitials(rs.getString("competitor_initials"));
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
                 competitionResults.setRank(rank + 1);
@@ -249,7 +276,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 "pocket_division, woman_division, senior_division, junior_division, limited_division, revolver_division, rimfire_division, " +
                 "target_one_x, target_one_ten, target_one_eight, target_one_five, target_one_misses, target_two_x, " +
                 "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, final_score, total_x, " +
-                "range_officer_initials, competitor_initials) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "range_officer_initials, competitor_initials, last_modified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
         Connection conn = null;
 
@@ -257,7 +284,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, Integer.valueOf(competitionResults.getCompetitionDetails().getCompetitionDetailsId()));
-            ps.setInt(2, Integer.valueOf(competitionResults.getCompetitionDetails().getCompetitionCode().getCode()));
+            ps.setInt(2, Integer.valueOf(competitionResults.getCompetitionDetails().getCompetitionCode().getCompetitionCodeId()));
             //java.util.Date utilDate = new SimpleDateFormat("MM-dd-yyyy").parse(DateUtils.getDate(competitionResults.getCompetitionDetails().getDate()));
             ps.setString(3, DateUtils.getDate(competitionResults.getCompetitionDetails().getDate()));
             ps.setInt(4, Integer.valueOf(competitionResults.getCompetitionCompetitors().getCompetitorId()));
@@ -290,7 +317,67 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
             ps.close();
         } catch (SQLException ex) {
-            throw new Exception("Failed to add Competition Results!" + ex.getMessage());
+            throw new Exception("Failed to add Competition Results History!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void addCompetitionResultsHistory(CompetitionResults competitionResults) throws Exception {
+
+        String sql = "insert into competition_results_history (id, code, competition_results_history.date, competitor_id, firearm_id, stock_division, unlimited_division, " +
+                "pocket_division, woman_division, senior_division, junior_division, limited_division, revolver_division, rimfire_division, " +
+                "target_one_x, target_one_ten, target_one_eight, target_one_five, target_one_misses, target_two_x, " +
+                "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, final_score, total_x, " +
+                "range_officer_initials, competitor_initials, last_modified, competition_results_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), ?)";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, Integer.valueOf(competitionResults.getCompetitionDetails().getCompetitionDetailsId()));
+            ps.setInt(2, Integer.valueOf(competitionResults.getCompetitionDetails().getCompetitionCode().getCompetitionCodeId()));
+            //java.util.Date utilDate = new SimpleDateFormat("MM-dd-yyyy").parse(DateUtils.getDate(competitionResults.getCompetitionDetails().getDate()));
+            ps.setString(3, DateUtils.getDate(competitionResults.getCompetitionDetails().getDate()));
+            ps.setInt(4, Integer.valueOf(competitionResults.getCompetitionCompetitors().getCompetitorId()));
+            ps.setInt(5, Integer.valueOf(competitionResults.getCompetitionCompetitors().getFirearmId()));
+            ps.setBoolean(6, competitionResults.getGssfIndoorScoreSheet().getDivsion().isStock());
+            ps.setBoolean(7, competitionResults.getGssfIndoorScoreSheet().getDivsion().isUnlimited());
+            ps.setBoolean(8, competitionResults.getGssfIndoorScoreSheet().getDivsion().isPocket());
+            ps.setBoolean(9, competitionResults.getGssfIndoorScoreSheet().getDivsion().isWoman());
+            ps.setBoolean(10, competitionResults.getGssfIndoorScoreSheet().getDivsion().isSenior());
+            ps.setBoolean(11, competitionResults.getGssfIndoorScoreSheet().getDivsion().isJunior());
+            ps.setBoolean(12, competitionResults.getGssfIndoorScoreSheet().getDivsion().isLimited());
+            ps.setBoolean(13, competitionResults.getGssfIndoorScoreSheet().getDivsion().isRevolver());
+            ps.setBoolean(14, competitionResults.getGssfIndoorScoreSheet().getDivsion().isRimfire());
+            ps.setInt(15, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getX());
+            ps.setInt(16, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getTen());
+            ps.setInt(17, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getEight());
+            ps.setInt(18, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getFive());
+            ps.setInt(19, competitionResults.getGssfIndoorScoreSheet().getTargetOne().getMisses());
+            ps.setInt(20, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getX());
+            ps.setInt(21, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getTen());
+            ps.setInt(22, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getEight());
+            ps.setInt(23, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getFive());
+            ps.setInt(24, competitionResults.getGssfIndoorScoreSheet().getTargetTwo().getMisses());
+            ps.setInt(25, competitionResults.getGssfIndoorScoreSheet().getPenalty());
+            ps.setInt(26, competitionResults.getGssfIndoorScoreSheet().getFinalScore());
+            ps.setInt(27, competitionResults.getGssfIndoorScoreSheet().getTotalX());
+            ps.setString(28, competitionResults.getGssfIndoorScoreSheet().getRangeOfficerInitials().toUpperCase());
+            ps.setString(29, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials().toUpperCase());
+            ps.setInt(30, competitionResults.getCompetitionResultsId());
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException ex) {
+            throw new Exception("Failed to add Competition Results History!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

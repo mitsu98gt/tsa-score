@@ -14,6 +14,7 @@ public interface CompetitionResultsDAO {
     public List<Firearm> getCompetitorFirearmByCompetitionAndDivision(int competitor_id, int competition_id, String division) throws Exception;
     public CompetitionResultsRow getCompetitionResultsByCompetitionCompetitorFirearmDivision(int competition_id, int competitor_id, int firearm_id, String division) throws Exception;
     public void addCompetitionResults(CompetitionResults competitionResults) throws Exception;
+    public void addCompetitionResultsHistory(CompetitionResults competitionResults) throws Exception;
     public void deleteCompetitionResultByCompetitionResultsId(int key) throws Exception;
 
 }

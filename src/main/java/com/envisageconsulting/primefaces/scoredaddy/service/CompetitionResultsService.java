@@ -9,6 +9,6 @@ import java.util.List;
 public interface CompetitionResultsService {
 
     public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception;
-    public void deleteCompetitionResultByCompetitionResultsId(int key) throws Exception;
+    public void deleteCompetitionResultByCompetitionResultsId(CompetitionResults competitionResults, int key) throws Exception;
 
 }

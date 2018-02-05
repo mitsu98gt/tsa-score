@@ -274,7 +274,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         CompetitionDetails competitionDetails = new CompetitionDetails();
         CompetitionCode competitionCode = new CompetitionCode();
 
-        competitionCode.setCode("1");
+        competitionCode.setCompetitionCodeId("1");
         competitionDetails.setCompetitionCode(competitionCode);
 
         competitionDetails.setCompetitionDetailsId(competition.getId());

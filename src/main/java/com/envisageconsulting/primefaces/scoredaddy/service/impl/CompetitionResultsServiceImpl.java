@@ -30,9 +30,10 @@ public class CompetitionResultsServiceImpl implements CompetitionResultsService 
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
-    public void deleteCompetitionResultByCompetitionResultsId(int competitionResultsId) throws Exception {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+    public void deleteCompetitionResultByCompetitionResultsId(CompetitionResults competitionResults, int competitionResultsId) throws Exception {
         try {
+            competitionResultsDAO.addCompetitionResultsHistory(competitionResults);
             competitionResultsDAO.deleteCompetitionResultByCompetitionResultsId(competitionResultsId);
         } catch (Exception e) {
             e.printStackTrace();

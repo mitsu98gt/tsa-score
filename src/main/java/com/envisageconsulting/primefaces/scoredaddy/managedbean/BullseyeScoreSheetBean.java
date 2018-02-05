@@ -242,7 +242,7 @@ public class BullseyeScoreSheetBean implements Serializable {
         CompetitionDetails competitionDetails = new CompetitionDetails();
         CompetitionCode competitionCode = new CompetitionCode();
 
-        competitionCode.setCode("2");
+        competitionCode.setCompetitionCodeId("2");
         competitionDetails.setCompetitionCode(competitionCode);
 
         competitionDetails.setCompetitionDetailsId(competition.getId());

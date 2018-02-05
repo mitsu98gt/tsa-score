@@ -31,7 +31,7 @@
         <p:panel id="singleResultsPanel" rendered="#{updateScoresBean.renderScores}">
             <h:form id="updatecompetitorfrm">
                 <p:growl id="msgs" showDetail="false"/>
-                <p:dataTable reflow="true" editable="true" filteredValue="#{updateScoresBean.filtered}" id="scorestable" var="scores" value="#{updateScoresBean.competitionResultsList}" selection="#{updateScoresBean.selectedCompetitiononResults}" rowKey="#{scores.rank}" style="font-size:13px;text-align:center">
+                <p:dataTable reflow="true" editable="true" filteredValue="#{updateScoresBean.filtered}" id="scorestable" var="scores" value="#{updateScoresBean.competitionResultsList}" selection="#{updateScoresBean.selectedCompetitiononResults}" rowKey="#{scores.competitionResultsId}" style="font-size:13px;text-align:center">
 
                     <f:facet name="header">
                         #{updateScoresBean.competition.name} - #{updateScoresBean.division}

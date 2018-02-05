@@ -21,6 +21,15 @@ public class SQLConstants {
             "    cr.date," +
             "    cr.competitor_id," +
             "    cr.firearm_id," +
+                    "    cr.stock_division," +
+                    "    cr.unlimited_division," +
+                    "    cr.pocket_division," +
+                    "    cr.woman_division," +
+                    "    cr.junior_division," +
+                    "    cr.senior_division," +
+                    "    cr.limited_division," +
+                    "    cr.revolver_division," +
+                    "    cr.rimfire_division," +
             "    cr.target_one_x," +
             "    cr.target_one_ten," +
             "    cr.target_one_eight," +
@@ -34,6 +43,8 @@ public class SQLConstants {
             "    cr.penalty," +
             "    cr.final_score," +
             "    cr.total_x," +
+                    "    cr.range_officer_initials," +
+                    "    cr.competitor_initials," +
             "    cm.first_name," +
             "    cm.last_name," +
             "    fm.model," +
