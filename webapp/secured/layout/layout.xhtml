@@ -29,7 +29,7 @@
 
         <p:layoutUnit position="west" size="250" header="Options" resizable="true" closable="false" collapsible="true">
             <h:form>
-                <br/>
+                <!--<br/>
                 <h:commandLink action="/secured/layout/add_tournament.xhtml?faces-redirect=true" value="Add Tournament"/>
                 <br/>
                 <h:commandLink action="/secured/layout/add_competition.xhtml?faces-redirect=true" value="Add Competition"/>
@@ -53,7 +53,34 @@
                 <h:commandLink action="/secured/layout/bullseye/view_scores_bullseye.xhtml?faces-redirect=true" value="Bullseye Scores"/>
                 <br/>
                 <br/>
-                <h:commandLink action="/secured/layout/update_scores.xhtml?faces-redirect=true" value="Update Scores"/>
+                <h:commandLink action="/secured/layout/update_scores.xhtml?faces-redirect=true" value="Update Scores"/>-->
+
+                <p:panelMenu style="width:240px">
+                    <p:submenu label="Tournament">
+                        <p:menuitem value="Add Tournament" label="addtournament" action="/secured/layout/add_tournament.xhtml?faces-redirect=true" ajax="false"/>
+                    </p:submenu>
+                    <p:submenu label="Competition">
+                        <p:menuitem value="Add Competition" label="addcompetition" action="/secured/layout/add_competition.xhtml?faces-redirect=true" ajax="false"/>
+                    </p:submenu>
+                    <p:submenu label="Competitor">
+                        <p:menuitem value="Add Competitor" label="addcompetitor" action="/secured/layout/add_competitor.xhtml?faces-redirect=true" ajax="false"/>
+                        <p:menuitem value="Register Competitor" label="registercompetitor" action="/secured/layout/register_competitor.xhtml?faces-redirect=true" ajax="false"/>
+                    </p:submenu>
+                    <p:submenu label="Firearm">
+                        <p:menuitem value="Add Firearm" label="addfirearm" action="/secured/layout/add_firearm.xhtml?faces-redirect=true" ajax="false"/>
+                    </p:submenu>
+                    <p:submenu label="GSSF">
+                        <p:menuitem value="GSSF Scoresheet" label="gssfscoresheet" action="/secured/layout/indoor_scoresheet.xhtml?faces-redirect=true" ajax="false"/>
+                        <p:menuitem value="GSSF Scores" label="gssfscores" action="/secured/layout/view_scores.xhtml?faces-redirect=true" ajax="false"/>
+                    </p:submenu>
+                    <p:submenu label="BullsEye">
+                        <p:menuitem value="BullsEye Scoresheet" label="bullseyescoresheet" action="/secured/layout/bullseye/bullseye_scoresheet.xhtml?faces-redirect=true" ajax="false"/>
+                        <p:menuitem value="BullsEye Scores" label="bullseyescores" action="//secured/layout/bullseye/view_scores_bullseye.xhtml?faces-redirect=true" ajax="false"/>
+                    </p:submenu>
+                    <p:submenu label="Scores Management">
+                        <p:menuitem value="Update Scores" label="updatescores" action="/secured/layout/update_scores.xhtml?faces-redirect=true" ajax="false"/>
+                    </p:submenu>
+                </p:panelMenu>
             </h:form>
         </p:layoutUnit>
 
