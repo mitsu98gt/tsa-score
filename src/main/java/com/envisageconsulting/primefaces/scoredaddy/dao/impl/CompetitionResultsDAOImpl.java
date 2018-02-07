@@ -244,7 +244,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                competitionResultsRow.setDate(rs.getDate("date"));
                competitionResultsRow.setTotal_x(rs.getString("total_x"));
                competitionResultsRow.setTotal_ten(rs.getString("total_ten"));
-               competitionResultsRow.setTotal_eight(rs.getString("total_ten"));
+               competitionResultsRow.setTotal_eight(rs.getString("total_eight"));
                competitionResultsRow.setTotal_five(rs.getString("total_five"));
                competitionResultsRow.setTotal_misses(rs.getString("total_misses"));
                competitionResultsRow.setPenalty(rs.getString("penalty"));
