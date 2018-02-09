@@ -1,0 +1,52 @@
+<ui:composition template="/secured/layout2/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="pageContent">
+        <h:form id="addbrandfrm" binding="#{form1}">
+            <p:panel id="brandpanel" header="Add Brand" style="width:420px">
+                <h:panelGrid columns="2" layout="grid">
+                    <p:outputLabel for="brand" value="Brand: " />
+                    <p:inputText id="brand" value="#{firearmBean.newBrand}" style="width:250px" maxlength="35" required="true" requiredMessage="Brand is required."/>
+                </h:panelGrid>
+            </p:panel>
+            <br/>
+            <p:commandButton process="addbrandfrm" value="Save" id="saveBtn" actionListener="#{firearmBean.insertNewBrand}" ajax="false" style="width:100px" icon="fa fa-save"/>
+            <p:messages id="addbrandfrmmessages" style="width:400px" rendered="#{form1.submitted}"/>
+        </h:form>
+        <br/>
+        <h:form id="addmodelfrm" binding="#{form2}">
+        <p:panel id="modelpanel" header="Add Firearm" style="width:420px">
+            <h:panelGrid columns="2" layout="grid">
+                <p:outputLabel for="model" value="Model: " />
+                <p:inputText id="model" value="#{firearmBean.firearm.model}" style="width:250px" maxlength="25" required="true" requiredMessage="Model is required."/>
+                <p:outputLabel for="brand" value="Brand: " />
+                <p:selectOneMenu id="brand" style="width:225px" value="#{firearmBean.firearmBrand}" required="true" converter="#{firearmBrandConverter}" requiredMessage="Brand is required.">
+                    <f:selectItem itemLabel="Select a brand ..." />
+                    <f:selectItems value="#{firearmBean.firearmBrandList}" var="firearmBrand" itemLabel="#{firearmBrand.brand}" itemValue="#{firearmBrand}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </p:panel>
+        <br/>
+        <p:commandButton process="addmodelfrm" value="Save" id="saveBtn" actionListener="#{firearmBean.insertFirearm}" ajax="false" style="width:100px" icon="fa fa-save" update="firearm"/>
+        <p:messages id="addmodelfrmmessages" style="width:400px" rendered="#{form2.submitted}"/>
+        </h:form>
+        <br/>
+        <h:form id="firarms">
+            <h3 class="first">Firearm List</h3>
+            <p:dataTable var="firearm" value="#{bullseyeBean.firearmList}" sortBy="#{firearm.brand}" expandableRowGroups="true" style="width:420px" scrollable="true" scrollHeight="300">
+                <p:headerRow>
+                    <p:column colspan="1">
+                        <h:outputText value="#{firearm.brand}" />
+                    </p:column>
+                </p:headerRow>
+                <p:column headerText="Firearm">
+                    <h:outputText value="#{firearm.model}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,23 @@
+<ui:composition template="/secured/layout2/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="pageContent">
+    <h:form id="addtournamentfrm">
+        <p:panel id="panel" header="Add Tournament" style="width:420px">
+            <h:panelGrid columns="2" layout="grid">
+                <p:outputLabel for="name" value="Name: " />
+                <p:inputText id="name" value="#{tournamentBean.tournament.name}" style="width:250px" maxlength="45" required="true" requiredMessage="Name is required."/>
+                <p:outputLabel for="description" value="Description: " />
+                <p:inputText id="description" value="#{tournamentBean.tournament.description}" style="width:250px" maxlength="200" required="true" requiredMessage="Description is required."/>
+            </h:panelGrid>
+        </p:panel>
+        <br/>
+        <p:commandButton process="addtournamentfrm" value="Save" id="saveBtn" actionListener="#{tournamentBean.insertTournament}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:messages id="messages" style="width:400px"/>
+    </h:form>
+    </ui:define>
+</ui:composition>
