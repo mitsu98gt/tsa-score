@@ -68,63 +68,73 @@ public class NavigationBean implements Serializable {
 	}
 
 	public String redirectToAddTournament() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setTournamentExpanded(true);
 		return "/secured/layout2/tournament/add_tournament.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToAddCompetition() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setCompetitionExpanded(true);
 		return "/secured/layout2/competition/add_competition.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToAddCompetitor() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setCompetitorExpanded(true);
 		return "/secured/layout2/competitor/add_competitor.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToRegisterCompetitor() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setCompetitorExpanded(true);
 		return "/secured/layout2/competitor/register_competitor.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToAddFirearm() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setFirearmExpanded(true);
 		return "/secured/layout2/firearm/add_firearm.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToGssfScoresheet() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setGssfExpanded(true);
 		return "/secured/layout2/gssf/indoor_scoresheet.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToBullseyeScoresheet() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setBullseyeExpanded(true);
 		return "/secured/layout2/bullseye/bullseye_scoresheet.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToViewGssfScores() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setScoresExpanded(true);
 		return "/secured/layout2/scores/view_scores.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToViewBullseyeScores() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setScoresExpanded(true);
 		return "/secured/layout2/scores/view_scores_bullseye.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToUpdateScores() {
-		collapseAllMenuItems();
+		updateMenuItems();
 		panelMenuBean.setScoresExpanded(true);
 		return "/secured/layout2/scores/update_scores.xhtml?faces-redirect=true";
+	}
+
+	public void updateMenuItems() {
+		panelMenuBean.setTournamentExpanded(panelMenuBean.isTournamentExpanded());
+		panelMenuBean.setCompetitionExpanded(panelMenuBean.isCompetitionExpanded());
+		panelMenuBean.setCompetitorExpanded(panelMenuBean.isCompetitorExpanded());
+		panelMenuBean.setFirearmExpanded(panelMenuBean.isFirearmExpanded());
+		panelMenuBean.setGssfExpanded(panelMenuBean.isGssfExpanded());
+		panelMenuBean.setBullseyeExpanded(panelMenuBean.isBullseyeExpanded());
+		panelMenuBean.setScoresExpanded(panelMenuBean.isScoresExpanded());
 	}
 
 	public void collapseAllMenuItems() {
@@ -136,6 +146,8 @@ public class NavigationBean implements Serializable {
 		panelMenuBean.setBullseyeExpanded(false);
 		panelMenuBean.setScoresExpanded(false);
 	}
+
+
 	/**
 	 * Go to welcome page.
 	 *
