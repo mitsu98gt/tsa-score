@@ -32,7 +32,17 @@ public class TournamentServiceImpl implements TournamentService {
             return tournamentDAO.getAllTournamentsByAccountIdAndStatus(accountId, status);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("TournamentServiceImpl: Failed to insert Tournament!");
+            throw new Exception("TournamentServiceImpl: Failed to get all Tournaments!");
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
+    public List<Tournament> getAllGlockTournamentsByAccountIdAndStatus(int accountId, String status) throws Exception {
+        try {
+            return tournamentDAO.getAllGlockTournamentsByAccountIdAndStatus(accountId, status);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("TournamentServiceImpl: Failed to get all Glock Tournaments!");
         }
     }
 

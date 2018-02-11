@@ -31,8 +31,22 @@
             </h:panelGrid>
         </p:panel>
         <br/>
-        <p:commandButton process="addmodelfrm" value="Save" id="saveBtn" actionListener="#{firearmBean.insertFirearm}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:commandButton process="addmodelfrm" value="Save" id="saveBtn" actionListener="#{firearmBean.insertFirearm}" ajax="false" style="width:100px" icon="fa fa-save" update="firearm"/>
         <p:messages id="addmodelfrmmessages" style="width:400px" rendered="#{form2.submitted}"/>
-    </h:form>
+        </h:form>
+        <br/>
+        <h:form id="firarms">
+            <h3 class="first">Firearm List</h3>
+            <p:dataTable var="firearm" value="#{bullseyeBean.firearmList}" sortBy="#{firearm.brand}" expandableRowGroups="true" style="width:420px" scrollable="true" scrollHeight="300">
+                <p:headerRow>
+                    <p:column colspan="1">
+                        <h:outputText value="#{firearm.brand}" />
+                    </p:column>
+                </p:headerRow>
+                <p:column headerText="Firearm">
+                    <h:outputText value="#{firearm.model}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </ui:define>
 </ui:composition>

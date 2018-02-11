@@ -38,7 +38,7 @@ public class RegisterBean implements Serializable {
     public void init() {
         try {
             allCompetitors = competitorDAO.getAllCompetitors();
-            allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            allCompetitions = competitionDAO.getAllCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
         } catch (Exception e) {
             e.printStackTrace();
         }

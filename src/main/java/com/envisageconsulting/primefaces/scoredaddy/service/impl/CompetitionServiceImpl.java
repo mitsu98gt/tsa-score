@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
 
@@ -24,6 +26,16 @@ public class CompetitionServiceImpl implements CompetitionService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("CompetitionServiceImpl: Failed to insert Competition!");
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
+    public List<String> getDivisionCodesByCompetitionCode(int competitionCode) throws Exception {
+        try {
+            return competitionDAO.getDivisionCodesByCompetitionCode(competitionCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("CompetitionServiceImpl: Failed to get Division Codes by Competition Code!");
         }
     }
 

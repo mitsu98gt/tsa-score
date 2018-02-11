@@ -1,0 +1,35 @@
+<ui:composition template="/secured/layout2/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="pageContent">
+    <h:form id="regcompetitorfrm">
+        <p:panel id="registercompetitorpanel" header="Register Competitor For A Competition" style="width:420px">
+            <p:focus context="registercompetitorpanel"/>
+            <h:panelGrid columns="2" layout="grid">
+                <p:outputLabel for="name" value="Competitor Name: " />
+                <p:autoComplete id="name" label="Name"
+                                required="true" dropdown="true" maxlength="40" requiredMessage="Name is required."
+                                minQueryLength="3"
+                                value="#{registerBean.competitor}"
+                                completeMethod="#{registerBean.complete}"
+                                var="competitor"
+                                itemValue="#{competitor}"
+                                itemLabel="#{competitor.fullName}" converter="#{registerCompetitorConverter}">
+                </p:autoComplete>
+                <p:outputLabel for="competition" value="Competition: " />
+                <p:selectOneMenu required="true" id="competition" label="Competition" value="#{registerBean.competition}" converter="#{allCompetitionConverter}" requiredMessage="Competition is required." style="width:180px;">
+                    <f:selectItem itemLabel="Select Competition" itemValue="" />
+                    <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </p:panel>
+        <br/>
+        <p:commandButton value="Register" id="registerBtn" actionListener="#{registerBean.registerCompetitor}" ajax="false" style="width:100px" icon="fa fa-save"/>
+        <p:messages id="registercompetitormessages" style="width:400px"/>
+    </h:form>
+    </ui:define>
+</ui:composition>

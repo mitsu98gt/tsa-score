@@ -50,7 +50,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
         try {
-            allCompetitions = competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            allCompetitions = competitionDAO.getGlockCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             firearmList = firearmDataSource.getFirearms();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -74,11 +74,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public List<Firearm> getListOfFirearms() {
-        if (competition.getCompetitionDetails().getCompetitionCode().getCode().equals("1")) {
-            return firearmDataSource.getAllGlockFirearmsForScoreSheet();
-        } else {
-            return firearmDataSource.getAllFirearmsForScoreSheet();
-        }
+        return firearmDataSource.getAllGlockFirearmsForScoreSheet();
     }
 
     public boolean doValidation() {
@@ -278,7 +274,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         CompetitionDetails competitionDetails = new CompetitionDetails();
         CompetitionCode competitionCode = new CompetitionCode();
 
-        competitionCode.setCode("1");
+        competitionCode.setCompetitionCodeId("1");
         competitionDetails.setCompetitionCode(competitionCode);
 
         competitionDetails.setCompetitionDetailsId(competition.getId());

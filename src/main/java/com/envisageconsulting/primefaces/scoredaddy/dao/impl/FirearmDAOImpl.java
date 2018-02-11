@@ -88,8 +88,8 @@ public class FirearmDAOImpl implements FirearmDAO {
 
     public List<Firearm> getAllFirearmsForScoreSheet() throws Exception {
 
-        String sql = "select id, model from firearm_models order by model";
-
+        //String sql = "select id, model from firearm_models order by model";
+        String sql = "select fm.id, fb.brand, fm.model from firearm_models fm, firearm_brands fb where fm.brand_id = fb.id order by brand, model";
         Connection conn = null;
 
         try {
@@ -102,6 +102,7 @@ public class FirearmDAOImpl implements FirearmDAO {
                 Firearm firearm =  new Firearm();
                 firearm.setId(Integer.toString(rs.getInt("id")));
                 firearm.setModel(rs.getString("model"));
+                firearm.setBrand(rs.getString("brand"));
                 firearmList.add(firearm);
             }
             rs.close();

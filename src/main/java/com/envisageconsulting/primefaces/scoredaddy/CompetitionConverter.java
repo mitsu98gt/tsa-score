@@ -23,7 +23,7 @@ public class CompetitionConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            for(Competition c : competitionDAO.getCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I")){
+            for(Competition c : competitionDAO.getGlockCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I")){
                 if(c.getId().equals(value)){
                     return c;
                 }

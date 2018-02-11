@@ -9,6 +9,11 @@ public class Constants {
     public static final String GSSF_SENIOR = "GSSF_SENIOR";
     public static final String GSSF_JUNIOR = "GSSF_JUNIOR";
 
+    public static final String BULLSEYE_UNLIMITED = "BULLSEYE_UNLIMITED";
+    public static final String BULLSEYE_LIMITED = "BULLSEYE_LIMITED";
+    public static final String BULLSEYE_REVOLVER = "BULLSEYE_REVOLVER";
+    public static final String BULLSEYE_RIMFIRE = "BULLSEYE_RIMFIRE";
+
     public static final String SESSION_ACCOUNT = "account";
 
 }
