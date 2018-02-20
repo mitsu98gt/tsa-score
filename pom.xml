@@ -189,6 +189,7 @@
     </profiles>
 
   <build>
+	  <finalName>app#sd#v1</finalName>
     <!-- <sourceDirectory>src</sourceDirectory> -->
     <plugins>
       <plugin>
