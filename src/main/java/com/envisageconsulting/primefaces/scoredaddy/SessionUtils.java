@@ -14,7 +14,7 @@ public class SessionUtils {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
         Account account = (Account) sessionMap.get(Constants.SESSION_ACCOUNT);
-        return Integer.valueOf(account.getId());
+        return null == account.getId() ? 0 : Integer.valueOf(account.getId());
     }
 
     public static String getAccountName() {
