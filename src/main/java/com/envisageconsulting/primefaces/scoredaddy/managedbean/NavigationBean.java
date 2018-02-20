@@ -35,33 +35,6 @@ public class NavigationBean implements Serializable {
 		return "/login.xhtml";
 	}
 
-	/**
-	 * Redirect to info page.
-	 * 
-	 * @return Info page name.
-	 */
-	public String redirectToInfo() {
-		return "/info.xhtml?faces-redirect=true";
-	}
-
-	/**
-	 * Go to info page.
-	 * 
-	 * @return Info page name.
-	 */
-	public String toInfo() {
-		return "/info.xhtml";
-	}
-
-	/**
-	 * Redirect to welcome page.
-	 * 
-	 * @return Welcome page name.
-	 */
-	public String redirectToWelcome() {
-		return "/secured/welcome.xhtml?faces-redirect=true";
-	}
-
 	public String redirectToLayout() {
 		collapseAllMenuItems();
 		return "/secured/layout/layout.xhtml?faces-redirect=true";
@@ -159,16 +132,6 @@ public class NavigationBean implements Serializable {
 		panelMenuBean.setGssfExpanded(false);
 		panelMenuBean.setBullseyeExpanded(false);
 		panelMenuBean.setScoresExpanded(false);
-	}
-
-
-	/**
-	 * Go to welcome page.
-	 *
-	 * @return Welcome page name.
-	 */
-	public String toWelcome() {
-		return "/secured/welcome.xhtml";
 	}
 
 	public PanelMenuBean getPanelMenuBean() {

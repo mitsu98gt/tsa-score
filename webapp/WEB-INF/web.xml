@@ -58,7 +58,7 @@
     </filter-mapping>
     
   	<welcome-file-list>
-    		<welcome-file>secured/welcome.xhtml</welcome-file>
+    		<welcome-file>secured/layout/layout.xhtml</welcome-file>
   	</welcome-file-list>
 	  
 	  <servlet>
