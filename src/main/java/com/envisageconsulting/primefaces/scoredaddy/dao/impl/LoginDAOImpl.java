@@ -54,7 +54,7 @@ public class LoginDAOImpl implements LoginDAO {
 
         Account account = new Account();
 
-        String sql = "select u.account_id, a.name, a.street, a.city, a.state, a.zipcode, a.phone from scoredaddy.users u, scoredaddy.account a where username = ? and u.account_id = a.id";
+        String sql = "select u.account_id, a.name, a.street, a.city, a.state, a.zipcode, a.phone from users u, account a where username = ? and u.account_id = a.id";
 
         int accountId = 0;
 

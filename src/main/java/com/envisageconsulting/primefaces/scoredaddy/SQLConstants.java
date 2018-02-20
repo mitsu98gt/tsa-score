@@ -51,11 +51,11 @@ public class SQLConstants {
             "    comp.description," +
             "    ac.name" +
             " from" +
-            "   scoredaddy.competition_results cr," +
-            "   scoredaddy.competitor cm," +
-            "   scoredaddy.firearm_models fm," +
-            "   scoredaddy.competition comp," +
-            "   scoredaddy.account ac" +
+            "   competition_results cr," +
+            "   competitor cm," +
+            "   firearm_models fm," +
+            "   competition comp," +
+            "   account ac" +
             " where" +
             "   cr.id = ?" +
             " and %s" + // cr.stock_division = 1
@@ -80,9 +80,9 @@ public class SQLConstants {
             "  max(cr.penalty) as penalty," +
             "  max(cr.final_score) as final_score" +
             " from" +
-            "  scoredaddy.competition_results cr," +
-            "  scoredaddy.competitor cm," +
-            "  scoredaddy.firearm_models fm" +
+            "  competition_results cr," +
+            "  competitor cm," +
+            "  firearm_models fm" +
             " where" +
             "  cr.id = ?" + // competition
             " and " + "cr.competitor_id = ?" + // competitor
