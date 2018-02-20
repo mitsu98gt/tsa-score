@@ -34,6 +34,9 @@ public class PanelMenuBean implements Serializable {
     }
 
     public boolean isAdmin() {
+        if (null == Integer.valueOf(SessionUtils.getAccountId())) {
+            return false;
+        }
         return SessionUtils.getAccountId() == 1 ? true : false;
     }
 
