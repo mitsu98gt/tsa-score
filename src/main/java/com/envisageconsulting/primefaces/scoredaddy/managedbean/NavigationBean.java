@@ -67,6 +67,18 @@ public class NavigationBean implements Serializable {
 		return "/secured/layout/layout.xhtml?faces-redirect=true";
 	}
 
+	public String redirectToAddAccount() {
+		updateMenuItems();
+		panelMenuBean.setAdminExpanded(true);
+		return "/secured/layout/admin/addaccount.xhtml?faces-redirect=true";
+	}
+
+	public String redirectToAddUser() {
+		updateMenuItems();
+		panelMenuBean.setAdminExpanded(true);
+		return "/secured/layout/admin/adduser.xhtml?faces-redirect=true";
+	}
+
 	public String redirectToAddTournament() {
 		updateMenuItems();
 		panelMenuBean.setTournamentExpanded(true);
@@ -128,6 +140,7 @@ public class NavigationBean implements Serializable {
 	}
 
 	public void updateMenuItems() {
+		panelMenuBean.setAdminExpanded(panelMenuBean.isAdminExpanded());
 		panelMenuBean.setTournamentExpanded(panelMenuBean.isTournamentExpanded());
 		panelMenuBean.setCompetitionExpanded(panelMenuBean.isCompetitionExpanded());
 		panelMenuBean.setCompetitorExpanded(panelMenuBean.isCompetitorExpanded());
@@ -138,6 +151,7 @@ public class NavigationBean implements Serializable {
 	}
 
 	public void collapseAllMenuItems() {
+		panelMenuBean.setAdminExpanded(false);
 		panelMenuBean.setTournamentExpanded(false);
 		panelMenuBean.setCompetitionExpanded(false);
 		panelMenuBean.setCompetitorExpanded(false);

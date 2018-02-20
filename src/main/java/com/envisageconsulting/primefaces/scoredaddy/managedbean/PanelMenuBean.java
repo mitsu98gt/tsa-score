@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.SessionUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitorDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
@@ -11,12 +12,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.Session;
 import java.io.Serializable;
 
 @ManagedBean(name="panelMenuBean")
 @SessionScoped
 public class PanelMenuBean implements Serializable {
 
+    private boolean adminExpanded;
     private boolean tournamentExpanded;
     private boolean competitionExpanded;
     private boolean competitorExpanded;
@@ -24,9 +27,26 @@ public class PanelMenuBean implements Serializable {
     private boolean gssfExpanded;
     private boolean bullseyeExpanded;
     private boolean scoresExpanded;
+    private boolean admin;
 
     @PostConstruct
     public void init() {
+    }
+
+    public boolean isAdmin() {
+        return SessionUtils.getAccountId() == 1 ? true : false;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public boolean isAdminExpanded() {
+        return adminExpanded;
+    }
+
+    public void setAdminExpanded(boolean adminExpanded) {
+        this.adminExpanded = adminExpanded;
     }
 
     public boolean isTournamentExpanded() {

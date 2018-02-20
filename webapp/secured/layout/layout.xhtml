@@ -30,6 +30,10 @@
         <p:layoutUnit position="west" size="250" header="Options" resizable="true" closable="false" collapsible="true">
             <h:form id="menufrm">
                 <p:panelMenu id="menupanel" stateful="false">
+                    <p:submenu label="Admin" expanded="#{panelMenuBean.adminExpanded}" rendered="#{panelMenuBean.admin}">
+                        <p:menuitem action="#{navigationBean.redirectToAddAccount}" value="Add Account"/>
+                        <p:menuitem action="#{navigationBean.redirectToAddUser}" value="Add User"/>
+                    </p:submenu>
                     <p:submenu label="Tournament" expanded="#{panelMenuBean.tournamentExpanded}">
                         <p:menuitem action="#{navigationBean.redirectToAddTournament}" value="Add Tournament"/>
                     </p:submenu>
