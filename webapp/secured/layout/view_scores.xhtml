@@ -1,5 +1,6 @@
-<ui:composition template="/secured/layout.xhtml"
+<ui:composition template="/secured/layout/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -7,24 +8,51 @@
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="pageContent">
     <div class="ui-fluid">
-        <h:form id="scoresfrm">
-            <p:panel id="panel" header="View Scores" style="width:400px">
-                <p:focus context="panel"/>
+        <p:panel id="individualpanel" header="Competition Scores" style="width:50%">
+            <h:form id="individualfrm">
+                <p:focus context="individualpanel"/>
+                <p:outputLabel value="Tournament" />
+                <br/>
+                <p:selectOneMenu required="true" id="tournament" label="Tournament" value="#{gssfResultsBean.tournament}" converter="#{tournamentConverter}" requiredMessage="Tournament is required." style="width:280px;">
+                    <p:ajax listener="#{gssfResultsBean.onTournamentChange}" update="competition,:averagesfrm:averagesBtn" />
+                    <f:selectItem itemLabel="Select Tournament" itemValue="" />
+                    <f:selectItems value="#{gssfResultsBean.allTournaments}" var="tournament" itemLabel="#{tournament.name}" itemValue="#{tournament}"/>
+                </p:selectOneMenu>
+                <br/><br/>
+                <p:outputLabel value="Competition" />
                 <h:panelGrid columns="2" layout="grid">
-                    <p:outputLabel for="competition" value="Select Competition: " />
-                    <p:selectOneMenu required="true" id="competition" label="Competition" value="#{gssfResultsBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
-                        <p:ajax listener="#{gssfResultsBean.viewScores}" update="resultspanel" />
-                        <f:selectItem itemLabel="" itemValue="" />
-                        <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
+                    <p:selectOneMenu required="true" id="competition" label="Competition" value="#{gssfResultsBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:280px;">
+                        <!--<p:ajax listener="#{gssfResultsBean.viewScores}" update="singleResultsPanelGroup" />-->
+                        <f:selectItem itemLabel="Select Competition" itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{gssfResultsBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
                     </p:selectOneMenu>
+                    <p:commandButton id="individualBtn" value="View" ajax="false" actionListener="#{gssfResultsBean.viewSingleScores}" icon="fa fa-list-ol" style="width:150px"/>
                 </h:panelGrid>
-            </p:panel>
+            </h:form>
+        </p:panel>
+        <br/>
+        <h:form id="averagesfrm">
+            <p:commandButton id="averagesBtn" value="View Averages" disabled="#{gssfResultsBean.disableAveragedScoresButton}" ajax="false" actionListener="#{gssfResultsBean.viewAveragedScores}" icon="fa fa-list-ol" style="width:175px"/>
         </h:form>
         <br/>
+        <p:messages id="scoremessages" style="width:400px"/>
         <br/>
-        <p:panel id="resultspanel">
-            <ui:include src="indoor_results.xhtml"/>
-        </p:panel>
+        <br/>
+        <h:panelGroup id="singleResultsPanelGroup" layout="block">
+            <p:panel id="singleResultsPanel" rendered="#{gssfResultsBean.renderSingleScores}">
+                <ui:include src="indoor_single_results.xhtml"/>
+            </p:panel>
+        </h:panelGroup>
+        <h:panelGroup id="resultsDoublePanelGroup" layout="block">
+            <p:panel id="resultsDoublePanel" rendered="#{gssfResultsBean.renderDoubleScores}">
+                <ui:include src="indoor_double_results.xhtml"/>
+            </p:panel>
+        </h:panelGroup>
+        <h:panelGroup id="resultsTriplePanelGroup" layout="block">
+            <p:panel id="resultsTriplePanel" rendered="#{gssfResultsBean.renderTrippleScores}">
+                <ui:include src="indoor_triple_results.xhtml"/>
+            </p:panel>
+        </h:panelGroup>
     </div>
     </ui:define>
 </ui:composition>

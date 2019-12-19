@@ -1,0 +1,141 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable resizableColumns="true" reflow="true" filteredValue="#{bullseyeResultsBean.resultsAverageListFiltered}" id="averagejuniorscorestable" var="averagejuniorscores" value="#{bullseyeResultsBean.competitionJuniorResultsAverageList}" style="font-size:13px;text-align:center">
+
+        <f:facet name="header">
+            Bullseye Scores - Junior
+        </f:facet>
+        <p:columnGroup type="header">
+            <p:row>
+                <p:column colspan="4" headerText="#{bullseyeResultsBean.accountName} - Averaged Scores"/>
+                <p:column colspan="7" style="alignment: center" headerText="#{bullseyeResultsBean.currentCompetitionFullSpellingDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{bullseyeResultsBean.firstCompetitionDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{bullseyeResultsBean.previousCompetitionDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="Top"/>
+                <p:column colspan="2" style="alignment: center" headerText="2nd"/>
+                <p:column colspan="1" style="alignment: center" headerText="Average"/>
+                <p:column colspan="1" style="alignment: center" headerText="Total"/>
+            </p:row>
+            <p:row>
+                <p:column headerText="" exportable="true"/>
+                <p:column headerText="First" filterBy="#{averagejuniorscores.first_name}" filterMatchMode="contains"/>
+                <p:column headerText="Last" filterBy="#{averagejuniorscores.last_name}" filterMatchMode="contains"/>
+                <p:column headerText="Model" filterBy="#{averagejuniorscores.firearm_model}" filterMatchMode="contains"/>
+                <p:column headerText="X"/>
+                <p:column headerText="10"/>
+                <p:column headerText="8"/>
+                <p:column headerText="5"/>
+                <p:column headerText="Miss"/>
+                <p:column headerText="Penalty"/>
+                <p:column headerText="Total"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="X"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="X"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="Xs"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="Xs"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="Xs"/>
+            </p:row>
+        </p:columnGroup>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.rank}"/>
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.first_name}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.last_name}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.firearm_model}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.current_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.current_ten}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.current_eight}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.current_five}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.current_misses}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.current_penalty}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.current_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.first_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.first_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.previous_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.previous_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.top_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.top_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.second_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.second_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.average_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagejuniorscores.total_x}" />
+        </p:column>
+
+    </p:dataTable>
+
+    <p:commandButton value="Download Excel" ajax="false" icon="fa fa-file-excel-o" style="width:200px">
+        <pe:exporter ajax="false" type="xlsx" target="averagejuniorscorestable" fileName="Junior_Scores_Averages" subTable="false"/>
+    </p:commandButton>
+
+
+</ui:composition>

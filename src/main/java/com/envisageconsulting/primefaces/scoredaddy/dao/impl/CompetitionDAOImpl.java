@@ -5,10 +5,7 @@ import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,10 +119,56 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
-    public List<Competition> getCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
+    public List<Competition> getCompetitionsByTournamentIdAndStatus(int tournamentId, String status) throws Exception {
 
         //String sql = "select id, name, description from competition where account_id = ? and status = ?";
-        String sql = "select c.id, c.name, c.description, cd.date from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id order by c.id";
+        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.tournament_id = ? and c.status = ? and c.id = cd.id order by c.id";
+
+        Connection conn = null;
+
+        try {
+            List<Competition> competitions = new ArrayList();
+
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, tournamentId);
+            ps.setString(2, status.toUpperCase());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competition competition = new Competition();
+                CompetitionDetails competitionDetails = new CompetitionDetails();
+                CompetitionCode competitionCode = new CompetitionCode();
+
+                competition.setId(rs.getString("id"));
+                competition.setName(rs.getString("name"));
+                competition.setDescription(rs.getString("description"));
+                competition.setDate(rs.getDate("date"));
+                competitionCode.setCode(rs.getString("code"));
+
+                competitionDetails.setCompetitionCode(competitionCode);
+                competition.setCompetitionDetails(competitionDetails);
+
+                competitions.add(competition);
+            }
+            rs.close();
+            ps.close();
+            return competitions;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get Competitions by TournamentId and Status!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Competition> getAllCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
+
+        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id order by c.id";
 
         Connection conn = null;
 
@@ -139,10 +182,18 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Competition competition = new Competition();
+                CompetitionDetails competitionDetails = new CompetitionDetails();
+                CompetitionCode competitionCode = new CompetitionCode();
+
                 competition.setId(rs.getString("id"));
                 competition.setName(rs.getString("name"));
                 competition.setDescription(rs.getString("description"));
                 competition.setDate(rs.getDate("date"));
+                competitionCode.setCode(rs.getString("code"));
+
+                competitionDetails.setCompetitionCode(competitionCode);
+                competition.setCompetitionDetails(competitionDetails);
+
                 competitions.add(competition);
             }
             rs.close();
@@ -161,21 +212,122 @@ public class CompetitionDAOImpl implements CompetitionDAO {
         }
     }
 
-    public void addCompetition(Competition competition) throws Exception {
+    public List<Competition> getGlockCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
 
-        String sql = "insert into competition (account_id, name, description) values (?, ?, ?)";
+        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id and cd.code = 1 order by c.id";
+
+        Connection conn = null;
+
+        try {
+            List<Competition> competitions = new ArrayList();
+
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ps.setString(2, status.toUpperCase());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competition competition = new Competition();
+                CompetitionDetails competitionDetails = new CompetitionDetails();
+                CompetitionCode competitionCode = new CompetitionCode();
+
+                competition.setId(rs.getString("id"));
+                competition.setName(rs.getString("name"));
+                competition.setDescription(rs.getString("description"));
+                competition.setDate(rs.getDate("date"));
+                competitionCode.setCode(rs.getString("code"));
+
+                competitionDetails.setCompetitionCode(competitionCode);
+                competition.setCompetitionDetails(competitionDetails);
+
+                competitions.add(competition);
+            }
+            rs.close();
+            ps.close();
+            return competitions;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get Competitions by AccountId and Status!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Competition> getBullseyeCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
+
+        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id and cd.code = 2 order by c.id";
+
+        Connection conn = null;
+
+        try {
+            List<Competition> competitions = new ArrayList();
+
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ps.setString(2, status.toUpperCase());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competition competition = new Competition();
+                CompetitionDetails competitionDetails = new CompetitionDetails();
+                CompetitionCode competitionCode = new CompetitionCode();
+
+                competition.setId(rs.getString("id"));
+                competition.setName(rs.getString("name"));
+                competition.setDescription(rs.getString("description"));
+                competition.setDate(rs.getDate("date"));
+                competitionCode.setCode(rs.getString("code"));
+
+                competitionDetails.setCompetitionCode(competitionCode);
+                competition.setCompetitionDetails(competitionDetails);
+
+                competitions.add(competition);
+            }
+            rs.close();
+            ps.close();
+            return competitions;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get Bullseye Competitions by AccountId and Status!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public int addCompetition(Competition competition) throws Exception {
+
+        String sql = "insert into competition (tournament_id, account_id, name, description) values (?, ?, ?, ?)";
 
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, competition.getAccountId());
-            ps.setString(2, competition.getName());
-            ps.setString(3, competition.getDescription());
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, competition.getTournament_id());
+            ps.setInt(2, competition.getAccountId());
+            ps.setString(3, competition.getName());
+            ps.setString(4, competition.getDescription());
             ps.executeUpdate();
 
+            ResultSet rs = ps.getGeneratedKeys();
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
             ps.close();
+            return generatedKey;
+
         } catch (SQLException ex) {
             throw new Exception("Failed to add Competition!" + ex.getMessage());
         } finally {
@@ -257,6 +409,38 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ps.executeUpdate();
         } catch (SQLException ex) {
             throw new Exception("Failed to update Competition status!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<String> getDivisionCodesByCompetitionCode(int competitionCode) throws Exception {
+
+        String sql = "select code from division_codes where id = ? order by code";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, competitionCode);
+            List<String> codes = new ArrayList();
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                codes.add(rs.getString("code"));
+            }
+            rs.close();
+            ps.close();
+            return codes;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get division codes by Competition Code!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

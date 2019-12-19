@@ -1,0 +1,119 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable reflow="true" filteredValue="#{gssfResultsBean.resultsAverageListFiltered}" id="averagestockscorestable" var="averagestockscores" value="#{gssfResultsBean.competitionStockResultsAverageList}" style="font-size:13px;text-align:center">
+
+        <f:facet name="header">
+            GSSF Scores - Stock
+        </f:facet>
+        <p:columnGroup type="header">
+            <p:row>
+                <p:column colspan="4" headerText="#{gssfResultsBean.accountName} - Averaged Scores"/>
+                <p:column colspan="7" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionFullSpellingDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{gssfResultsBean.previousCompetitionDate}"/>
+                <p:column colspan="2" style="alignment: center" headerText="#{gssfResultsBean.currentCompetitionDate}"/>
+                <p:column colspan="1" style="alignment: center" headerText="Average"/>
+                <p:column colspan="1" style="alignment: center" headerText="Total"/>
+            </p:row>
+            <p:row>
+                <p:column headerText="" exportable="true"/>
+                <p:column headerText="First" filterBy="#{averagestockscores.first_name}" filterMatchMode="contains"/>
+                <p:column headerText="Last" filterBy="#{averagestockscores.last_name}" filterMatchMode="contains"/>
+                <p:column headerText="Model" filterBy="#{averagestockscores.firearm_model}" filterMatchMode="contains"/>
+                <p:column headerText="X"/>
+                <p:column headerText="10"/>
+                <p:column headerText="8"/>
+                <p:column headerText="5"/>
+                <p:column headerText="Miss"/>
+                <p:column headerText="Penalty"/>
+                <p:column headerText="Total"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="X"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="X"/>
+                <p:column headerText="Score"/>
+                <p:column headerText="Xs"/>
+            </p:row>
+        </p:columnGroup>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.rank} - #{averagestockscores.classification}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.first_name}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.last_name}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.firearm_model}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_ten}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_eight}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_five}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_misses}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_penalty}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.previous_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.previous_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.current_x}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.average_score}" />
+        </p:column>
+
+        <p:column>
+            <h:outputText value="#{averagestockscores.total_x}" />
+        </p:column>
+
+    </p:dataTable>
+
+    <p:commandButton value="Download Excel" ajax="false" icon="fa fa-file-excel-o" style="width:200px">
+        <pe:exporter ajax="false" type="xlsx" target="averagestockscorestable" fileName="Stock_Scores_Averages" subTable="false"/>
+    </p:commandButton>
+
+
+</ui:composition>
