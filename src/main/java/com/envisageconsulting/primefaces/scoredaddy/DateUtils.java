@@ -26,9 +26,4 @@ public class DateUtils {
         return new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
-    public static String getDateWithFullMonthSpellingAsString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
-        return format.format(date);
-    }
-
 }

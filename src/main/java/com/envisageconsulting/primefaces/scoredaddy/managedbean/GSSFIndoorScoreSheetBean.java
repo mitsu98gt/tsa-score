@@ -1,7 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.*;
-import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
@@ -33,34 +32,23 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     @ManagedProperty("#{competitionResultsDAO}")
     private CompetitionResultsDAO competitionResultsDAO;
 
-    @ManagedProperty("#{competitionDAO}")
-    private CompetitionDAO competitionDAO;
-
     private List<Firearm> firearmList;
 
     private String[] selectedDivisions;
 
     private Competition competition;
 
-    private List<Competition> allCompetitions;
-
     public GSSFIndoorScoreSheetBean(){}
 
     @PostConstruct
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
-        try {
-            allCompetitions = competitionDAO.getGlockCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
-            firearmList = firearmDataSource.getFirearms();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        firearmList = firearmDataSource.getFirearms();
     }
 
     public void onCompetitionChange() {
         scoreSheet.setDate(competition.getDate());
         competitorDataSource.getCompetitorsForScoreSheetByCompetitionId(Integer.valueOf(competition.getId()));
-        firearmList = getListOfFirearms();
     }
 
     public void doScore() {
@@ -71,10 +59,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             calculateTotalRow();
             calculatePenalty();
         }
-    }
-
-    public List<Firearm> getListOfFirearms() {
-        return firearmDataSource.getAllGlockFirearmsForScoreSheet();
     }
 
     public boolean doValidation() {
@@ -274,7 +258,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         CompetitionDetails competitionDetails = new CompetitionDetails();
         CompetitionCode competitionCode = new CompetitionCode();
 
-        competitionCode.setCompetitionCodeId("1");
+        competitionCode.setCode("1");
         competitionDetails.setCompetitionCode(competitionCode);
 
         competitionDetails.setCompetitionDetailsId(competition.getId());
@@ -375,10 +359,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         this.competitionResultsDAO = competitionResultsDAO;
     }
 
-    public void setCompetitionDAO(CompetitionDAO competitionDAO) {
-        this.competitionDAO = competitionDAO;
-    }
-
     public GSSFIndoorScoreSheet getScoreSheet() {
         return scoreSheet;
     }
@@ -411,16 +391,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         this.firearmList = firearmList;
     }
 
-    public List<Competition> getAllCompetitions() {
-        return allCompetitions;
-    }
-
-    public void setAllCompetitions(List<Competition> allCompetitions) {
-        this.allCompetitions = allCompetitions;
-    }
-
     public StreamedContent getFile() throws Exception {
         return (null == file) ? downloadScoreSheetPDF() : file;
     }
-
 }

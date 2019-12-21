@@ -1,28 +1,19 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns = "http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-
-
-    <tx:annotation-driven transaction-manager="transactionManager" />
-
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd ">
 
     <context:component-scan base-package="com.envisageconsulting" />
 
     <bean id="dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name = "driverClassName" value = "com.mysql.jdbc.Driver"/>
-        <property name = "url" value = "${db.url}"/>
-        <property name = "username" value = "${db.username}"/>
-        <property name = "password" value = "${db.password}"/>
+        <property name = "url" value = "jdbc:mysql://localhost:3306/scoredaddy?useSSL=false"/>
+        <property name = "username" value = "scoredaddy"/>
+        <property name = "password" value = "scoredaddy"/>
     </bean>
 
     <bean id="accountDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.AccountDAOImpl">
@@ -41,7 +32,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="firearmDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.FirearmDAOImpl">
+    <bean id="firearmDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.FirearmDAOimpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
@@ -51,28 +42,6 @@
 
     <bean id="competitionResultsDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.CompetitionResultsDAOImpl">
         <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <bean id="tournamentDAO" class="com.envisageconsulting.primefaces.scoredaddy.dao.impl.TournamentDAOImpl">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <!-- Service Beans -->
-
-    <bean id="competitionService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.CompetitionServiceImpl">
-        <property name="CompetitionDAO" ref="competitionDAO" />
-    </bean>
-
-    <bean id="tournamentService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.TournamentServiceImpl">
-        <property name="tournamentDAO" ref="tournamentDAO" />
-    </bean>
-
-    <bean id="firearmService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.FirearmServiceImpl">
-        <property name="firearmDAO" ref="firearmDAO" />
-    </bean>
-
-    <bean id="competitionResultsService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.CompetitionResultsServiceImpl">
-        <property name="CompetitionResultsDAO" ref="competitionResultsDAO" />
     </bean>
 
 </beans>

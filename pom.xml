@@ -98,12 +98,6 @@
 
 	  <dependency>
 		  <groupId>org.springframework</groupId>
-		  <artifactId>spring-context</artifactId>
-		  <version>4.3.11.RELEASE</version>
-	  </dependency>
-
-	  <dependency>
-		  <groupId>org.springframework</groupId>
 		  <artifactId>spring-core</artifactId>
 		  <version>4.3.11.RELEASE</version>
 	  </dependency>
@@ -146,12 +140,6 @@
 		  <version>1.6.0</version>
 	  </dependency>
 
-	  <dependency>
-		  <groupId>com.google.guava</groupId>
-		  <artifactId>guava</artifactId>
-		  <version>23.0</version>
-	  </dependency>
-
       <!--<dependency>
           <groupId>org.mybatis</groupId>
           <artifactId>mybatis</artifactId>
@@ -165,28 +153,6 @@
       </dependency>-->
 
   </dependencies>
-
-    <profiles>
-        <profile>
-            <id>test</id>
-            <properties>
-                <db.url>jdbc:mysql://localhost:3306/scoredaddytest?useSSL=false</db.url>
-                <db.username>scoredaddytest</db.username>
-                <db.password>scoredaddytest</db.password>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <db.url>jdbc:mysql://localhost:3306/scoredaddy?useSSL=false</db.url>
-                <db.username>scoredaddy</db.username>
-                <db.password>scoredaddy</db.password>
-            </properties>
-        </profile>
-    </profiles>
 
   <build>
     <!-- <sourceDirectory>src</sourceDirectory> -->
@@ -205,16 +171,6 @@
         <configuration>
           <warSourceDirectory>webapp</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
-            <webResources>
-                <resource>
-                    <directory>${basedir}/webapp/WEB-INF</directory>
-                    <filtering>true</filtering>
-                    <targetPath>WEB-INF</targetPath>
-                    <includes>
-                        <include>**/applicationContext.xml</include>
-                    </includes>
-                </resource>
-            </webResources>
         </configuration>
       </plugin>
     </plugins>

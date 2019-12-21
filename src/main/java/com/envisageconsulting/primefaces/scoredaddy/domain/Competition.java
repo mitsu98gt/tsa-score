@@ -5,13 +5,11 @@ import java.util.Date;
 public class Competition {
 
     private String id;
-    private int tournament_id;
     private int accountId;
     private String name;
     private String description;
     private Date date;
     private String status;
-    private CompetitionDetails competitionDetails;
 
     public String getId() {
         return id;
@@ -19,14 +17,6 @@ public class Competition {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getTournament_id() {
-        return tournament_id;
-    }
-
-    public void setTournament_id(int tournament_id) {
-        this.tournament_id = tournament_id;
     }
 
     public int getAccountId() {
@@ -67,14 +57,6 @@ public class Competition {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public CompetitionDetails getCompetitionDetails() {
-        return competitionDetails;
-    }
-
-    public void setCompetitionDetails(CompetitionDetails competitionDetails) {
-        this.competitionDetails = competitionDetails;
     }
 
     public boolean equals(Object obj){

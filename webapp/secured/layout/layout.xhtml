@@ -9,96 +9,37 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>ScoreDaddy</title>
+    <title>Main Layout</title>
     <h:outputStylesheet name="style.css" library="css" />
 </h:head>
 <h:body>
 
-    <p:layout fullPage="true">
+        <p:layout fullPage="true">
 
-        <p:layoutUnit position="north" size="50">
-            <h:form id="northfrm">
-                <p:commandButton value="Home" id="homeBtn" action="#{navigationBean.redirectToLayout}" ajax="false" style="width:100px" icon="fa fa-home"/>
-                <p:commandButton value="Logout" id="logoutBtn" action="#{loginBean.doLogout}" ajax="false" style="float:right;width:100px" icon="fa fa-sign-out"/>
-            </h:form>
-        </p:layoutUnit>
+            <p:layoutUnit position="north" size="50">
+                <h:outputText value="North unit content." />
+            </p:layoutUnit>
 
-        <!--<p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">
-            <h:outputText value="South unit content." />
-        </p:layoutUnit>-->
+            <!--<p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">
+                <h:outputText value="South unit content." />
+            </p:layoutUnit>-->
 
-        <p:layoutUnit position="west" size="250" header="Options" resizable="true" closable="false" collapsible="true">
-            <h:form>
-                <!--<br/>
-                <h:commandLink action="/secured/layout/add_tournament.xhtml?faces-redirect=true" value="Add Tournament"/>
-                <br/>
-                <h:commandLink action="/secured/layout/add_competition.xhtml?faces-redirect=true" value="Add Competition"/>
-                <br/>
-                <br/>
-                <h:commandLink action="/secured/layout/add_competitor.xhtml?faces-redirect=true" value="Add Competitor"/>
-                <br/>
-                <h:commandLink action="/secured/layout/register_competitor.xhtml?faces-redirect=true" value="Register Competitor"/>
-                <br/>
-                <br/>
-                <h:commandLink action="/secured/layout/add_firearm.xhtml?faces-redirect=true" value="Add Firearm"/>
-                <br/>
-                <br/>
-                <h:commandLink action="/secured/layout/indoor_scoresheet.xhtml?faces-redirect=true" value="GSSF Scoresheet"/>
-                <br/>
-                <h:commandLink action="/secured/layout/view_scores.xhtml?faces-redirect=true" value="GSSF Scores"/>
-                <br/>
-                <br/>
-                <h:commandLink action="/secured/layout/bullseye/bullseye_scoresheet.xhtml?faces-redirect=true" value="Bullseye Scoresheet"/>
-                <br/>
-                <h:commandLink action="/secured/layout/bullseye/view_scores_bullseye.xhtml?faces-redirect=true" value="Bullseye Scores"/>
-                <br/>
-                <br/>
-                <h:commandLink action="/secured/layout/update_scores.xhtml?faces-redirect=true" value="Update Scores"/>-->
+            <p:layoutUnit position="west" size="200" header="Options" resizable="true" closable="true" collapsible="true">
+                <h:outputText value="West unit content." />
+            </p:layoutUnit>
 
-                <p:panelMenu style="width:240px">
-                    <p:submenu label="Tournament">
-                        <p:menuitem value="Add Tournament" label="addtournament" action="/secured/layout/add_tournament.xhtml?faces-redirect=true" ajax="false"/>
-                    </p:submenu>
-                    <p:submenu label="Competition">
-                        <p:menuitem value="Add Competition" label="addcompetition" action="/secured/layout/add_competition.xhtml?faces-redirect=true" ajax="false"/>
-                    </p:submenu>
-                    <p:submenu label="Competitor">
-                        <p:menuitem value="Add Competitor" label="addcompetitor" action="/secured/layout/add_competitor.xhtml?faces-redirect=true" ajax="false"/>
-                        <p:menuitem value="Register Competitor" label="registercompetitor" action="/secured/layout/register_competitor.xhtml?faces-redirect=true" ajax="false"/>
-                    </p:submenu>
-                    <p:submenu label="Firearm">
-                        <p:menuitem value="Add Firearm" label="addfirearm" action="/secured/layout/add_firearm.xhtml?faces-redirect=true" ajax="false"/>
-                    </p:submenu>
-                    <p:submenu label="GSSF">
-                        <p:menuitem value="GSSF Scoresheet" label="gssfscoresheet" action="/secured/layout/indoor_scoresheet.xhtml?faces-redirect=true" ajax="false"/>
-                        <p:menuitem value="GSSF Scores" label="gssfscores" action="/secured/layout/view_scores.xhtml?faces-redirect=true" ajax="false"/>
-                    </p:submenu>
-                    <p:submenu label="BullsEye">
-                        <p:menuitem value="BullsEye Scoresheet" label="bullseyescoresheet" action="/secured/layout/bullseye/bullseye_scoresheet.xhtml?faces-redirect=true" ajax="false"/>
-                        <p:menuitem value="BullsEye Scores" label="bullseyescores" action="//secured/layout/bullseye/view_scores_bullseye.xhtml?faces-redirect=true" ajax="false"/>
-                    </p:submenu>
-                    <p:submenu label="Scores Management">
-                        <p:menuitem value="Update Scores" label="updatescores" action="/secured/layout/update_scores.xhtml?faces-redirect=true" ajax="false"/>
-                    </p:submenu>
-                </p:panelMenu>
-            </h:form>
-        </p:layoutUnit>
+            <!--<p:layoutUnit position="east" size="200" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">
+                <h:outputText value="Right unit content." />
+            </p:layoutUnit>-->
 
-        <!--<p:layoutUnit position="east" size="200" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">
-            <h:outputText value="Right unit content." />
-        </p:layoutUnit>-->
+            <p:layoutUnit position="center">
+                    <p:panel id="toggleable" header="Add Competitor" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+                        <ui:include src="/secured/layout/add_competitor.xhtml" />
+                    </p:panel>
+                <!--<p:separator />-->
+            </p:layoutUnit>
 
-        <p:layoutUnit position="center">
-            <p:panel style="padding-left: 10px; border: none">
-                <H3>Welcome Back #{loginBean.username}!</H3>
-                <ui:insert name="pageContent">
-
-                </ui:insert>
-            </p:panel>
-            <!--<p:separator />-->
-        </p:layoutUnit>
-
-    </p:layout>
+        </p:layout>
 
 </h:body>
 </html>

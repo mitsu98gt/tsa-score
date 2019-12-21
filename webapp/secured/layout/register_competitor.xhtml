@@ -1,4 +1,4 @@
-<ui:composition template="/secured/layout/layout.xhtml"
+<ui:composition template="/secured/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -21,7 +21,7 @@
                                 itemLabel="#{competitor.fullName}" converter="#{registerCompetitorConverter}">
                 </p:autoComplete>
                 <p:outputLabel for="competition" value="Competition: " />
-                <p:selectOneMenu required="true" id="competition" label="Competition" value="#{registerBean.competition}" converter="#{allCompetitionConverter}" requiredMessage="Competition is required." style="width:180px;">
+                <p:selectOneMenu required="true" id="competition" label="Competition" value="#{registerBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
                     <f:selectItem itemLabel="Select Competition" itemValue="" />
                     <f:selectItems value="#{registerBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
                 </p:selectOneMenu>
