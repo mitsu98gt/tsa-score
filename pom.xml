@@ -170,7 +170,7 @@
         <profile>
             <id>test</id>
             <properties>
-                <db.url>jdbc:mysql://localhost:3306/scoredaddytest?useSSL=false</db.url>
+                <db.url>jdbc:mysql://206.212.240.50:3306/scoredaddytest?useSSL=false</db.url>
                 <db.username>scoredaddytest</db.username>
                 <db.password>scoredaddytest</db.password>
             </properties>
@@ -184,7 +184,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <db.url>jdbc:mysql://localhost:3306/scoredaddy?useSSL=false</db.url>
+                <db.url>jdbc:mysql://206.212.240.50:3306/scoredaddy?useSSL=false</db.url>
                 <db.username>scoredaddy</db.username>
                 <db.password>scoredaddy</db.password>
             </properties>

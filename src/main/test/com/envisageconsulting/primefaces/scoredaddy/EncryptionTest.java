@@ -26,9 +26,10 @@ public class EncryptionTest {
 
         Encryption encryption = new Encryption();
 
-        String password = "password";
+        String password = "jonvilling";
         String passwordHash = encryption.generateStringPasswordHash(password);
-        assertTrue(encryption.validatePassword("password", passwordHash));
+        System.out.println(passwordHash);
+        assertTrue(encryption.validatePassword("jonvilling", passwordHash));
     }
 
     @Test
