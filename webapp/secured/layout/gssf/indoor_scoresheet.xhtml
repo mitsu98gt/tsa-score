@@ -9,7 +9,7 @@
     <div class="ui-fluid">
         <h:form id="scoresheet">
 
-            <p:panelGrid id="grid1" style="margin-top:20px;width:85%">
+            <p:panelGrid id="grid1" style="margin-top:20px;width:90%">
 
                 <p:row>
                     <img src="../../../images/gssf_indoor_banner.png"/><br/>
@@ -57,14 +57,15 @@
                 </p:row>
             </p:panelGrid>
 
-            <p:panelGrid style="margin-top:20px;width:85%">
+            <p:panelGrid style="margin-top:20px;width:90%">
                 <p:row>
                     <p:column>
                         <p:selectBooleanCheckbox id="stock" itemLabel="Stock" value="#{scoresheetBean.stockDivision}" layout="responsive"/>
                     </p:column>
                     <p:column/>
                     <p:column>
-                        <p:selectBooleanCheckbox id="unlimited" itemLabel="Unlimited(Excluding G36, G42, G43, G44)" value="#{scoresheetBean.unlimitedDivision}" layout="responsive"/>
+                        <p:selectBooleanCheckbox id="unlimited" itemLabel="Unlimited" value="#{scoresheetBean.unlimitedDivision}" layout="responsive"/>
+                        <br/>(Excluding G36, G42, G43, G44)
                     </p:column>
                 </p:row>
                 <p:row>
@@ -93,7 +94,7 @@
                 <img src="../../../images/gssf_indoor_attention.png"/><br/>
             </p:row>
 
-            <p:panelGrid style="margin-top:20px;width:85%">
+            <p:panelGrid style="margin-top:20px;width:90%">
 
                 <p:row style="text-align:center;background-color:#bfbfbf">
                     <p:column style="width:75px">
@@ -241,9 +242,9 @@
 
             </p:panelGrid>
 
-            <p:panelGrid style="margin-top:20px;width:85%">
+            <p:panelGrid style="margin-top:20px;width:90%">
                 <p:row>
-                    <p:column>* Add the target scores for Target 1 and Target 2<br/>** Multiply Total Scores for the two targets by the number at the bottom of the column.</p:column>
+                    <p:column style="font-size: small">* Add the target scores for Target 1 and Target 2<br/>** Multiply Total Scores for the two targets by the number at the bottom of the column.</p:column>
                     <p:column style="background-color:#bfbfbf"><b>R/O Initials</b></p:column>
                     <p:column style="background-color:#bfbfbf"><b>Competitor Initials</b></p:column>
                 </p:row>
