@@ -43,7 +43,7 @@
                         </p:autoComplete>
                     </p:column>
                     <p:column>
-                        <p:calendar disabled="true" required="true" label="Date" inputStyle="width:200px" id="date" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true" requiredMessage="Date is required."/>
+                        <p:calendar required="true" label="Date" inputStyle="width:200px" id="date" value="#{scoresheetBean.scoreSheet.date}" showOn="button" pattern="MM-dd-yyyy" mask="true" requiredMessage="Date is required."/>
                     </p:column>
                     <p:column>
                         <p:selectOneMenu required="true" id="model" label="Model" value="#{scoresheetBean.scoreSheet.firearm}" converter="#{firearmConverter}" requiredMessage="Model is required.">
