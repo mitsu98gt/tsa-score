@@ -8,9 +8,11 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDCheckBox;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
+import org.junit.Ignore;
 
 public class fillPDF {
 
+	@Ignore
 	public static void main(String[] args) throws IOException {
 		String formTemplate = "src/main/resources/GSSF_Indoor2.pdf";
 

@@ -113,6 +113,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             return false;
         }
 
+        if (!isOnlyRimfire()) {
+            return false;
+        }
+
         if (!validateSeniorJunior()) {
             return false;
         }
@@ -134,7 +138,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public boolean validateWoman() {
         if (scoreSheet.getDivsion().isWoman()) {
-            if(scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+            if(scoreSheet.getDivsion().isRimfire() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Woman division applies to only Stock!"));
                 return false;
             }
@@ -144,7 +148,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public boolean validateSenior() {
         if (scoreSheet.getDivsion().isSenior()) {
-            if(scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+            if(scoreSheet.getDivsion().isRimfire() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Senior division applies to only Stock!"));
                 return false;
             }
@@ -154,7 +158,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public boolean validateJunior() {
         if (scoreSheet.getDivsion().isJunior()) {
-            if(scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+            if(scoreSheet.getDivsion().isRimfire() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Junior division applies to only Stock!"));
                 return false;
             }
@@ -171,13 +175,13 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public boolean isDivisionSelected() {
-        return (scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) ? true : false;
+        return (scoreSheet.getDivsion().isRimfire() || scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) ? true : false;
     }
 
     public boolean isOnlyStock() {
         if (scoreSheet.getDivsion().isStock()) {
-            if (scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, or Pocket divisions can be selected!"));
+            if (scoreSheet.getDivsion().isRimfire() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isPocket()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, Pocket, or Rimfire divisions can be selected!"));
                 return false;
             }
         }
@@ -186,8 +190,8 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public boolean isOnlyUnlimited() {
         if (scoreSheet.getDivsion().isUnlimited()) {
-            if (scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isPocket()) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, or Pocket divisions can be selected!"));
+            if (scoreSheet.getDivsion().isRimfire() || scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isPocket()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, Pocket, or Rimfire divisions can be selected!"));
                 return false;
             }
         }
@@ -196,12 +200,26 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public boolean isOnlyPocket() {
         if (scoreSheet.getDivsion().isPocket()) {
-            if (scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isWoman() || scoreSheet.getDivsion().isSenior() || scoreSheet.getDivsion().isJunior()) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only Pocket division can be selected!"));
+            if (scoreSheet.getDivsion().isRimfire() || scoreSheet.getDivsion().isUnlimited() || scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isWoman() || scoreSheet.getDivsion().isSenior() || scoreSheet.getDivsion().isJunior()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, Pocket, or Rimfire divisions can be selected!"));
                 return false;
             }
             if (!scoreSheet.getFirearm().getModel().equals("G42") && !scoreSheet.getFirearm().getModel().equals("G43")) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Firearm model not applicable for Pocket division!"));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isOnlyRimfire() {
+        if (scoreSheet.getDivsion().isRimfire()) {
+            if (scoreSheet.getDivsion().isStock() || scoreSheet.getDivsion().isPocket() || scoreSheet.getDivsion().isUnlimited()) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, Pocket, or Rimfire divisions can be selected!"));
+                return false;
+            }
+            if (!scoreSheet.getFirearm().getModel().equals("G44")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Firearm model not applicable for Rimfire division!"));
                 return false;
             }
         }
@@ -349,6 +367,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         scoreSheet.getDivsion().setUnlimited(divisionList.contains(Constants.GSSF_UNLIMITED) ? true : false);
         scoreSheet.getDivsion().setStock(divisionList.contains(Constants.GSSF_STOCK) ? true : false);
         scoreSheet.getDivsion().setPocket(divisionList.contains(Constants.GSSF_POCKET) ? true : false);
+        scoreSheet.getDivsion().setRimfire(divisionList.contains(Constants.GSSF_RIMFIRE) ? true: false);
         scoreSheet.getDivsion().setWoman(divisionList.contains(Constants.GSSF_WOMAN) ? true : false);
         scoreSheet.getDivsion().setSenior(divisionList.contains(Constants.GSSF_SENIOR) ? true : false);
         scoreSheet.getDivsion().setJunior(divisionList.contains(Constants.GSSF_JUNIOR) ? true : false);
