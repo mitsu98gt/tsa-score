@@ -24,10 +24,10 @@
                 </p:row>
 
                 <p:row style="text-align:center;background-color:#bfbfbf">
-                    <p:column>Name</p:column>
-                    <p:column>Date</p:column>
-                    <p:column>Model</p:column>
-                    <p:column>Entry Number</p:column>
+                    <p:column><b>Name</b></p:column>
+                    <p:column><b>Date</b></p:column>
+                    <p:column><b>Model</b></p:column>
+                    <p:column><b>Entry Number</b></p:column>
                 </p:row>
 
                 <p:row style="text-align:center">
@@ -59,20 +59,20 @@
 
             <p:panelGrid style="margin-top:20px;width:85%">
                 <p:row>
-                    <p:column width="49%">
+                    <p:column>
                         <p:selectBooleanCheckbox id="stock" itemLabel="Stock" value="#{scoresheetBean.stockDivision}" layout="responsive"/>
                     </p:column>
-                    <p:column width="2%"/>
-                    <p:column width="49%">
+                    <p:column/>
+                    <p:column>
                         <p:selectBooleanCheckbox id="unlimited" itemLabel="Unlimited(Excluding G36, G42, G43, G44)" value="#{scoresheetBean.unlimitedDivision}" layout="responsive"/>
                     </p:column>
                 </p:row>
                 <p:row>
-                    <p:column width="49%">
+                    <p:column>
                         <p:selectBooleanCheckbox id="pocket" itemLabel="Pocket" value="#{scoresheetBean.pocketDivision}" layout="responsive"/>
                     </p:column>
-                    <p:column width="2%"/>
-                    <p:column width="49%">
+                    <p:column/>
+                    <p:column>
                         <p:selectBooleanCheckbox id="rimfire" itemLabel="Rimfire" value="#{scoresheetBean.rimfireDivision}" layout="responsive"/>
                     </p:column>
                 </p:row>
@@ -100,22 +100,22 @@
                         <p:outputLabel value=""/>
                     </p:column>
                     <p:column style="width:100px">
-                        X's
+                        <b>X's</b>
                     </p:column>
                     <p:column style="width:100px">
-                        10's
+                        <b>10's</b>
                     </p:column>
                     <p:column style="width:100px">
-                        8's
+                        <b>8's</b>
                     </p:column>
                     <p:column style="width:100px">
-                        5's
+                        <b>5's</b>
                     </p:column>
                     <p:column style="width:100px">
-                        Misses
+                        <b>Misses</b>
                     </p:column>
                     <p:column style="width:190px">
-                        Total Hits/Misses
+                        <b>Total Hits/Misses</b>
                     </p:column>
                 </p:row>
 
@@ -196,22 +196,22 @@
                         <p:outputLabel value=""/>
                     </p:column>
                     <p:column>
-                        (X10)
+                        <b>(X10)</b>
                     </p:column>
                     <p:column>
-                        (X10)
+                        <b>(X10)</b>
                     </p:column>
                     <p:column>
-                        (X8)
+                        <b>(X8)</b>
                     </p:column>
                     <p:column>
-                        (X5)
+                        <b>(X5)</b>
                     </p:column>
                     <p:column>
-                        No Penalty
+                        <b>No Penalty</b>
                     </p:column>
                     <p:column>
-                        Final Score
+                        <b>Final Score</b>
                     </p:column>
                 </p:row>
 
@@ -244,8 +244,8 @@
             <p:panelGrid style="margin-top:20px;width:85%">
                 <p:row>
                     <p:column>* Add the target scores for Target 1 and Target 2<br/>** Multiply Total Scores for the two targets by the number at the bottom of the column.</p:column>
-                    <p:column style="background-color:#bfbfbf">R/O Initials</p:column>
-                    <p:column style="background-color:#bfbfbf">Competitor Initials</p:column>
+                    <p:column style="background-color:#bfbfbf"><b>R/O Initials</b></p:column>
+                    <p:column style="background-color:#bfbfbf"><b>Competitor Initials</b></p:column>
                 </p:row>
                 <p:row>
                     <p:column/>
