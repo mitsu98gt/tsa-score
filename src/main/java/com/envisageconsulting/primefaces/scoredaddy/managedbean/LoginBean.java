@@ -91,8 +91,9 @@ public class LoginBean implements Serializable {
 	}
 
 	public boolean validatePassword(String passwordHash) throws InvalidKeySpecException, NoSuchAlgorithmException {
-		Encryption encryption = new Encryption();
-		return encryption.validatePassword(password, passwordHash) ? true : false;
+		//Encryption encryption = new Encryption();
+		//return encryption.validatePassword(password, passwordHash) ? true : false;
+		return passwordHash.equals(password);
 	}
 
 	// ------------------------------
