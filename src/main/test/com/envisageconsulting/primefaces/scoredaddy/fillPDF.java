@@ -12,7 +12,7 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
 public class fillPDF {
 
 	public static void main(String[] args) throws IOException {
-		String formTemplate = "src/main/resources/GSSF_Indoor.pdf";
+		String formTemplate = "src/main/resources/GSSF_Indoor2.pdf";
 
 		try (PDDocument pdfDocument = PDDocument.load(new File(formTemplate))) {
 			// get the document catalog
@@ -52,6 +52,9 @@ public class fillPDF {
 				
 				PDField checkJunior = (PDField) acroForm.getField("checkJunior");
 				((PDCheckBox) checkJunior).check();
+
+				PDField checkRimfire = (PDField) acroForm.getField("checkRimfire");
+				((PDCheckBox) checkRimfire).check();
 				
 				//
 				
