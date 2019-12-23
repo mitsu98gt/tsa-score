@@ -23,7 +23,7 @@
                     </p:selectOneMenu>
                 </p:row>
 
-                <p:row style="text-align:center">
+                <p:row style="text-align:center;background-color:#bfbfbf">
                     <p:column>Name</p:column>
                     <p:column>Date</p:column>
                     <p:column>Model</p:column>
@@ -59,23 +59,43 @@
 
             <p:panelGrid style="margin-top:20px;width:85%">
                 <p:row>
-                    <p:column colspan="6">
-                        <p:selectManyCheckbox id="divisions" value="#{scoresheetBean.selectedDivisions}" layout="responsive" columns="6" required="true" requiredMessage="Division is required.">
-                            <f:selectItem itemLabel="Stock" itemValue="GSSF_STOCK" />
-                            <f:selectItem itemLabel="Unlimited" itemValue="GSSF_UNLIMITED" />
-                            <f:selectItem itemLabel="Pocket" itemValue="GSSF_POCKET" />
-                            <f:selectItem itemLabel="Rimfire" itemValue="GSSF_RIMFIRE" />
-                            <f:selectItem itemLabel="Woman" itemValue="GSSF_WOMAN" />
-                            <f:selectItem itemLabel="Senior(55+)" itemValue="GSSF_SENIOR" />
-                            <f:selectItem itemLabel="Junior(&lt;18)" itemValue="GSSF_JUNIOR" />
-                        </p:selectManyCheckbox>
+                    <p:column width="49%">
+                        <p:selectBooleanCheckbox id="stock" itemLabel="Stock" value="#{scoresheetBean.stockDivision}" layout="responsive"/>
+                    </p:column>
+                    <p:column width="2%"/>
+                    <p:column width="49%">
+                        <p:selectBooleanCheckbox id="unlimited" itemLabel="Unlimited(Excluding G36, G42, G43, G44)" value="#{scoresheetBean.unlimitedDivision}" layout="responsive"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column width="49%">
+                        <p:selectBooleanCheckbox id="pocket" itemLabel="Pocket" value="#{scoresheetBean.pocketDivision}" layout="responsive"/>
+                    </p:column>
+                    <p:column width="2%"/>
+                    <p:column width="49%">
+                        <p:selectBooleanCheckbox id="rimfire" itemLabel="Rimfire" value="#{scoresheetBean.rimfireDivision}" layout="responsive"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:selectBooleanCheckbox id="woman" itemLabel="Woman" value="#{scoresheetBean.womanDivision}" layout="responsive"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox id="senior" itemLabel="Senior(55+)" value="#{scoresheetBean.seniorDivision}" layout="responsive"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox id="junior" itemLabel="Junior(&lt;18)" value="#{scoresheetBean.juniorDivision}" layout="responsive"/>
                     </p:column>
                 </p:row>
             </p:panelGrid>
 
+            <p:row>
+                <img src="../../../images/gssf_indoor_attention.png"/><br/>
+            </p:row>
+
             <p:panelGrid style="margin-top:20px;width:85%">
 
-                <p:row style="text-align:center">
+                <p:row style="text-align:center;background-color:#bfbfbf">
                     <p:column style="width:75px">
                         <p:outputLabel value=""/>
                     </p:column>
@@ -149,7 +169,7 @@
 
                 <p:row style="text-align:center">
                     <p:column>
-                        Sum
+                        Sum *
                     </p:column>
                     <p:column>
                         <p:outputLabel id="sumx" value="#{scoresheetBean.scoreSheet.sumRow.x}" />
@@ -171,7 +191,7 @@
                     </p:column>
                 </p:row>
 
-                <p:row style="text-align:center">
+                <p:row style="text-align:center;background-color:#bfbfbf">
                     <p:column>
                         <p:outputLabel value=""/>
                     </p:column>
@@ -197,7 +217,7 @@
 
                 <p:row style="text-align:center">
                     <p:column>
-                        Total
+                        Total **
                     </p:column>
                     <p:column>
                         <p:outputLabel id="totalx" value="#{scoresheetBean.scoreSheet.totalRow.x}" />
@@ -221,12 +241,14 @@
 
             </p:panelGrid>
 
-            <p:panelGrid style="margin-top:20px;width:300px;text-align:center">
+            <p:panelGrid style="margin-top:20px;width:85%">
                 <p:row>
-                    <p:column>R/O Initials</p:column>
-                    <p:column>Competitor Initials</p:column>
+                    <p:column>* Add the target scores for Target 1 and Target 2<br/>** Multiply Total Scores for the two targets by the number at the bottom of the column.</p:column>
+                    <p:column style="background-color:#bfbfbf">R/O Initials</p:column>
+                    <p:column style="background-color:#bfbfbf">Competitor Initials</p:column>
                 </p:row>
                 <p:row>
+                    <p:column/>
                     <p:column>
                         <p:inputText id="rangeofficerinitials" value="#{scoresheetBean.scoreSheet.rangeOfficerInitials}" required="false" maxlength="2" style="text-align:center;width:50px"/>
                     </p:column>
@@ -235,6 +257,11 @@
                     </p:column>
                 </p:row>
             </p:panelGrid>
+
+            <p:row>
+                <img src="../../../images/gssf_indoor_target.png"/><br/>
+            </p:row>
+
             <br/>
             <p:commandButton value="Calculate Score" id="scoreMeBtn" actionListener="#{scoresheetBean.doScore}" ajax="false" style="width:210px" icon="fa fa-bullseye"/>
             <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" style="width:150px">

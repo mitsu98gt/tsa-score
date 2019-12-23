@@ -12,7 +12,6 @@ import org.junit.Ignore;
 
 public class fillPDF {
 
-	@Ignore
 	public static void main(String[] args) throws IOException {
 		String formTemplate = "src/main/resources/GSSF_Indoor2.pdf";
 

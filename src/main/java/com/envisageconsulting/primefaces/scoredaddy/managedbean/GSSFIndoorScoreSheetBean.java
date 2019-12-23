@@ -44,6 +44,14 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     private List<Competition> allCompetitions;
 
+    private boolean stockDivision;
+    private boolean unlimitedDivision;
+    private boolean pocketDivision;
+    private boolean rimfireDivision;
+    private boolean womanDivision;
+    private boolean seniorDivision;
+    private boolean juniorDivision;
+
     public GSSFIndoorScoreSheetBean(){}
 
     @PostConstruct
@@ -362,15 +370,13 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public void parseSelectedDivisions(){
 
-        List<String> divisionList = Arrays.asList(getSelectedDivisions());
-
-        scoreSheet.getDivsion().setUnlimited(divisionList.contains(Constants.GSSF_UNLIMITED) ? true : false);
-        scoreSheet.getDivsion().setStock(divisionList.contains(Constants.GSSF_STOCK) ? true : false);
-        scoreSheet.getDivsion().setPocket(divisionList.contains(Constants.GSSF_POCKET) ? true : false);
-        scoreSheet.getDivsion().setRimfire(divisionList.contains(Constants.GSSF_RIMFIRE) ? true: false);
-        scoreSheet.getDivsion().setWoman(divisionList.contains(Constants.GSSF_WOMAN) ? true : false);
-        scoreSheet.getDivsion().setSenior(divisionList.contains(Constants.GSSF_SENIOR) ? true : false);
-        scoreSheet.getDivsion().setJunior(divisionList.contains(Constants.GSSF_JUNIOR) ? true : false);
+        scoreSheet.getDivsion().setUnlimited(unlimitedDivision);
+        scoreSheet.getDivsion().setStock(stockDivision);
+        scoreSheet.getDivsion().setPocket(pocketDivision);
+        scoreSheet.getDivsion().setRimfire(rimfireDivision);
+        scoreSheet.getDivsion().setWoman(womanDivision);
+        scoreSheet.getDivsion().setSenior(seniorDivision);
+        scoreSheet.getDivsion().setJunior(juniorDivision);
 
     }
 
@@ -436,6 +442,62 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public void setAllCompetitions(List<Competition> allCompetitions) {
         this.allCompetitions = allCompetitions;
+    }
+
+    public boolean isStockDivision() {
+        return stockDivision;
+    }
+
+    public void setStockDivision(boolean stockDivision) {
+        this.stockDivision = stockDivision;
+    }
+
+    public boolean isUnlimitedDivision() {
+        return unlimitedDivision;
+    }
+
+    public void setUnlimitedDivision(boolean unlimitedDivision) {
+        this.unlimitedDivision = unlimitedDivision;
+    }
+
+    public boolean isPocketDivision() {
+        return pocketDivision;
+    }
+
+    public void setPocketDivision(boolean pocketDivision) {
+        this.pocketDivision = pocketDivision;
+    }
+
+    public boolean isRimfireDivision() {
+        return rimfireDivision;
+    }
+
+    public void setRimfireDivision(boolean rimfireDivision) {
+        this.rimfireDivision = rimfireDivision;
+    }
+
+    public boolean isWomanDivision() {
+        return womanDivision;
+    }
+
+    public void setWomanDivision(boolean womanDivision) {
+        this.womanDivision = womanDivision;
+    }
+
+    public boolean isSeniorDivision() {
+        return seniorDivision;
+    }
+
+    public void setSeniorDivision(boolean seniorDivision) {
+        this.seniorDivision = seniorDivision;
+    }
+
+    public boolean isJuniorDivision() {
+        return juniorDivision;
+    }
+
+    public void setJuniorDivision(boolean juniorDivision) {
+        this.juniorDivision = juniorDivision;
     }
 
     public StreamedContent getFile() throws Exception {
