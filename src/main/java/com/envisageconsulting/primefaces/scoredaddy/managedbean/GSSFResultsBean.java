@@ -32,6 +32,7 @@ public class GSSFResultsBean implements Serializable {
     private List<CompetitionResults> competitionStockResultsList;
     private List<CompetitionResults> competitionUnlimitedResultsList;
     private List<CompetitionResults> competitionPocketResultsList;
+    private List<CompetitionResults> competitionRimfireResultsList;
     private List<CompetitionResults> competitionWomanResultsList;
     private List<CompetitionResults> competitionSeniorResultsList;
     private List<CompetitionResults> competitionJuniorResultsList;
@@ -59,6 +60,7 @@ public class GSSFResultsBean implements Serializable {
     private List<CompetitionResultsAverage> competitionStockResultsAverageList;
     private List<CompetitionResultsAverage> competitionUnlimitedResultsAverageList;
     private List<CompetitionResultsAverage> competitionPocketResultsAverageList;
+    private List<CompetitionResultsAverage> competitionRimfireResultsAverageList;
     private List<CompetitionResultsAverage> competitionWomanResultsAverageList;
     private List<CompetitionResultsAverage> competitionSeniorResultsAverageList;
     private List<CompetitionResultsAverage> competitionJuniorResultsAverageList;
@@ -94,6 +96,7 @@ public class GSSFResultsBean implements Serializable {
             competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId())));
             competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
             competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()));
+            competitionRimfireResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()));
             competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()));
             competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
             competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
@@ -111,6 +114,7 @@ public class GSSFResultsBean implements Serializable {
         competitionStockResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION);
         competitionUnlimitedResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION);
         competitionPocketResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION);
+        competitionRimfireResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.RIMFIRE_DIVISION);
         competitionWomanResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.WOMAN_DIVISION);
         competitionSeniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.SENIOR_DIVISION);
         competitionJuniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.JUNIOR_DIVISION);
@@ -499,6 +503,10 @@ public class GSSFResultsBean implements Serializable {
         return competitionPocketResultsList;
     }
 
+    public List<CompetitionResults> getCompetitionRimfireResultsList() {
+        return competitionRimfireResultsList;
+    }
+
     public List<CompetitionResults> getCompetitionWomanResultsList() {
         return competitionWomanResultsList;
     }
@@ -597,6 +605,14 @@ public class GSSFResultsBean implements Serializable {
 
     public void setCompetitionPocketResultsAverageList(List<CompetitionResultsAverage> competitionPocketResultsAverageList) {
         this.competitionPocketResultsAverageList = competitionPocketResultsAverageList;
+    }
+
+    public List<CompetitionResultsAverage> getCompetitionRimfireResultsAverageList() {
+        return competitionRimfireResultsAverageList;
+    }
+
+    public void setCompetitionRimfireResultsAverageList(List<CompetitionResultsAverage> competitionRimfireResultsAverageList) {
+        this.competitionRimfireResultsAverageList = competitionRimfireResultsAverageList;
     }
 
     public List<CompetitionResultsAverage> getCompetitionWomanResultsAverageList() {
