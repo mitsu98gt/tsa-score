@@ -47,7 +47,8 @@ public class UserBean implements Serializable {
             userRole.setCode(role);
             roles.add(userRole);
             user.setRoles(roles);
-            user.setPassword(Encryption.generateStringPasswordHash(password2));
+            //user.setPassword(Encryption.generateStringPasswordHash(password2));
+            user.setPassword(password2);
             try {
                 dao.addUser(user);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "User added successfully!", "INFO MSG"));
