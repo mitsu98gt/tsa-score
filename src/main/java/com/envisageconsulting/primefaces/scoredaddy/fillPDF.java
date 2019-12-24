@@ -13,7 +13,7 @@ import org.junit.Ignore;
 public class fillPDF {
 
 	public static void main(String[] args) throws IOException {
-		String formTemplate = "src/main/resources/GSSF_Indoor2.pdf";
+		String formTemplate = "src/main/resources/GSSF_Indoor_Rimfire.pdf";
 
 		try (PDDocument pdfDocument = PDDocument.load(new File(formTemplate))) {
 			// get the document catalog
@@ -23,7 +23,7 @@ public class fillPDF {
 			if (acroForm != null) {
 				// Retrieve an individual field and set its value.
 				PDTextField name = (PDTextField) acroForm.getField("name");
-				name.setValue("Heather Dang");
+				name.setValue("Vinh Dang");
 				
 				PDTextField date = (PDTextField) acroForm.getField("date");
 				date.setValue("08-10-2017");
@@ -32,7 +32,7 @@ public class fillPDF {
 				model.setValue("G34");
 				
 				PDTextField entry = (PDTextField) acroForm.getField("entry");
-				entry.setValue("123456");
+				entry.setValue("12345678");
 				
 				//
 				
