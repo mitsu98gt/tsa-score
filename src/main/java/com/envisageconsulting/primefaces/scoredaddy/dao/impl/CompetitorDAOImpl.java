@@ -51,7 +51,42 @@ public class CompetitorDAOImpl implements CompetitorDAO {
         }
     }
 
-    public List<Competitor> getCompetitorsForScoreSheetByCompetitionId(int competitionId) throws Exception {
+    public List<Competitor> getAllCompetitorsByAccountId(int accountId) throws Exception {
+        String sql = "select id, first_name, last_name from competitor where account_id = ? order by first_name";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            List<Competitor> competitorList = new ArrayList<Competitor>();
+
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Competitor competitor =  new Competitor();
+                competitor.setCompetitorId(Integer.toString(rs.getInt("id")));
+                competitor.setFirstName(rs.getString("first_name"));
+                competitor.setLastName(rs.getString("last_name"));
+                competitorList.add(competitor);
+            }
+            rs.close();
+            ps.close();
+            return competitorList;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get all Competitors By AccountId! " + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Competitor> getCompetitorsByCompetitionId(int competitionId) throws Exception {
 
         String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competition_competitors where competition_id = ?) order by first_name";
 
@@ -89,7 +124,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
     public void addCompetitor(Competitor competitor) throws Exception {
 
-        String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id, account_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
 
@@ -105,6 +140,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             ps.setString(7, competitor.getPhone());
             ps.setString(8, competitor.getEmail());
             ps.setString(9, competitor.getGssfId());
+            ps.setInt(10, Integer.valueOf(competitor.getAccountId()));
             ps.executeUpdate();
 
             ps.close();

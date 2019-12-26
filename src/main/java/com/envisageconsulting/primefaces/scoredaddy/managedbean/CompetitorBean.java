@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.SessionUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitorDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
@@ -31,8 +32,9 @@ public class CompetitorBean implements Serializable {
     public void addCompetitor() {
 
         try {
+            competitor.setAccountId(String.valueOf(SessionUtils.getAccountId()));
             dao.addCompetitor(getCompetitor());
-            dao.getAllCompetitors(); // This populates the drop down again on add competitor page
+            dao.getAllCompetitorsByAccountId(SessionUtils.getAccountId()); // This populates the drop down again on add competitor page
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competitor added successfully!", "INFO MSG"));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Competitor was not added!", "ERROR MSG"));

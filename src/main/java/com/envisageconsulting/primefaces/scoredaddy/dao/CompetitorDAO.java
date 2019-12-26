@@ -7,7 +7,8 @@ import java.util.List;
 public interface CompetitorDAO {
 
     public List<Competitor> getAllCompetitors() throws Exception;
-    public List<Competitor> getCompetitorsForScoreSheetByCompetitionId(int competitionId) throws Exception;
+    public List<Competitor> getAllCompetitorsByAccountId(int accountId) throws Exception;
+    public List<Competitor> getCompetitorsByCompetitionId(int competitionId) throws Exception;
     public void addCompetitor(Competitor competitor) throws Exception;
 
 }

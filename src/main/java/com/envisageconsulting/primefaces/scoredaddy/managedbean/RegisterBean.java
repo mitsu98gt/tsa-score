@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
+import com.envisageconsulting.primefaces.scoredaddy.CompetitorDataSource;
 import com.envisageconsulting.primefaces.scoredaddy.SessionUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitorDAO;
@@ -37,7 +38,7 @@ public class RegisterBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            allCompetitors = competitorDAO.getAllCompetitors();
+            allCompetitors = competitorDAO.getAllCompetitorsByAccountId(Integer.valueOf(SessionUtils.getAccountId()));
             allCompetitions = competitionDAO.getAllCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,6 +54,10 @@ public class RegisterBean implements Serializable {
             e.printStackTrace();
         }
     }
+
+    /*public void onCompetitionChange() throws Exception {
+        allCompetitors = competitorDAO.getCompetitorsByCompetitionId(Integer.valueOf(competition.getId()));
+    }*/
 
     public List<Competitor> complete(String query){
         return queryByName(query);

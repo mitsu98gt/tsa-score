@@ -25,7 +25,7 @@ public class CompetitorDataSource {
 
 	public void getCompetitorsForScoreSheetByCompetitionId(int id) {
 		try {
-			competitors = dao.getCompetitorsForScoreSheetByCompetitionId(id);
+			competitors = dao.getCompetitorsByCompetitionId(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
