@@ -24,9 +24,9 @@ public class PanelMenuBean implements Serializable {
     private boolean competitionExpanded;
     private boolean competitorExpanded;
     private boolean firearmExpanded;
-    private boolean gssfExpanded;
+    private boolean scoringExpanded;
     private boolean bullseyeExpanded;
-    private boolean scoresExpanded;
+    private boolean resultsExpanded;
     private boolean admin;
 
     @PostConstruct
@@ -73,12 +73,13 @@ public class PanelMenuBean implements Serializable {
         this.firearmExpanded = firearmExpanded;
     }
 
-    public boolean isGssfExpanded() {
-        return gssfExpanded;
+
+    public boolean isScoringExpanded() {
+        return scoringExpanded;
     }
 
-    public void setGssfExpanded(boolean gssfExpanded) {
-        this.gssfExpanded = gssfExpanded;
+    public void setScoringExpanded(boolean scoringExpanded) {
+        this.scoringExpanded = scoringExpanded;
     }
 
     public boolean isBullseyeExpanded() {
@@ -89,12 +90,12 @@ public class PanelMenuBean implements Serializable {
         this.bullseyeExpanded = bullseyeExpanded;
     }
 
-    public boolean isScoresExpanded() {
-        return scoresExpanded;
+    public boolean isResultsExpanded() {
+        return resultsExpanded;
     }
 
-    public void setScoresExpanded(boolean scoresExpanded) {
-        this.scoresExpanded = scoresExpanded;
+    public void setResultsExpanded(boolean resultsExpanded) {
+        this.resultsExpanded = resultsExpanded;
     }
 
     public boolean isCompetitorExpanded() {

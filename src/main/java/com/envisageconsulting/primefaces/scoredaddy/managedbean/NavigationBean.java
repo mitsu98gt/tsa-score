@@ -84,7 +84,7 @@ public class NavigationBean implements Serializable {
 
 	public String redirectToGssfScoresheet() {
 		updateMenuItems();
-		panelMenuBean.setGssfExpanded(true);
+		panelMenuBean.setScoringExpanded(true);
 		return "/secured/layout/gssf/indoor_scoresheet.xhtml?faces-redirect=true";
 	}
 
@@ -94,33 +94,42 @@ public class NavigationBean implements Serializable {
 		return "/secured/layout/bullseye/bullseye_scoresheet.xhtml?faces-redirect=true";
 	}
 
-	public String redirectToViewGssfScores() {
-		updateMenuItems();
-		panelMenuBean.setScoresExpanded(true);
-		return "/secured/layout/scores/view_scores.xhtml?faces-redirect=true";
-	}
-
 	public String redirectToViewBullseyeScores() {
 		updateMenuItems();
-		panelMenuBean.setScoresExpanded(true);
+		panelMenuBean.setResultsExpanded(true);
 		return "/secured/layout/scores/view_scores_bullseye.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToUpdateScores() {
 		updateMenuItems();
-		panelMenuBean.setScoresExpanded(true);
+		panelMenuBean.setScoringExpanded(true);
 		return "/secured/layout/scores/update_scores.xhtml?faces-redirect=true";
 	}
 
+	public String redirectToViewGssfScores() {
+		updateMenuItems();
+		panelMenuBean.setResultsExpanded(true);
+		return "/secured/layout/scores/view_scores.xhtml?faces-redirect=true";
+	}
+
 	public void updateMenuItems() {
-		panelMenuBean.setAdminExpanded(panelMenuBean.isAdminExpanded());
+		/*panelMenuBean.setAdminExpanded(panelMenuBean.isAdminExpanded());
 		panelMenuBean.setTournamentExpanded(panelMenuBean.isTournamentExpanded());
 		panelMenuBean.setCompetitionExpanded(panelMenuBean.isCompetitionExpanded());
 		panelMenuBean.setCompetitorExpanded(panelMenuBean.isCompetitorExpanded());
 		panelMenuBean.setFirearmExpanded(panelMenuBean.isFirearmExpanded());
-		panelMenuBean.setGssfExpanded(panelMenuBean.isGssfExpanded());
+		panelMenuBean.setScoringExpanded(panelMenuBean.isScoringExpanded());
 		panelMenuBean.setBullseyeExpanded(panelMenuBean.isBullseyeExpanded());
-		panelMenuBean.setScoresExpanded(panelMenuBean.isScoresExpanded());
+		panelMenuBean.setResultsExpanded(panelMenuBean.isResultsExpanded());*/
+
+		panelMenuBean.setAdminExpanded(false);
+		panelMenuBean.setTournamentExpanded(false);
+		panelMenuBean.setCompetitionExpanded(false);
+		panelMenuBean.setCompetitorExpanded(false);
+		panelMenuBean.setFirearmExpanded(false);
+		panelMenuBean.setScoringExpanded(false);
+		panelMenuBean.setBullseyeExpanded(false);
+		panelMenuBean.setResultsExpanded(false);
 	}
 
 	public void collapseAllMenuItems() {
@@ -129,9 +138,9 @@ public class NavigationBean implements Serializable {
 		panelMenuBean.setCompetitionExpanded(false);
 		panelMenuBean.setCompetitorExpanded(false);
 		panelMenuBean.setFirearmExpanded(false);
-		panelMenuBean.setGssfExpanded(false);
+		panelMenuBean.setScoringExpanded(false);
 		panelMenuBean.setBullseyeExpanded(false);
-		panelMenuBean.setScoresExpanded(false);
+		panelMenuBean.setResultsExpanded(false);
 	}
 
 	public PanelMenuBean getPanelMenuBean() {

@@ -47,16 +47,16 @@
                     <p:submenu label="Firearm" expanded="#{panelMenuBean.firearmExpanded}" rendered="#{panelMenuBean.admin}">
                         <p:menuitem action="#{navigationBean.redirectToAddFirearm}" value="Add Firearm"/>
                     </p:submenu>
-                    <p:submenu label="GSSF" expanded="#{panelMenuBean.gssfExpanded}">
-                        <p:menuitem action="#{navigationBean.redirectToGssfScoresheet}" value="GSSF Scoresheet"/>
+                    <p:submenu label="Scoring" expanded="#{panelMenuBean.scoringExpanded}">
+                        <p:menuitem action="#{navigationBean.redirectToGssfScoresheet}" value="GSSF Indoor Scoresheet"/>
+                        <p:menuitem action="#{navigationBean.redirectToUpdateScores}" value="Update Indoor Scores"/>
                     </p:submenu>
                     <p:submenu label="BullsEye" expanded="#{panelMenuBean.bullseyeExpanded}" rendered="#{panelMenuBean.admin}">
                         <p:menuitem action="#{navigationBean.redirectToBullseyeScoresheet}" value="Bullseye Scoresheet"/>
                     </p:submenu>
-                    <p:submenu label="Scores" expanded="#{panelMenuBean.scoresExpanded}">
-                        <p:menuitem action="#{navigationBean.redirectToViewGssfScores}" value="GSSF Scores" />
+                    <p:submenu label="Results" expanded="#{panelMenuBean.resultsExpanded}">
+                        <p:menuitem action="#{navigationBean.redirectToViewGssfScores}" value="GSSF Indoor Scores" />
                         <p:menuitem action="#{navigationBean.redirectToViewBullseyeScores}" value="Bullseye Scores" rendered="#{panelMenuBean.admin}"/>
-                        <p:menuitem action="#{navigationBean.redirectToUpdateScores}" value="Update Scores"/>
                     </p:submenu>
                 </p:panelMenu>
             </h:form>
@@ -91,15 +91,15 @@
                             characters of the competitors name for a lookup functionality.
                         </li>
                         <li style="padding: 10px 0px;">
-                            <b>GSSF Scoresheet</b> - Use this page to input, download GSSF scoresheets, and save competitor score entry.
+                            <b>GSSF Indoor Scoresheet</b> - Use this page to input, download GSSF scoresheets, and save competitor score entry.
                         </li>
                         <li style="padding: 10px 0px;">
-                            <b>Update Scores</b> - Use this page if you want to delete a competitors score entry that was saved incorrectly. Select
+                            <b>Update Indoor Scores</b> - Use this page if you want to delete a competitors score entry that was saved incorrectly. Select
                             the competition and division of the entry you want to delete.  Then select the radio button of that entry to highlight
                             the row, and click on the <b>Trash Can ICON</b>.
                         </li>
                         <li style="padding: 10px 0px;">
-                            <b>View Scores</b> - Scores can be view in <b>Real Time</b> as they are being inputted for each competition.  The "Averaged Scores"
+                            <b>Results</b> - Scores can be view in <b>Real Time</b> as they are being inputted for each competition.  The "Averaged Scores"
                             button will only be enabled once you have at leaset <b>TWO</b>(2) competitions created with scores. Once this button
                             is enabled, you may view the current tournament averaged competitor scores and standings.
                         </li>
