@@ -3,7 +3,6 @@ package com.envisageconsulting.primefaces.scoredaddy.domain;
 public class Competitor {
 
 	private String competitorId;
-	private String accountId;
 	private String firstName="";
 	private String lastName="";
 	private String fullName;
@@ -18,14 +17,6 @@ public class Competitor {
 
 	public void setCompetitorId(String competitorId) {
 		this.competitorId = competitorId;
-	}
-
-	public String getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
 	}
 
 	public String getFirstName() {

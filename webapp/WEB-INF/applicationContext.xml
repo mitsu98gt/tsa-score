@@ -59,6 +59,10 @@
 
     <!-- Service Beans -->
 
+    <bean id="competitorService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.CompetitorServiceImpl">
+        <property name="competitorDAO" ref="competitorDAO" />
+    </bean>
+
     <bean id="competitionService" class="com.envisageconsulting.primefaces.scoredaddy.service.impl.CompetitionServiceImpl">
         <property name="CompetitionDAO" ref="competitionDAO" />
     </bean>

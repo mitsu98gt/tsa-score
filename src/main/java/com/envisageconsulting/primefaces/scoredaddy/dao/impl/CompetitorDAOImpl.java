@@ -5,10 +5,7 @@ import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +49,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
     }
 
     public List<Competitor> getAllCompetitorsByAccountId(int accountId) throws Exception {
-        String sql = "select id, first_name, last_name from competitor where account_id = ? order by first_name";
+        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competitor_account where account_id = ?) order by first_name";
 
         Connection conn = null;
 
@@ -88,7 +85,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
 
     public List<Competitor> getCompetitorsByCompetitionId(int competitionId) throws Exception {
 
-        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competition_competitors where competition_id = ?) order by first_name";
+        String sql = "select id, first_name, last_name, gssf_id from competitor where id in (select competitor_id from competition_competitors where competition_id = ?) order by first_name";
 
         Connection conn = null;
 
@@ -104,6 +101,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
                 competitor.setCompetitorId(Integer.toString(rs.getInt("id")));
                 competitor.setFirstName(rs.getString("first_name"));
                 competitor.setLastName(rs.getString("last_name"));
+                competitor.setGssfId(rs.getString("gssf_id"));
                 competitorList.add(competitor);
             }
             rs.close();
@@ -122,15 +120,15 @@ public class CompetitorDAOImpl implements CompetitorDAO {
         }
     }
 
-    public void addCompetitor(Competitor competitor) throws Exception {
+    public int addCompetitor(Competitor competitor) throws Exception {
 
-        String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id, account_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into competitor (first_name, last_name, street, city, state, zipcode, phone, email, gssf_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, competitor.getFirstName());
             ps.setString(2, competitor.getLastName());
             ps.setString(3, competitor.getAddress().getStreet());
@@ -140,12 +138,47 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             ps.setString(7, competitor.getPhone());
             ps.setString(8, competitor.getEmail());
             ps.setString(9, competitor.getGssfId());
-            ps.setInt(10, Integer.valueOf(competitor.getAccountId()));
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            int generatedKey = 0;
+            if (rs.next()) {
+                generatedKey = rs.getInt(1);
+            }
+
+            ps.close();
+
+            return generatedKey;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to add Competitor! " + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void addCompetitorAccount(int competitorId, int accountId) throws Exception {
+
+        String sql = "insert into competitor_account (competitor_id, account_id) values (?, ?)";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, competitorId);
+            ps.setInt(2, accountId);
             ps.executeUpdate();
 
             ps.close();
         } catch (SQLException ex) {
-            throw new Exception("Failed to add Competitor! " + ex.getMessage());
+            throw new Exception("Failed to add competitor to competitor_account! " + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

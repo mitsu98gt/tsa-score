@@ -4,6 +4,8 @@ import com.envisageconsulting.primefaces.scoredaddy.SessionUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitorDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competitor;
+import com.envisageconsulting.primefaces.scoredaddy.service.CompetitionService;
+import com.envisageconsulting.primefaces.scoredaddy.service.CompetitorService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -24,6 +26,9 @@ public class CompetitorBean implements Serializable {
     @ManagedProperty("#{competitorDAO}")
     private CompetitorDAO dao;
 
+    @ManagedProperty("#{competitorService}")
+    private CompetitorService competitorService;
+
     @PostConstruct
     public void init() {
         competitor.setAddress(address);
@@ -32,8 +37,7 @@ public class CompetitorBean implements Serializable {
     public void addCompetitor() {
 
         try {
-            competitor.setAccountId(String.valueOf(SessionUtils.getAccountId()));
-            dao.addCompetitor(getCompetitor());
+            competitorService.addCompetitor(SessionUtils.getAccountId(), getCompetitor());
             dao.getAllCompetitorsByAccountId(SessionUtils.getAccountId()); // This populates the drop down again on add competitor page
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competitor added successfully!", "INFO MSG"));
         } catch (Exception e) {
@@ -53,5 +57,13 @@ public class CompetitorBean implements Serializable {
 
     public void setDao(CompetitorDAO dao) {
         this.dao = dao;
+    }
+
+    public CompetitorService getCompetitorService() {
+        return competitorService;
+    }
+
+    public void setCompetitorService(CompetitorService competitorService) {
+        this.competitorService = competitorService;
     }
 }

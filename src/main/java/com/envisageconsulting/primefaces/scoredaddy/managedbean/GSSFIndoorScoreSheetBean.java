@@ -71,6 +71,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         firearmList = getListOfFirearms();
     }
 
+    public void onCompetitorChange() {
+        scoreSheet.setEntry(scoreSheet.getCompetitor().getGssfId());
+    }
+
     public void doScore() {
         parseSelectedDivisions();
         if (doValidation()){
