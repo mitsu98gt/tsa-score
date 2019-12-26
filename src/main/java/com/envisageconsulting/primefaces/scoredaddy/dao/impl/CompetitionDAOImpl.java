@@ -422,7 +422,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     public List<String> getDivisionCodesByCompetitionCode(int competitionCode) throws Exception {
 
-        String sql = "select code from division_codes where id = ? order by code";
+        String sql = "select code from division_codes where id = ? and code != 'GSSF_WOMAN' and code != 'GSSF_SENIOR' and code != 'GSSF_JUNIOR' order by code";
 
         Connection conn = null;
 
