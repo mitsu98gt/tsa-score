@@ -21,6 +21,7 @@ public class GSSFIndoorScoreSheet {
 	private Integer totalX;
 	private String rangeOfficerInitials;
 	private String competitorInitials;
+	private boolean additionalEntry;
 
 	public Competitor getCompetitor() {
 		return competitor;
@@ -133,5 +134,12 @@ public class GSSFIndoorScoreSheet {
 	public void setCompetitorInitials(String competitorInitials) {
 		this.competitorInitials = competitorInitials;
 	}
-	
+
+	public boolean isAdditionalEntry() {
+		return additionalEntry;
+	}
+
+	public void setAdditionalEntry(boolean additionalEntry) {
+		this.additionalEntry = additionalEntry;
+	}
 }

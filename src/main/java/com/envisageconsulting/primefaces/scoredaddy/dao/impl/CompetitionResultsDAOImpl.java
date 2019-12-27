@@ -100,6 +100,8 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 gssfIndoorScoreSheet.setRangeOfficerInitials(rs.getString("range_officer_initials"));
                 gssfIndoorScoreSheet.setCompetitorInitials(rs.getString("competitor_initials"));
 
+                gssfIndoorScoreSheet.setAdditionalEntry(rs.getBoolean("additional_entry"));
+
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
                 competitionResults.setRank(rank + 1);
                 rank++;
@@ -212,6 +214,8 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
                 gssfIndoorScoreSheet.setRangeOfficerInitials(rs.getString("range_officer_initials"));
                 gssfIndoorScoreSheet.setCompetitorInitials(rs.getString("competitor_initials"));
+
+                gssfIndoorScoreSheet.setAdditionalEntry(rs.getBoolean("additional_entry"));
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
                 competitionResults.setRank(rank + 1);
@@ -388,7 +392,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 "pocket_division, woman_division, senior_division, junior_division, limited_division, revolver_division, rimfire_division, " +
                 "target_one_x, target_one_ten, target_one_eight, target_one_five, target_one_misses, target_two_x, " +
                 "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, final_score, total_x, " +
-                "range_officer_initials, competitor_initials, last_modified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
+                "range_officer_initials, competitor_initials, additional_entry, last_modified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
         Connection conn = null;
 
@@ -425,6 +429,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setInt(27, competitionResults.getGssfIndoorScoreSheet().getTotalX());
             ps.setString(28, competitionResults.getGssfIndoorScoreSheet().getRangeOfficerInitials().toUpperCase());
             ps.setString(29, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials().toUpperCase());
+            ps.setBoolean(30, competitionResults.getGssfIndoorScoreSheet().isAdditionalEntry());
             ps.executeUpdate();
 
             ps.close();
@@ -501,7 +506,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 "pocket_division, woman_division, senior_division, junior_division, limited_division, revolver_division, rimfire_division, " +
                 "target_one_x, target_one_ten, target_one_eight, target_one_five, target_one_misses, target_two_x, " +
                 "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, final_score, total_x, " +
-                "range_officer_initials, competitor_initials, last_modified, competition_results_id, history_type) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), ?, ?)";
+                "range_officer_initials, competitor_initials, last_modified, competition_results_id, history_type, additional_entry) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), ?, ?, ?)";
 
         Connection conn = null;
 
@@ -540,6 +545,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setString(29, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials().toUpperCase());
             ps.setInt(30, competitionResults.getCompetitionResultsId());
             ps.setString(31, historyType);
+            ps.setBoolean(32, competitionResults.getGssfIndoorScoreSheet().isAdditionalEntry());
             ps.executeUpdate();
 
             ps.close();

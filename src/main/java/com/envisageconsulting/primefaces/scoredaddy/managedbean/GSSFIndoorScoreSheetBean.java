@@ -52,6 +52,8 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     private boolean seniorDivision;
     private boolean juniorDivision;
 
+    private boolean additionalEntry;
+
     public GSSFIndoorScoreSheetBean(){}
 
     @PostConstruct
@@ -76,6 +78,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public void doScore() {
+        scoreSheet.setAdditionalEntry(additionalEntry);
         parseSelectedDivisions();
         if (doValidation()){
             ScoreSheetUtils.calculateTargetTotals(scoreSheet);
@@ -317,7 +320,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public void parseSelectedDivisions(){
-
         scoreSheet.getDivsion().setUnlimited(unlimitedDivision);
         scoreSheet.getDivsion().setStock(stockDivision);
         scoreSheet.getDivsion().setPocket(pocketDivision);
@@ -446,6 +448,14 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public void setJuniorDivision(boolean juniorDivision) {
         this.juniorDivision = juniorDivision;
+    }
+
+    public boolean isAdditionalEntry() {
+        return additionalEntry;
+    }
+
+    public void setAdditionalEntry(boolean additionalEntry) {
+        this.additionalEntry = additionalEntry;
     }
 
     public StreamedContent getFile() throws Exception {

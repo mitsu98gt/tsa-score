@@ -5,7 +5,9 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:pe="http://primefaces.org/ui/extensions"
         xmlns:p="http://primefaces.org/ui">
+
     <ui:define name="pageContent">
+
     <div class="ui-fluid">
         <h:form id="scoresheet">
 
@@ -15,13 +17,21 @@
                     <img src="../../../images/gssf_indoor_banner.png"/><br/>
                 </p:row>
 
-                <p:row style="text-align:center">
-                    <p:selectOneMenu required="true" id="competition" label="Competition" value="#{scoresheetBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
-                        <p:ajax listener="#{scoresheetBean.onCompetitionChange}" update="name,date,model" />
-                        <f:selectItem itemLabel="Select Competition" itemValue="" />
-                        <f:selectItems value="#{scoresheetBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
-                    </p:selectOneMenu>
+                <p:row style="text-align:left">
+                    <p:column>
+                        <p:selectOneMenu required="true" id="competition" label="Competition" value="#{scoresheetBean.competition}" converter="#{competitionConverter}" requiredMessage="Competition is required." style="width:180px;">
+                            <p:ajax listener="#{scoresheetBean.onCompetitionChange}" update="name,date,model" />
+                            <f:selectItem itemLabel="Select Competition" itemValue="" />
+                            <f:selectItems value="#{scoresheetBean.allCompetitions}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox id="additionalEntry" itemLabel="Additional Entry/Non Designated" value="#{scoresheetBean.additionalEntry}" layout="responsive"/>
+                    </p:column>
                 </p:row>
+            </p:panelGrid>
+
+            <p:panelGrid style="margin-top:20px;width:90%">
 
                 <p:row style="text-align:center;background-color:#bfbfbf">
                     <p:column><b>Name</b></p:column>

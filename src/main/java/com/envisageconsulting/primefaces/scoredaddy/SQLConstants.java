@@ -45,6 +45,7 @@ public class SQLConstants {
                     "    cr.total_x," +
                     "    cr.range_officer_initials," +
                     "    cr.competitor_initials," +
+                    "    cr.additional_entry," +
                     "    cm.first_name," +
                     "    cm.last_name," +
                     "    fm.model," +
@@ -93,6 +94,7 @@ public class SQLConstants {
             "    cr.total_x," +
                     "    cr.range_officer_initials," +
                     "    cr.competitor_initials," +
+                    "    cr.additional_entry," +
             "    cm.first_name," +
             "    cm.last_name," +
             "    fm.model," +
