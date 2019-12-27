@@ -78,10 +78,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     public void doScore() {
         parseSelectedDivisions();
         if (doValidation()){
-            calculateTargetTotals();
-            calculateSumRow();
-            calculateTotalRow();
-            calculatePenalty();
+            ScoreSheetUtils.calculateTargetTotals(scoreSheet);
+            ScoreSheetUtils.calculateSumRow(scoreSheet);
+            ScoreSheetUtils.calculateTotalRow(scoreSheet);
+            ScoreSheetUtils.calculatePenalty(scoreSheet);
         }
     }
 
@@ -95,11 +95,11 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             return false;
         }
 
-        if (!validateStockTotals()) {
+        if (!ScoreSheetUtils.validateStockTotals(scoreSheet)) {
             return false;
         }
 
-        if (!validatePocketTotals()) {
+        if (!ScoreSheetUtils.validatePocketTotals(scoreSheet)) {
             return false;
         }
 
@@ -238,40 +238,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         return true;
     }
 
-    public boolean validateStockTotals() {
-
-        boolean pass = true;
-
-        if (!scoreSheet.getDivsion().isPocket()) {
-            if (calculateTargetOneTotals() != 20) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 1 totals are incorrect!"));
-                pass = false;
-            }
-            if (calculateTargetTwoTotals() != 30) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 2 totals are incorrect!"));
-                pass = false;
-            }
-        }
-        return pass;
-    }
-
-    public boolean validatePocketTotals() {
-
-        boolean pass = true;
-
-        if (scoreSheet.getDivsion().isPocket()) {
-            if (calculateTargetOneTotals() != 10) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 1 totals are incorrect!"));
-                pass = false;
-            }
-            if (calculateTargetTwoTotals() != 15) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Target 2 totals are incorrect!"));
-                pass = false;
-            }
-        }
-        return pass;
-    }
-
     public void saveScoreSheetPDF() throws Exception {
         doScore();
         GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
@@ -323,32 +289,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         competitionResults.setGssfIndoorScoreSheet(scoreSheet);
 
         return competitionResults;
-    }
-
-    public void calculateTargetTotals() {
-        scoreSheet.getTargetOne().setTotal(calculateTargetOneTotals());
-        scoreSheet.getTargetTwo().setTotal(calculateTargetTwoTotals());
-    }
-
-    public void calculateSumRow() {
-        scoreSheet.getSumRow().setX(scoreSheet.getTargetOne().getX() + scoreSheet.getTargetTwo().getX());
-        scoreSheet.getSumRow().setTen(scoreSheet.getTargetOne().getTen() + scoreSheet.getTargetTwo().getTen());
-        scoreSheet.getSumRow().setEight(scoreSheet.getTargetOne().getEight() + scoreSheet.getTargetTwo().getEight());
-        scoreSheet.getSumRow().setFive(scoreSheet.getTargetOne().getFive() + scoreSheet.getTargetTwo().getFive());
-        scoreSheet.getSumRow().setMisses(scoreSheet.getTargetOne().getMisses() + scoreSheet.getTargetTwo().getMisses());
-        scoreSheet.getSumRow().setTotal(scoreSheet.getTargetOne().getTotal() + scoreSheet.getTargetTwo().getTotal());
-    }
-
-    public void calculateTotalRow() {
-        scoreSheet.getTotalRow().setX(scoreSheet.getSumRow().getX() * 10);
-        scoreSheet.getTotalRow().setTen(scoreSheet.getSumRow().getTen() * 10);
-        scoreSheet.getTotalRow().setEight(scoreSheet.getSumRow().getEight() * 8);
-        scoreSheet.getTotalRow().setFive(scoreSheet.getSumRow().getFive() * 5);
-        scoreSheet.setFinalScore(calculateTotalScore());
-    }
-
-    public void calculatePenalty() {
-        scoreSheet.setPenalty(scoreSheet.getTargetOne().getMisses() + scoreSheet.getTargetTwo().getMisses());
     }
 
     public int calculateTotalX() {
