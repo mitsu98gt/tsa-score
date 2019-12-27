@@ -67,33 +67,52 @@ public class GSSFIndoorScoreSheetPDF {
 
         //
 
+        PDField checkStock = (PDField) acroForm.getField("checkStock");
+        ((PDCheckBox) checkStock).unCheck();
+
+        PDField checkUnlimited = (PDField) acroForm.getField("checkUnlimited");
+        ((PDCheckBox) checkUnlimited).unCheck();
+
+        PDField checkPocket = (PDField) acroForm.getField("checkPocket");
+        ((PDCheckBox) checkPocket).unCheck();
+
+        PDField checkRimfire = (PDField) acroForm.getField("checkRimfire");
+        ((PDCheckBox) checkRimfire).unCheck();
+
+        PDField checkWoman = (PDField) acroForm.getField("checkWoman");
+        ((PDCheckBox) checkWoman).unCheck();
+
+        PDField checkSenior = (PDField) acroForm.getField("checkSenior");
+        ((PDCheckBox) checkSenior).unCheck();
+
+        PDField checkJunior = (PDField) acroForm.getField("checkJunior");
+        ((PDCheckBox) checkJunior).unCheck();
+
         if (scoreSheet.getDivsion().isStock()) {
-            PDField checkStock = (PDField) acroForm.getField("checkStock");
             ((PDCheckBox) checkStock).check();
         }
 
         if (scoreSheet.getDivsion().isUnlimited()) {
-            PDField checkUnlimited = (PDField) acroForm.getField("checkUnlimited");
             ((PDCheckBox) checkUnlimited).check();
         }
 
         if (scoreSheet.getDivsion().isPocket()) {
-            PDField checkPocket = (PDField) acroForm.getField("checkPocket");
             ((PDCheckBox) checkPocket).check();
         }
 
+        if (scoreSheet.getDivsion().isRimfire()) {
+            ((PDCheckBox) checkRimfire).check();
+        }
+
         if (scoreSheet.getDivsion().isWoman()) {
-            PDField checkWoman = (PDField) acroForm.getField("checkWoman");
             ((PDCheckBox) checkWoman).check();
         }
 
         if (scoreSheet.getDivsion().isSenior()) {
-            PDField checkSenior = (PDField) acroForm.getField("checkSenior");
             ((PDCheckBox) checkSenior).check();
         }
 
         if (scoreSheet.getDivsion().isJunior()) {
-            PDField checkJunior = (PDField) acroForm.getField("checkJunior");
             ((PDCheckBox) checkJunior).check();
         }
 

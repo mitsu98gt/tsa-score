@@ -30,7 +30,7 @@
         <br/>
         <p:panel id="singleResultsPanel" rendered="#{updateScoresBean.renderScores}">
             <h:form id="updatecompetitorfrm">
-                <p:growl id="msgs" showDetail="false"/>
+                <p:growl id="msgs" showDetail="true"/>
                 <p:dataTable reflow="true" editable="true" filteredValue="#{updateScoresBean.filtered}" id="scorestable" var="scores" value="#{updateScoresBean.competitionResultsList}" selection="#{updateScoresBean.selectedCompetitiononResults}" rowKey="#{scores.competitionResultsId}" style="font-size:13px;text-align:center">
 
                     <f:facet name="header">
@@ -157,7 +157,10 @@
                     </p:column>
 
                     <p:column>
-                        <h:outputText value="#{scores.gssfIndoorScoreSheet.penalty}" />
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{scores.gssfIndoorScoreSheet.penalty}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="penalty" value="#{scores.gssfIndoorScoreSheet.penalty}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
                     </p:column>
 
                     <p:column>
@@ -174,6 +177,7 @@
 
                 </p:dataTable>
             </h:form>
+            <!--<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" style="width:610px;"/>-->
         </p:panel>
     </ui:define>
 </ui:composition>

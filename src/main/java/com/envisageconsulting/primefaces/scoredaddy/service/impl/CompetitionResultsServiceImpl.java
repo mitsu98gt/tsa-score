@@ -33,7 +33,7 @@ public class CompetitionResultsServiceImpl implements CompetitionResultsService 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
     public void deleteCompetitionResultByCompetitionResultsId(CompetitionResults competitionResults, int competitionResultsId) throws Exception {
         try {
-            competitionResultsDAO.addCompetitionResultsHistory(competitionResults);
+            competitionResultsDAO.addCompetitionResultsHistory(competitionResults, "D");
             competitionResultsDAO.deleteCompetitionResultByCompetitionResultsId(competitionResultsId);
         } catch (Exception e) {
             e.printStackTrace();

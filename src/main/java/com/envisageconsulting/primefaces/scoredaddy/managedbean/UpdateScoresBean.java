@@ -1,7 +1,9 @@
 package com.envisageconsulting.primefaces.scoredaddy.managedbean;
 
 import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
+import com.envisageconsulting.primefaces.scoredaddy.ScoreSheetUtils;
 import com.envisageconsulting.primefaces.scoredaddy.SessionUtils;
+import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
 import com.envisageconsulting.primefaces.scoredaddy.domain.CompetitionResults;
 import com.envisageconsulting.primefaces.scoredaddy.service.CompetitionResultsService;
@@ -28,6 +30,9 @@ public class UpdateScoresBean implements Serializable {
 
     @ManagedProperty("#{competitionResultsService}")
     private CompetitionResultsService competitionResultsService;
+
+    @ManagedProperty("#{competitionResultsDAO}")
+    private CompetitionResultsDAO competitionResultsDAO;
 
     private List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
     private CompetitionResults selectedCompetitiononResults;
@@ -63,14 +68,14 @@ public class UpdateScoresBean implements Serializable {
 
     public void deleteRow() {
         if (null == selectedCompetitiononResults) {
-            FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please Select A Row!", "INFO ERROR"));
+            FacesContext.getCurrentInstance().addMessage("msgs", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Please Select A Row!"));
         } else {
             try {
                 competitionResultsService.deleteCompetitionResultByCompetitionResultsId(selectedCompetitiononResults, selectedCompetitiononResults.getCompetitionResultsId());
                 competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Delete Successful!", "INFO MSG"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Delete Successful!"));
             } catch (Exception ex) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete UnSuccessful!", "INFO ERROR"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info:", "Delete UnSuccessful!"));
                 ex.printStackTrace();
             }
         }
@@ -78,11 +83,20 @@ public class UpdateScoresBean implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         CompetitionResults results = (CompetitionResults) event.getObject();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update Successful!", "INFO MSG"));
+        if (ScoreSheetUtils.validateScoreSheet(results.getGssfIndoorScoreSheet())) {
+            try {
+                CompetitionResults currentResults = competitionResultsDAO.getCompetitionResultsByCompetitionResultsId(results.getCompetitionResultsId());
+                competitionResultsDAO.addCompetitionResultsHistory(currentResults, "U");
+                competitionResultsDAO.updateCompetitionResults(results);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Update Successful!"));
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Update Failed!"));
+            }
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update Cancelled!", "INFO MSG"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Update Cancelled!"));
     }
 
     public String getConvertedDivisionCode(String division) {
@@ -96,16 +110,7 @@ public class UpdateScoresBean implements Serializable {
         if (division.equals("GSSF_POCKET")) {
             return SQLConstants.POCKET_DIVISION;
         }
-        if (division.equals("BULLSEYE_LIMITED")) {
-            return SQLConstants.LIMITED_DIVISION;
-        }
-        if (division.equals("BULLSEYE_UNLIMITED")) {
-            return SQLConstants.UNLIMITED_DIVISION;
-        }
-        if (division.equals("BULLSEYE_REVOLVER")) {
-            return SQLConstants.REVOLVER_DIVISION;
-        }
-        if (division.equals("BULLSEYE_RIMFIRE")) {
+        if (division.equals("GSSF_RIMFIRE")) {
             return SQLConstants.RIMFIRE_DIVISION;
         }
 
@@ -182,5 +187,13 @@ public class UpdateScoresBean implements Serializable {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
+    }
+
+    public CompetitionResultsDAO getCompetitionResultsDAO() {
+        return competitionResultsDAO;
+    }
+
+    public void setCompetitionResultsDAO(CompetitionResultsDAO competitionResultsDAO) {
+        this.competitionResultsDAO = competitionResultsDAO;
     }
 }
