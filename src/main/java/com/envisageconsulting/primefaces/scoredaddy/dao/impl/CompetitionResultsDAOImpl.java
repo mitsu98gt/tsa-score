@@ -21,6 +21,40 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
     private DataSource dataSource;
 
+    public int getCompetitorNumberOfEntriesByCometitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
+
+        String sql = "select count(*) as entries from competition_results where id = ? and competitor_id = ? and %s = true";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(String.format(sql, division));
+            ps.setInt(1, competitionId);
+            ps.setInt(2, competitorId);
+            ResultSet rs = ps.executeQuery();
+
+            int entries = 0;
+            while (rs.next()) {
+                entries = rs.getInt("entries");
+            }
+            rs.close();
+            ps.close();
+            return entries;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to getCompetitorNumberOfEntriesByCometitionAndDivision!" + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public CompetitionResults getCompetitionResultsByCompetitionResultsId(int competitionResultsId, String division) throws Exception {
 
         String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITION_RESULTS_ID, division);

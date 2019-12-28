@@ -94,6 +94,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public boolean doValidation() {
 
+        if (!validateAdditionalEntries()) {
+            return false;
+        }
+
         if (!validateDivisions()) {
             return false;
         }
@@ -107,6 +111,37 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         }
 
         return true;
+    }
+
+    public boolean validateAdditionalEntries() {
+
+        boolean pass = true;
+
+        try {
+            int competitionId = Integer.valueOf(competition.getId());
+            int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
+            String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
+            int entries = competitionResultsDAO.getCompetitorNumberOfEntriesByCometitionAndDivision(competitionId, competitorId, division);
+            if (entries == 0) {
+                if (additionalEntry) {
+                    pass = false;
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "No other entries found for competitor in this division! Please un-select the additional entries checkbox."));
+                } else {
+                    pass = true;
+                }
+            } else {
+                if (additionalEntry) {
+                    pass = true;
+                }  else {
+                    pass = false;
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Other entries found for competitor in this division! Please select the additional entries checkbox."));
+                }
+            }
+        } catch (Exception e) {
+            pass = false;
+        }
+
+        return pass;
     }
 
     public boolean validateDivisions() {

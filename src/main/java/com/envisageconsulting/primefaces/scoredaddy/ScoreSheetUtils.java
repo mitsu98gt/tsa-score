@@ -105,6 +105,18 @@ public class ScoreSheetUtils {
         }
     }
 
+    public static String getDivisionForSqlColumnName(Division division) {
+        if (division.isStock()) {
+            return "stock_division";
+        } else if (division.isUnlimited()){
+            return "unlimited_division";
+        } else if (division.isPocket()) {
+            return "pocket_division";
+        } else {
+            return "rimfire_division";
+        }
+    }
+
     public static String getConvertedDivisionCode(String division) {
 
         if (division.equals("GSSF_UNLIMITED")) {
