@@ -437,12 +437,12 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public List<Competitor> getCompetitorIdByCompetitionAndDivision(int competition_id, String division) throws Exception {
+    public List<Competitor> getCompetitorIdByCompetitionAndDivision(int competition_id, String division, String additionalEntries) throws Exception {
 
         List<Competitor> competitorIdList = new ArrayList<Competitor>();
 
-        String sql = "select distinct(competitor_id) from competition_results cr where id = ? and %s order by competitor_id";
-        String formattedSql = String.format(sql, division);
+        String sql = "select distinct(competitor_id) from competition_results cr where id = ? and %s and additional_entry = %s order by competitor_id";
+        String formattedSql = String.format(sql, division, additionalEntries);
 
         Connection conn = null;
 
@@ -478,12 +478,12 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public List<Firearm> getCompetitorFirearmByCompetitionAndDivision(int competitor_id, int competition_id, String division) throws Exception {
+    public List<Firearm> getCompetitorFirearmByCompetitionAndDivision(int competitor_id, int competition_id, String division, String additionalEntries) throws Exception {
 
         List<Firearm> competitorFirearmList = new ArrayList<Firearm>();
 
-        String sql = "select firearm_id from competition_results cr where competitor_id = ? and id = ? and %s";
-        String formattedSql = String.format(sql, division);
+        String sql = "select firearm_id from competition_results cr where competitor_id = ? and id = ? and %s and additional_entry = %s";
+        String formattedSql = String.format(sql, division, additionalEntries);
 
         Connection conn = null;
 
@@ -520,11 +520,11 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public CompetitionResultsRow getCompetitionResultsByCompetitionCompetitorFirearmDivision(int competition_id, int competitor_id, int firearm_id, String division) throws Exception {
+    public CompetitionResultsRow getCompetitionResultsByCompetitionCompetitorFirearmDivision(int competition_id, int competitor_id, int firearm_id, String division, String additionalEntries) throws Exception {
 
         CompetitionResultsRow competitionResultsRow = new CompetitionResultsRow();
 
-        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITON_COMPETITOR_FIREARM_DIVISION, division);
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITON_COMPETITOR_FIREARM_DIVISION, division, additionalEntries);
 
         Connection conn = null;
 

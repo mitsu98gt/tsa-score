@@ -144,13 +144,13 @@ public class GSSFResultsBean implements Serializable {
 
         renderSingleScores = false;
 
-        competitionStockResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION);
-        competitionUnlimitedResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION);
-        competitionPocketResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION);
-        competitionRimfireResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.RIMFIRE_DIVISION);
-        competitionWomanResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.WOMAN_DIVISION);
-        competitionSeniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.SENIOR_DIVISION);
-        competitionJuniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.JUNIOR_DIVISION);
+        competitionStockResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION, "false");
+        competitionUnlimitedResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION, "false");
+        competitionPocketResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION, "false");
+        competitionRimfireResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.RIMFIRE_DIVISION, "false");
+        competitionWomanResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.WOMAN_DIVISION, "false");
+        competitionSeniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.SENIOR_DIVISION, "false");
+        competitionJuniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.JUNIOR_DIVISION, "false");
     }
 
     public void onTournamentChange() {
@@ -162,7 +162,7 @@ public class GSSFResultsBean implements Serializable {
         }
     }
 
-    public List<CompetitionResultsAverage> calculateAveragesForTournament(List<Competition> allCompetitions, String division) {
+    public List<CompetitionResultsAverage> calculateAveragesForTournament(List<Competition> allCompetitions, String division, String additionalEntries) {
 
         List<CompetitionResultsAverage> competitionResultsAverageList = new ArrayList<CompetitionResultsAverage>();
 
@@ -189,9 +189,9 @@ public class GSSFResultsBean implements Serializable {
             List<Map<CompetitorFirearmKey, CompetitionResultsRow>> competitorResultsMapList = new ArrayList<>();
 
             for (int i = 0; i < allCompetitions.size(); i++) {
-                listOfCompetitors.add(getListOfCompetitorsForByCompetitionIdAndDivision(Integer.valueOf(allCompetitions.get(i).getId()), division));
-                competitorFirearmMapList.add(getListOfCompetitorFirearms(listOfCompetitors.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division));
-                competitorResultsMapList.add(getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitorFirearmMapList.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division));
+                listOfCompetitors.add(getListOfCompetitorsForByCompetitionIdAndDivision(Integer.valueOf(allCompetitions.get(i).getId()), division, additionalEntries));
+                competitorFirearmMapList.add(getListOfCompetitorFirearms(listOfCompetitors.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division, additionalEntries));
+                competitorResultsMapList.add(getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitorFirearmMapList.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division, "false"));
             }
 
             // Combine all the entries from all competitions
@@ -266,28 +266,28 @@ public class GSSFResultsBean implements Serializable {
         return competitionResultsAverageList;
     }
     
-    public List<Competitor> getListOfCompetitorsForByCompetitionIdAndDivision(int competitionId, String division) throws Exception {
-        return competitionResultsDAO.getCompetitorIdByCompetitionAndDivision(competitionId, division);
+    public List<Competitor> getListOfCompetitorsForByCompetitionIdAndDivision(int competitionId, String division, String additionalEntries) throws Exception {
+        return competitionResultsDAO.getCompetitorIdByCompetitionAndDivision(competitionId, division, additionalEntries);
     }
 
-    public Map<Competitor, List<Firearm>> getListOfCompetitorFirearms(List<Competitor> listOfCompetitors, int competitionId, String division) throws Exception {
+    public Map<Competitor, List<Firearm>> getListOfCompetitorFirearms(List<Competitor> listOfCompetitors, int competitionId, String division, String additionalEntries) throws Exception {
         Map<Competitor, List<Firearm>> competitorFirearmMap = new HashMap<>();
         for (int i = 0; i < listOfCompetitors.size(); i++) {
             int competitorId = Integer.valueOf(listOfCompetitors.get(i).getCompetitorId());
-            List<Firearm> firearmList = competitionResultsDAO.getCompetitorFirearmByCompetitionAndDivision(competitorId, competitionId, division);
+            List<Firearm> firearmList = competitionResultsDAO.getCompetitorFirearmByCompetitionAndDivision(competitorId, competitionId, division, additionalEntries);
             competitorFirearmMap.put(listOfCompetitors.get(i), firearmList);
         }
         return competitorFirearmMap;
     }
 
-    public Map<CompetitorFirearmKey, CompetitionResultsRow> getCompetitionResultsByCompetitionCompetitorFirearmDivision(Map<Competitor, List<Firearm>> competitorFirearmMap, int competitionId, String division) throws Exception {
+    public Map<CompetitorFirearmKey, CompetitionResultsRow> getCompetitionResultsByCompetitionCompetitorFirearmDivision(Map<Competitor, List<Firearm>> competitorFirearmMap, int competitionId, String division, String additionalEntries) throws Exception {
         Map<CompetitorFirearmKey, CompetitionResultsRow> competitorResultsMap = new HashMap<>();
         for (Map.Entry<Competitor, List<Firearm>> entry : competitorFirearmMap.entrySet()) {
             List<Firearm> firearmList = entry.getValue();
             for (int i = 0; i < firearmList.size(); i++) {
                 int competitorId = Integer.valueOf(entry.getKey().getCompetitorId());
                 int firearmId = Integer.valueOf(firearmList.get(i).getId());
-                CompetitionResultsRow competitionResultsRow = competitionResultsDAO.getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitionId, competitorId, firearmId, division);
+                CompetitionResultsRow competitionResultsRow = competitionResultsDAO.getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitionId, competitorId, firearmId, division, additionalEntries);
                 competitorResultsMap.put(new CompetitorFirearmKey(competitorId, firearmId), competitionResultsRow);
             }
         }

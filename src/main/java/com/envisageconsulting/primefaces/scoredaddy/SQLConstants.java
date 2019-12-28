@@ -200,6 +200,7 @@ public class SQLConstants {
             " and %s" + // division
             " and cr.competitor_id = cm.id" +
             " and cr.firearm_id = fm.id" +
+            " and cr.additional_entry = %s" +
             " group by" +
             "  cm.first_name";
 
