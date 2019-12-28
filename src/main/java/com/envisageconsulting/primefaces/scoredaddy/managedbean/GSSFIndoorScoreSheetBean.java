@@ -77,7 +77,8 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         scoreSheet.setEntry(scoreSheet.getCompetitor().getGssfId());
     }
 
-    public void doScore() {
+    public boolean doScore() {
+
         scoreSheet.setAdditionalEntry(additionalEntry);
         parseSelectedDivisions();
         if (doValidation()){
@@ -85,7 +86,15 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             ScoreSheetUtils.calculateSumRow(scoreSheet);
             ScoreSheetUtils.calculateTotalRow(scoreSheet);
             ScoreSheetUtils.calculatePenalty(scoreSheet);
+        } else {
+            return false;
         }
+
+        if (!validateAdditionalEntries()) {
+            return false;
+        }
+
+        return true;
     }
 
     public List<Firearm> getListOfFirearms() {
@@ -93,10 +102,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public boolean doValidation() {
-
-        if (!validateAdditionalEntries()) {
-            return false;
-        }
 
         if (!validateDivisions()) {
             return false;
@@ -121,13 +126,23 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             int competitionId = Integer.valueOf(competition.getId());
             int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
             String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
-            int entries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(competitionId, competitorId, division);
+            int designatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(competitionId, competitorId, division);
 
-            if (entries > 0 && !additionalEntry) {
-                pass = false;
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "A designated entry was found for competitor in this division! Please select the additional entries checkbox."));
+            if (designatedEntries == 0) {
+                if (additionalEntry) {
+                    pass = false;
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "No other entries found for competitor in this division! Please input the designated entry before inputting an additional entry."));
+                } else {
+                    pass = true;
+                }
+            } else {
+                if (additionalEntry) {
+                    pass = true;
+                }  else {
+                    pass = false;
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "A designated entry was found for competitor in this division! Please select the additional entries checkbox."));
+                }
             }
-
         } catch (Exception e) {
             pass = false;
         }
@@ -285,14 +300,15 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
     public void saveToDatabase() {
 
-        try {
-            competitionResultsDAO.addCompetitionResults(buildCompetitionResults());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Scores saved successfully!"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Scores did not save!"));
+        if (doScore()) {
+            try {
+                competitionResultsDAO.addCompetitionResults(buildCompetitionResults());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Scores saved successfully!"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Scores did not save!"));
+            }
         }
-
     }
 
     public CompetitionResults buildCompetitionResults() throws Exception {
