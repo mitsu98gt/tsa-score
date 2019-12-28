@@ -2,6 +2,7 @@ package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
 import com.envisageconsulting.primefaces.scoredaddy.DateUtils;
 import com.envisageconsulting.primefaces.scoredaddy.SQLConstants;
+import com.envisageconsulting.primefaces.scoredaddy.ScoreSheetUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.Division;
@@ -20,9 +21,9 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
     private DataSource dataSource;
 
-    public CompetitionResults getCompetitionResultsByCompetitionResultsId(int competitionResultsId) throws Exception {
+    public CompetitionResults getCompetitionResultsByCompetitionResultsId(int competitionResultsId, String division) throws Exception {
 
-        String sql = SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITION_RESULTS_ID;
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_COMPETITION_RESULTS_ID, division);
 
         Connection conn = null;
 

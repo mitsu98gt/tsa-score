@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CompetitionResultsDAO {
 
-    public CompetitionResults getCompetitionResultsByCompetitionResultsId(int competitionResultsId) throws Exception;
+    public CompetitionResults getCompetitionResultsByCompetitionResultsId(int competitionResultsId, String division) throws Exception;
     public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception;
     public List<Competitor> getCompetitorIdByCompetitionAndDivision(int competition_id, String division) throws Exception;
     public List<Firearm> getCompetitorFirearmByCompetitionAndDivision(int competitor_id, int competition_id, String division) throws Exception;

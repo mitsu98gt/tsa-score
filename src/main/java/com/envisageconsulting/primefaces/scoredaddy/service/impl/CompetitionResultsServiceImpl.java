@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy.service.impl;
 
+import com.envisageconsulting.primefaces.scoredaddy.ScoreSheetUtils;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Competition;
@@ -38,6 +39,20 @@ public class CompetitionResultsServiceImpl implements CompetitionResultsService 
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("CompetitionResultsServiceImpl: Failed to delete competition result by competition results id!");
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+    public void updateCompetitionResults(CompetitionResults updateToCompetitionResults, String historyType) throws Exception {
+        try {
+            String division = ScoreSheetUtils.getDivisionForSql(updateToCompetitionResults.getGssfIndoorScoreSheet().getDivsion());
+            CompetitionResults currentCompetitionResults = competitionResultsDAO.getCompetitionResultsByCompetitionResultsId(updateToCompetitionResults.getCompetitionResultsId(), division);
+            competitionResultsDAO.addCompetitionResultsHistory(currentCompetitionResults, historyType);
+            competitionResultsDAO.updateCompetitionResults(updateToCompetitionResults);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("CompetitionResultsServiceImpl: Failed to update competition results!");
+
         }
     }
 

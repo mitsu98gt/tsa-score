@@ -59,6 +59,11 @@ public class SQLConstants {
                     "   account ac" +
                     " where" +
                     "   cr.competition_results_id = ?" +
+                    " and %s" + // cr.stock_division = 1
+                    " and cr.competitor_id = cm.id" +
+                    " and cr.firearm_id = fm.id" +
+                    " and cr.id = comp.id" +
+                    " and comp.account_id = ac.id" +
                     " order by" +
                     "   final_score desc, total_x desc";
 

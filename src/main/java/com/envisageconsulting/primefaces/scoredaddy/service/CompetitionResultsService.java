@@ -10,5 +10,5 @@ public interface CompetitionResultsService {
 
     public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception;
     public void deleteCompetitionResultByCompetitionResultsId(CompetitionResults competitionResults, int key) throws Exception;
-
+    public void updateCompetitionResults(CompetitionResults updateToCompetitionResults, String historyType) throws Exception;
 }

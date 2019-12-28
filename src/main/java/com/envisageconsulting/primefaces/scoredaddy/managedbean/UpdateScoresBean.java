@@ -31,9 +31,6 @@ public class UpdateScoresBean implements Serializable {
     @ManagedProperty("#{competitionResultsService}")
     private CompetitionResultsService competitionResultsService;
 
-    @ManagedProperty("#{competitionResultsDAO}")
-    private CompetitionResultsDAO competitionResultsDAO;
-
     private List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
     private CompetitionResults selectedCompetitiononResults;
     private List<CompetitionResults> filtered;
@@ -60,7 +57,7 @@ public class UpdateScoresBean implements Serializable {
     public void getScores() {
         renderScores = true;
         try {
-            competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
+            competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(ScoreSheetUtils.getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,7 +69,7 @@ public class UpdateScoresBean implements Serializable {
         } else {
             try {
                 competitionResultsService.deleteCompetitionResultByCompetitionResultsId(selectedCompetitiononResults, selectedCompetitiononResults.getCompetitionResultsId());
-                competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
+                competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(ScoreSheetUtils.getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Delete Successful!"));
             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info:", "Delete UnSuccessful!"));
@@ -85,9 +82,7 @@ public class UpdateScoresBean implements Serializable {
         CompetitionResults results = (CompetitionResults) event.getObject();
         if (ScoreSheetUtils.validateScoreSheet(results.getGssfIndoorScoreSheet())) {
             try {
-                CompetitionResults currentResults = competitionResultsDAO.getCompetitionResultsByCompetitionResultsId(results.getCompetitionResultsId());
-                competitionResultsDAO.addCompetitionResultsHistory(currentResults, "U");
-                competitionResultsDAO.updateCompetitionResults(results);
+                competitionResultsService.updateCompetitionResults(results,"U");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Update Successful!"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Update Failed!"));
@@ -97,24 +92,6 @@ public class UpdateScoresBean implements Serializable {
 
     public void onRowCancel(RowEditEvent event) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Update Cancelled!"));
-    }
-
-    public String getConvertedDivisionCode(String division) {
-
-        if (division.equals("GSSF_UNLIMITED")) {
-            return SQLConstants.UNLIMITED_DIVISION;
-        }
-        if (division.equals("GSSF_STOCK")) {
-            return SQLConstants.STOCK_DIVISION;
-        }
-        if (division.equals("GSSF_POCKET")) {
-            return SQLConstants.POCKET_DIVISION;
-        }
-        if (division.equals("GSSF_RIMFIRE")) {
-            return SQLConstants.RIMFIRE_DIVISION;
-        }
-
-        return null;
     }
 
     public List<CompetitionResults> getCompetitionResultsList() {
@@ -189,11 +166,4 @@ public class UpdateScoresBean implements Serializable {
         this.accountName = accountName;
     }
 
-    public CompetitionResultsDAO getCompetitionResultsDAO() {
-        return competitionResultsDAO;
-    }
-
-    public void setCompetitionResultsDAO(CompetitionResultsDAO competitionResultsDAO) {
-        this.competitionResultsDAO = competitionResultsDAO;
-    }
 }

@@ -1,5 +1,6 @@
 package com.envisageconsulting.primefaces.scoredaddy;
 
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.Division;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
 
 import javax.faces.application.FacesMessage;
@@ -90,5 +91,35 @@ public class ScoreSheetUtils {
 
     public static int calculateTargetTwoTotals(GSSFIndoorScoreSheet scoreSheet) {
         return (scoreSheet.getTargetTwo().getX() + scoreSheet.getTargetTwo().getTen() + scoreSheet.getTargetTwo().getEight() + scoreSheet.getTargetTwo().getFive() + scoreSheet.getTargetTwo().getMisses());
+    }
+
+    public static String getDivisionForSql(Division division) {
+        if (division.isStock()) {
+            return SQLConstants.STOCK_DIVISION;
+        } else if (division.isUnlimited()){
+            return SQLConstants.UNLIMITED_DIVISION;
+        } else if (division.isPocket()) {
+            return SQLConstants.POCKET_DIVISION;
+        } else {
+            return SQLConstants.RIMFIRE_DIVISION;
+        }
+    }
+
+    public static String getConvertedDivisionCode(String division) {
+
+        if (division.equals("GSSF_UNLIMITED")) {
+            return SQLConstants.UNLIMITED_DIVISION;
+        }
+        if (division.equals("GSSF_STOCK")) {
+            return SQLConstants.STOCK_DIVISION;
+        }
+        if (division.equals("GSSF_POCKET")) {
+            return SQLConstants.POCKET_DIVISION;
+        }
+        if (division.equals("GSSF_RIMFIRE")) {
+            return SQLConstants.RIMFIRE_DIVISION;
+        }
+
+        return null;
     }
 }
