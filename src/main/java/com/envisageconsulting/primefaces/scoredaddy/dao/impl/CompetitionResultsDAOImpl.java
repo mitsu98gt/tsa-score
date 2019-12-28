@@ -21,9 +21,9 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
     private DataSource dataSource;
 
-    public int getCompetitorNumberOfEntriesByCometitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
+    public int getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
 
-        String sql = "select count(*) as entries from competition_results where id = ? and competitor_id = ? and %s = true";
+        String sql = "select count(*) as entries from competition_results where id = ? and competitor_id = ? and %s = true and additional_entry = false";
 
         Connection conn = null;
 
@@ -43,7 +43,41 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.close();
             return entries;
         } catch (SQLException ex) {
-            throw new Exception("Failed to getCompetitorNumberOfEntriesByCometitionAndDivision!" + ex);
+            throw new Exception("Failed to getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision!" + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public int getCompetitorNumberOfAdditionalEntriesByCometitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
+
+        String sql = "select count(*) as entries from competition_results where id = ? and competitor_id = ? and %s = true and additional_entry = true";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(String.format(sql, division));
+            ps.setInt(1, competitionId);
+            ps.setInt(2, competitorId);
+            ResultSet rs = ps.executeQuery();
+
+            int entries = 0;
+            while (rs.next()) {
+                entries = rs.getInt("entries");
+            }
+            rs.close();
+            ps.close();
+            return entries;
+        } catch (SQLException ex) {
+            throw new Exception("Failed to getCompetitorNumberOfAdditionalEntriesByCometitionAndDivision!" + ex);
         } finally {
             if (conn != null) {
                 try {

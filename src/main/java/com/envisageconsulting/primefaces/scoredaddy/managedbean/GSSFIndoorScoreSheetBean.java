@@ -121,22 +121,13 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             int competitionId = Integer.valueOf(competition.getId());
             int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
             String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
-            int entries = competitionResultsDAO.getCompetitorNumberOfEntriesByCometitionAndDivision(competitionId, competitorId, division);
-            if (entries == 0) {
-                if (additionalEntry) {
-                    pass = false;
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "No other entries found for competitor in this division! Please un-select the additional entries checkbox."));
-                } else {
-                    pass = true;
-                }
-            } else {
-                if (additionalEntry) {
-                    pass = true;
-                }  else {
-                    pass = false;
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Other entries found for competitor in this division! Please select the additional entries checkbox."));
-                }
+            int entries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(competitionId, competitorId, division);
+
+            if (entries > 0 && !additionalEntry) {
+                pass = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "A designated entry was found for competitor in this division! Please select the additional entries checkbox."));
             }
+
         } catch (Exception e) {
             pass = false;
         }
