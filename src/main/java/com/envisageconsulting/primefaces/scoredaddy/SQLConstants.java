@@ -75,15 +75,15 @@ public class SQLConstants {
             "    cr.date," +
             "    cr.competitor_id," +
             "    cr.firearm_id," +
-                    "    cr.stock_division," +
-                    "    cr.unlimited_division," +
-                    "    cr.pocket_division," +
-                    "    cr.woman_division," +
-                    "    cr.junior_division," +
-                    "    cr.senior_division," +
-                    "    cr.limited_division," +
-                    "    cr.revolver_division," +
-                    "    cr.rimfire_division," +
+            "    cr.stock_division," +
+            "    cr.unlimited_division," +
+            "    cr.pocket_division," +
+            "    cr.woman_division," +
+            "    cr.junior_division," +
+            "    cr.senior_division," +
+            "    cr.limited_division," +
+            "    cr.revolver_division," +
+            "    cr.rimfire_division," +
             "    cr.target_one_x," +
             "    cr.target_one_ten," +
             "    cr.target_one_eight," +
@@ -97,9 +97,9 @@ public class SQLConstants {
             "    cr.penalty," +
             "    cr.final_score," +
             "    cr.total_x," +
-                    "    cr.range_officer_initials," +
-                    "    cr.competitor_initials," +
-                    "    cr.additional_entry," +
+            "    cr.range_officer_initials," +
+            "    cr.competitor_initials," +
+            "    cr.additional_entry," +
             "    cm.first_name," +
             "    cm.last_name," +
             "    fm.model," +
@@ -120,6 +120,61 @@ public class SQLConstants {
             " and comp.account_id = ac.id" +
             " order by" +
             "   final_score desc, total_x desc";
+
+    public static final String COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID_AND_ADDITIONAL_ENTRIES =
+            "select" +
+                    " cr.competition_results_id," +
+                    "    cr.id," +
+                    "    cr.code," +
+                    "    cr.date," +
+                    "    cr.competitor_id," +
+                    "    cr.firearm_id," +
+                    "    cr.stock_division," +
+                    "    cr.unlimited_division," +
+                    "    cr.pocket_division," +
+                    "    cr.woman_division," +
+                    "    cr.junior_division," +
+                    "    cr.senior_division," +
+                    "    cr.limited_division," +
+                    "    cr.revolver_division," +
+                    "    cr.rimfire_division," +
+                    "    cr.target_one_x," +
+                    "    cr.target_one_ten," +
+                    "    cr.target_one_eight," +
+                    "    cr.target_one_five," +
+                    "    cr.target_one_misses," +
+                    "    cr.target_two_x," +
+                    "    cr.target_two_ten," +
+                    "    cr.target_two_eight," +
+                    "    cr.target_two_five," +
+                    "    cr.target_two_misses," +
+                    "    cr.penalty," +
+                    "    cr.final_score," +
+                    "    cr.total_x," +
+                    "    cr.range_officer_initials," +
+                    "    cr.competitor_initials," +
+                    "    cr.additional_entry," +
+                    "    cm.first_name," +
+                    "    cm.last_name," +
+                    "    fm.model," +
+                    "    comp.description," +
+                    "    ac.name" +
+                    " from" +
+                    "   competition_results cr," +
+                    "   competitor cm," +
+                    "   firearm_models fm," +
+                    "   competition comp," +
+                    "   account ac" +
+                    " where" +
+                    "   cr.id = ?" +
+                    " and %s" + // cr.stock_division = 1
+                    " and cr.competitor_id = cm.id" +
+                    " and cr.firearm_id = fm.id" +
+                    " and cr.id = comp.id" +
+                    " and comp.account_id = ac.id" +
+                    " and cr.additional_entry = %s" +
+                    " order by" +
+                    "   final_score desc, total_x desc";
 
     public static final String COMPETITION_RESULTS_QUERY_BY_COMPETITON_COMPETITOR_FIREARM_DIVISION =
             "select" +

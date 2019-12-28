@@ -30,9 +30,13 @@ public class GSSFResultsBean implements Serializable {
     private TournamentDAO tournamentDAO;
 
     private List<CompetitionResults> competitionStockResultsList;
+    private List<CompetitionResults> competitionStockResultsListAdditionalEntries;
     private List<CompetitionResults> competitionUnlimitedResultsList;
+    private List<CompetitionResults> competitionUnlimitedResultsListAdditionalEntries;
     private List<CompetitionResults> competitionPocketResultsList;
+    private List<CompetitionResults> competitionPocketResultsListAdditionalEntries;
     private List<CompetitionResults> competitionRimfireResultsList;
+    private List<CompetitionResults> competitionRimfireResultsListAdditionalEntries;
     private List<CompetitionResults> competitionWomanResultsList;
     private List<CompetitionResults> competitionSeniorResultsList;
     private List<CompetitionResults> competitionJuniorResultsList;
@@ -93,13 +97,42 @@ public class GSSFResultsBean implements Serializable {
             renderSingleScores = true;
             renderDoubleScores = false;
             renderTrippleScores = false;
-            competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId())));
-            competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
-            competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()));
-            competitionRimfireResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()));
-            competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()));
-            competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
-            competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
+
+            competitionStockResultsList = calculateClassifcation(competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId()), "false"));
+            competitionStockResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId()), "true");
+            for (CompetitionResults results : competitionStockResultsListAdditionalEntries) {
+                results.setRank("");
+                results.setClassification("Additional");
+                competitionStockResultsList.add(results);
+            }
+
+            competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()), "false");
+            competitionUnlimitedResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()), "true");
+            for (CompetitionResults results : competitionUnlimitedResultsListAdditionalEntries) {
+                results.setRank("");
+                results.setClassification("Additional");
+                competitionUnlimitedResultsList.add(results);
+            }
+
+            competitionPocketResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()), "false");
+            competitionPocketResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()), "true");
+            for (CompetitionResults results : competitionPocketResultsListAdditionalEntries) {
+                results.setRank("");
+                results.setClassification("Additional");
+                competitionPocketResultsList.add(results);
+            }
+
+            competitionRimfireResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()), "false");
+            competitionRimfireResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()), "true");
+            for (CompetitionResults results : competitionRimfireResultsListAdditionalEntries) {
+                results.setRank("");
+                results.setClassification("Additional");
+                competitionRimfireResultsList.add(results);
+            }
+
+            competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()), "false");
+            competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()), "false");
+            competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()), "false");
             currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(competitionStockResultsList.get(0).getCompetitionDetails().getDate());
             competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {

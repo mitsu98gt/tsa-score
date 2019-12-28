@@ -172,7 +172,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 gssfIndoorScoreSheet.setAdditionalEntry(rs.getBoolean("additional_entry"));
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
-                competitionResults.setRank(rank + 1);
+                competitionResults.setRank(String.valueOf(rank + 1));
                 rank++;
 
                 Competition competition = new Competition();
@@ -203,11 +203,11 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception {
+    public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId, String additionalEntries) throws Exception {
 
         List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
 
-        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID, division);
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID_AND_ADDITIONAL_ENTRIES, division, additionalEntries);
 
         Connection conn = null;
 
@@ -287,7 +287,124 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 gssfIndoorScoreSheet.setAdditionalEntry(rs.getBoolean("additional_entry"));
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
-                competitionResults.setRank(rank + 1);
+                competitionResults.setRank(String.valueOf(rank + 1));
+                rank++;
+
+                Competition competition = new Competition();
+                competition.setDescription(rs.getString("description"));
+                competitionResults.setCompetition(competition);
+
+                Account account = new Account();
+                account.setName(rs.getString("name"));
+                competitionResults.setAccount(account);
+
+                competitionResultsList.add(competitionResults);
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return competitionResultsList;
+
+        } catch (SQLException ex) {
+            throw new Exception(ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception {
+
+        List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
+
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID, division);
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, competitionId);
+
+            ResultSet rs = ps.executeQuery();
+            int rank = 0;
+            while (rs.next()) {
+
+                CompetitionResults competitionResults = new CompetitionResults();
+                CompetitionDetails competitionDetails = new CompetitionDetails();
+                competitionDetails.setCompetitionDetailsId(String.valueOf(rs.getInt("id")));
+
+                CompetitionCompetitors competitionCompetitors = new CompetitionCompetitors();
+                competitionCompetitors.setCompetitorId(String.valueOf(rs.getInt("competitor_id")));
+                competitionCompetitors.setFirearmId(String.valueOf(rs.getInt("firearm_id")));
+                competitionResults.setCompetitionCompetitors(competitionCompetitors);
+
+                competitionResults.setCompetitionResultsId(rs.getInt("competition_results_id"));
+                competitionDetails.setDate(rs.getDate("date"));
+
+                CompetitionCode competitionCode = new CompetitionCode();
+                competitionCode.setCompetitionCodeId(String.valueOf(rs.getInt("code")));
+                competitionDetails.setCompetitionCode(competitionCode);
+
+                competitionResults.setCompetitionDetails(competitionDetails);
+
+                GSSFIndoorScoreSheet gssfIndoorScoreSheet = new GSSFIndoorScoreSheet();
+
+                Division div = new Division();
+                div.setStock(rs.getBoolean("stock_division"));
+                div.setUnlimited(rs.getBoolean("unlimited_division"));
+                div.setPocket(rs.getBoolean("pocket_division"));
+                div.setWoman(rs.getBoolean("woman_division"));
+                div.setJunior(rs.getBoolean("junior_division"));
+                div.setSenior(rs.getBoolean("senior_division"));
+                div.setLimited(rs.getBoolean("limited_division"));
+                div.setRevolver(rs.getBoolean("revolver_division"));
+                div.setRimfire(rs.getBoolean("rimfire_division"));
+                gssfIndoorScoreSheet.setDivsion(div);
+
+                Competitor competitor = new Competitor();
+                competitor.setFirstName(rs.getString("first_name"));
+                competitor.setLastName(rs.getString("last_name"));
+                gssfIndoorScoreSheet.setCompetitor(competitor);
+
+                Firearm firearm = new Firearm();
+                firearm.setModel(rs.getString("model"));
+                gssfIndoorScoreSheet.setFirearm(firearm);
+
+                TargetOne targetOne = new TargetOne();
+                targetOne.setX(rs.getInt("target_one_x"));
+                targetOne.setTen(rs.getInt("target_one_ten"));
+                targetOne.setEight(rs.getInt("target_one_eight"));
+                targetOne.setFive(rs.getInt("target_one_five"));
+                targetOne.setMisses(rs.getInt("target_one_misses"));
+                gssfIndoorScoreSheet.setTargetOne(targetOne);
+
+                TargetTwo targetTwo = new TargetTwo();
+                targetTwo.setX(rs.getInt("target_two_x"));
+                targetTwo.setTen(rs.getInt("target_two_ten"));
+                targetTwo.setEight(rs.getInt("target_two_eight"));
+                targetTwo.setFive(rs.getInt("target_two_five"));
+                targetTwo.setMisses(rs.getInt("target_two_misses"));
+                gssfIndoorScoreSheet.setTargetTwo(targetTwo);
+
+                gssfIndoorScoreSheet.setPenalty(rs.getInt("penalty"));
+                gssfIndoorScoreSheet.setFinalScore(rs.getInt("final_score"));
+                gssfIndoorScoreSheet.setTotalX(rs.getInt("total_x"));
+
+                gssfIndoorScoreSheet.setRangeOfficerInitials(rs.getString("range_officer_initials"));
+                gssfIndoorScoreSheet.setCompetitorInitials(rs.getString("competitor_initials"));
+
+                gssfIndoorScoreSheet.setAdditionalEntry(rs.getBoolean("additional_entry"));
+
+                competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
+                competitionResults.setRank(String.valueOf(rank + 1));
                 rank++;
 
                 Competition competition = new Competition();
