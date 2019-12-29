@@ -37,6 +37,14 @@
         <br/>
         <p:messages id="scoremessages" style="width:400px"/>
         <br/>
+        <p:panelGrid columns="2" id="legendPanel" rendered="#{gssfResultsBean.renderLegend}">
+            <h:outputText value="D"/>
+            <h:outputText value="Designated Entry"/>
+            <h:outputText value="+Entry"/>
+            <h:outputText value="Additional Entry"/>
+            <h:outputText value="UNQ"/>
+            <h:outputText value="Unqualified Entry"/>
+        </p:panelGrid>
         <br/>
         <h:panelGroup id="singleResultsPanelGroup" layout="block">
             <p:panel id="singleResultsPanel" rendered="#{gssfResultsBean.renderSingleScores}">

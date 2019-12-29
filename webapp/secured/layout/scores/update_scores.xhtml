@@ -28,11 +28,12 @@
             <p:messages id="registercompetitormessages" style="width:400px" rendered="#{form1.submitted}"/>
         </h:form>
         <br/>
-        <p:panel id="legendPanel" rendered="#{updateScoresBean.renderScores}">
-        D = Designated Entry
-        <br/>
-        +Entry = Additional Entry
-        </p:panel>
+        <p:panelGrid columns="2" id="legendPanel" rendered="#{updateScoresBean.renderScores}">
+            <h:outputText value="D"/>
+            <h:outputText value="Designated Entry"/>
+            <h:outputText value="+Entry"/>
+            <h:outputText value="Additional Entry"/>
+        </p:panelGrid>
         <br/>
         <p:panel id="singleResultsPanel" rendered="#{updateScoresBean.renderScores}">
             <h:form id="updatecompetitorfrm">

@@ -59,7 +59,7 @@ public class GSSFResultsBean implements Serializable {
     private boolean renderSingleScores;
     private boolean renderDoubleScores;
     private boolean renderTrippleScores;
-
+    private boolean renderLegend;
 
     private List<CompetitionResultsAverage> competitionStockResultsAverageList;
     private List<CompetitionResultsAverage> competitionStockResultsAverageListAdditionalEntries;
@@ -80,6 +80,7 @@ public class GSSFResultsBean implements Serializable {
         renderSingleScores = false;
         renderDoubleScores = false;
         renderTrippleScores = false;
+        renderLegend = false;
 
         try {
             allTournaments = tournamentDAO.getAllGlockTournamentsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
@@ -102,6 +103,7 @@ public class GSSFResultsBean implements Serializable {
 
         try {
             renderSingleScores = true;
+            renderLegend = true;
             renderDoubleScores = false;
             renderTrippleScores = false;
 
@@ -206,6 +208,7 @@ public class GSSFResultsBean implements Serializable {
 
             if (allCompetitions.size() == 2) {
                 renderDoubleScores = true;
+                renderLegend = true;
                 renderTrippleScores = false;
 
                 currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(1).getDate());
@@ -214,6 +217,7 @@ public class GSSFResultsBean implements Serializable {
             } else {
                 renderDoubleScores = false;
                 renderTrippleScores = true;
+                renderLegend = true;
                 currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(allCompetitions.get(2).getDate());
                 firstCompetitionDate = DateUtils.getDate(allCompetitions.get(0).getDate());
                 previousCompetitionDate = DateUtils.getDate(allCompetitions.get(1).getDate());
@@ -872,5 +876,9 @@ public class GSSFResultsBean implements Serializable {
 
     public boolean isRenderTrippleScores() {
         return renderTrippleScores;
+    }
+
+    public boolean isRenderLegend() {
+        return renderLegend;
     }
 }
