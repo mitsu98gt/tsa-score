@@ -62,9 +62,13 @@ public class GSSFResultsBean implements Serializable {
 
 
     private List<CompetitionResultsAverage> competitionStockResultsAverageList;
+    private List<CompetitionResultsAverage> competitionStockResultsAverageListAdditionalEntries;
     private List<CompetitionResultsAverage> competitionUnlimitedResultsAverageList;
+    private List<CompetitionResultsAverage> competitionUnlimitedResultsAverageListAdditionalEntries;
     private List<CompetitionResultsAverage> competitionPocketResultsAverageList;
+    private List<CompetitionResultsAverage> competitionPocketResultsAverageListAdditionalEntries;
     private List<CompetitionResultsAverage> competitionRimfireResultsAverageList;
+    private List<CompetitionResultsAverage> competitionRimfireResultsAverageListAdditionalEntries;
     private List<CompetitionResultsAverage> competitionWomanResultsAverageList;
     private List<CompetitionResultsAverage> competitionSeniorResultsAverageList;
     private List<CompetitionResultsAverage> competitionJuniorResultsAverageList;
@@ -93,6 +97,9 @@ public class GSSFResultsBean implements Serializable {
     }
 
     public void viewSingleScores() {
+
+        initializeResults();
+
         try {
             renderSingleScores = true;
             renderDoubleScores = false;
@@ -142,12 +149,41 @@ public class GSSFResultsBean implements Serializable {
 
     public void viewAveragedScores() {
 
+        initializeResults();
         renderSingleScores = false;
 
         competitionStockResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION, "false");
+        competitionStockResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION, "true");
+        for (CompetitionResultsAverage results : competitionStockResultsAverageListAdditionalEntries) {
+            results.setRank("");
+            results.setClassification("Additional");
+            competitionStockResultsAverageList.add(results);
+        }
+
         competitionUnlimitedResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION, "false");
+        competitionUnlimitedResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION, "true");
+        for (CompetitionResultsAverage results : competitionUnlimitedResultsAverageListAdditionalEntries) {
+            results.setRank("");
+            results.setClassification("Additional");
+            competitionUnlimitedResultsAverageList.add(results);
+        }
+
         competitionPocketResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION, "false");
+        competitionPocketResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION, "true");
+        for (CompetitionResultsAverage results : competitionPocketResultsAverageListAdditionalEntries) {
+            results.setRank("");
+            results.setClassification("Additional");
+            competitionPocketResultsAverageList.add(results);
+        }
+
         competitionRimfireResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.RIMFIRE_DIVISION, "false");
+        competitionRimfireResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.RIMFIRE_DIVISION, "true");
+        for (CompetitionResultsAverage results : competitionRimfireResultsAverageListAdditionalEntries) {
+            results.setRank("");
+            results.setClassification("Additional");
+            competitionRimfireResultsAverageList.add(results);
+        }
+
         competitionWomanResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.WOMAN_DIVISION, "false");
         competitionSeniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.SENIOR_DIVISION, "false");
         competitionJuniorResultsAverageList = calculateAveragesForTournament(allCompetitions, SQLConstants.JUNIOR_DIVISION, "false");
@@ -191,7 +227,7 @@ public class GSSFResultsBean implements Serializable {
             for (int i = 0; i < allCompetitions.size(); i++) {
                 listOfCompetitors.add(getListOfCompetitorsForByCompetitionIdAndDivision(Integer.valueOf(allCompetitions.get(i).getId()), division, additionalEntries));
                 competitorFirearmMapList.add(getListOfCompetitorFirearms(listOfCompetitors.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division, additionalEntries));
-                competitorResultsMapList.add(getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitorFirearmMapList.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division, "false"));
+                competitorResultsMapList.add(getCompetitionResultsByCompetitionCompetitorFirearmDivision(competitorFirearmMapList.get(i), Integer.valueOf(allCompetitions.get(i).getId()), division, additionalEntries));
             }
 
             // Combine all the entries from all competitions
@@ -474,6 +510,34 @@ public class GSSFResultsBean implements Serializable {
         }
 
         return list;
+    }
+
+    public void initializeResults() {
+
+        competitionStockResultsList = new ArrayList<>();
+        competitionStockResultsListAdditionalEntries = new ArrayList<>();
+        competitionUnlimitedResultsList = new ArrayList<>();
+        competitionUnlimitedResultsListAdditionalEntries = new ArrayList<>();
+        competitionPocketResultsList = new ArrayList<>();
+        competitionPocketResultsListAdditionalEntries = new ArrayList<>();
+        competitionRimfireResultsList = new ArrayList<>();
+        competitionRimfireResultsListAdditionalEntries = new ArrayList<>();
+        competitionWomanResultsList = new ArrayList<>();
+        competitionSeniorResultsList = new ArrayList<>();
+        competitionJuniorResultsList = new ArrayList<>();
+
+        competitionStockResultsAverageList = new ArrayList<>();
+        competitionStockResultsAverageListAdditionalEntries = new ArrayList<>();
+        competitionUnlimitedResultsAverageList = new ArrayList<>();
+        competitionUnlimitedResultsAverageListAdditionalEntries = new ArrayList<>();
+        competitionPocketResultsAverageList = new ArrayList<>();
+        competitionPocketResultsAverageListAdditionalEntries = new ArrayList<>();
+        competitionRimfireResultsAverageList = new ArrayList<>();
+        competitionRimfireResultsAverageListAdditionalEntries = new ArrayList<>();
+        competitionWomanResultsAverageList = new ArrayList<>();
+        competitionSeniorResultsAverageList = new ArrayList<>();
+        competitionJuniorResultsAverageList = new ArrayList<>();
+
     }
 
     public String getCurrentCompetitionFullSpellingDate() {
