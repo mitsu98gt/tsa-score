@@ -282,16 +282,138 @@ public class GSSFResultsBean implements Serializable {
 
             for (CompetitorFirearmKey nonMatchingKey : nonMatchingSetOfKeys) {
                 if (combinedCompetitorResultsMap.containsKey(nonMatchingKey)) {
-                    CompetitionResultsAverage unqalifiedRow = new CompetitionResultsAverage();
-                    unqalifiedRow.setFirst_name(combinedCompetitorResultsMap.get(nonMatchingKey).getFirst_name());
-                    unqalifiedRow.setLast_name(combinedCompetitorResultsMap.get(nonMatchingKey).getLast_name());
-                    unqalifiedRow.setFirearm_model(combinedCompetitorResultsMap.get(nonMatchingKey).getFirearm_model());
-                    if (division.equals(SQLConstants.STOCK_DIVISION)) {
-                        unqalifiedRow.setRank("UNQ");
+                    CompetitionResultsAverage unqualifiedAverageRow = new CompetitionResultsAverage();
+                    CompetitionResultsRow unqualifiedResultsRow = combinedCompetitorResultsMap.get(nonMatchingKey);
+                    unqualifiedAverageRow.setFirst_name(unqualifiedResultsRow.getFirst_name());
+                    unqualifiedAverageRow.setLast_name(unqualifiedResultsRow.getLast_name());
+                    unqualifiedAverageRow.setFirearm_model(unqualifiedResultsRow.getFirearm_model());
+
+                    String firstMatchDate = DateUtils.getDate(allCompetitions.get(0).getDate());
+                    String secondMatchDate = DateUtils.getDate(allCompetitions.get(1).getDate());
+
+                    String unqualifiedResultsDate = DateUtils.getDate(unqualifiedResultsRow.getDate());
+
+                    if (renderDoubleScores) {
+
+                        if (unqualifiedResultsDate.equals(firstMatchDate)) {
+
+                            unqualifiedAverageRow.setPrevious_score(unqualifiedResultsRow.getFinal_score());
+                            unqualifiedAverageRow.setPrevious_x(unqualifiedResultsRow.getTotal_x());
+
+                            unqualifiedAverageRow.setCurrent_x("N/A");
+                            unqualifiedAverageRow.setCurrent_ten("N/A");
+                            unqualifiedAverageRow.setCurrent_eight("N/A");
+                            unqualifiedAverageRow.setCurrent_five("N/A");
+                            unqualifiedAverageRow.setCurrent_misses("N/A");
+                            unqualifiedAverageRow.setCurrent_penalty("N/A");
+                            unqualifiedAverageRow.setCurrent_score("N/A");
+
+                            unqualifiedAverageRow.setAverage_score("N/A");
+                            unqualifiedAverageRow.setTotal_x("N/A");
+
+                        } else {
+
+                            unqualifiedAverageRow.setPrevious_score("N/A");
+                            unqualifiedAverageRow.setPrevious_x("N/A");
+
+                            unqualifiedAverageRow.setCurrent_x(unqualifiedResultsRow.getTotal_x());
+                            unqualifiedAverageRow.setCurrent_ten(unqualifiedResultsRow.getTotal_ten());
+                            unqualifiedAverageRow.setCurrent_eight(unqualifiedResultsRow.getTotal_eight());
+                            unqualifiedAverageRow.setCurrent_five(unqualifiedResultsRow.getTotal_five());
+                            unqualifiedAverageRow.setCurrent_misses(unqualifiedResultsRow.getTotal_misses());
+                            unqualifiedAverageRow.setCurrent_penalty(unqualifiedResultsRow.getPenalty());
+                            unqualifiedAverageRow.setCurrent_score(unqualifiedResultsRow.getFinal_score());
+
+                            unqualifiedAverageRow.setAverage_score("N/A");
+                            unqualifiedAverageRow.setTotal_x("N/A");
+
+                        }
                     } else {
-                        unqalifiedRow.setRank("UNQ");
+
+                        String thirdMatchDate = DateUtils.getDate(allCompetitions.get(2).getDate());
+
+                        if (unqualifiedResultsDate.equals(firstMatchDate)) {
+
+                            unqualifiedAverageRow.setCurrent_x("N/A");
+                            unqualifiedAverageRow.setCurrent_ten("N/A");
+                            unqualifiedAverageRow.setCurrent_eight("N/A");
+                            unqualifiedAverageRow.setCurrent_five("N/A");
+                            unqualifiedAverageRow.setCurrent_misses("N/A");
+                            unqualifiedAverageRow.setCurrent_penalty("N/A");
+                            unqualifiedAverageRow.setCurrent_score("N/A");
+
+                            unqualifiedAverageRow.setFirst_score(unqualifiedResultsRow.getFinal_score());
+                            unqualifiedAverageRow.setFirst_x(unqualifiedResultsRow.getTotal_x());
+
+                            unqualifiedAverageRow.setPrevious_score("N/A");
+                            unqualifiedAverageRow.setPrevious_x("N/A");
+
+                            unqualifiedAverageRow.setTop_score("N/A");
+                            unqualifiedAverageRow.setTop_x("N/A");
+                            unqualifiedAverageRow.setSecond_score("N/A");
+                            unqualifiedAverageRow.setSecond_x("N/A");
+
+                            unqualifiedAverageRow.setAverage_score("N/A");
+                            unqualifiedAverageRow.setTotal_x("N/A");
+
+                        } else if (unqualifiedResultsDate.equals(secondMatchDate)) {
+
+                            unqualifiedAverageRow.setCurrent_x("N/A");
+                            unqualifiedAverageRow.setCurrent_ten("N/A");
+                            unqualifiedAverageRow.setCurrent_eight("N/A");
+                            unqualifiedAverageRow.setCurrent_five("N/A");
+                            unqualifiedAverageRow.setCurrent_misses("N/A");
+                            unqualifiedAverageRow.setCurrent_penalty("N/A");
+                            unqualifiedAverageRow.setCurrent_score("N/A");
+
+                            unqualifiedAverageRow.setFirst_score("N/A");
+                            unqualifiedAverageRow.setFirst_x("N/A");
+
+                            unqualifiedAverageRow.setPrevious_score(unqualifiedResultsRow.getFinal_score());
+                            unqualifiedAverageRow.setPrevious_x(unqualifiedResultsRow.getTotal_x());
+
+                            unqualifiedAverageRow.setTop_score("N/A");
+                            unqualifiedAverageRow.setTop_x("N/A");
+                            unqualifiedAverageRow.setSecond_score("N/A");
+                            unqualifiedAverageRow.setSecond_x("N/A");
+
+                            unqualifiedAverageRow.setAverage_score("N/A");
+                            unqualifiedAverageRow.setTotal_x("N/A");
+
+                        } else {
+
+                            unqualifiedAverageRow.setCurrent_x(unqualifiedResultsRow.getTotal_x());
+                            unqualifiedAverageRow.setCurrent_ten(unqualifiedResultsRow.getTotal_ten());
+                            unqualifiedAverageRow.setCurrent_eight(unqualifiedResultsRow.getTotal_eight());
+                            unqualifiedAverageRow.setCurrent_five(unqualifiedResultsRow.getTotal_five());
+                            unqualifiedAverageRow.setCurrent_misses(unqualifiedResultsRow.getTotal_misses());
+                            unqualifiedAverageRow.setCurrent_penalty(unqualifiedResultsRow.getPenalty());
+                            unqualifiedAverageRow.setCurrent_score(unqualifiedResultsRow.getFinal_score());
+
+                            unqualifiedAverageRow.setFirst_score("N/A");
+                            unqualifiedAverageRow.setFirst_x("N/A");
+
+                            unqualifiedAverageRow.setPrevious_score("N/A");
+                            unqualifiedAverageRow.setPrevious_x("N/A");
+
+                            unqualifiedAverageRow.setTop_score("N/A");
+                            unqualifiedAverageRow.setTop_x("N/A");
+                            unqualifiedAverageRow.setSecond_score("N/A");
+                            unqualifiedAverageRow.setSecond_x("N/A");
+
+                            unqualifiedAverageRow.setAverage_score("N/A");
+                            unqualifiedAverageRow.setTotal_x("N/A");
+
+                        }
+
                     }
-                    competitionResultsAverageList.add(unqalifiedRow);
+
+                    if (division.equals(SQLConstants.STOCK_DIVISION)) {
+                        unqualifiedAverageRow.setRank("UNQ");
+                    } else {
+                        unqualifiedAverageRow.setRank("UNQ");
+                    }
+                    competitionResultsAverageList.add(unqualifiedAverageRow);
                 }
             }
 

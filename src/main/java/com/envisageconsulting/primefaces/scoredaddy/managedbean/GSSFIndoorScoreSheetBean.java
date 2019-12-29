@@ -127,10 +127,11 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
             String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
             int designatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(competitionId, competitorId, division);
+            int tournamentDesignatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByTournamentAndDivision(competitionId, competitorId, division);
             List<Firearm> firearms = competitionResultsDAO.getCompetitorAdditionalEntriesByFirearms(competitionId, competitorId, division);
 
             if (designatedEntries == 0) {
-                if (additionalEntry) {
+                if (additionalEntry && (tournamentDesignatedEntries < 2)) {
                     pass = false;
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "No other entries found for competitor in this division! Please input the designated entry before inputting an additional entry."));
                 } else {

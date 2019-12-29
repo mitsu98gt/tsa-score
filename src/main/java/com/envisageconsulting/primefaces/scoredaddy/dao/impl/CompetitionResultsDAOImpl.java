@@ -55,6 +55,48 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
+    public int getCompetitorNumberOfDesignatedEntriesByTournamentAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
+
+        String sql = "select count(*) as entries \n" +
+                "  from competition_results \n" +
+                "where id in (select id from competition where tournament_id = \n" +
+                "  (select tournament_id from competition where id = ?))\n" +
+                "and competitor_id = ?\n" +
+                "and %s = true\n" +
+                "and additional_entry = false";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(String.format(sql, division));
+            ps.setInt(1, competitionId);
+            ps.setInt(2, competitorId);
+            ResultSet rs = ps.executeQuery();
+
+            int entries = 0;
+            while (rs.next()) {
+                entries = rs.getInt("entries");
+            }
+            rs.close();
+            ps.close();
+
+            return entries;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision!" + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public List<Firearm> getCompetitorAdditionalEntriesByFirearms(int competitionId, int competitorId, String division)  throws  Exception {
 
         String sql = "select firearm_id from competition_results where id = ? and competitor_id = ? and %s = true and additional_entry = true";
@@ -407,6 +449,11 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 gssfIndoorScoreSheet.setCompetitorInitials(rs.getString("competitor_initials"));
 
                 gssfIndoorScoreSheet.setAdditionalEntry(rs.getBoolean("additional_entry"));
+                if (gssfIndoorScoreSheet.isAdditionalEntry()) {
+                    competitionResults.setClassification("+Entry");
+                } else {
+                    competitionResults.setClassification("Designated");
+                }
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
                 competitionResults.setRank(String.valueOf(rank + 1));
