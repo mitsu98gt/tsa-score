@@ -107,6 +107,11 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             return false;
         }
 
+        if (!ScoreSheetUtils.validateHitsAreNonNegative(scoreSheet)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Invalid score input! Scores can not be negative!"));
+            return false;
+        }
+
         if (!ScoreSheetUtils.validateStockTotals(scoreSheet)) {
             return false;
         }
@@ -301,11 +306,12 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     }
 
     public StreamedContent downloadScoreSheetPDF() throws Exception {
-        doScore();
-        GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
-        return new DefaultStreamedContent(pdf.downloadPDF(scoreSheet), "application/pdf", scoreSheet.getCompetitor().getFirstName()+scoreSheet.getCompetitor().getLastName()+"_Scoresheet_"+competition.getDate().toString()+".pdf");
+        if (doScore()) {
+            GSSFIndoorScoreSheetPDF pdf = new GSSFIndoorScoreSheetPDF();
+            return new DefaultStreamedContent(pdf.downloadPDF(scoreSheet), "application/pdf", scoreSheet.getCompetitor().getFirstName() + scoreSheet.getCompetitor().getLastName() + "_Scoresheet_" + competition.getDate().toString() + ".pdf");
+        }
+        return null;
     }
-
     public void saveToDatabase() {
 
         if (doScore()) {

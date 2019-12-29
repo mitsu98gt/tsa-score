@@ -134,4 +134,21 @@ public class ScoreSheetUtils {
 
         return null;
     }
+
+    public static boolean validateHitsAreNonNegative(GSSFIndoorScoreSheet scoreSheet) {
+
+        if (scoreSheet.getTargetOne().getX() < 0) { return false;}
+        if (scoreSheet.getTargetOne().getTen() < 0) { return false;}
+        if (scoreSheet.getTargetOne().getEight() < 0) { return false;}
+        if (scoreSheet.getTargetOne().getFive() < 0) { return false;}
+        if (scoreSheet.getTargetOne().getMisses() < 0) { return false;}
+
+        if (scoreSheet.getTargetTwo().getX() < 0) { return false;}
+        if (scoreSheet.getTargetTwo().getTen() < 0) { return false;}
+        if (scoreSheet.getTargetTwo().getEight() < 0) { return false;}
+        if (scoreSheet.getTargetTwo().getFive() < 0) { return false;}
+        if (scoreSheet.getTargetTwo().getMisses() < 0) { return false;}
+
+        return true;
+    }
 }
