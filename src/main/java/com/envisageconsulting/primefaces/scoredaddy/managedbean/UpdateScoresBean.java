@@ -57,7 +57,7 @@ public class UpdateScoresBean implements Serializable {
     public void getScores() {
         renderScores = true;
         try {
-            competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(ScoreSheetUtils.getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
+            competitionResultsList = competitionResultsService.getCompetitionResultsForUpdate(ScoreSheetUtils.getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class UpdateScoresBean implements Serializable {
         } else {
             try {
                 competitionResultsService.deleteCompetitionResultByCompetitionResultsId(selectedCompetitiononResults, selectedCompetitiononResults.getCompetitionResultsId());
-                competitionResultsList = competitionResultsService.getCompetitionResultsByDivisionAndCompetitionId(ScoreSheetUtils.getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
+                competitionResultsList = competitionResultsService.getCompetitionResultsForUpdate(ScoreSheetUtils.getConvertedDivisionCode(division), Integer.valueOf(competition.getId()));
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Delete Successful!"));
             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info:", "Delete UnSuccessful!"));

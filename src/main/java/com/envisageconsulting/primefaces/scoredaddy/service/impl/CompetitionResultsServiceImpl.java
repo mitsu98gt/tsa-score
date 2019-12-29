@@ -22,9 +22,9 @@ public class CompetitionResultsServiceImpl implements CompetitionResultsService 
     private CompetitionResultsDAO competitionResultsDAO;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
-    public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception {
+    public List<CompetitionResults> getCompetitionResultsForUpdate(String division, int competitionId) throws Exception {
         try {
-            return competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(division, competitionId);
+            return competitionResultsDAO.getCompetitionResultsForUpdate(division, competitionId);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("CompetitionResultsServiceImpl: Failed to get Competition Results By Division and Competition Id!");

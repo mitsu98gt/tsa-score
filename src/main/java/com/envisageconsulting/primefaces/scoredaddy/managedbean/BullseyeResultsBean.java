@@ -94,13 +94,13 @@ public class BullseyeResultsBean implements Serializable {
             renderSingleScores = true;
             renderDoubleScores = false;
             renderTrippleScores = false;
-            competitionLimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.LIMITED_DIVISION, Integer.valueOf(competition.getId()));
-            competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
-            competitionRevolverResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.REVOLVER_DIVISION, Integer.valueOf(competition.getId()));
-            competitionRimfireResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()));
-            competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()));
-            competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
-            competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
+            competitionLimitedResultsList = competitionResultsDAO.getCompetitionResultsForUpdate(SQLConstants.LIMITED_DIVISION, Integer.valueOf(competition.getId()));
+            competitionUnlimitedResultsList = competitionResultsDAO.getCompetitionResultsForUpdate(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()));
+            competitionRevolverResultsList = competitionResultsDAO.getCompetitionResultsForUpdate(SQLConstants.REVOLVER_DIVISION, Integer.valueOf(competition.getId()));
+            competitionRimfireResultsList = competitionResultsDAO.getCompetitionResultsForUpdate(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()));
+            competitionWomanResultsList = competitionResultsDAO.getCompetitionResultsForUpdate(SQLConstants.WOMAN_DIVISION, Integer.valueOf(competition.getId()));
+            competitionSeniorResultsList = competitionResultsDAO.getCompetitionResultsForUpdate(SQLConstants.SENIOR_DIVISION, Integer.valueOf(competition.getId()));
+            competitionJuniorResultsList = competitionResultsDAO.getCompetitionResultsForUpdate(SQLConstants.JUNIOR_DIVISION, Integer.valueOf(competition.getId()));
             currentCompetitionFullSpellingDate = DateUtils.getDateWithFullMonthSpellingAsString(competitionLimitedResultsList.get(0).getCompetitionDetails().getDate());
             competitionDescription = getCompetitionInfoDescription();
         } catch (Exception e) {

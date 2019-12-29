@@ -367,11 +367,11 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public List<CompetitionResults> getCompetitionResultsByDivisionAndCompetitionId(String division, int competitionId) throws Exception {
+    public List<CompetitionResults> getCompetitionResultsForUpdate(String division, int competitionId) throws Exception {
 
         List<CompetitionResults> competitionResultsList = new ArrayList<CompetitionResults>();
 
-        String sql = String.format(SQLConstants.COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID, division);
+        String sql = String.format(SQLConstants.COMPETITION_RESULTS_FOR_UPDATE, division);
 
         Connection conn = null;
 
@@ -452,7 +452,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 if (gssfIndoorScoreSheet.isAdditionalEntry()) {
                     competitionResults.setClassification("+Entry");
                 } else {
-                    competitionResults.setClassification("Desig.");
+                    competitionResults.setClassification("D");
                 }
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);

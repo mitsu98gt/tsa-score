@@ -67,7 +67,7 @@ public class SQLConstants {
                     " order by" +
                     "   final_score desc, total_x desc";
 
-    public static final String COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID =
+    public static final String COMPETITION_RESULTS_FOR_UPDATE =
             "select" +
                     " cr.competition_results_id," +
             "    cr.id," +
@@ -119,7 +119,7 @@ public class SQLConstants {
             " and cr.id = comp.id" +
             " and comp.account_id = ac.id" +
             " order by" +
-            "   final_score desc, total_x desc";
+            " additional_entry, final_score desc, total_x desc";
 
     public static final String COMPETITION_RESULTS_QUERY_BY_DIVISION_AND_COMPETITION_ID_AND_ADDITIONAL_ENTRIES =
             "select" +
