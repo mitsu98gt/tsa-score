@@ -452,7 +452,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 if (gssfIndoorScoreSheet.isAdditionalEntry()) {
                     competitionResults.setClassification("+Entry");
                 } else {
-                    competitionResults.setClassification("Designated");
+                    competitionResults.setClassification("Desig.");
                 }
 
                 competitionResults.setGssfIndoorScoreSheet(gssfIndoorScoreSheet);
