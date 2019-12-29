@@ -127,6 +127,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
             String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
             int designatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(competitionId, competitorId, division);
+            List<Firearm> firearms = competitionResultsDAO.getCompetitorAdditionalEntriesByFirearms(competitionId, competitorId, division);
 
             if (designatedEntries == 0) {
                 if (additionalEntry) {
@@ -137,6 +138,12 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                 }
             } else {
                 if (additionalEntry) {
+                    for (Firearm f : firearms) {
+                        if (scoreSheet.getFirearm().getId().equals(f.getId())) {
+                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Additional entries of the same model in the same division is not supported at this time!"));
+                            return false;
+                        }
+                    }
                     pass = true;
                 }  else {
                     pass = false;

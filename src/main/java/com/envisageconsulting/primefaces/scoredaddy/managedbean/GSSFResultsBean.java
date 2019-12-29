@@ -109,7 +109,7 @@ public class GSSFResultsBean implements Serializable {
             competitionStockResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.STOCK_DIVISION, Integer.valueOf(competition.getId()), "true");
             for (CompetitionResults results : competitionStockResultsListAdditionalEntries) {
                 results.setRank("");
-                results.setClassification("Additional");
+                results.setClassification("+Entry");
                 competitionStockResultsList.add(results);
             }
 
@@ -117,7 +117,7 @@ public class GSSFResultsBean implements Serializable {
             competitionUnlimitedResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.UNLIMITED_DIVISION, Integer.valueOf(competition.getId()), "true");
             for (CompetitionResults results : competitionUnlimitedResultsListAdditionalEntries) {
                 results.setRank("");
-                results.setClassification("Additional");
+                results.setClassification("+Entry");
                 competitionUnlimitedResultsList.add(results);
             }
 
@@ -125,7 +125,7 @@ public class GSSFResultsBean implements Serializable {
             competitionPocketResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.POCKET_DIVISION, Integer.valueOf(competition.getId()), "true");
             for (CompetitionResults results : competitionPocketResultsListAdditionalEntries) {
                 results.setRank("");
-                results.setClassification("Additional");
+                results.setClassification("+Entry");
                 competitionPocketResultsList.add(results);
             }
 
@@ -133,7 +133,7 @@ public class GSSFResultsBean implements Serializable {
             competitionRimfireResultsListAdditionalEntries = competitionResultsDAO.getCompetitionResultsByDivisionAndCompetitionId(SQLConstants.RIMFIRE_DIVISION, Integer.valueOf(competition.getId()), "true");
             for (CompetitionResults results : competitionRimfireResultsListAdditionalEntries) {
                 results.setRank("");
-                results.setClassification("Additional");
+                results.setClassification("+Entry");
                 competitionRimfireResultsList.add(results);
             }
 
@@ -156,7 +156,7 @@ public class GSSFResultsBean implements Serializable {
         competitionStockResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.STOCK_DIVISION, "true");
         for (CompetitionResultsAverage results : competitionStockResultsAverageListAdditionalEntries) {
             results.setRank("");
-            results.setClassification("Additional");
+            results.setClassification("+Entry");
             competitionStockResultsAverageList.add(results);
         }
 
@@ -164,7 +164,7 @@ public class GSSFResultsBean implements Serializable {
         competitionUnlimitedResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.UNLIMITED_DIVISION, "true");
         for (CompetitionResultsAverage results : competitionUnlimitedResultsAverageListAdditionalEntries) {
             results.setRank("");
-            results.setClassification("Additional");
+            results.setClassification("+Entry");
             competitionUnlimitedResultsAverageList.add(results);
         }
 
@@ -172,7 +172,7 @@ public class GSSFResultsBean implements Serializable {
         competitionPocketResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.POCKET_DIVISION, "true");
         for (CompetitionResultsAverage results : competitionPocketResultsAverageListAdditionalEntries) {
             results.setRank("");
-            results.setClassification("Additional");
+            results.setClassification("+Entry");
             competitionPocketResultsAverageList.add(results);
         }
 
@@ -180,7 +180,7 @@ public class GSSFResultsBean implements Serializable {
         competitionRimfireResultsAverageListAdditionalEntries = calculateAveragesForTournament(allCompetitions, SQLConstants.RIMFIRE_DIVISION, "true");
         for (CompetitionResultsAverage results : competitionRimfireResultsAverageListAdditionalEntries) {
             results.setRank("");
-            results.setClassification("Additional");
+            results.setClassification("+Entry");
             competitionRimfireResultsAverageList.add(results);
         }
 

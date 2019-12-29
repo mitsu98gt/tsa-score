@@ -20,5 +20,5 @@ public interface CompetitionResultsDAO {
     public void updateCompetitionResults(CompetitionResults competitionResults) throws  Exception;
     public void deleteCompetitionResultByCompetitionResultsId(int key) throws Exception;
     public int getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(int competitionId, int competitorId, String division) throws Exception;
-
+    public List<Firearm> getCompetitorAdditionalEntriesByFirearms(int competitionId, int competitorId, String division) throws Exception;
 }

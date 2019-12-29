@@ -55,11 +55,13 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public int getCompetitorNumberOfAdditionalEntriesByCometitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
+    public List<Firearm> getCompetitorAdditionalEntriesByFirearms(int competitionId, int competitorId, String division)  throws  Exception {
 
-        String sql = "select count(*) as entries from competition_results where id = ? and competitor_id = ? and %s = true and additional_entry = true";
+        String sql = "select firearm_id from competition_results where id = ? and competitor_id = ? and %s = true and additional_entry = true";
 
         Connection conn = null;
+
+        List<Firearm> firearms = new ArrayList<>();
 
         try {
             conn = dataSource.getConnection();
@@ -69,13 +71,16 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setInt(2, competitorId);
             ResultSet rs = ps.executeQuery();
 
-            int entries = 0;
             while (rs.next()) {
-                entries = rs.getInt("entries");
+                Firearm firearm = new Firearm();
+                firearm.setId(String.valueOf(rs.getInt("firearm_id")));
+                firearms.add(firearm);
             }
             rs.close();
             ps.close();
-            return entries;
+
+            return firearms;
+
         } catch (SQLException ex) {
             throw new Exception("Failed to getCompetitorNumberOfAdditionalEntriesByCometitionAndDivision!" + ex);
         } finally {
