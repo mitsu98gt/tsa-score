@@ -41,99 +41,86 @@ public class NavigationBean implements Serializable {
 	}
 
 	public String redirectToAddAccount() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setAdminExpanded(true);
 		return "/secured/layout/admin/addaccount.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToAddUser() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setAdminExpanded(true);
 		return "/secured/layout/admin/adduser.xhtml?faces-redirect=true";
 	}
 
+	public String redirectToQuickstartGuide() {
+		collapseAllMenuItems();
+		panelMenuBean.setQuickstartExpanded(true);
+		return "/secured/layout/documentation/quickstart.xhtml?faces-redirect=true";
+	}
+
 	public String redirectToAddTournament() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setTournamentExpanded(true);
 		return "/secured/layout/tournament/add_tournament.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToAddCompetition() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setCompetitionExpanded(true);
 		return "/secured/layout/competition/add_competition.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToAddCompetitor() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setCompetitorExpanded(true);
 		return "/secured/layout/competitor/add_competitor.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToRegisterCompetitor() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setCompetitorExpanded(true);
 		return "/secured/layout/competitor/register_competitor.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToAddFirearm() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setFirearmExpanded(true);
 		return "/secured/layout/firearm/add_firearm.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToGssfScoresheet() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setScoringExpanded(true);
 		return "/secured/layout/gssf/indoor_scoresheet.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToBullseyeScoresheet() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setBullseyeExpanded(true);
 		return "/secured/layout/bullseye/bullseye_scoresheet.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToViewBullseyeScores() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setResultsExpanded(true);
 		return "/secured/layout/scores/view_scores_bullseye.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToUpdateScores() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setScoringExpanded(true);
 		return "/secured/layout/scores/update_scores.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToViewGssfScores() {
-		updateMenuItems();
+		collapseAllMenuItems();
 		panelMenuBean.setResultsExpanded(true);
 		return "/secured/layout/scores/view_scores.xhtml?faces-redirect=true";
 	}
 
-	public void updateMenuItems() {
-		/*panelMenuBean.setAdminExpanded(panelMenuBean.isAdminExpanded());
-		panelMenuBean.setTournamentExpanded(panelMenuBean.isTournamentExpanded());
-		panelMenuBean.setCompetitionExpanded(panelMenuBean.isCompetitionExpanded());
-		panelMenuBean.setCompetitorExpanded(panelMenuBean.isCompetitorExpanded());
-		panelMenuBean.setFirearmExpanded(panelMenuBean.isFirearmExpanded());
-		panelMenuBean.setScoringExpanded(panelMenuBean.isScoringExpanded());
-		panelMenuBean.setBullseyeExpanded(panelMenuBean.isBullseyeExpanded());
-		panelMenuBean.setResultsExpanded(panelMenuBean.isResultsExpanded());*/
-
-		panelMenuBean.setAdminExpanded(false);
-		panelMenuBean.setTournamentExpanded(false);
-		panelMenuBean.setCompetitionExpanded(false);
-		panelMenuBean.setCompetitorExpanded(false);
-		panelMenuBean.setFirearmExpanded(false);
-		panelMenuBean.setScoringExpanded(false);
-		panelMenuBean.setBullseyeExpanded(false);
-		panelMenuBean.setResultsExpanded(false);
-	}
-
 	public void collapseAllMenuItems() {
 		panelMenuBean.setAdminExpanded(false);
+		panelMenuBean.setQuickstartExpanded(false);
 		panelMenuBean.setTournamentExpanded(false);
 		panelMenuBean.setCompetitionExpanded(false);
 		panelMenuBean.setCompetitorExpanded(false);

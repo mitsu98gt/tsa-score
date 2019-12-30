@@ -34,6 +34,9 @@
                         <p:menuitem action="#{navigationBean.redirectToAddAccount}" value="Add Account"/>
                         <p:menuitem action="#{navigationBean.redirectToAddUser}" value="Add User"/>
                     </p:submenu>
+                    <p:submenu label="Documentation" expanded="#{panelMenuBean.quickstartExpanded}">
+                        <p:menuitem action="#{navigationBean.redirectToQuickstartGuide}" value="Quickstart Guide"/>
+                    </p:submenu>
                     <p:submenu label="Tournament" expanded="#{panelMenuBean.tournamentExpanded}">
                         <p:menuitem action="#{navigationBean.redirectToAddTournament}" value="Add Tournament"/>
                     </p:submenu>
@@ -70,7 +73,7 @@
             <p:panel style="padding-left: 10px; border: none">
 
                 <ui:insert name="pageContent">
-                    <H3>Welcome Back #{loginBean.username}!</H3>
+                    <!--<H3>Welcome Back #{loginBean.username}!</H3>
                     <br/>
                     <H4>Quickstart Guide - Use this guide as a quick reference for the applications workflow.</H4>
                     <ol>
@@ -79,8 +82,9 @@
                             all three (3) competitions. For example, the name of your tournament could be named "GSSF Summer Tournament".
                         </li>
                         <li style="padding: 10px 0px;">
-                            <b>Add Competition</b> - A competition is a single representation of a tournament event.  GSSF tournaments will
-                            be composed of three (3) competitions. For example, the name of your competition could be "GSSF Summer Shoot 1".
+                            <b>Add Competition</b> - A tournament event is represented by competitions.  GSSF Indoor tournaments will
+                            be composed of three (3) competitions. For example, the name of your competition could be "GSSF Summer Shoot 1",
+                            "GSSF Summer Shoot 2", and "GSSF Summer Shoot 3" respectively.
                             <b>Only create competitions when you are ready to register competitors and scoring.</b>
                         </li>
                         <li style="padding: 10px 0px;">
@@ -91,19 +95,19 @@
                             characters of the competitors name for a lookup functionality.
                         </li>
                         <li style="padding: 10px 0px;">
-                            <b>GSSF Indoor Scoresheet</b> - Use this page to input, download GSSF scoresheets, and save competitor score entry.
+                            <b>Scoring->GSSF Scoresheet</b> - Use this page to input, download GSSF scoresheets, and save competitor score entry.
                         </li>
                         <li style="padding: 10px 0px;">
-                            <b>Update Indoor Scores</b> - Use this page if you want to delete a competitors score entry that was saved incorrectly. Select
+                            <b>Scoring->Update Scores</b> - Use this page if you want to delete a competitors score entry that was saved incorrectly. Select
                             the competition and division of the entry you want to delete.  Then select the radio button of that entry to highlight
                             the row, and click on the <b>Trash Can ICON</b>.
                         </li>
                         <li style="padding: 10px 0px;">
-                            <b>Results</b> - Scores can be view in <b>Real Time</b> as they are being inputted for each competition.  The "Averaged Scores"
+                            <b>Results->View GSSF Scores</b> - Scores can be viewed in <b>Real Time</b> as they are being inputted for each competition.  The "Averaged Scores"
                             button will only be enabled once you have at leaset <b>TWO</b>(2) competitions created with scores. Once this button
                             is enabled, you may view the current tournament averaged competitor scores and standings.
                         </li>
-                    </ol>
+                    </ol>-->
                 </ui:insert>
             </p:panel>
             <!--<p:separator />-->

@@ -20,6 +20,7 @@ import java.io.Serializable;
 public class PanelMenuBean implements Serializable {
 
     private boolean adminExpanded;
+    private boolean quickstartExpanded;
     private boolean tournamentExpanded;
     private boolean competitionExpanded;
     private boolean competitorExpanded;
@@ -47,6 +48,14 @@ public class PanelMenuBean implements Serializable {
 
     public void setAdminExpanded(boolean adminExpanded) {
         this.adminExpanded = adminExpanded;
+    }
+
+    public boolean isQuickstartExpanded() {
+        return quickstartExpanded;
+    }
+
+    public void setQuickstartExpanded(boolean quickstartExpanded) {
+        this.quickstartExpanded = quickstartExpanded;
     }
 
     public boolean isTournamentExpanded() {

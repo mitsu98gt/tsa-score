@@ -1,0 +1,45 @@
+<ui:composition template="/secured/layout/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="pageContent">
+        <p:panel style="padding-left: 10px; border: none">
+            <H4>Quickstart Guide - Use this guide as a quick reference for the applications workflow.</H4>
+            <ol>
+                <li style="padding: 10px 0px;">
+                    <b>Add Tournament</b> - A tournament is a single representation of the entire GSSF event that includes
+                    all three (3) competitions. For example, the name of your tournament could be named "GSSF Summer Tournament".
+                </li>
+                <li style="padding: 10px 0px;">
+                    <b>Add Competition</b> - A tournament event is represented by competitions.  GSSF Indoor tournaments will
+                    be composed of three (3) competitions. For example, the name of your competition could be "GSSF Summer Shoot 1",
+                    "GSSF Summer Shoot 2", and "GSSF Summer Shoot 3" respectively.
+                    <b>Only create competitions when you are ready to register competitors and scoring.</b>
+                </li>
+                <li style="padding: 10px 0px;">
+                    <b>Add Competitor</b> - Add <b>NEW</b> competitors.  You will only have to this once for each new competitor to your events.
+                </li>
+                <li style="padding: 10px 0px;">
+                    <b>Register Competitor</b> - Register your competitor to the competition. You may use the drop down menu <b>OR</b> type the first few
+                    characters of the competitors name for a lookup functionality.
+                </li>
+                <li style="padding: 10px 0px;">
+                    <b>Scoring->GSSF Scoresheet</b> - Use this page to input, download GSSF scoresheets, and save competitor score entry.
+                </li>
+                <li style="padding: 10px 0px;">
+                    <b>Scoring->Update Scores</b> - Use this page if you want to delete a competitors score entry that was saved incorrectly. Select
+                    the competition and division of the entry you want to delete.  Then select the radio button of that entry to highlight
+                    the row, and click on the <b>Trash Can ICON</b>.
+                </li>
+                <li style="padding: 10px 0px;">
+                    <b>Results->View GSSF Scores</b> - Scores can be viewed in <b>Real Time</b> as they are being inputted for each competition.  The "Averaged Scores"
+                    button will only be enabled once you have at leaset <b>TWO</b>(2) competitions created with scores. Once this button
+                    is enabled, you may view the current tournament averaged competitor scores and standings.
+                </li>
+            </ol>
+        </p:panel>
+    </ui:define>
+</ui:composition>
