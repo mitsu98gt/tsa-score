@@ -19,7 +19,8 @@ public interface CompetitionResultsDAO {
     public void addCompetitionResultsHistory(CompetitionResults competitionResults, String historyType) throws Exception;
     public void updateCompetitionResults(CompetitionResults competitionResults) throws  Exception;
     public void deleteCompetitionResultByCompetitionResultsId(int key) throws Exception;
-    public int getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(int competitionId, int competitorId, String division) throws Exception;
+    public int getCompetitorNumberOfDesignatedEntriesByCompetitionAndDivision(int competitionId, int competitorId, String division) throws Exception;
     public int getCompetitorNumberOfDesignatedEntriesByTournamentAndDivision(int competitionId, int competitorId, String division) throws Exception;
     public List<Firearm> getCompetitorAdditionalEntriesByFirearms(int competitionId, int competitorId, String division) throws Exception;
+    public List<Firearm> getCompetitorDesignatedFirearmByTournamentAndDivision(int competitorId, int competitionId, String division, String additionalEntries) throws Exception;
 }

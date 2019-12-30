@@ -21,7 +21,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
     private DataSource dataSource;
 
-    public int getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
+    public int getCompetitorNumberOfDesignatedEntriesByCompetitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
 
         String sql = "select count(*) as entries from competition_results where id = ? and competitor_id = ? and %s = true and additional_entry = false";
 
@@ -43,7 +43,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.close();
             return entries;
         } catch (SQLException ex) {
-            throw new Exception("Failed to getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision!" + ex);
+            throw new Exception("Failed to getCompetitorNumberOfDesignatedEntriesByCompetitionAndDivision!" + ex);
         } finally {
             if (conn != null) {
                 try {
@@ -85,7 +85,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             return entries;
 
         } catch (SQLException ex) {
-            throw new Exception("Failed to getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision!" + ex);
+            throw new Exception("Failed to getCompetitorNumberOfDesignatedEntriesByTournamentAndDivision!" + ex);
         } finally {
             if (conn != null) {
                 try {
@@ -535,6 +535,54 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         List<Firearm> competitorFirearmList = new ArrayList<Firearm>();
 
         String sql = "select firearm_id from competition_results cr where competitor_id = ? and id = ? and %s and additional_entry = %s";
+        String formattedSql = String.format(sql, division, additionalEntries);
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(formattedSql);
+
+            ps.setInt(1, competitor_id);
+            ps.setInt(2, competition_id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Firearm firearm = new Firearm();
+                firearm.setId(rs.getString("firearm_id"));
+                competitorFirearmList.add(firearm);
+            }
+
+            rs.close();
+            ps.close();
+
+            return competitorFirearmList;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to get competitor and firearm from competition results! " + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<Firearm> getCompetitorDesignatedFirearmByTournamentAndDivision(int competitor_id, int competition_id, String division, String additionalEntries) throws Exception {
+
+        List<Firearm> competitorFirearmList = new ArrayList<Firearm>();
+
+        String sql = "select firearm_id from competition_results cr \n" +
+                " where competitor_id = ? \n" +
+                " and id in (select id from competition where tournament_id =\n" +
+                " (select tournament_id from competition where id = ?))\n" +
+                " and %s \n" +
+                " and additional_entry = %s";
+
         String formattedSql = String.format(sql, division, additionalEntries);
 
         Connection conn = null;

@@ -90,6 +90,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             return false;
         }
 
+        if (!additionalEntry && !validateDesignatedEntries()) {
+            return false;
+        }
+
         if (!validateAdditionalEntries()) {
             return false;
         }
@@ -123,6 +127,36 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         return true;
     }
 
+    public boolean validateDesignatedEntries() {
+
+        boolean pass = true;
+
+        try {
+            int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
+            int competitionId = Integer.valueOf(competition.getId());
+            String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
+            List<Firearm> firearms = competitionResultsDAO.getCompetitorDesignatedFirearmByTournamentAndDivision(competitorId, competitionId, division, "false");
+
+            if (firearms.size() == 0) {
+                pass = true;
+            } else {
+                String firearmId = firearms.get(0).getId();
+                if (scoreSheet.getFirearm().getId().equals(firearmId)) {
+                    pass = true;
+                } else {
+                    pass = false;
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Firearm model does not match with previous designated entry model!"));
+                }
+            }
+        } catch (Exception e) {
+            pass = false;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Designated entry error, please try again!"));
+        }
+
+        return pass;
+
+    }
+
     public boolean validateAdditionalEntries() {
 
         boolean pass = true;
@@ -131,7 +165,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             int competitionId = Integer.valueOf(competition.getId());
             int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
             String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
-            int designatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCometitionAndDivision(competitionId, competitorId, division);
+            int designatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCompetitionAndDivision(competitionId, competitorId, division);
             int tournamentDesignatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByTournamentAndDivision(competitionId, competitorId, division);
             List<Firearm> firearms = competitionResultsDAO.getCompetitorAdditionalEntriesByFirearms(competitionId, competitorId, division);
 
