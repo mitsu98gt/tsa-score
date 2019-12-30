@@ -7,6 +7,7 @@ public class Competition {
     private String id;
     private int tournament_id;
     private int accountId;
+    private int sequence;
     private String name;
     private String description;
     private Date date;
@@ -35,6 +36,14 @@ public class Competition {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
     }
 
     public String getName() {

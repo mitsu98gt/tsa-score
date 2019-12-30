@@ -20,6 +20,8 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
     public void insertCompetition(Competition competition, CompetitionDetails competitionDetails) throws Exception {
         try {
+            int entries = competitionDAO.getNumberOfCompetitionsInTournament(competition.getTournament_id());
+            competition.setSequence(entries++);
             int key = competitionDAO.addCompetition(competition);
             competitionDetails.setCompetitionDetailsId(String.valueOf(key));
             competitionDAO.addCompetitionDetails(competitionDetails);

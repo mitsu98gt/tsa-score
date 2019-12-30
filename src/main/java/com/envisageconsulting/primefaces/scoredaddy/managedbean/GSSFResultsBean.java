@@ -600,41 +600,43 @@ public class GSSFResultsBean implements Serializable {
 
     public List<CompetitionResults> calculateClassifcation(List<CompetitionResults> list) {
 
-        int groups = list.size() / 3;
-        int classA = groups;
-        int classB = groups * 2;
+        if (list.size() > 2) {
+            int groups = list.size() / 3;
+            int classA = groups;
+            int classB = groups * 2;
 
-        for (int i=0; i < list.size(); i++) {
-            if (i < classA) {
-                list.get(i).setClassification("A");
-            } else if (i >= classA && i < classB) {
-                list.get(i).setClassification("B");
-            } else {
-                list.get(i).setClassification("C");
+            for (int i = 0; i < list.size(); i++) {
+                if (i < classA) {
+                    list.get(i).setClassification("A");
+                } else if (i >= classA && i < classB) {
+                    list.get(i).setClassification("B");
+                } else {
+                    list.get(i).setClassification("C");
+                }
+
             }
-
         }
-
         return list;
     }
 
     public List<CompetitionResultsAverage> calculateClassificationForAverage(List<CompetitionResultsAverage> list) {
 
-        int groups = list.size() / 3;
-        int classA = groups;
-        int classB = groups * 2;
+        if (list.size() > 2) {
+            int groups = list.size() / 3;
+            int classA = groups;
+            int classB = groups * 2;
 
-        for (int i=0; i < list.size(); i++) {
-            if (i < classA) {
-                list.get(i).setClassification("A");
-            } else if (i >= classA && i < classB) {
-                list.get(i).setClassification("B");
-            } else {
-                list.get(i).setClassification("C");
+            for (int i = 0; i < list.size(); i++) {
+                if (i < classA) {
+                    list.get(i).setClassification("A");
+                } else if (i >= classA && i < classB) {
+                    list.get(i).setClassification("B");
+                } else {
+                    list.get(i).setClassification("C");
+                }
+
             }
-
         }
-
         return list;
     }
 

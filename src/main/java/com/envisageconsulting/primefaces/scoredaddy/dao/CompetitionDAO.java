@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CompetitionDAO {
 
+    public int getNumberOfCompetitionsInTournament(int tournamentId) throws Exception;
     public int addCompetition(Competition competition) throws Exception;
     public void addCompetitionDetails(CompetitionDetails competitionDetails) throws Exception;
     public List<CompetitionCode> getAllCompetitionCodes() throws Exception;

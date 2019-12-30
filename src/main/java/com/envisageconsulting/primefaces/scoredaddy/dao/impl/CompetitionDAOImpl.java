@@ -13,6 +13,41 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     private DataSource dataSource;
 
+    public int getNumberOfCompetitionsInTournament(int tournamentId) throws Exception {
+
+        String sql = "select count(*) as entries from competition where tournament_id = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, tournamentId);
+            ResultSet rs = ps.executeQuery();
+
+            int entries = 0;
+            while (rs.next()) {
+                entries = rs.getInt("entries");
+            }
+            rs.close();
+            ps.close();
+
+            return entries;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to getNumberOfCompetitionsInTournament!" + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public List<CompetitionCode> getAllCompetitionCodes() throws Exception {
 
         String sql = "select * from competition_codes";
@@ -306,7 +341,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     public int addCompetition(Competition competition) throws Exception {
 
-        String sql = "insert into competition (tournament_id, account_id, name, description) values (?, ?, ?, ?)";
+        String sql = "insert into competition (tournament_id, account_id, name, description, sequence) values (?, ?, ?, ?, ?)";
 
         Connection conn = null;
 
@@ -317,6 +352,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             ps.setInt(2, competition.getAccountId());
             ps.setString(3, competition.getName());
             ps.setString(4, competition.getDescription());
+            ps.setInt(5, competition.getSequence());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
