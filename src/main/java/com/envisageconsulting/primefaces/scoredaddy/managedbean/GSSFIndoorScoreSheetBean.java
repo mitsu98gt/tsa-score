@@ -4,6 +4,7 @@ import com.envisageconsulting.primefaces.scoredaddy.*;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionDAO;
 import com.envisageconsulting.primefaces.scoredaddy.dao.CompetitionResultsDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.*;
+import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.Division;
 import com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet.GSSFIndoorScoreSheet;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -59,6 +60,13 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     @PostConstruct
     public void init() {
         scoreSheet = new GSSFIndoorScoreSheet();
+        stockDivision = false;
+        unlimitedDivision = false;
+        pocketDivision = false;
+        rimfireDivision = false;
+        womanDivision = false;
+        seniorDivision = false;
+        juniorDivision = false;
         try {
             allCompetitions = competitionDAO.getGlockCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             firearmList = firearmDataSource.getFirearms();
@@ -352,6 +360,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             try {
                 competitionResultsDAO.addCompetitionResults(buildCompetitionResults());
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Scores saved successfully!"));
+                init();
             } catch (Exception ex) {
                 ex.printStackTrace();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Scores did not save!"));
