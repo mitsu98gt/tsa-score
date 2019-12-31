@@ -48,8 +48,9 @@ public class CompetitorDAOImpl implements CompetitorDAO {
         }
     }
 
-    public List<Competitor> getAllCompetitorsByAccountId(int accountId) throws Exception {
-        String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competitor_account where account_id = ?) order by first_name";
+    public List<Competitor> getAllCompetitorsByAccountId(int competitionId, int accountId) throws Exception {
+        //String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competitor_account where account_id = ?) order by first_name";
+        String sql = "select id, first_name, last_name from competitor where id not in (select competitor_id from competition_competitors where competition_id = ?) and id in (select competitor_id from competitor_account where account_id = ?) order by first_name";
 
         Connection conn = null;
 
@@ -58,7 +59,8 @@ public class CompetitorDAOImpl implements CompetitorDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             List<Competitor> competitorList = new ArrayList<Competitor>();
 
-            ps.setInt(1, accountId);
+            ps.setInt(1, competitionId);
+            ps.setInt(2, accountId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Competitor competitor =  new Competitor();

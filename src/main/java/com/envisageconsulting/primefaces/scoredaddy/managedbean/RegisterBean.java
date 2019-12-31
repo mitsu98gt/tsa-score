@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @ManagedBean(name="registerBean")
-@RequestScoped
+@SessionScoped
 public class RegisterBean implements Serializable {
 
     private List<Competitor> allCompetitors;
@@ -38,8 +39,8 @@ public class RegisterBean implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            allCompetitors = competitorDAO.getAllCompetitorsByAccountId(Integer.valueOf(SessionUtils.getAccountId()));
             allCompetitions = competitionDAO.getAllCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
+            //allCompetitors = competitorDAO.getAllCompetitorsByAccountId(Integer.valueOf(competition.getId()), Integer.valueOf(SessionUtils.getAccountId()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,9 +56,9 @@ public class RegisterBean implements Serializable {
         }
     }
 
-    /*public void onCompetitionChange() throws Exception {
-        allCompetitors = competitorDAO.getCompetitorsByCompetitionId(Integer.valueOf(competition.getId()));
-    }*/
+    public void onCompetitionChange() throws Exception {
+        allCompetitors = competitorDAO.getAllCompetitorsByAccountId(Integer.valueOf(competition.getId()), Integer.valueOf(SessionUtils.getAccountId()));
+    }
 
     public List<Competitor> complete(String query){
         return queryByName(query);
