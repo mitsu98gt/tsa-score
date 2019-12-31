@@ -15,6 +15,6 @@ public class Constants {
     public static final String BULLSEYE_REVOLVER = "BULLSEYE_REVOLVER";
     public static final String BULLSEYE_RIMFIRE = "BULLSEYE_RIMFIRE";
 
-    public static final String SESSION_ACCOUNT = "account";
+    public static final String SESSION = "session";
 
 }

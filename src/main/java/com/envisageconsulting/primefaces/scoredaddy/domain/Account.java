@@ -6,6 +6,7 @@ public class Account {
     private String name;
     private Address address;
     private String phone;
+    private User user;
 
     public String getId() {
         return id;
@@ -37,5 +38,13 @@ public class Account {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

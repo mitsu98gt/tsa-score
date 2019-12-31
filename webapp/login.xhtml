@@ -11,18 +11,21 @@
 </h:head>
 <h:body>
     <h:form id="login-form">
-        <p:panel id="panel" header="Sign In" style="width:350px">
+        <img src="images/banner.png" alt="" width="375px"/>
+        <br/>
+        <br/>
+        <p:panel id="panel" header="Sign In" style="width:375px">
             <p:focus context="panel"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel for="username" value="Username:" />
-                    <p:inputText id="username" value="#{loginBean.username}" required="true" label="Username" requiredMessage="usernamae is required."/>
+                    <p:inputText id="username" value="#{loginBean.username}" maxlength="10" required="true" label="Username" requiredMessage="usernamae is required."/>
                     <p:outputLabel for="password" value="Password:" />
-                    <p:password id="password" value="#{loginBean.password}" required="true" label="Password" requiredMessage="password is required."/>
+                    <p:password id="password" value="#{loginBean.password}" maxlength="10" required="true" label="Password" requiredMessage="password is required."/>
                 </h:panelGrid>
                 <br/>
                 <p:commandButton id="button" value="Sign In" icon="fa fa-sign-in" ajax="false" action="#{loginBean.doLogin}"/>
         </p:panel>
-        <p:messages style="width:350px"/>
+        <p:messages style="width:375px"/>
     </h:form>
 </h:body>
 </html>

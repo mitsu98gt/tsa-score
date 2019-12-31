@@ -3,6 +3,7 @@ package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Account;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
+import com.envisageconsulting.primefaces.scoredaddy.domain.User;
 import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
 
 import javax.sql.DataSource;
@@ -54,7 +55,7 @@ public class LoginDAOImpl implements LoginDAO {
 
         Account account = new Account();
 
-        String sql = "select u.account_id, a.name, a.street, a.city, a.state, a.zipcode, a.phone from users u, account a where username = ? and u.account_id = a.id";
+        String sql = "select u.account_id, a.name, a.street, a.city, a.state, a.zipcode, a.phone, u.first_name, u.last_name, u.role_code, u.email from users u, account a where username = ? and u.account_id = a.id";
 
         int accountId = 0;
 
@@ -76,6 +77,18 @@ public class LoginDAOImpl implements LoginDAO {
                 address.setState(rs.getString("state"));
                 address.setZipcode(rs.getString("zipcode"));
                 account.setAddress(address);
+
+                User user = new User();
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                UserRole userRole = new UserRole();
+                userRole.setCode(rs.getString("role_code"));
+                List<UserRole> roles = new ArrayList<>();
+                roles.add(userRole);
+                user.setRoles(roles);
+
+                account.setUser(user);
             }
 
             rs.close();

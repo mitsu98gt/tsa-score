@@ -13,7 +13,8 @@ public class SessionUtils {
     public static int getAccountId() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
-        Account account = (Account) sessionMap.get(Constants.SESSION_ACCOUNT);
+        Session session = (Session) sessionMap.get(Constants.SESSION);
+        Account account = session.getAccount();
         if (null == account) {
             return 0;
         }
@@ -23,7 +24,8 @@ public class SessionUtils {
     public static String getAccountName() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> sessionMap = externalContext.getSessionMap();
-        Account account = (Account) sessionMap.get(Constants.SESSION_ACCOUNT);
+        Session session = (Session) sessionMap.get(Constants.SESSION);
+        Account account = session.getAccount();
         return account.getName();
     }
 

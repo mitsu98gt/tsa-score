@@ -16,19 +16,13 @@
 
     <p:layout fullPage="true">
 
-        <p:layoutUnit position="north" size="50">
-            <h:form id="northfrm">
-                <p:commandButton value="Home" id="homeBtn" action="#{navigationBean.redirectToLayout}" ajax="false" style="width:100px" icon="fa fa-home"/>
-                <p:commandButton value="Logout" id="logoutBtn" action="#{loginBean.doLogout}" ajax="false" style="float:right;width:100px" icon="fa fa-sign-out"/>
-            </h:form>
+        <p:layoutUnit position="north" size="55">
+            <img src="../../images/banner.png" alt="" width="500px"/>
         </p:layoutUnit>
 
-        <!--<p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">
-            <h:outputText value="South unit content." />
-        </p:layoutUnit>-->
-
-        <p:layoutUnit position="west" size="200" header="Options" resizable="true" closable="false" collapsible="true">
+        <p:layoutUnit position="west" size="200" header="Menu" resizable="true" closable="false" collapsible="true">
             <h:form id="menufrm">
+                <p:commandButton value="Home" id="homeBtn" action="#{navigationBean.redirectToLayout}" ajax="false" style="text-align:left;width:193px" icon="fa fa-home"/>
                 <p:panelMenu id="menupanel" stateful="false">
                     <p:submenu label="Admin" expanded="#{panelMenuBean.adminExpanded}" rendered="#{panelMenuBean.admin}">
                         <p:menuitem action="#{navigationBean.redirectToAddAccount}" value="Add Account"/>
@@ -62,12 +56,9 @@
                         <p:menuitem action="#{navigationBean.redirectToViewBullseyeScores}" value="Bullseye Scores" rendered="#{panelMenuBean.admin}"/>
                     </p:submenu>
                 </p:panelMenu>
+                <p:commandButton value="Logout" id="logoutBtn" action="#{loginBean.doLogout}" ajax="false" style="text-align:left;float:right;width:193px" icon="fa fa-sign-out"/>
             </h:form>
         </p:layoutUnit>
-
-        <!--<p:layoutUnit position="east" size="200" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">
-            <h:outputText value="Right unit content." />
-        </p:layoutUnit>-->
 
         <p:layoutUnit position="center">
             <p:panel style="padding-left: 10px; border: none">
