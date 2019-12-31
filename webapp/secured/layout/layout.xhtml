@@ -16,11 +16,16 @@
 
     <p:layout fullPage="true">
 
-        <p:layoutUnit position="north" size="55">
-            <img src="../../images/banner.png" alt="" width="500px"/>
+        <p:layoutUnit position="north" size="60">
+            <table width="100%">
+                <tr>
+                    <td><img src="../../images/banner.png" alt="" width="500px"/></td>
+                    <td valign="bottom" align="right">#{loginBean.session.account.name} - #{loginBean.session.account.address.street}, #{loginBean.session.account.address.city} #{loginBean.session.account.address.state}. #{loginBean.session.account.address.zipcode} - #{loginBean.session.account.phone}</td>
+                </tr>
+            </table>
         </p:layoutUnit>
 
-        <p:layoutUnit position="west" size="200" header="Menu" resizable="true" closable="false" collapsible="true">
+        <p:layoutUnit position="west" size="200" header="Menu Options" resizable="true" closable="false" collapsible="true">
             <h:form id="menufrm">
                 <p:commandButton value="Home" id="homeBtn" action="#{navigationBean.redirectToLayout}" ajax="false" style="text-align:left;width:193px" icon="fa fa-home"/>
                 <p:panelMenu id="menupanel" stateful="false">
@@ -65,7 +70,6 @@
 
                 <ui:insert name="pageContent">
                     <H3>Welcome Back #{loginBean.session.account.user.firstName}!</H3>
-                    #{loginBean.session.account.name} - #{loginBean.session.account.address.street}, #{loginBean.session.account.address.city} #{loginBean.session.account.address.state}. #{loginBean.session.account.address.zipcode} - #{loginBean.session.account.phone}
                 </ui:insert>
             </p:panel>
             <!--<p:separator />-->

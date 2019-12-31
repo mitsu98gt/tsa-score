@@ -32,7 +32,7 @@ public class NavigationBean implements Serializable {
 	 * @return Login page name.
 	 */
 	public String toLogin() {
-		return "/login.xhtml";
+		return "/login.xhtml?faces-redirect=true";
 	}
 
 	public String redirectToLayout() {
