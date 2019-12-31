@@ -90,6 +90,11 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public String doLogout() {
+		//Clear session
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		sessionMap.clear();
+
 		// Set the paremeter indicating that user is logged in to false
 		loggedIn = false;
 
