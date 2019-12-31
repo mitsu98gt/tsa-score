@@ -72,6 +72,11 @@ public class LoginDAOImpl implements LoginDAO {
                 Address address = new Address();
                 account.setId(rs.getString("account_id"));
                 account.setName(rs.getString("name"));
+                String phone = rs.getString("phone");
+                //012-345-6789
+                //123-456-7890
+                String formattedPhone = "(" + phone.substring(0,3) + ") " + phone.substring(3,6) + "-" + phone.substring(6,10);
+                account.setPhone(formattedPhone);
                 address.setStreet(rs.getString("street"));
                 address.setCity(rs.getString("city"));
                 address.setState(rs.getString("state"));

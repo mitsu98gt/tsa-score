@@ -32,6 +32,8 @@ public class LoginBean implements Serializable {
 
 	private boolean loggedIn;
 
+	private Session session;
+
 	@ManagedProperty(value = "#{navigationBean}")
 	private NavigationBean navigationBean;
 
@@ -57,6 +59,7 @@ public class LoginBean implements Serializable {
 				session.setAccount(account);
 
 				addSessionObject(session);
+				this.session = session;
 
 				return navigationBean.redirectToLayout();
 			}
@@ -106,6 +109,14 @@ public class LoginBean implements Serializable {
 
 	// ------------------------------
 	// Getters & Setters
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
 
 	public String getUsername() {
 		return username;
