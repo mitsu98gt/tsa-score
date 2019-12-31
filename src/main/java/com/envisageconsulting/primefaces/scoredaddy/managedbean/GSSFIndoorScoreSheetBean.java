@@ -295,6 +295,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Only 1 of Stock, Unlimited, Pocket, or Rimfire divisions can be selected!"));
                 return false;
             }
+            if (scoreSheet.getFirearm().getModel().equals("G43") || scoreSheet.getFirearm().getModel().equals("G42") || scoreSheet.getFirearm().getModel().equals("G44")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Firearm model not applicable for Stock division!"));
+                return false;
+            }
         }
         return true;
     }
