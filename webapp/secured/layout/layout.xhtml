@@ -67,14 +67,15 @@
         </p:layoutUnit>
 
         <p:layoutUnit position="center">
+
             <p:panel style="padding-left: 10px; border: none">
 
                 <ui:insert name="pageContent">
                     <H3>Welcome Back #{loginBean.session.account.user.firstName}!</H3>
+                    <ui:include src="/secured/layout/dashboard/main.xhtml" />
                 </ui:insert>
-            </p:panel>
 
-            <ui:include src="/secured/layout/dashboard/main.xhtml" />
+            </p:panel>
 
         </p:layoutUnit>
 
