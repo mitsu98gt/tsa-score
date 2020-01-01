@@ -1,0 +1,29 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:p="http://primefaces.org/ui">
+
+    <div class="ui-fluid">
+
+        <h:form>
+            <p:dataTable var="dashboardrow" value="#{dashboardBean.dashboardRowList}">
+                <p:column headerText="Tournament" groupRow="true">
+                    <h:outputText value="#{dashboardrow.tournamentName}" />
+                </p:column>
+                <p:column headerText="Competition">
+                    <h:outputText value="#{dashboardrow.competitionName}" />
+                </p:column>
+                <p:column headerText="Date">
+                    <h:outputText value="#{dashboardrow.competitionDate}" />
+                </p:column>
+                <p:column headerText="Status">
+                    <h:outputText value="#{dashboardrow.competitionStatusDescription}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </div>
+</ui:composition>

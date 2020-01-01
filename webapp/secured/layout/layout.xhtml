@@ -73,7 +73,9 @@
                     <H3>Welcome Back #{loginBean.session.account.user.firstName}!</H3>
                 </ui:insert>
             </p:panel>
-            <!--<p:separator />-->
+
+            <ui:include src="/secured/layout/dashboard/main.xhtml" />
+
         </p:layoutUnit>
 
     </p:layout>

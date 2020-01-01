@@ -1,6 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy.service.impl;
 
 import com.envisageconsulting.primefaces.scoredaddy.dao.TournamentDAO;
+import com.envisageconsulting.primefaces.scoredaddy.domain.DashboardRow;
 import com.envisageconsulting.primefaces.scoredaddy.domain.Tournament;
 import com.envisageconsulting.primefaces.scoredaddy.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,15 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Autowired
     private TournamentDAO tournamentDAO;
+
+    public List<DashboardRow> getDashboardRows(int accountId) throws  Exception {
+        try{
+            return tournamentDAO.getDashboardRows(accountId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("TournamentServiceImpl: Failed to get dashboard rows!");
+        }
+    }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
     public void insertTournament(Tournament tournament) throws Exception {
