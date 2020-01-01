@@ -21,11 +21,14 @@ import java.util.List;
 import java.util.Map;
 
 @ManagedBean(name="registerBean")
-@SessionScoped
+@RequestScoped
 public class RegisterBean implements Serializable {
 
     private List<Competitor> allCompetitors;
     private List<Competition> allCompetitions;
+
+    @ManagedProperty("#{competitorDataSource}")
+    private CompetitorDataSource competitorDataSource;
 
     @ManagedProperty("#{competitorDAO}")
     private CompetitorDAO competitorDAO;
@@ -40,7 +43,6 @@ public class RegisterBean implements Serializable {
     public void init() {
         try {
             allCompetitions = competitionDAO.getAllCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
-            //allCompetitors = competitorDAO.getAllCompetitorsByAccountId(Integer.valueOf(competition.getId()), Integer.valueOf(SessionUtils.getAccountId()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,22 +59,19 @@ public class RegisterBean implements Serializable {
     }
 
     public void onCompetitionChange() throws Exception {
-        allCompetitors = competitorDAO.getAllCompetitorsByAccountId(Integer.valueOf(competition.getId()), Integer.valueOf(SessionUtils.getAccountId()));
+        competitorDataSource.getCompetitorsForCompetitionRegistration(Integer.valueOf(competition.getId()), Integer.valueOf(SessionUtils.getAccountId()));
     }
 
     public List<Competitor> complete(String query){
-        return queryByName(query);
+        return competitorDataSource.queryByNameForRegistration(query);
     }
 
-    public List<Competitor> queryByName(String name){
-        // Assumed search using the contains
-        List<Competitor> queried = new ArrayList<Competitor>();
-        for(Competitor competitor: this.allCompetitors){
-            if(competitor.getFullName().toLowerCase().contains(name.toLowerCase())){
-                queried.add(competitor);
-            }
-        }
-        return queried;
+    public CompetitorDataSource getCompetitorDataSource() {
+        return competitorDataSource;
+    }
+
+    public void setCompetitorDataSource(CompetitorDataSource competitorDataSource) {
+        this.competitorDataSource = competitorDataSource;
     }
 
     public List<Competitor> getAllCompetitors() {

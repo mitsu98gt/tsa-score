@@ -48,7 +48,7 @@ public class CompetitorDAOImpl implements CompetitorDAO {
         }
     }
 
-    public List<Competitor> getAllCompetitorsByAccountId(int competitionId, int accountId) throws Exception {
+    public List<Competitor> getAllCompetitorsForCompetitionRegistration(int competitionId, int accountId) throws Exception {
         //String sql = "select id, first_name, last_name from competitor where id in (select competitor_id from competitor_account where account_id = ?) order by first_name";
         String sql = "select id, first_name, last_name from competitor where id not in (select competitor_id from competition_competitors where competition_id = ?) and id in (select competitor_id from competitor_account where account_id = ?) order by first_name";
 

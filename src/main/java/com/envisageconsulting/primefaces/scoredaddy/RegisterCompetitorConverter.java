@@ -14,13 +14,13 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "registerCompetitorConverter")
 public class RegisterCompetitorConverter implements Converter {
 
-	@ManagedProperty("#{competitorDAO}")
-	private CompetitorDAO competitorDAO;
+	@ManagedProperty("#{competitorDataSource}")
+	private CompetitorDataSource ds;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		try {
-			for(Competitor c : competitorDAO.getAllCompetitors()){
+			for(Competitor c : ds.getCompetitorsForRegistration()){
                 if(c.getCompetitorId().equals(value)){
                     return c;
                 }
@@ -40,11 +40,11 @@ public class RegisterCompetitorConverter implements Converter {
 		return "";
 	}
 
-	public CompetitorDAO getCompetitorDAO() {
-		return competitorDAO;
+	public CompetitorDataSource getDs() {
+		return ds;
 	}
 
-	public void setCompetitorDAO(CompetitorDAO competitorDAO) {
-		this.competitorDAO = competitorDAO;
+	public void setDs(CompetitorDataSource ds) {
+		this.ds = ds;
 	}
 }
