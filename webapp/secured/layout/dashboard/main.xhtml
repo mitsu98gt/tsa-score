@@ -9,7 +9,7 @@
     <div class="ui-fluid">
 
         <h:form>
-            <p:dataTable var="dashboardrow" value="#{dashboardBean.dashboardRowList}">
+            <p:dataTable var="dashboardrow" value="#{dashboardBean.dashboardRowList}" style="text-align: center;">
                 <p:column headerText="Tournament" groupRow="true">
                     <h:outputText value="#{dashboardrow.tournamentName}" />
                 </p:column>
