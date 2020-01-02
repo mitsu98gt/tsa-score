@@ -25,9 +25,53 @@ public class TournamentDAOImpl implements TournamentDAO {
                 "     t.name as tournament_name,\n" +
                 "     c.name as competition_name,\n" +
                 "     cd.date as competition_date,\n" +
-                "     sc.description as status_description\n" +
+                "     sc.description as status_description,\n" +
+                "     (select count(*) from competition_results where id = c.id and additional_entry = false) as designated_entries,\n" +
+                "     (select count(*) from competition_results where id = c.id and additional_entry = true) as additional_entries,\n" +
+                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "        (select competitor_id from competition_results where final_score = \n" +
+                "        (select max(final_score) from competition_results where id=c.id and stock_division and additional_entry=false) \n" +
+                "        and id=c.id and additional_entry = false and stock_division)\n" +
+                "   ) as stock_leader,\n" +
+                "     (select max(final_score) from competition_results where id=c.id and stock_division and additional_entry=false) as stock_score,\n" +
+                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "        (select competitor_id from competition_results where final_score = \n" +
+                "        (select max(final_score) from competition_results where id=c.id and unlimited_division and additional_entry=false) \n" +
+                "        and id=c.id and additional_entry = false and unlimited_division)\n" +
+                "   ) as unlimited_leader,\n" +
+                "     (select max(final_score) from competition_results where id=c.id and unlimited_division and additional_entry=false) as unlimited_score,\n" +
+                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "        (select competitor_id from competition_results where final_score = \n" +
+                "        (select max(final_score) from competition_results where id=c.id and pocket_division and additional_entry=false) \n" +
+                "        and id=c.id and additional_entry = false and pocket_division)\n" +
+                "   ) as pocket_leader,\n" +
+                "     (select max(final_score) from competition_results where id=c.id and pocket_division and additional_entry=false) as pocket_score,\n" +
+                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "        (select competitor_id from competition_results where final_score = \n" +
+                "        (select max(final_score) from competition_results where id=c.id and rimfire_division and additional_entry=false) \n" +
+                "        and id=c.id and additional_entry = false and rimfire_division)\n" +
+                "   ) as rimfire_leader,\n" +
+                "     (select max(final_score) from competition_results where id=c.id and rimfire_division and additional_entry=false) as rimfire_score,\n" +
+                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "        (select competitor_id from competition_results where final_score = \n" +
+                "        (select max(final_score) from competition_results where id=c.id and woman_division and additional_entry=false) \n" +
+                "        and id=c.id and additional_entry = false and woman_division)\n" +
+                "   ) as woman_leader,\n" +
+                "     (select max(final_score) from competition_results where id=c.id and woman_division and additional_entry=false) as woman_score,\n" +
+                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "        (select competitor_id from competition_results where final_score = \n" +
+                "        (select max(final_score) from competition_results where id=c.id and senior_division and additional_entry=false) \n" +
+                "        and id=c.id and additional_entry = false and senior_division)\n" +
+                "   ) as senior_leader,\n" +
+                "     (select max(final_score) from competition_results where id=c.id and senior_division and additional_entry=false) as senior_score,\n" +
+                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "        (select competitor_id from competition_results where final_score = \n" +
+                "        (select max(final_score) from competition_results where id=c.id and junior_division and additional_entry=false) \n" +
+                "        and id=c.id and additional_entry = false and junior_division)\n" +
+                "   ) as junior_leader,\n" +
+                "     (select max(final_score) from competition_results where id=c.id and junior_division and additional_entry=false) as junior_score\n" +
                 "from \n" +
-                "\t tournament t,\n" +
+                "   tournament t,\n" +
                 "     competition c,\n" +
                 "     competition_details cd,\n" +
                 "     status_codes sc\n" +
@@ -55,6 +99,22 @@ public class TournamentDAOImpl implements TournamentDAO {
                 dashboardRow.setCompetitionName(rs.getString("competition_name"));
                 dashboardRow.setCompetitionDate(DateUtils.getDate(rs.getDate("competition_date")));
                 dashboardRow.setCompetitionStatusDescription(rs.getString("status_description"));
+                dashboardRow.setDesignatedEntries(rs.getString("designated_entries"));
+                dashboardRow.setAdditionalEntries(rs.getString("additional_entries"));
+                dashboardRow.setStockLeader(rs.getString("stock_leader"));
+                dashboardRow.setStockScore(rs.getString("stock_score"));
+                dashboardRow.setUnlimitedLeader(rs.getString("unlimited_leader"));
+                dashboardRow.setUnlimitedScore(rs.getString("unlimited_score"));
+                dashboardRow.setPocketLeader(rs.getString("pocket_leader"));
+                dashboardRow.setPocketScore(rs.getString("pocket_score"));
+                dashboardRow.setRimfireLeader(rs.getString("rimfire_leader"));
+                dashboardRow.setRimfireScore(rs.getString("rimfire_score"));
+                dashboardRow.setWomanLeader(rs.getString("woman_leader"));
+                dashboardRow.setWomanScore(rs.getString("woman_score"));
+                dashboardRow.setSeniorLeader(rs.getString("senior_leader"));
+                dashboardRow.setSeniorScore(rs.getString("senior_score"));
+                dashboardRow.setJuniorLeader(rs.getString("junior_leader"));
+                dashboardRow.setJuniorScore(rs.getString("junior_score"));
                 dashboardRows.add(dashboardRow);
             }
 
