@@ -2,12 +2,12 @@ package com.envisageconsulting.primefaces.scoredaddy.domain.scoresheet;
 
 public class TargetTwo {
 
-    private Integer x;
-    private Integer ten;
-    private Integer eight;
-    private Integer five;
-    private Integer misses;
-    private Integer total;
+    private Integer x=0;
+    private Integer ten=0;
+    private Integer eight=0;
+    private Integer five=0;
+    private Integer misses=0;
+    private Integer total=0;
 
     public Integer getX() {
         return x;
