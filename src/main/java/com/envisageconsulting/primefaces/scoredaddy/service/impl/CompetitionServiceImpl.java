@@ -21,7 +21,8 @@ public class CompetitionServiceImpl implements CompetitionService {
     public void insertCompetition(Competition competition, CompetitionDetails competitionDetails) throws Exception {
         try {
             int entries = competitionDAO.getNumberOfCompetitionsInTournament(competition.getTournament_id());
-            competition.setSequence(entries++);
+            int sequence = entries + 1;
+            competition.setSequence(sequence);
             int key = competitionDAO.addCompetition(competition);
             competitionDetails.setCompetitionDetailsId(String.valueOf(key));
             competitionDAO.addCompetitionDetails(competitionDetails);
