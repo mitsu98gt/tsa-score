@@ -101,6 +101,15 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
         String sql = "select firearm_id from competition_results where id = ? and competitor_id = ? and %s = true and additional_entry = true";
 
+        /*String sql = "select firearm_id \n" +
+                "  from competition_results \n" +
+                "where id in \n" +
+                "  (select id from competition where tournament_id = \n" +
+                "  (select tournament_id from competition where id = ?))\n" +
+                "  and competitor_id = ?\n" +
+                "  and %s = true\n" +
+                "  and additional_entry = true";*/
+
         Connection conn = null;
 
         List<Firearm> firearms = new ArrayList<>();

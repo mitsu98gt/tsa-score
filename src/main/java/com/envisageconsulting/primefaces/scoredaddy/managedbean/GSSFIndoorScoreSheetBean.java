@@ -145,12 +145,12 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
             int competitionId = Integer.valueOf(competition.getId());
             String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
-            List<Firearm> firearms = competitionResultsDAO.getCompetitorDesignatedFirearmByTournamentAndDivision(competitorId, competitionId, division, "false");
+            List<Firearm> designatedFirearms = competitionResultsDAO.getCompetitorDesignatedFirearmByTournamentAndDivision(competitorId, competitionId, division, "false");
 
-            if (firearms.size() == 0) {
+            if (designatedFirearms.size() == 0) {
                 pass = true;
             } else {
-                String firearmId = firearms.get(0).getId();
+                String firearmId = designatedFirearms.get(0).getId();
                 if (scoreSheet.getFirearm().getId().equals(firearmId)) {
                     pass = true;
                 } else {
@@ -175,11 +175,11 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             int competitionId = Integer.valueOf(competition.getId());
             int competitorId = Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId());
             String division = ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion());
-            int designatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCompetitionAndDivision(competitionId, competitorId, division);
+            int designatedEntriesInCompetition = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByCompetitionAndDivision(competitionId, competitorId, division);
             int tournamentDesignatedEntries = competitionResultsDAO.getCompetitorNumberOfDesignatedEntriesByTournamentAndDivision(competitionId, competitorId, division);
-            List<Firearm> firearms = competitionResultsDAO.getCompetitorAdditionalEntriesByFirearms(competitionId, competitorId, division);
+            List<Firearm> additionalEntryFirearmsInCompetition = competitionResultsDAO.getCompetitorAdditionalEntriesByFirearms(competitionId, competitorId, division);
 
-            if (designatedEntries == 0) {
+            /*if (designatedEntriesInCompetition == 0) {
                 if (additionalEntry && (tournamentDesignatedEntries < 2)) {
                     pass = false;
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "No other entries found for competitor in this division! Please input the designated entry before inputting an additional entry."));
@@ -188,7 +188,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                 }
             } else {
                 if (additionalEntry) {
-                    for (Firearm f : firearms) {
+                    for (Firearm f : additionalEntryFirearms) {
                         if (scoreSheet.getFirearm().getId().equals(f.getId())) {
                             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Additional entries of the same model in the same division is not supported at this time!"));
                             return false;
@@ -199,7 +199,19 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                     pass = false;
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "A designated entry was found for competitor in this division! Please select the additional entries checkbox."));
                 }
-            }
+            }*/
+            if (additionalEntry) {
+                for (Firearm f : additionalEntryFirearmsInCompetition) {
+                    if (scoreSheet.getFirearm().getId().equals(f.getId())) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Additional entries of the same model in the same division is not supported at this time!"));
+                        return false;
+                    }
+                }
+                pass = true;
+            }  /*else {
+                pass = false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "A designated entry was found for competitor in this division! Please select the additional entries checkbox."));
+            }*/
         } catch (Exception e) {
             pass = false;
         }
