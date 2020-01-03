@@ -157,7 +157,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                     pass = true;
                 } else {
                     pass = false;
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Firearm model does not match with previous designated entry model!"));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", "Firearm model does not match with previous competition(s) designated entry model!"));
                 }
             }
         } catch (Exception e) {
