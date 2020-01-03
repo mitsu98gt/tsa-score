@@ -10,7 +10,7 @@ public class GSSFIndoorScoreSheet {
 	private Competitor competitor;
 	private Date date = new Date();
 	private Firearm firearm;
-	private String entry;
+	private String entry="";
 	private Division divsion = new Division();
 	private TargetOne targetOne = new TargetOne();
 	private TargetTwo targetTwo = new TargetTwo();
@@ -19,8 +19,8 @@ public class GSSFIndoorScoreSheet {
 	private Integer penalty;
 	private Integer finalScore;
 	private Integer totalX;
-	private String rangeOfficerInitials;
-	private String competitorInitials;
+	private String rangeOfficerInitials="";
+	private String competitorInitials="";
 	private boolean additionalEntry;
 
 	public Competitor getCompetitor() {

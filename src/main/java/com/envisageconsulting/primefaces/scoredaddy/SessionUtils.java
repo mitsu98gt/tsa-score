@@ -32,6 +32,14 @@ public class SessionUtils {
         return account.getName();
     }
 
+    public static String getUserInitials() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> sessionMap = externalContext.getSessionMap();
+        Session session = (Session) sessionMap.get(Constants.SESSION);
+        String userFirstName = session.getAccount().getUser().getFirstName();
+        String userLastName = session.getAccount().getUser().getLastName();
+        return userFirstName.substring(0,1) + userLastName.substring(0,1);
+    }
     public static void refreshPage() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());

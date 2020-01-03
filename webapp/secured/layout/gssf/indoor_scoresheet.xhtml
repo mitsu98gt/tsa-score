@@ -50,7 +50,7 @@
                                         var="competitor"
                                         itemValue="#{competitor}"
                                         itemLabel="#{competitor.fullName}" converter="#{competitorConverter}">
-                            <p:ajax event="itemSelect" listener="#{scoresheetBean.onCompetitorChange}" update="entry" />
+                            <p:ajax event="itemSelect" listener="#{scoresheetBean.onCompetitorChange}" update="entry,rangeofficerinitials,competitorinitials" />
                         </p:autoComplete>
                     </p:column>
                     <p:column>
