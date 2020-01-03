@@ -134,8 +134,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
             return false;
         }
 
-        checkForNullScores();
-
         return true;
     }
 
@@ -249,42 +247,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         }
 
         return true;
-    }
-
-    public void checkForNullScores() {
-
-        if (null == scoreSheet.getTargetOne().getX()) {
-            scoreSheet.getTargetOne().setX(0);
-        }
-        if (null == scoreSheet.getTargetOne().getTen()) {
-            scoreSheet.getTargetOne().setTen(0);
-        }
-        if (null == scoreSheet.getTargetOne().getEight()) {
-            scoreSheet.getTargetOne().setEight(0);
-        }
-        if (null == scoreSheet.getTargetOne().getFive()) {
-            scoreSheet.getTargetOne().setFive(0);
-        }
-        if (null == scoreSheet.getTargetOne().getMisses()) {
-            scoreSheet.getTargetOne().setMisses(0);
-        }
-
-        if (null == scoreSheet.getTargetTwo().getX()) {
-            scoreSheet.getTargetTwo().setX(0);
-        }
-        if (null == scoreSheet.getTargetTwo().getTen()) {
-            scoreSheet.getTargetTwo().setTen(0);
-        }
-        if (null == scoreSheet.getTargetTwo().getEight()) {
-            scoreSheet.getTargetTwo().setEight(0);
-        }
-        if (null == scoreSheet.getTargetTwo().getFive()) {
-            scoreSheet.getTargetTwo().setFive(0);
-        }
-        if (null == scoreSheet.getTargetTwo().getMisses()) {
-            scoreSheet.getTargetTwo().setMisses(0);
-        }
-
     }
 
     public boolean validateWoman() {
