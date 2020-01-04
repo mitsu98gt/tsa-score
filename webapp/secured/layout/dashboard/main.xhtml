@@ -8,21 +8,49 @@
 
     <div class="ui-fluid">
 
-        <h:form>
-            <p:dataTable var="dashboardrow" value="#{dashboardBean.dashboardRowList}" style="text-align: center;">
-                <p:column headerText="Tournament" groupRow="true">
+        <h:form id="form1">
+            <p:growl id="msgs" showDetail="true"/>
+            <p:dataTable id="dashboard" var="dashboardrow" value="#{dashboardBean.dashboardRowList}" editable="true" style="text-align: center;">
+
+                <p:ajax event="rowEdit" listener="#{dashboardBean.onStatusEdit}" update=":form1:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{dashboardBean.onStatusEditCancel}" update=":form1:msgs" />
+
+                <p:column headerText="Tournament" style="width: 200px">
                     <h:outputText value="#{dashboardrow.tournamentName}" />
                 </p:column>
+
                 <p:column headerText="Competition">
                     <h:outputText value="#{dashboardrow.competitionName}" />
                 </p:column>
+
                 <p:column headerText="Date">
                     <h:outputText value="#{dashboardrow.competitionDate}" />
                 </p:column>
+
                 <p:column headerText="Status">
-                    <h:outputText value="#{dashboardrow.competitionStatusDescription}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{dashboardrow.competitionStatusDescription}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{dashboardrow.competitionStatusDescription}">
+                                <f:selectItems value="#{dashboardBean.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
+
+                <p:column headerText="Designated Entries">
+                    <h:outputText value="#{dashboardrow.designatedEntries}" />
+                </p:column>
+                <p:column headerText="Additional Entries">
+                    <h:outputText value="#{dashboardrow.additionalEntries}" />
+                </p:column>
+
+                <p:column style="width:35px">
+                    <p:rowEditor />
+                </p:column>
+
             </p:dataTable>
+
         </h:form>
 
     </div>

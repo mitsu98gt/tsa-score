@@ -18,6 +18,16 @@ public class CompetitionServiceImpl implements CompetitionService {
     private CompetitionDAO competitionDAO;
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+    public void updateCompetitionStatus(String status, int competitionId) throws Exception {
+        try {
+            competitionDAO.updateCompetitionStatus(status, competitionId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("CompetitionServiceImpl: Failed to update Competition Status!");
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
     public void insertCompetition(Competition competition, CompetitionDetails competitionDetails) throws Exception {
         try {
             int entries = competitionDAO.getNumberOfCompetitionsInTournament(competition.getTournament_id());

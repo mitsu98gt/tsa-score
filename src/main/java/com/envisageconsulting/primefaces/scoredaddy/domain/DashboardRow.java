@@ -2,9 +2,12 @@ package com.envisageconsulting.primefaces.scoredaddy.domain;
 
 public class DashboardRow {
 
+    private int tournamentId;
     private String tournamentName;
+    private int competitionId;
     private String competitionName;
     private String competitionDate;
+    private int sequence;
     private String competitionStatusDescription;
     private String designatedEntries;
     private String additionalEntries;
@@ -22,6 +25,31 @@ public class DashboardRow {
     private String seniorScore;
     private String juniorLeader;
     private String juniorScore;
+
+
+    public int getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(int tournamentId) {
+        this.tournamentId = tournamentId;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
+    public int getCompetitionId() {
+        return competitionId;
+    }
+
+    public void setCompetitionId(int competitionId) {
+        this.competitionId = competitionId;
+    }
 
     public String getTournamentName() {
         return tournamentName;

@@ -22,13 +22,16 @@ public class TournamentDAOImpl implements TournamentDAO {
     public List<DashboardRow> getDashboardRows(int accountId) throws Exception {
 
         String sql = "select \n" +
+                "     t.id as tournament_id,\n" +
                 "     t.name as tournament_name,\n" +
+                "     c.id as competition_id,\n" +
                 "     c.name as competition_name,\n" +
+                "     c.sequence as sequence,\n" +
                 "     cd.date as competition_date,\n" +
                 "     sc.description as status_description,\n" +
                 "     (select count(*) from competition_results where id = c.id and additional_entry = false) as designated_entries,\n" +
-                "     (select count(*) from competition_results where id = c.id and additional_entry = true) as additional_entries,\n" +
-                "     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
+                "     (select count(*) from competition_results where id = c.id and additional_entry = true) as additional_entries\n" +
+                /*"     (select concat(first_name, \" \", last_name) from competitor where id = \n" +
                 "        (select competitor_id from competition_results where final_score = \n" +
                 "        (select max(final_score) from competition_results where id=c.id and stock_division and additional_entry=false) \n" +
                 "        and id=c.id and additional_entry = false and stock_division)\n" +
@@ -69,7 +72,7 @@ public class TournamentDAOImpl implements TournamentDAO {
                 "        (select max(final_score) from competition_results where id=c.id and junior_division and additional_entry=false) \n" +
                 "        and id=c.id and additional_entry = false and junior_division)\n" +
                 "   ) as junior_leader,\n" +
-                "     (select max(final_score) from competition_results where id=c.id and junior_division and additional_entry=false) as junior_score\n" +
+                "     (select max(final_score) from competition_results where id=c.id and junior_division and additional_entry=false) as junior_score\n" +*/
                 "from \n" +
                 "   tournament t,\n" +
                 "     competition c,\n" +
@@ -101,7 +104,10 @@ public class TournamentDAOImpl implements TournamentDAO {
                 dashboardRow.setCompetitionStatusDescription(rs.getString("status_description"));
                 dashboardRow.setDesignatedEntries(rs.getString("designated_entries"));
                 dashboardRow.setAdditionalEntries(rs.getString("additional_entries"));
-                dashboardRow.setStockLeader(rs.getString("stock_leader"));
+                dashboardRow.setTournamentId(rs.getInt("tournament_id"));
+                dashboardRow.setCompetitionId(rs.getInt("competition_id"));
+                dashboardRow.setSequence(rs.getInt("sequence"));
+                /*dashboardRow.setStockLeader(rs.getString("stock_leader"));
                 dashboardRow.setStockScore(rs.getString("stock_score"));
                 dashboardRow.setUnlimitedLeader(rs.getString("unlimited_leader"));
                 dashboardRow.setUnlimitedScore(rs.getString("unlimited_score"));
@@ -114,7 +120,7 @@ public class TournamentDAOImpl implements TournamentDAO {
                 dashboardRow.setSeniorLeader(rs.getString("senior_leader"));
                 dashboardRow.setSeniorScore(rs.getString("senior_score"));
                 dashboardRow.setJuniorLeader(rs.getString("junior_leader"));
-                dashboardRow.setJuniorScore(rs.getString("junior_score"));
+                dashboardRow.setJuniorScore(rs.getString("junior_score"));*/
                 dashboardRows.add(dashboardRow);
             }
 
