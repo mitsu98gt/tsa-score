@@ -55,10 +55,15 @@ public class CompetitionBean implements Serializable {
 
     public void insertCompetition() {
         try {
-            competition.setAccountId(SessionUtils.getAccountId());
-            competitionService.insertCompetition(getCompetition(), getCompetitionDetails());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
-        } catch (Exception e) {
+            int competitions = dao.getNumberOfCompetitionsInTournament(getCompetition().getTournament_id());
+            if (competitions >= 3) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can't have more than 3 competitions in a Tournament!", "ERROR MSG"));
+            } else {
+                competition.setAccountId(SessionUtils.getAccountId());
+                competitionService.insertCompetition(getCompetition(), getCompetitionDetails());
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Competition added successfully!", "INFO MSG"));
+            }
+            } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Add Competition Failed!", "ERROR MSG"));
             e.printStackTrace();
         }
