@@ -53,7 +53,9 @@ public class LoginBean implements Serializable {
 
 			if (validatePassword(passwordHash)) {
 				loggedIn = true;
+
 				Account account = dao.getUserAccount(username);
+				dao.updateLastLogin(username, Integer.valueOf(account.getId()));
 
 				Session session = new Session();
 				session.setAccount(account);

@@ -1,10 +1,7 @@
 package com.envisageconsulting.primefaces.scoredaddy.dao.impl;
 
 import com.envisageconsulting.primefaces.scoredaddy.dao.LoginDAO;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Account;
-import com.envisageconsulting.primefaces.scoredaddy.domain.Address;
-import com.envisageconsulting.primefaces.scoredaddy.domain.User;
-import com.envisageconsulting.primefaces.scoredaddy.domain.UserRole;
+import com.envisageconsulting.primefaces.scoredaddy.domain.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -101,6 +98,34 @@ public class LoginDAOImpl implements LoginDAO {
             return account;
         } catch (SQLException e) {
             throw new Exception(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void updateLastLogin(String username, int accountId) throws  Exception {
+
+        String sql = "update users set last_login = CURRENT_TIMESTAMP where username = ? and account_id = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setInt(2, accountId);
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to update Last Login!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

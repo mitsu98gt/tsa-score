@@ -45,8 +45,8 @@ select
 	   and stock_division 
 	   and additional_entry = false
 	   and rank in (1,2)
-    ),1) as final_average
-    /*(select(sum(total_x))
+    ),1) as final_average,
+    (select(sum(total_x))
        from 
 	      competition_results 
 	   where 
@@ -54,8 +54,8 @@ select
 	   and id in (22,23,24) 
 	   and stock_division 
 	   and additional_entry = false 
-	   order by final_score desc limit 2
-    ) as total_x */
+	   and rank in (1,2)
+    ) as total_x
 from 
      competition_results cr,
      competitor c,
@@ -70,7 +70,7 @@ group by
      cr.competitor_id,
      cr.firearm_id
 having count(*) > 1
-order by final_average desc-- , total_x desc
+order by final_average desc, total_x desc
 ;
 
 -- Average Top 2 X's
