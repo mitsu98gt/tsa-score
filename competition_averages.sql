@@ -41,10 +41,10 @@ select
 	      competition_results
 	   where 
 	      competitor_id = cr.competitor_id
-	   and id in (25,26,27) 
+	   and id in (22,23,24) 
 	   and stock_division 
 	   and additional_entry = false
-	   order by final_score desc limit 2
+	   and rank in (1,2)
     ),1) as final_average
     /*(select(sum(total_x))
        from 
@@ -61,7 +61,7 @@ from
      competitor c,
      firearm_models fm
 where 
-     cr.id in (25,26,27)
+     cr.id in (22,23,24)
 and  cr.additional_entry = false
 and  cr.stock_division
 and  cr.competitor_id = c.id
