@@ -464,16 +464,24 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                             competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
                         }
 
-                        if (scoreSheet.getFinalScore() == highest.getFinal_score() && scoreSheet.getFinalScore() == lowest.getFinal_score()) {
-                            if ((scoreSheet.getTotalX() == highest.getTotal_x()) && isEqualTotal_X) {
-                                rank = 3;
+                        if (scoreSheet.getFinalScore() == highest.getFinal_score()) {
+                            if (scoreSheet.getTotalX() == highest.getTotal_x()) {
+                                rank = 2;
                                 competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
+                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
                             } else if (scoreSheet.getTotalX() > highest.getTotal_x()) {
                                 rank = 1;
                                 competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 2);
                                 competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                            } else if (scoreSheet.getTotalX() == lowest.getTotal_x()) {
+                            } else if (scoreSheet.getTotalX() < highest.getTotal_x()) {
+                                rank = 2;
+                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                            }
+                        }
+
+                        if (scoreSheet.getFinalScore() == lowest.getFinal_score()) {
+                            if (scoreSheet.getTotalX() == lowest.getTotal_x()) {
                                 rank = 3;
                                 competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
                                 competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
@@ -481,20 +489,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                                 rank = 2;
                                 competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
                                 competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                            }
-
-                        }
-
-                        if (scoreSheet.getFinalScore() == lowest.getFinal_score()) {
-                            if (scoreSheet.getTotalX() > lowest.getTotal_x()) {
-                                rank = 2;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
                             } else if (scoreSheet.getTotalX() < lowest.getTotal_x()) {
-                                rank = 3;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
-                            } else if (scoreSheet.getTotalX() == lowest.getTotal_x()) {
                                 rank = 3;
                                 competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
                                 competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
