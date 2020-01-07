@@ -516,8 +516,8 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                     }
                 }
 
-                if ((scoreSheet.getFinalScore() < competitorRank1.getFinal_score()) &&
-                        (scoreSheet.getFinalScore() < competitorRank2.getFinal_score())) {
+                if ((scoreSheet.getFinalScore() < highest.getFinal_score()) &&
+                        (scoreSheet.getFinalScore() < lowest.getFinal_score())) {
                     rank = 3;
                     competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
                     competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
