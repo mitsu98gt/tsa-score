@@ -61,7 +61,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
                 competitorRank.setFinal_score(rs.getInt("final_score"));
                 competitorRank.setTotal_x(rs.getInt("total_x"));
                 competitorRank.setRank(rs.getInt("rank"));
-                ranks.add(rs.getInt("sequence"), competitorRank);
+                ranks.add(competitorRank);
             }
             rs.close();
             ps.close();
