@@ -375,136 +375,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
         if (doScore()) {
             try {
-
-                int rank = 0;
-
-                List<CompetitorRank> rankList = new ArrayList<>();
-                rankList = competitionResultsDAO.getCompetitorRanks(Integer.valueOf(competition.getId()), Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId()), "cr."+ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion()), "false");
-                if (rankList.size() == 0) {
-                    rank = 1;
-                } else {
-                    if (rankList.size() == 1) {
-                        CompetitorRank competitorRank = rankList.get(0);
-                        if (scoreSheet.getFinalScore() < competitorRank.getFinal_score()) {
-                            rank = 2;
-                        }
-                        if (scoreSheet.getFinalScore() > competitorRank.getFinal_score()) {
-                            rank = 1;
-                            competitionResultsDAO.updateCompetitionResultsRank(competitorRank.getCompetition_results_id(),2);
-                        }
-                        if (scoreSheet.getFinalScore() == competitorRank.getFinal_score()) {
-                            if (scoreSheet.getTotalX() < competitorRank.getTotal_x()) {
-                                rank = 2;
-                            }
-                            if (scoreSheet.getTotalX() > competitorRank.getTotal_x()) {
-                                rank = 1;
-                                competitionResultsDAO.updateCompetitionResultsRank(competitorRank.getCompetition_results_id(), 2);
-                            }
-                            // same score and x's, so rank won't matter
-                            rank = 2;
-                        }
-                    }
-                    if (rankList.size() == 2) {
-                        CompetitorRank competitorRank1 = rankList.get(0);
-                        CompetitorRank competitorRank2 = rankList.get(1);
-                        CompetitorRank highest = new CompetitorRank();
-                        CompetitorRank lowest = new CompetitorRank();
-                        Boolean isFinalScoreEqual = false;
-                        Boolean isEqualTotal_X = false;
-
-                        if (competitorRank1.getFinal_score() == competitorRank2.getFinal_score()) {
-                            isFinalScoreEqual = true;
-                        }
-
-                        if (competitorRank1.getTotal_x() == competitorRank2.getTotal_x()) {
-                            isEqualTotal_X = true;
-                        }
-
-                        if (competitorRank1.getFinal_score() > competitorRank2.getFinal_score()) {
-                            highest = competitorRank1;
-                            lowest = competitorRank2;
-                        } else if (competitorRank1.getFinal_score() < competitorRank2.getFinal_score()){
-                            highest = competitorRank2;
-                            lowest = competitorRank1;
-                        } else if (competitorRank1.getFinal_score() == competitorRank2.getFinal_score()) {
-                            if (competitorRank1.getTotal_x() > competitorRank2.getTotal_x()) {
-                                highest = competitorRank1;
-                                lowest = competitorRank2;
-                            } else if (competitorRank1.getTotal_x() < competitorRank2.getTotal_x()) {
-                                highest = competitorRank2;
-                                lowest = competitorRank1;
-                            } else if (competitorRank1.getTotal_x() == competitorRank2.getTotal_x()) {
-                                highest = competitorRank1;
-                                lowest = competitorRank2;
-                            }
-                        }
-
-                        if ((scoreSheet.getFinalScore() < competitorRank1.getFinal_score()) &&
-                             (scoreSheet.getFinalScore() < competitorRank2.getFinal_score())) {
-                            rank = 3;
-                            competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                            competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
-                        }
-
-                        if (scoreSheet.getFinalScore() > highest.getFinal_score()) {
-                            rank = 1;
-                            competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 2);
-                            competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                        }
-
-                        if ((scoreSheet.getFinalScore() < highest.getFinal_score()) && (scoreSheet.getFinalScore() > lowest.getFinal_score())) {
-                            rank = 2;
-                            competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                            competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                        }
-
-                        if (scoreSheet.getFinalScore() < highest.getFinal_score() && isFinalScoreEqual) {
-                            rank = 3;
-                            competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                            competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
-                        }
-
-                        if (scoreSheet.getFinalScore() == highest.getFinal_score()) {
-                            if (scoreSheet.getTotalX() == highest.getTotal_x()) {
-                                rank = 2;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                            } else if (scoreSheet.getTotalX() > highest.getTotal_x()) {
-                                rank = 1;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 2);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                            } else if (scoreSheet.getTotalX() < highest.getTotal_x()) {
-                                rank = 2;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                            }
-                        }
-
-                        if (scoreSheet.getFinalScore() == lowest.getFinal_score()) {
-                            if (scoreSheet.getTotalX() == lowest.getTotal_x()) {
-                                rank = 3;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
-                            } else if (scoreSheet.getTotalX() > lowest.getTotal_x()) {
-                                rank = 2;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
-                            } else if (scoreSheet.getTotalX() < lowest.getTotal_x()) {
-                                rank = 3;
-                                competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                                competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
-                            }
-                        }
-
-                        if (scoreSheet.getFinalScore() < lowest.getFinal_score()) {
-                            rank = 3;
-                            competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                            competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
-                        }
-                    }
-                }
-
-                competitionResultsDAO.addCompetitionResults(buildCompetitionResults(), rank);
+                competitionResultsDAO.addCompetitionResults(buildCompetitionResults(), rank());
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Scores saved successfully!"));
                 init();
             } catch (Exception ex) {
@@ -573,6 +444,139 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         scoreSheet.getDivsion().setSenior(seniorDivision);
         scoreSheet.getDivsion().setJunior(juniorDivision);
 
+    }
+
+    public int rank() throws Exception {
+
+        int rank = 0;
+
+        List<CompetitorRank> rankList = new ArrayList<>();
+        rankList = competitionResultsDAO.getCompetitorRanks(Integer.valueOf(competition.getId()), Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId()), "cr." + ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion()), "false");
+        if (rankList.size() == 0) {
+            rank = 1;
+        } else {
+            if (rankList.size() == 1) {
+                CompetitorRank competitorRank = rankList.get(0);
+                if (scoreSheet.getFinalScore() < competitorRank.getFinal_score()) {
+                    rank = 2;
+                }
+                if (scoreSheet.getFinalScore() > competitorRank.getFinal_score()) {
+                    rank = 1;
+                    competitionResultsDAO.updateCompetitionResultsRank(competitorRank.getCompetition_results_id(), 2);
+                }
+                if (scoreSheet.getFinalScore() == competitorRank.getFinal_score()) {
+                    if (scoreSheet.getTotalX() < competitorRank.getTotal_x()) {
+                        rank = 2;
+                    }
+                    if (scoreSheet.getTotalX() > competitorRank.getTotal_x()) {
+                        rank = 1;
+                        competitionResultsDAO.updateCompetitionResultsRank(competitorRank.getCompetition_results_id(), 2);
+                    }
+                    // same score and x's, so rank won't matter
+                    rank = 2;
+                }
+            }
+            if (rankList.size() == 2) {
+                CompetitorRank competitorRank1 = rankList.get(0);
+                CompetitorRank competitorRank2 = rankList.get(1);
+                CompetitorRank highest = new CompetitorRank();
+                CompetitorRank lowest = new CompetitorRank();
+                Boolean isFinalScoreEqual = false;
+                Boolean isEqualTotal_X = false;
+
+                if (competitorRank1.getFinal_score() == competitorRank2.getFinal_score()) {
+                    isFinalScoreEqual = true;
+                }
+
+                if (competitorRank1.getTotal_x() == competitorRank2.getTotal_x()) {
+                    isEqualTotal_X = true;
+                }
+
+                if (competitorRank1.getFinal_score() > competitorRank2.getFinal_score()) {
+                    highest = competitorRank1;
+                    lowest = competitorRank2;
+                } else if (competitorRank1.getFinal_score() < competitorRank2.getFinal_score()) {
+                    highest = competitorRank2;
+                    lowest = competitorRank1;
+                } else if (competitorRank1.getFinal_score() == competitorRank2.getFinal_score()) {
+                    if (competitorRank1.getTotal_x() > competitorRank2.getTotal_x()) {
+                        highest = competitorRank1;
+                        lowest = competitorRank2;
+                    } else if (competitorRank1.getTotal_x() < competitorRank2.getTotal_x()) {
+                        highest = competitorRank2;
+                        lowest = competitorRank1;
+                    } else if (competitorRank1.getTotal_x() == competitorRank2.getTotal_x()) {
+                        highest = competitorRank1;
+                        lowest = competitorRank2;
+                    }
+                }
+
+                if ((scoreSheet.getFinalScore() < competitorRank1.getFinal_score()) &&
+                        (scoreSheet.getFinalScore() < competitorRank2.getFinal_score())) {
+                    rank = 3;
+                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
+                }
+
+                if (scoreSheet.getFinalScore() > highest.getFinal_score()) {
+                    rank = 1;
+                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 2);
+                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                }
+
+                if ((scoreSheet.getFinalScore() < highest.getFinal_score()) && (scoreSheet.getFinalScore() > lowest.getFinal_score())) {
+                    rank = 2;
+                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                }
+
+                if (scoreSheet.getFinalScore() < highest.getFinal_score() && isFinalScoreEqual) {
+                    rank = 3;
+                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
+                }
+
+                if (scoreSheet.getFinalScore() == highest.getFinal_score()) {
+                    if (scoreSheet.getTotalX() == highest.getTotal_x()) {
+                        rank = 2;
+                        competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                        competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                    } else if (scoreSheet.getTotalX() > highest.getTotal_x()) {
+                        rank = 1;
+                        competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 2);
+                        competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                    } else if (scoreSheet.getTotalX() < highest.getTotal_x()) {
+                        rank = 2;
+                        competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                        competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                    }
+                }
+
+                if (scoreSheet.getFinalScore() == lowest.getFinal_score()) {
+                    if (scoreSheet.getTotalX() == lowest.getTotal_x()) {
+                        rank = 3;
+                        competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                        competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
+                    } else if (scoreSheet.getTotalX() > lowest.getTotal_x()) {
+                        rank = 2;
+                        competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                        competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                    } else if (scoreSheet.getTotalX() < lowest.getTotal_x()) {
+                        rank = 3;
+                        competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                        competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
+                    }
+                }
+
+                if (scoreSheet.getFinalScore() < lowest.getFinal_score()) {
+                    rank = 3;
+                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
+                }
+            }
+        }
+
+        return rank;
     }
 
     public CompetitorDataSource getCompetitorDataSource() {
