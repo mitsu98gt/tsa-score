@@ -452,6 +452,11 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
 
         List<CompetitorRank> rankList = new ArrayList<>();
         rankList = competitionResultsDAO.getCompetitorRanks(Integer.valueOf(competition.getId()), Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId()), "cr." + ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion()), "false");
+        if (rankList.size() >= 3) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Can't have more than 3 entries!"));
+            throw new Exception();
+        }
+
         if (rankList.size() == 0) {
             rank = 1;
         } else {
