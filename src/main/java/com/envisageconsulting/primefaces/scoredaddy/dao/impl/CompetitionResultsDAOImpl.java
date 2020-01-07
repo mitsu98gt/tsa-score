@@ -15,11 +15,71 @@ import java.lang.annotation.Target;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
 
     private DataSource dataSource;
+
+    public List<CompetitorRank> getCompetitorRanks(int competitionId, int competitorId, String division, String additionalEntry) throws  Exception {
+
+        String sql =
+                "select\n" +
+                "    cr.competition_results_id,\n" +
+                "    c.sequence,\n" +
+                "    cr.final_score,\n" +
+                "    cr.total_x,\n" +
+                "    cr.rank\n" +
+                "from \n" +
+                "    competition_results cr,\n" +
+                "    competition c\n" +
+                "where\n" +
+                "    cr.id = c.id\n" +
+                "and cr.id in \n" +
+                "(select id from competition where tournament_id = (select tournament_id from competition where id = ?))\n" +
+                "and cr.competitor_id = ?\n" +
+                "and %s\n" +
+                "and cr.additional_entry = %s";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(String.format(sql, division, additionalEntry));
+            ps.setInt(1, competitionId);
+            ps.setInt(2, competitorId);
+            ResultSet rs = ps.executeQuery();
+
+            List<CompetitorRank> ranks = new ArrayList<>();
+
+            while (rs.next()) {
+                CompetitorRank competitorRank = new CompetitorRank();
+                competitorRank.setCompetition_results_id(rs.getInt("competition_results_id"));
+                competitorRank.setFinal_score(rs.getInt("final_score"));
+                competitorRank.setTotal_x(rs.getInt("total_x"));
+                competitorRank.setRank(rs.getInt("rank"));
+                ranks.add(rs.getInt("sequence"), competitorRank);
+            }
+            rs.close();
+            ps.close();
+
+            return ranks;
+
+        } catch (SQLException ex) {
+            throw new Exception("Failed to getCompetitorRanks!" + ex);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public int getCompetitorNumberOfDesignatedEntriesByCompetitionAndDivision(int competitionId, int competitorId, String division)  throws  Exception {
 
@@ -672,13 +732,13 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
         }
     }
 
-    public void addCompetitionResults(CompetitionResults competitionResults) throws Exception {
+    public void addCompetitionResults(CompetitionResults competitionResults, int rank) throws Exception {
 
         String sql = "insert into competition_results (id, code, competition_results.date, competitor_id, firearm_id, stock_division, unlimited_division, " +
                 "pocket_division, woman_division, senior_division, junior_division, limited_division, revolver_division, rimfire_division, " +
                 "target_one_x, target_one_ten, target_one_eight, target_one_five, target_one_misses, target_two_x, " +
                 "target_two_ten, target_two_eight, target_two_five, target_two_misses, penalty, final_score, total_x, " +
-                "range_officer_initials, competitor_initials, additional_entry, last_modified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
+                "range_officer_initials, competitor_initials, additional_entry, rank, last_modified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
         Connection conn = null;
 
@@ -716,6 +776,7 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.setString(28, competitionResults.getGssfIndoorScoreSheet().getRangeOfficerInitials().toUpperCase());
             ps.setString(29, competitionResults.getGssfIndoorScoreSheet().getCompetitorInitials().toUpperCase());
             ps.setBoolean(30, competitionResults.getGssfIndoorScoreSheet().isAdditionalEntry());
+            ps.setInt(31, rank);
             ps.executeUpdate();
 
             ps.close();
@@ -775,6 +836,36 @@ public class CompetitionResultsDAOImpl implements CompetitionResultsDAO {
             ps.close();
         } catch (SQLException ex) {
             throw new Exception("Failed to update Competition Results!" + ex.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void updateCompetitionResultsRank(int id, int rank) throws Exception {
+
+        String sql = "update competition_results set" +
+                " rank = ?" +
+                " where competition_results_id = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, rank);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException ex) {
+            throw new Exception("Failed to update Competition Results Rank!" + ex.getMessage());
         } finally {
             if (conn != null) {
                 try {

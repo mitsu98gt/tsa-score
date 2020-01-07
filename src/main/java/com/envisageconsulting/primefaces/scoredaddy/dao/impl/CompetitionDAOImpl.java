@@ -119,7 +119,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     public List<Competition> getAllCompetitionsByAccountId(int accountId) throws Exception {
 
-        String sql = "select id, name, description, status from competition where account_id = ?";
+        String sql = "select id, sequence, name, description, status from competition where account_id = ?";
 
         Connection conn = null;
 
@@ -133,6 +133,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
             while (rs.next()) {
                 Competition competition = new Competition();
                 competition.setId(rs.getString("id"));
+                competition.setSequence(rs.getInt("sequence"));
                 competition.setName(rs.getString("name"));
                 competition.setDescription(rs.getString("description"));
                 competition.setStatus(rs.getString("status"));
@@ -203,7 +204,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
 
     public List<Competition> getAllCompetitionsByAccountIdAndStatus(int accountId, String status) throws Exception {
 
-        String sql = "select c.id, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id order by c.id";
+        String sql = "select c.id, c.sequence, c.name, c.description, cd.date, cd.code from competition c, competition_details cd where c.account_id = ? and c.status = ? and c.id = cd.id order by c.id";
 
         Connection conn = null;
 
@@ -221,6 +222,7 @@ public class CompetitionDAOImpl implements CompetitionDAO {
                 CompetitionCode competitionCode = new CompetitionCode();
 
                 competition.setId(rs.getString("id"));
+                competition.setSequence(rs.getInt("sequence"));
                 competition.setName(rs.getString("name"));
                 competition.setDescription(rs.getString("description"));
                 competition.setDate(rs.getDate("date"));

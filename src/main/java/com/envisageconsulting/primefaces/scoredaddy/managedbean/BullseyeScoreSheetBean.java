@@ -225,7 +225,7 @@ public class BullseyeScoreSheetBean implements Serializable {
     public void saveToDatabase() {
 
         try {
-            competitionResultsDAO.addCompetitionResults(buildCompetitionResults());
+            competitionResultsDAO.addCompetitionResults(buildCompetitionResults(), 0);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info:", "Scores saved successfully!"));
         } catch (Exception ex) {
             ex.printStackTrace();
