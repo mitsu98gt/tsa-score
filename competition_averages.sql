@@ -36,6 +36,46 @@ select
     fm.model,
     cr.competitor_id,
     cr.firearm_id,
+    (select final_score
+	 from 
+       competition_results
+	 where 
+       competitor_id = cr.competitor_id
+	   and id in (22,23,24) 
+	   and stock_division 
+	   and additional_entry = false
+       and rank = 1
+    ) as first_top_score,
+    (select total_x
+	 from 
+       competition_results
+	 where 
+       competitor_id = cr.competitor_id
+	   and id in (22,23,24) 
+	   and stock_division 
+	   and additional_entry = false
+       and rank = 1
+    ) as first_total_x,
+    (select final_score
+	 from 
+       competition_results
+	 where 
+       competitor_id = cr.competitor_id
+	   and id in (22,23,24) 
+	   and stock_division 
+	   and additional_entry = false
+       and rank = 2
+    ) as second_top_score,
+    (select total_x
+	 from 
+       competition_results
+	 where 
+       competitor_id = cr.competitor_id
+	   and id in (22,23,24) 
+	   and stock_division 
+	   and additional_entry = false
+       and rank = 2
+    ) as second_total_x,
 	round((select(avg(final_score))
        from 
 	      competition_results
