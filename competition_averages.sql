@@ -41,7 +41,7 @@ select
        competition_results
 	 where 
        competitor_id = cr.competitor_id
-	   and id in (22,23,24) 
+	   and id in (22,23,24)
 	   and stock_division 
 	   and additional_entry = false
        and rank = 1
@@ -169,5 +169,32 @@ group by cr.first_name,
          cr.firearm_model
 having count(*) >= 2
 order by average desc 
+;
+
+select 
+    c.id,
+    c.sequence,
+    cr.competitor_id,
+    cr.total_x,
+    cr.target_one_ten,
+    cr.target_two_ten,
+    cr.target_one_eight,
+    cr.target_two_eight,
+    cr.target_one_five,
+    cr.target_two_five,
+    cr.target_one_misses,
+    cr.target_two_misses,
+    cr.penalty,
+    cr.final_score
+from 
+    competition c,
+	competition_results cr
+where 
+    c.id = cr.id
+and cr.id in (22,23,24)
+and additional_entry = false
+and stock_division
+and c.sequence = 3
+order by final_score desc
 ;
    
