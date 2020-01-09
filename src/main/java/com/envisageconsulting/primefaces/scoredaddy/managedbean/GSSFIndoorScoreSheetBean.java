@@ -487,14 +487,9 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                 CompetitorRank highest = new CompetitorRank();
                 CompetitorRank lowest = new CompetitorRank();
                 Boolean isFinalScoreEqual = false;
-                Boolean isEqualTotal_X = false;
 
                 if (competitorRank1.getFinal_score() == competitorRank2.getFinal_score()) {
                     isFinalScoreEqual = true;
-                }
-
-                if (competitorRank1.getTotal_x() == competitorRank2.getTotal_x()) {
-                    isEqualTotal_X = true;
                 }
 
                 if (competitorRank1.getFinal_score() > competitorRank2.getFinal_score()) {
@@ -516,13 +511,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                     }
                 }
 
-                if ((scoreSheet.getFinalScore() < highest.getFinal_score()) &&
-                        (scoreSheet.getFinalScore() < lowest.getFinal_score())) {
-                    rank = 3;
-                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
-                }
-
                 if (scoreSheet.getFinalScore() > highest.getFinal_score()) {
                     rank = 1;
                     competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 2);
@@ -533,6 +521,12 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                     rank = 2;
                     competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
                     competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 3);
+                }
+
+                if (scoreSheet.getFinalScore() < lowest.getFinal_score()) {
+                    rank = 3;
+                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
+                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
                 }
 
                 if (scoreSheet.getFinalScore() < highest.getFinal_score() && isFinalScoreEqual) {
@@ -571,12 +565,6 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
                         competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
                         competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
                     }
-                }
-
-                if (scoreSheet.getFinalScore() < lowest.getFinal_score()) {
-                    rank = 3;
-                    competitionResultsDAO.updateCompetitionResultsRank(highest.getCompetition_results_id(), 1);
-                    competitionResultsDAO.updateCompetitionResultsRank(lowest.getCompetition_results_id(), 2);
                 }
             }
         }
