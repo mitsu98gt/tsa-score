@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 
 public class GSSFIndoorScoreSheetPDF {
 
-    private static final String GSSF_INDOOR_SCORE_SHEET = "/GSSF_Indoor_Rimfire.pdf";
+    private static final String GSSF_INDOOR_SCORE_SHEET = "/ScoreDaddyScoresheet.pdf";
 
     public void savePDF(GSSFIndoorScoreSheet scoreSheet) throws Exception {
 

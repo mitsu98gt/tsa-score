@@ -13,7 +13,7 @@ import org.junit.Ignore;
 public class fillPDF {
 
 	public static void main(String[] args) throws IOException {
-		String formTemplate = "src/main/resources/GSSF_Indoor_Rimfire.pdf";
+		String formTemplate = "src/main/resources/ScoreDaddyScoresheet.pdf";
 
 		try (PDDocument pdfDocument = PDDocument.load(new File(formTemplate))) {
 			// get the document catalog
