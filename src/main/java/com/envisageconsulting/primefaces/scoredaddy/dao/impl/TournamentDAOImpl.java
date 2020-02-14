@@ -83,7 +83,7 @@ public class TournamentDAOImpl implements TournamentDAO {
                 "and  c.id = cd.id\n" +
                 "and  t.account_id = c.account_id\n" +
                 "and  c.status = sc.code\n" +
-                "and  t.account_id = ?";
+                "and  t.account_id = ? order by competition_date desc";
 
         Connection conn = null;
 
