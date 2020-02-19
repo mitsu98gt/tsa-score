@@ -66,6 +66,7 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
         womanDivision = false;
         seniorDivision = false;
         juniorDivision = false;
+        additionalEntry = false;
         try {
             allCompetitions = competitionDAO.getGlockCompetitionsByAccountIdAndStatus(SessionUtils.getAccountId(), "I");
             firearmList = firearmDataSource.getFirearms();
@@ -449,6 +450,10 @@ public class GSSFIndoorScoreSheetBean implements Serializable {
     public int rank() throws Exception {
 
         int rank = 0;
+
+        if (scoreSheet.isAdditionalEntry()) {
+            return rank;
+        }
 
         List<CompetitorRank> rankList = new ArrayList<>();
         rankList = competitionResultsDAO.getCompetitorRanks(Integer.valueOf(competition.getId()), Integer.valueOf(scoreSheet.getCompetitor().getCompetitorId()), "cr." + ScoreSheetUtils.getDivisionForSqlColumnName(scoreSheet.getDivsion()), "false");
